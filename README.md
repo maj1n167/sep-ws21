@@ -1,3 +1,3 @@
-# Gruppe 1
+# Gruppe 12
 
-Repository der Gruppe 1
+Repository der Gruppe 12
