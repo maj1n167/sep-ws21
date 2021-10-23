@@ -1,6 +1,7 @@
 package com.example.server.model;
 
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.Id;
 import java.io.Serializable;
 //Datenbank table für dem User
@@ -18,7 +19,9 @@ public class User implements Serializable {
     private String plz;
     private String stadt;
     private Boolean restaurantBesitzer;
+
     private int restaurantId;
+    private int verfiyCode;
 
 
 
@@ -103,4 +106,9 @@ public class User implements Serializable {
     public int getUserId() {return userId;}
 
     public void setUserId(int userId) {this.userId = userId;}
+
+    public int getVerfiyCode() {return verfiyCode;}
+
+    public void setVerfiyCode(int verfiyCode) {this.verfiyCode = verfiyCode;}
+
 }
