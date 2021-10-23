@@ -1,8 +1,6 @@
 package com.example.server.model;
 
-import javax.persistence.Entity;
-import javax.persistence.ForeignKey;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 //Datenbank table für dem User
 
@@ -12,6 +10,7 @@ public class User implements Serializable {
 
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int userId;
     private String email;
     private String password;
