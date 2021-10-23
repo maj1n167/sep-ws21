@@ -2,9 +2,10 @@ package com.example.server.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.io.Serializable;
 
 @Entity
-public class Restaurant {
+public class Restaurant implements Serializable {
     @Id
     private int restaurantId;
     private String name;

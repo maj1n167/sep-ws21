@@ -9,7 +9,9 @@ import java.io.Serializable;
 public class User implements Serializable {
 
 
+
     @Id
+    private int userId;
     private String email;
     private String password;
     private String straße;
@@ -20,8 +22,7 @@ public class User implements Serializable {
 
 
 
-
-    public User(String email, String password, String straße, String plz, String stadt) {
+    public User(int userId, String email, String password, String straße, String plz, String stadt) {
         this.email = email;
         this.password = password;
         this.straße = straße;
@@ -30,7 +31,7 @@ public class User implements Serializable {
     }
 
 
-    public User(String email, String password, String straße, String plz, String stadt, int restaurantId) {
+    public User(int userId, String email, String password, String straße, String plz, String stadt, int restaurantId) {
         this.email = email;
         this.password = password;
         this.straße = straße;
@@ -98,4 +99,8 @@ public class User implements Serializable {
     public void setRestaurantId(int restaurantId) {
         this.restaurantId = restaurantId;
     }
+
+    public int getUserId() {return userId;}
+
+    public void setUserId(int userId) {this.userId = userId;}
 }
