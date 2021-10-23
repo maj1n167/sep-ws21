@@ -2,10 +2,11 @@ package com.example.server.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.io.Serializable;
 //Datenbank table für dem User
 
 @Entity
-public class User {
+public class User implements Serializable {
 
 
     @Id
