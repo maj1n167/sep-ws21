@@ -1,14 +1,14 @@
 package com.example.server.controller;
 
-
 import com.example.server.model.User;
 import com.example.server.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@Component
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -28,11 +28,18 @@ public class UserController {
         return new ResponseEntity<>(users, HttpStatus.OK);
 
     }
-
+    // Sending Verfiycode to Email
     @GetMapping("/find/{email}")
     public ResponseEntity<User> getUserByEmail(@PathVariable("email") String email) {
 
        User users = userService.findUserByEmail(email);
+       String currentEmail = users.getEmail();
+        System.out.println(currentEmail);
+       int code = users.getVerfiyCode();
+        System.out.println(code);
+
+       userService.sendEmail(currentEmail.toString(), "Ihr Verifizierung Code: "+code, "Verifizierungcode");
+
 
         return new ResponseEntity<>(users, HttpStatus.OK);
 
