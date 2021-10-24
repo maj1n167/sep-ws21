@@ -3,13 +3,17 @@ package com.example.client.controller;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class ConnectionController {
-    String inputUrl = "http://localhost:8080/user";
 
+
+public class ConnectionController {
+
+
+    // Verbindet sich mit dem Server und führt einen GET request aus und gibt ein JSONOBject wieder
     public StringBuffer JSONObjectGET(String inputUrl) throws IOException {
         URL url = new URL(inputUrl);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -25,6 +29,17 @@ public class ConnectionController {
             content.append(inputLine);
         }
         return content;
+    }
+
+    //POST request um Daten über ein POSTMapping in die DB zu bekommen
+    public void JSONObjectPOST (String inputUrl , String data) throws IOException {
+        URL url = new URL(inputUrl);
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+        con.setRequestMethod("POST");
+        con.setRequestProperty("Content-Type", "application/json; utf-8");
+        con.setDoOutput(true);
+        con.getOutputStream().write(data.getBytes("UTF-8"));
+        con.getInputStream();
     }
 
 }
