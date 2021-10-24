@@ -1,12 +1,15 @@
 package com.example.server.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
 
 @Entity
 public class Restaurant implements Serializable {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int restaurantId;
     private String name;
     private String plz;
@@ -14,6 +17,7 @@ public class Restaurant implements Serializable {
     private double mbw;
     private double lieferkosten;
     private int lieferbereich;
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int speisenId;
 
     public Restaurant(String name, String plz, String stadt, double mbw, double lieferkosten, int lieferbereich) {
