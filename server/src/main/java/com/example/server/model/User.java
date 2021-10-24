@@ -14,29 +14,28 @@ public class User implements Serializable {
     private int userId;
     private String email;
     private String password;
-    private String straße;
+    private String strasse;
     private String plz;
     private String stadt;
     private Boolean restaurantBesitzer;
-
     private int restaurantId;
     private int verfiyCode;
 
 
 
-    public User(int userId, String email, String password, String straße, String plz, String stadt) {
+    public User(int userId, String email, String password, String strasse, String plz, String stadt) {
         this.email = email;
         this.password = password;
-        this.straße = straße;
+        this.strasse = strasse;
         this.plz = plz;
         this.stadt = stadt;
     }
 
 
-    public User(int userId, String email, String password, String straße, String plz, String stadt, int restaurantId) {
+    public User(int userId, String email, String password, String strasse, String plz, String stadt, int restaurantId) {
         this.email = email;
         this.password = password;
-        this.straße = straße;
+        this.strasse = strasse;
         this.plz = plz;
         this.stadt = stadt;
         this.restaurantId = restaurantId;
@@ -62,12 +61,12 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public String getStraße() {
-        return straße;
+    public String getStrasse() {
+        return strasse;
     }
 
-    public void setStraße(String straße) {
-        this.straße = straße;
+    public void setStrasse(String strasse) {
+        this.strasse = strasse;
     }
 
     public String getPlz() {

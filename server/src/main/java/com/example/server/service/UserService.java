@@ -28,8 +28,8 @@ public class UserService {
             return userRepo.save(users);
         }
 
-        public void deleteUser(String email){
-            userRepo.deleteById(email);
+        public void deleteUser(int id){
+            userRepo.deleteById(id);
         }
 
 
