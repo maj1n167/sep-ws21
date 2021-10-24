@@ -33,7 +33,7 @@ public class LoginController extends ConnectionController {
 
     @FXML
     private  TextField inputEmail;
-    private Stage stage;
+
 
     @FXML
     protected void onLoginButtonClick() throws IOException {

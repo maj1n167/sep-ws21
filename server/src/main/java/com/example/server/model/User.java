@@ -18,6 +18,7 @@ public class User implements Serializable {
     private String plz;
     private String stadt;
     private Boolean restaurantBesitzer;
+    @JoinColumn(name="restaurantId")
     private int restaurantId;
     private int verfiyCode;
 
