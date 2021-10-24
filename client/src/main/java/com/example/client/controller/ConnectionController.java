@@ -41,5 +41,15 @@ public class ConnectionController {
         con.getOutputStream().write(data.getBytes("UTF-8"));
         con.getInputStream();
     }
+    //PUT request
+    public void JSONObjectPUT (String inputUrl , String data) throws IOException {
+        URL url = new URL(inputUrl);
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+        con.setRequestMethod("PUT");
+        con.setRequestProperty("Content-Type", "application/json; utf-8");
+        con.setDoOutput(true);
+        con.getOutputStream().write(data.getBytes("UTF-8"));
+        con.getInputStream();
+    }
 
 }
