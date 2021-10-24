@@ -54,11 +54,7 @@ public class LoginController extends ConnectionController {
 
 
 
-        String url2 = "http://localhost:8080/user/add";
-
-        String Json = "{\"email\":\"1234@gmail.com \",\"password\":\"56474\",\"firstname\":\"nick\"}";
-
-       //JSONObjectPOST(url2,Json);
+     
 
     }
 
