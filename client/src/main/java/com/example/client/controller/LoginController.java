@@ -44,10 +44,6 @@ public class LoginController extends ConnectionController {
          JSONObject jsonObject =  jsonArray.getJSONObject(i);
          if(jsonObject.get("email").equals(inputEmail.getText()) && jsonObject.get("password").equals(inputPassword.getText())){
 
-             Random rnd = new Random();
-             int number = rnd.nextInt(999999);
-            jsonObject.put("verfiyCode",number);
-            JSONObjectPUT("http://localhost:8080/user/update",jsonObject.toString());
             JSONObjectGET("http://localhost:8080/user/find/"+jsonObject.get("email"));
              System.out.println("Login erfolgreich!");
          }

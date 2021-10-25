@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Random;
+
 @Component
 @RestController
 @RequestMapping("/user")
@@ -35,9 +37,11 @@ public class UserController {
        User users = userService.findUserByEmail(email);
        String currentEmail = users.getEmail();
         System.out.println(currentEmail);
+        Random rnd = new Random();
+        int number = rnd.nextInt(999999);
+        users.setVerfiyCode(number);
+        userService.updateUser(users);
        int code = users.getVerfiyCode();
-        System.out.println(code);
-
        userService.sendEmail(currentEmail.toString(), "Ihr Verifizierung Code: "+code, "Verifizierungcode");
 
 
