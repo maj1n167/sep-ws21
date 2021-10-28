@@ -9,12 +9,13 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class Main extends Application {
+    private static Stage mainStage;
 
     @Override
     public void start(Stage stage) throws IOException {
 
         //Habe es hier umgeschrieben damit ich es hinkriege beim LoginController Views zu switchen-lg
-
+        mainStage=stage;
         Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
         stage.setTitle("Supreme Eating Program");
         stage.setScene(new Scene(root, 800, 600));
@@ -25,6 +26,12 @@ public class Main extends Application {
         //stage.setTitle("Supreme Eating Program");
         //stage.setScene(scene);
         //stage.show();
+    }
+
+    public void ChangeScene(String fxml) throws IOException
+    {
+        Parent pane = FXMLLoader.load(getClass().getResource(fxml));
+        mainStage.getScene().setRoot(pane);
     }
 
     public static void main(String[] args) {

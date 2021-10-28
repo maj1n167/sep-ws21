@@ -13,6 +13,7 @@ public class Restaurant implements Serializable {
     private String stadt;
     private double mbw;
     private double lieferkosten;
+    private String katgorie;
     private int lieferbereich;
     private int speisenId;
 

@@ -1,5 +1,6 @@
 package com.example.client.controller;
 
+import com.example.client.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +16,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.Objects;
 
 
 public class LoginController extends ConnectionController {
@@ -46,17 +48,12 @@ public class LoginController extends ConnectionController {
          }
        }
     }
-
+    @FXML
     public void onRegisterButtonClick(ActionEvent event) throws IOException {
 
-      //Code klappt nicht, view soll hier eigentlich geswitched werden-lg
-      Parent root = FXMLLoader.load(getClass().getResource("Registration.fxml"));
-      Scene abc = new Scene(root);
-
-      Stage window = (Stage) ( (Node)event.getSource()).getScene().getWindow();
-
-      window.setScene(abc);
-      window.show();
+        // Change Scenes
+        Main m= new Main();
+        m.ChangeScene("Registration.fxml");
 
     }
 }
