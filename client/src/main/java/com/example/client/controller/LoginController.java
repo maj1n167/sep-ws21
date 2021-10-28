@@ -45,6 +45,8 @@ public class LoginController extends ConnectionController {
 
             JSONObjectGET("http://localhost:8080/user/find/"+jsonObject.get("email"));
              System.out.println("Login erfolgreich!");
+             Main m = new Main();
+             m.ChangeScene("Verify-View.fxml");
          }
        }
     }
