@@ -1,25 +1,20 @@
 package com.example.client.controller;
 
-import com.example.client.HelloApplication;
-import com.example.client.controller.ConnectionController;
-import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.text.Text;
+import javafx.scene.control.PasswordField;
 import javafx.stage.Stage;
+import javafx.scene.Parent;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.ProtocolException;
-import java.net.URL;
-import java.util.Random;
 
 
 public class LoginController extends ConnectionController {
@@ -29,11 +24,13 @@ public class LoginController extends ConnectionController {
 
 
     @FXML
-    private TextField inputPassword;
+    private PasswordField inputPassword;
+
+    @FXML
+    Button RegisterButton;
 
     @FXML
     private  TextField inputEmail;
-
 
     @FXML
     protected void onLoginButtonClick() throws IOException {
@@ -48,12 +45,18 @@ public class LoginController extends ConnectionController {
              System.out.println("Login erfolgreich!");
          }
        }
-
-
-
-
-
     }
 
+    public void onRegisterButtonClick(ActionEvent event) throws IOException {
 
+      //Code klappt nicht, view soll hier eigentlich geswitched werden-lg
+      Parent root = FXMLLoader.load(getClass().getResource("Registration.fxml"));
+      Scene abc = new Scene(root);
+
+      Stage window = (Stage) ( (Node)event.getSource()).getScene().getWindow();
+
+      window.setScene(abc);
+      window.show();
+
+    }
 }
