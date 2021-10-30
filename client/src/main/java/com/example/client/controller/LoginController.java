@@ -21,6 +21,7 @@ import java.util.Objects;
 
 public class LoginController extends ConnectionController {
 
+
     @FXML
     private Label SupremeLieferando;
 
@@ -34,16 +35,19 @@ public class LoginController extends ConnectionController {
     @FXML
     private  TextField inputEmail;
 
+    public static String email;
+
     @FXML
-    protected void onLoginButtonClick() throws IOException {
+    protected void onLoginButtonClick(ActionEvent event) throws IOException {
+
        String url = "http://localhost:8080/user";
 
        JSONArray jsonArray = new JSONArray(JSONObjectGET(url).toString());
        for(int i = 0; i<jsonArray.length(); i++){
          JSONObject jsonObject =  jsonArray.getJSONObject(i);
          if(jsonObject.get("email").equals(inputEmail.getText()) && jsonObject.get("password").equals(inputPassword.getText())){
-
-            JSONObjectGET("http://localhost:8080/user/find/"+jsonObject.get("email"));
+            JSONObjectGET("http://localhost:8080/user/send/"+jsonObject.get("email"));
+            email = jsonObject.get("email").toString();
              System.out.println("Login erfolgreich!");
              Main m = new Main();
              m.ChangeScene("Verify-View.fxml");
@@ -52,7 +56,6 @@ public class LoginController extends ConnectionController {
     }
     @FXML
     public void onRegisterButtonClick(ActionEvent event) throws IOException {
-
         // Change Scenes
         Main m= new Main();
         m.ChangeScene("Registration.fxml");

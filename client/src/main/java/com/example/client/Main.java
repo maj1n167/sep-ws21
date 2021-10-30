@@ -1,5 +1,6 @@
 package com.example.client;
 
+import com.example.client.controller.LoginController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -32,8 +33,11 @@ public class Main extends Application {
     {
         Parent pane = FXMLLoader.load(getClass().getResource(fxml));
 
+
         mainStage.getScene().setRoot(pane);
     }
+
+
 
     public static void main(String[] args) {
         launch();

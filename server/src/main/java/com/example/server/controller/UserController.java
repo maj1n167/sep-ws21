@@ -31,8 +31,8 @@ public class UserController {
 
     }
     // Sending Verfiycode to Email
-    @GetMapping("/find/{email}")
-    public ResponseEntity<User> getUserByEmail(@PathVariable("email") String email) {
+    @GetMapping("/send/{email}")
+    public ResponseEntity<User> getUserByEmailAndSendEmail(@PathVariable("email") String email) {
 
        User users = userService.findUserByEmail(email);
        String currentEmail = users.getEmail();
@@ -47,6 +47,12 @@ public class UserController {
 
         return new ResponseEntity<>(users, HttpStatus.OK);
 
+    }
+
+    @GetMapping("/find/{email}")
+    public ResponseEntity<User> getUserByEmail(@PathVariable("email") String email) {
+        User users = userService.findUserByEmail(email);
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
     @PostMapping("/add")
