@@ -1,5 +1,7 @@
 package com.example.client.controller;
 
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -11,7 +13,6 @@ import java.net.URL;
 
 
 public class ConnectionController {
-
 
     // Verbindet sich mit dem Server und führt einen GET request aus und gibt ein JSONOBject wieder
     public StringBuffer JSONObjectGET(String inputUrl) throws IOException {
@@ -52,4 +53,11 @@ public class ConnectionController {
         con.getInputStream();
     }
 
+  /** TODO: public void neueRestaurantDaten (String name, String straße){
+        JSONObject jObj = new JSONObject();
+
+    }
+
+
+   **/
 }
