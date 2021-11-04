@@ -46,21 +46,25 @@ public class AddRestaurantController extends ConnectionController {
 
     public void initialize(){
 
-        kategorieChoicebox.getItems().addAll("Italienisch", "Indisch","Sonstige:");
+        kategorieChoicebox.getItems().addAll("Italienisch", "Indisch", "Chinesisch", "Sonstige:");
         //ersten Punkt auf Pizza setzen
         kategorieChoicebox.setValue("Italienisch");
 
+        //Wenn die Kategorie nicht dabei ist, eine neue hinzufügen und Sonstige wird visible gemacht
         if (kategorieChoicebox.getValue().equals("Sonstige:")){
             sonstigeText.setVisible(true);
         }
     }
-
-    public void populateVew(){
+    //Kategorie muss jedes mal aktualisiert werden
+    public void populateView(){
 
     }
 
     public void speichernButtonClick() {
-        if (nameTextfield.getText().equals("") || straßeTextfield.getText().equals("")){
+        if (nameTextfield.getText().equals("") || straßeTextfield.getText().equals("") || plzTextfield.getText().equals("")
+        || stadtTextfield.getText().equals("") || lieferkostenTextfield.getText().equals("") || mbwTextfield.getText().equals("")
+        || lieferbereichTextfield.getText().equals(""))
+        {
 
             Alert alert = new Alert (Alert.AlertType.INFORMATION);
             alert.setTitle("Error");
