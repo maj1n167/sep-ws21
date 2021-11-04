@@ -1,9 +1,13 @@
 package com.example.client.controller;
 
+import com.example.client.Main;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
+
+import java.io.IOException;
 
 public class RegistrationController {
 
@@ -26,9 +30,24 @@ public class RegistrationController {
 
     @FXML
     protected void registerButtonClick() {
+        String url = "localhost:8080/user/add";
+    }
 
+    @FXML
+    public void goBackButtonClick(ActionEvent event) throws IOException {
+        // Change Scenes
+        Main m= new Main();
+        m.ChangeScene("Login.fxml");
+    }
+    @FXML
+    public void onPrivatKundeClick(ActionEvent event) throws IOException {
 
+        //Privatkunde --> Fortsetzung in Zyklus 2
+    }
+    @FXML
+    public void onBusinessUserClick(ActionEvent event) throws IOException {
 
+        //BusinessUser --> Weiterleitung zu Restaurand anlegen
     }
 
 }
