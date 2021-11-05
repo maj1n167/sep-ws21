@@ -35,9 +35,6 @@
         <HBox alignment="CENTER" layoutY="123.0" prefHeight="127.0" prefWidth="800.0" AnchorPane.bottomAnchor="350.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="123.0">
             <children>
                 <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="82.0" prefWidth="400.0" text="Willkommen!">
-                    <font>
-                        <Font name="System Italic" size="40.0" />
-                    </font>
                 </Label>
             </children>
         </HBox>
@@ -45,7 +42,7 @@
             <children>
                 <Label contentDisplay="CENTER" prefHeight="48.0" prefWidth="263.0" text="oder jetzt">
                     <font>
-                        <Font name="System Italic" size="18.0" />
+                        <Font size="18.0" />
                     </font>
                 </Label>
             </children>

@@ -18,8 +18,10 @@ public class User implements Serializable {
     private String plz;
     private String stadt;
     private Boolean restaurantBesitzer;
+
+    @OneToOne
     @JoinColumn(name="restaurantId")
-    private int restaurantId;
+    private Restaurant restaurant;
     private int verfiyCode;
 
 
@@ -39,7 +41,6 @@ public class User implements Serializable {
         this.strasse = strasse;
         this.plz = plz;
         this.stadt = stadt;
-        this.restaurantId = restaurantId;
     }
 
     public User() {
@@ -94,13 +95,6 @@ public class User implements Serializable {
         this.restaurantBesitzer = restaurantBesitzer;
     }
 
-    public int getRestaurantId() {
-        return restaurantId;
-    }
-
-    public void setRestaurantId(int restaurantId) {
-        this.restaurantId = restaurantId;
-    }
 
     public int getUserId() {return userId;}
 

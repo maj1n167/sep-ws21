@@ -2,9 +2,10 @@ package com.example.server.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
-public class Restaurant implements Serializable {
+public class Restaurant  implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int restaurantId;
@@ -15,18 +16,10 @@ public class Restaurant implements Serializable {
     private double lieferkosten;
     private String katgorie;
     private int lieferbereich;
-    private int speisenId;
+    @JoinColumn(name = "menuId")
+    @OneToOne
+    private Menu menu;
 
-    public Restaurant(String name, String plz, String stadt, double mbw, double lieferkosten, int lieferbereich) {
-        this.name = name;
-        this.plz = plz;
-        this.stadt = stadt;
-        this.mbw = mbw;
-        this.lieferkosten = lieferkosten;
-        this.lieferbereich = lieferbereich;
-    }
-
-    public Restaurant() {}
 
     public Restaurant(int restaurantId, String name, String plz, String stadt, double mbw, double lieferkosten, int lieferbereich) {
         this.restaurantId = restaurantId;
@@ -38,58 +31,64 @@ public class Restaurant implements Serializable {
         this.lieferbereich = lieferbereich;
     }
 
-    public Restaurant(String name, String plz, String stadt, double mbw, double lieferkosten, int lieferbereich, int speisenId) {
-        this.name = name;
-        this.plz = plz;
-        this.stadt = stadt;
-        this.mbw = mbw;
-        this.lieferkosten = lieferkosten;
-        this.lieferbereich = lieferbereich;
-        this.speisenId = speisenId;
+    public Restaurant() {
+
     }
 
-    public Restaurant(int restaurantId, String name, String plz, String stadt, double mbw, double lieferkosten, int lieferbereich, int speisenId) {
+
+    public int getRestaurantId() {
+        return restaurantId;
+    }
+
+    public void setRestaurantId(int restaurantId) {
         this.restaurantId = restaurantId;
-        this.name = name;
-        this.plz = plz;
-        this.stadt = stadt;
-        this.mbw = mbw;
-        this.lieferkosten = lieferkosten;
-        this.lieferbereich = lieferbereich;
-        this.speisenId = speisenId;
     }
 
+    public String getName() {
+        return name;
+    }
 
+    public void setName(String name) {
+        this.name = name;
+    }
 
-    public int getRestaurantId() { return restaurantId; }
+    public String getPlz() {
+        return plz;
+    }
 
-    public void setRestaurantId(int restaurantId) { this.restaurantId = restaurantId; }
+    public void setPlz(String plz) {
+        this.plz = plz;
+    }
 
-    public String getName() { return name; }
+    public String getStadt() {
+        return stadt;
+    }
 
-    public void setName(String name) { this.name = name; }
+    public void setStadt(String stadt) {
+        this.stadt = stadt;
+    }
 
-    public String getPlz() { return plz; }
+    public double getMbw() {
+        return mbw;
+    }
 
-    public void setPlz(String plz) { this.plz = plz; }
+    public void setMbw(double mbw) {
+        this.mbw = mbw;
+    }
 
-    public String getStadt() { return stadt; }
+    public double getLieferkosten() {
+        return lieferkosten;
+    }
 
-    public void setStadt(String stadt) { this.stadt = stadt; }
+    public void setLieferkosten(double lieferkosten) {
+        this.lieferkosten = lieferkosten;
+    }
 
-    public double getMbw() { return mbw; }
+    public int getLieferbereich() {
+        return lieferbereich;
+    }
 
-    public void setMbw(double mbw) { this.mbw = mbw; }
-
-    public double getLieferkosten() { return lieferkosten; }
-
-    public void setLieferkosten(double lieferkosten) { this.lieferkosten = lieferkosten; }
-
-    public int getLieferbereich() { return lieferbereich; }
-
-    public void setLieferbereich(int lieferbereich) { this.lieferbereich = lieferbereich; }
-
-    public int getSpeisenId() { return speisenId; }
-
-    public void setSpeisenId(int speisenId) { this.speisenId = speisenId; }
+    public void setLieferbereich(int lieferbereich) {
+        this.lieferbereich = lieferbereich;
+    }
 }
