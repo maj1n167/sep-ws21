@@ -3,11 +3,14 @@ package com.example.client.controller;
 import com.example.client.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class AddSpeisekarteController {
+public class AddSpeisekarteController implements Initializable {
     @FXML
     private Button bearbeiten;
     @FXML
@@ -25,8 +28,8 @@ public class AddSpeisekarteController {
     @FXML
     private TextField preis;
 
-
-    public void auswahl(){
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
         kategorie.getItems().addAll("Pizza","Pasta","Salate","Desserts");
         kategorie.setValue("Pizza");
     }

@@ -6,10 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.control.PasswordField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import org.json.JSONArray;
@@ -51,8 +48,15 @@ public class LoginController extends ConnectionController {
              System.out.println("Login erfolgreich!");
              Main m = new Main();
              m.ChangeScene("Verify-View.fxml");
+             return;
          }
        }
+        Alert alert = new Alert (Alert.AlertType.INFORMATION);
+        alert.setTitle("Error");
+        alert.setTitle("Error: Daten nicht Korrekt");
+        alert.setContentText("Bitte überprüfen sie ihre Eingaben!");
+
+        alert.showAndWait();
     }
     @FXML
     public void onRegisterButtonClick(ActionEvent event) throws IOException {

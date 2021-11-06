@@ -22,6 +22,7 @@ public class User implements Serializable {
     @OneToOne
     @JoinColumn(name="restaurantId")
     private Restaurant restaurant;
+
     private int verfiyCode;
 
 
