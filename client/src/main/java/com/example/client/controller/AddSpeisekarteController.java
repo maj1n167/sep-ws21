@@ -32,6 +32,7 @@ public class AddSpeisekarteController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         kategorie.getItems().addAll("Pizza","Pasta","Salate","Desserts");
         kategorie.setValue("Pizza");
+        kategorie.show();
     }
 
     @FXML
@@ -45,7 +46,7 @@ public class AddSpeisekarteController implements Initializable {
 
             alert.showAndWait();
         }
-        else {
+        else {String Url = "localhost:8080/food/add";
 
 
         }
@@ -60,5 +61,6 @@ public class AddSpeisekarteController implements Initializable {
         m.ChangeScene("CreateMenu.fxml");
 
     }
+
 
 }
