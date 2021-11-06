@@ -6,10 +6,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.IOException;
 
-public class RegistrationController {
+public class RegistrationController extends ConnectionController {
 
     @FXML
     Button RegisterButton;
@@ -21,16 +23,12 @@ public class RegistrationController {
     TextField emailTextfield;
     @FXML
     PasswordField passwortTextfield;
-    @FXML
-    TextField straßeTextfield;
-    @FXML
-    TextField postleitzahlTextfield;
-    @FXML
-    TextField stadtTextfield;
+
 
     @FXML
-    protected void registerButtonClick() {
-        String url = "localhost:8080/user/add";
+    protected void onRegisterButtonClick() {
+
+
     }
 
     @FXML

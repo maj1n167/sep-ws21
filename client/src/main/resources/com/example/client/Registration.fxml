@@ -18,53 +18,73 @@
                 <Font name="System Bold" size="20.0" />
             </font>
         </Label>
-        <HBox alignment="CENTER" layoutY="82.0" prefHeight="137.0" prefWidth="800.0" AnchorPane.bottomAnchor="383.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
+        <VBox alignment="CENTER" layoutX="350.0" layoutY="111.0" prefHeight="487.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
             <children>
-                <Label text="Konto erstellen">
-                    <font>
-                        <Font name="System Bold" size="24.0" />
-                    </font>
-                </Label>
-            </children>
-        </HBox>
-        <HBox alignment="CENTER" layoutX="300.0" layoutY="168.0" prefHeight="308.0" prefWidth="800.0" spacing="20.0" AnchorPane.bottomAnchor="142.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="150.0">
-            <children>
-                <VBox alignment="CENTER_RIGHT" prefHeight="312.0" prefWidth="70.0" spacing="28.0">
+                <HBox alignment="CENTER" prefHeight="150.0" prefWidth="800.0">
                     <children>
-                        <Label text="Vorname:" />
-                        <Label text="Name:" />
-                        <Label text="E-Mail:" />
-                        <Label text="Passwort:" />
+                        <Label text="Konto erstellen">
+                            <font>
+                                <Font name="System Bold" size="24.0" />
+                            </font>
+                        </Label>
                     </children>
-                </VBox>
-                <VBox alignment="CENTER" prefHeight="330.0" prefWidth="266.0" spacing="20.0">
+                </HBox>
+                <HBox alignment="CENTER" prefHeight="182.0" prefWidth="800.0" spacing="10.0">
                     <children>
-                        <TextField fx:id="vornameTextfield" />
-                        <TextField fx:id="nameTextfield" />
-                        <TextField fx:id="emailTextfield" />
-                        <PasswordField fx:id="passwortTextfield" />
+                        <VBox alignment="CENTER_RIGHT" prefHeight="190.0" prefWidth="88.0" spacing="20.0">
+                            <children>
+                                <Label text="Vorname:">
+                                    <font>
+                                        <Font size="15.0" />
+                                    </font>
+                                </Label>
+                                <Label text="Name:">
+                                    <font>
+                                        <Font size="15.0" />
+                                    </font>
+                                </Label>
+                                <Label text="E-Mail:">
+                                    <font>
+                                        <Font size="15.0" />
+                                    </font>
+                                </Label>
+                                <Label text="Passwort:">
+                                    <font>
+                                        <Font size="15.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="190.0" prefWidth="264.0" spacing="15.0">
+                            <children>
+                                <TextField />
+                                <TextField />
+                                <TextField />
+                                <PasswordField />
+                            </children>
+                        </VBox>
                     </children>
-                </VBox>
+                </HBox>
+                <HBox alignment="CENTER" prefHeight="59.0" prefWidth="800.0" spacing="30.0">
+                    <children>
+                        <RadioButton mnemonicParsing="false" text="Ich bin Business User" />
+                        <RadioButton mnemonicParsing="false" text="Ich bin Kunde" />
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER" prefHeight="64.0" prefWidth="800.0">
+                    <children>
+                        <Button fx:id="RegisterButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onRegisterButtonClick" prefHeight="40.0" prefWidth="100.0" text="Registrieren" />
+                    </children>
+                </HBox>
+                <HBox prefHeight="61.0" prefWidth="800.0">
+                    <children>
+                        <Button fx:id="goBackButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#goBackButtonClick" prefHeight="40.0" prefWidth="100.0" text="Zurück" />
+                    </children>
+                    <padding>
+                        <Insets left="20.0" top="20.0" />
+                    </padding>
+                </HBox>
             </children>
-        </HBox>
-        <HBox alignment="CENTER" layoutX="374.0" layoutY="510.0" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="510.0">
-            <children>
-                <Button fx:id="RegisterButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#registerButtonClick" prefHeight="47.0" prefWidth="106.0" text="Registrieren" />
-            </children>
-        </HBox>
-        <HBox alignment="CENTER" layoutX="59.0" layoutY="546.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="500.0">
-            <children>
-                <Button fx:id="goBackButton" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#goBackButtonClick" prefHeight="47.0" prefWidth="106.0" text="Zurück" />
-            </children>
-            <padding>
-                <Insets right="600.0" />
-            </padding>
-        </HBox>
-        <HBox alignment="CENTER" layoutY="365.0" prefHeight="120.0" prefWidth="800.0" spacing="50.0" AnchorPane.bottomAnchor="115.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="365.0">
-            <children>
-                <RadioButton fx:id="BusinessUser" mnemonicParsing="false" onAction="#onBusinessUserClick" text="Ich bin Business User" />
-                <RadioButton fx:id="PrivatKunde" mnemonicParsing="false" onAction="#onPrivatKundeClick" text="Ich bin Privatkunde" />
-            </children>
-        </HBox>
+        </VBox>
     </children>
 </AnchorPane>
