@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.client.controller.AddSpeisekarteController">
     <children>
         <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="50.0" prefHeight="50.0" style="-fx-background-color: #90ee90;" text="Supreme Eating Program" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <font>
@@ -27,7 +27,7 @@
       <TextField fx:id="name" layoutX="175.0" layoutY="279.0" />
       <TextField fx:id="beschreibung" layoutX="175.0" layoutY="323.0" prefHeight="62.0" prefWidth="160.0" />
       <TextField fx:id="preis" layoutX="175.0" layoutY="404.0" />
-      <ChoiceBox fx:id="kategorie" layoutX="175.0" layoutY="235.0" prefHeight="26.0" prefWidth="160.0" />
+      <ChoiceBox fx:id="kategorie" layoutX="175.0" layoutY="235.0" onAction="#auswahl" prefHeight="26.0" prefWidth="160.0"/>
       <Label layoutX="65.0" layoutY="456.0" prefWidth="110.0" text="Bild :" />
       <Label layoutX="175.0" layoutY="456.0" prefWidth="170.0" text=".jpg-, .png-, oder .jpeg Dateien" />
       <Button layoutX="175.0" layoutY="507.0" mnemonicParsing="false" text="Datei auswählen" />
@@ -38,6 +38,6 @@
       </Label>
       <Label layoutX="452.0" layoutY="205.0" prefHeight="17.0" prefWidth="200.0" text="Akzeptiert werden .xml Dateien" />
       <Button layoutX="495.0" layoutY="256.0" mnemonicParsing="false" text="Datei auswählen" />
-      <Button id="speichernButton" layoutX="575.0" layoutY="495.0" mnemonicParsing="false"  prefWidth="150.0" text="Speichern" />
+      <Button id="speichern" layoutX="575.0" layoutY="495.0" mnemonicParsing="false" onAction="#speichernClick" prefWidth="150.0" text="Speichern" />
     </children>
 </AnchorPane>
