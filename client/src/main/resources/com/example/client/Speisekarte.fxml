@@ -20,7 +20,7 @@
          </font>
       </Label>
       <Label layoutX="65.0" layoutY="239.0" prefWidth="110.0" text="Kategorie :" />
-      <Label layoutX="65.0" layoutY="196.0" prefWidth="110.0" text="Manueller Upload :" />
+      <Label layoutX="65.0" layoutY="196.0" prefWidth="120.0" text="Manueller Upload :" />
       <Label layoutX="65.0" layoutY="283.0" prefWidth="110.0" text="Name :" />
       <Label layoutX="65.0" layoutY="327.0" prefWidth="110.0" text="Beschreibung :" />
       <Label layoutX="65.0" layoutY="409.0" prefWidth="110.0" text="Preis :" />
@@ -31,12 +31,13 @@
       <Label layoutX="65.0" layoutY="456.0" prefWidth="110.0" text="Bild :" />
       <Label layoutX="175.0" layoutY="456.0" prefWidth="170.0" text=".jpg-, .png-, oder .jpeg Dateien" />
       <Button layoutX="175.0" layoutY="507.0" mnemonicParsing="false" text="Datei auswählen" />
-      <Label layoutX="419.0" layoutY="173.0" prefHeight="18.0" prefWidth="232.0" text="Oder Laden Sie Ihre Speisekarte hoch :">
+      <Label layoutX="419.0" layoutY="173.0" prefHeight="18.0" prefWidth="250.0" text="Oder Laden Sie Ihre Speisekarte hoch :">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="452.0" layoutY="205.0" prefHeight="17.0" prefWidth="170.0" text="Akzeptiert werden .xml Dateien" />
+      <Label layoutX="452.0" layoutY="205.0" prefHeight="17.0" prefWidth="200.0" text="Akzeptiert werden .xml Dateien" />
       <Button layoutX="495.0" layoutY="256.0" mnemonicParsing="false" text="Datei auswählen" />
+      <Button id="speichernButton" layoutX="575.0" layoutY="495.0" mnemonicParsing="false"  prefWidth="150.0" text="Speichern" />
     </children>
 </AnchorPane>
