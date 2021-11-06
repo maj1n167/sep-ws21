@@ -48,19 +48,21 @@ public class UserController {
         return new ResponseEntity<>(users, HttpStatus.OK);
 
     }
-
+    // Zum Abgleich, ob eine Registrierung bereits vorhanden ist und um die Daten der registrierten Person zu erhalten.
     @GetMapping("/find/{email}")
     public ResponseEntity<User> getUserByEmail(@PathVariable("email") String email) {
         User users = userService.findUserByEmail(email);
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
+    // Bei abgeschlossener Registrierung wird so die Information auf der Datenbank hinterlegt und bestätigt
     @PostMapping("/add")
     public ResponseEntity<User> addUser(@RequestBody User users) {
         User newUser = userService.addUser(users);
         return new ResponseEntity<>(newUser, HttpStatus.CREATED);
     }
 
+    // Bei Änderungen durch den Nutzer seiner Informationen werden hierdurch die Änderungen in der Datenbank hinterlegt und bestätigt
     @PutMapping("/update")
     public ResponseEntity<User> updateUser(@RequestBody User users) {
         User updateUser = userService.addUser(users);

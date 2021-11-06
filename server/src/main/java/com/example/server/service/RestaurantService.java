@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+
 @Service
 public class RestaurantService {
     private final RestaurantRepo restaurantRepo;
@@ -24,6 +25,8 @@ public class RestaurantService {
         return restaurantRepo.findAll();
     }
 
+    public Restaurant findRestaurantById(int id){ return restaurantRepo.findRestaurantById(id); }
+
     public Restaurant updateRestaurant(Restaurant restaurants){
         return restaurantRepo.save(restaurants);
     }
@@ -31,7 +34,5 @@ public class RestaurantService {
     public void deleteRestaurant(int restaurantId){
         restaurantRepo.deleteById(restaurantId);
     }
-
-
 
 }

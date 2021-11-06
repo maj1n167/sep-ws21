@@ -28,6 +28,12 @@ import java.util.List;
 
         }
 
+        @GetMapping("/find/{id}")
+        public ResponseEntity<Restaurant> getRestaurantById(@PathVariable("id") int id) {
+            Restaurant restaurant = restaurantService.findRestaurantById(id);
+            return new ResponseEntity<>(restaurant, HttpStatus.OK);
+        }
+
         @PostMapping("/add")
         public ResponseEntity<Restaurant> addRestaurant(@RequestBody Restaurant restaurants) {
             Restaurant newRestaurant = restaurantService.addRestaurant(restaurants);
