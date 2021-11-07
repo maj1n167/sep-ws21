@@ -52,17 +52,18 @@ public class AddSpeisekarteController extends ConnectionController implements In
         else {
             String Url = "http://localhost:8080/food/add";
 
-            String data = "{   \"name\": \"Pizza Thunfisch\",\n" +
-                    "        \"beschreibung\": \"Kunsprige Pizza mit zartem thunfisch\",\n" +
-                    "        \"preis\":"+ 14.0+",\n"+
-                    "        \"kategorie\": \"Pizza\"}";
+            String data = "{   \"name\": \""+name.getText()+"\",\n" +
+                    "        \"beschreibung\": \""+beschreibung.getText()+"\",\n" +
+                    "        \"preis\":"+Double.parseDouble(preis.getText())+",\n"+
+                    "        \"kategorie\": \""+kategorie.getValue()+"\"}";
 
-                JSONObjectPOST(Url, data);
+            JSONObjectPOST(Url, data);
             System.out.println("Daten korrekt übertragen");
-            // Change Scenes
-            Main m= new Main();
-            // soll zur Speisekarte zurück
-            m.ChangeScene("CreateMenu.fxml");
+            Alert alert = new Alert (Alert.AlertType.INFORMATION);
+            alert.setTitle("Speise hinzugefügt");
+            alert.setContentText("Speise wurde erfolgreich hinzugefügt");
+
+            alert.showAndWait();
             }
 
 
