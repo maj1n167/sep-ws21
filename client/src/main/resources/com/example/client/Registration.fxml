@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.client.controller.RegistrationController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.client.controller.RegistrationController">
     <children>
         <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="50.0" prefHeight="50.0" style="-fx-background-color: #90ee90;" text="Supreme Eating Program" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <font>
@@ -57,10 +57,10 @@
                         </VBox>
                         <VBox alignment="CENTER" prefHeight="190.0" prefWidth="264.0" spacing="15.0">
                             <children>
-                                <TextField />
-                                <TextField />
-                                <TextField />
-                                <PasswordField />
+                                <TextField fx:id="vornameTextfield"/>
+                                <TextField fx:id="nameTextfield"/>
+                                <TextField fx:id="emailTextfield"/>
+                                <PasswordField fx:id="passwortTextfield"/>
                             </children>
                         </VBox>
                     </children>

@@ -59,6 +59,5 @@ public class LoginController extends ConnectionController {
         // Change Scenes
         Main m= new Main();
         m.ChangeScene("Registration.fxml");
-
     }
 }
