@@ -1,10 +1,14 @@
 package com.example.client.controller;
 
+import com.example.client.Main;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+
+import java.io.IOException;
 
 public class EditRestaurantController extends ConnectionController {
 
@@ -42,15 +46,29 @@ public class EditRestaurantController extends ConnectionController {
     @FXML
     private Button speichernButton;
 
-String name = nameTextfield.getText();
-String straße = straßeTextfield.getText();
+    @FXML
+    private Button zurueckButton;
+
+
 
     public void speichernButtonClick() {
 
-
-        //   ConnectionController.RestaurantDatenbearbeiten(name, straße){
+      //  ConnectionController.RestaurantDatenbearbeiten(name, straße){
     }
 
+    @FXML
+    public void speichernButtonClick (ActionEvent event) throws IOException {
+        // Change Scenes
+        Main m= new Main();
+        m.ChangeScene("Startseite.fxml");
 
+    }
 
+    @FXML
+    public void zurueckButtonClick () throws IOException {
+        // Change Scenes
+        Main m= new Main();
+        m.ChangeScene("Startseite.fxml");
+
+    }
 }

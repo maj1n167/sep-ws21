@@ -42,12 +42,15 @@ public class AddRestaurantController extends ConnectionController {
 
 
     @FXML
-    ChoiceBox <String> kategorieChoicebox;
+    ChoiceBox<String> kategorieChoicebox;
 
     @FXML
     private Button SpeichernButton;
 
-    public void initialize(){
+    @FXML
+    private Button zurueckButton;
+
+    public void initialize() {
 
         kategorieChoicebox.getItems().addAll("Italienisch", "Indisch", "Asiatisch", "Amerikanisch", "Sonstige:");
         //ersten Punkt auf Pizza setzen
@@ -61,38 +64,40 @@ public class AddRestaurantController extends ConnectionController {
                 sonstigeText.setVisible(true);
             }
         }
-    */}
+    */
+    }
 
     //Kategorie muss jedes mal aktualisiert werden
-    public void populateView(){
+    public void populateView() {
 
     }
-    @FXML
-    public void speichernButtonClick() {
-        if (nameTextfield.getText().equals("") || straßeTextfield.getText().equals("") || plzTextfield.getText().equals("")
-        || stadtTextfield.getText().equals("") || lieferkostenTextfield.getText().equals("") || mbwTextfield.getText().equals("")
-        || lieferbereichTextfield.getText().equals(""))
-        {
 
-            Alert alert = new Alert (Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
-            alert.setTitle("Error: Fehlende Zeile");
-            alert.setContentText("Bitte füllen Sie alle Felder aus");
+    @FXML
+    public void speichernButtonClick() throws IOException {
+        if (nameTextfield.getText().equals("") || straßeTextfield.getText().equals("") || plzTextfield.getText().equals("")
+                || stadtTextfield.getText().equals("") || lieferkostenTextfield.getText().equals("") || mbwTextfield.getText().equals("")
+                || lieferbereichTextfield.getText().equals("")) {
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error!");
+            alert.setTitle("Error: Fehlende Zeilen!");
+            alert.setContentText("Bitte füllen Sie alle Felder aus!");
 
             alert.showAndWait();
+        } else {
+            String url = "localhost:8080/restaurant/add";
+            String json= nameTextfield.getText() + ", " + straßeTextfield.getText()  + ", " + plzTextfield.getText()  + ", "
+                    + stadtTextfield.getText()  + ", " + lieferkostenTextfield.getText()  + ", " + mbwTextfield.getText()  + ", "
+                    + lieferbereichTextfield.getText();
+            JSONObjectPUT(url,json);
+
+            Main m = new Main();
+            m.ChangeScene("Startseite.fxml");
         }
-       else {
-         //   ConnectionController.neueRestaurantDaten(nameTextfield.getText(), straßeTextfield.getText()){
-
-            }
-        }
-
-    @FXML
-    public void speichernButtonClick (ActionEvent event) throws IOException {
-        // Change Scenes
-        Main m= new Main();
-        m.ChangeScene("Speisekarte.fxml");
-
     }
+    public void zurueckButtonClick () throws IOException {
+        Main m = new Main();
+        m.ChangeScene("Startseite.fxml");
     }
+}
 
