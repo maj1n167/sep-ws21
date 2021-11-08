@@ -10,11 +10,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.client.controller.RegistrationController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.client.controller.AddRestaurantController">
     <children>
         <HBox alignment="CENTER" layoutY="82.0" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="440.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
             <children>
-                <Label text="Restaurant anlegen">
+                <Label fx:id="restaurantHeaderLabel" text=" Restaurant anlegen">
                     <font>
                         <Font name="System Bold" size="24.0" />
                     </font>
@@ -33,6 +33,7 @@
                         <Label text="Name:" />
                         <Label text="Straße:" />
                         <Label text="Postleizahl:" />
+                        <Label text="Stadt:" />
                         <Label text="Mindestbestellwert:" />
                         <Label text="Lieferkosten:" />
                     </children>
@@ -42,11 +43,12 @@
                 </VBox>
                 <VBox alignment="CENTER" prefHeight="330.0" prefWidth="237.0" spacing="20.0">
                     <children>
-                        <TextField fx:id="vornameTextfield" />
                         <TextField fx:id="nameTextfield" />
-                        <TextField fx:id="emailTextfield" />
                         <TextField fx:id="straßeTextfield" />
-                        <TextField fx:id="postleitzahlTextfield" />
+                        <TextField fx:id="plzTextfield" />
+                        <TextField fx:id="stadtTextfield" />
+                        <TextField fx:id="mbwTextfield" />
+                        <TextField fx:id="lieferkostenTextfield" />
                     </children>
                     <HBox.margin>
                         <Insets />
@@ -58,29 +60,26 @@
                     </opaqueInsets>
                     <children>
                         <Label focusTraversable="false" text="Kategorie:" />
-                        <Label text="Lieferkosten:" />
+                        <Label fx:id="sonstigeLabel" text="Sonstige:" visible="false" />
+                        <Label prefWidth="128.0" text="Lieferbereich (Radius in km):" wrapText="true" />
                     </children>
-                    <padding>
-                        <Insets bottom="150.0" />
-                    </padding>
                 </VBox>
-                <VBox alignment="CENTER" prefHeight="251.0" prefWidth="128.0" spacing="20.0">
+                <VBox alignment="CENTER" prefHeight="277.0" prefWidth="128.0" spacing="20.0">
                     <opaqueInsets>
                         <Insets />
                     </opaqueInsets>
                     <children>
-                        <ChoiceBox prefWidth="150.0" />
-                        <TextField fx:id="postleitzahlTextfield1" prefHeight="11.0" prefWidth="128.0" />
+                        <ChoiceBox fx:id="kategorieChoicebox" accessibleText="hhhhh" prefWidth="150.0" />
+                        <TextField fx:id="sonstigeText" visible="false" />
+                        <TextField fx:id="lieferbereichTextfield" prefHeight="11.0" prefWidth="128.0" />
                     </children>
-                    <padding>
-                        <Insets bottom="150.0" />
-                    </padding>
                 </VBox>
             </children>
         </HBox>
         <HBox alignment="CENTER" layoutX="3.0" layoutY="510.0" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="-3.0" AnchorPane.topAnchor="510.0">
             <children>
-                <Button fx:id="RegisterButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#registerButtonClick" prefHeight="47.0" prefWidth="106.0" text="Speichern" />
+                <Button fx:id="zurueckButton" mnemonicParsing="false" onAction="#zurueckButtonClick" prefHeight="47.0" prefWidth="106.0" text="Zurück" />
+                <Button fx:id="speichernButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#speichernButtonClick" prefHeight="47.0" prefWidth="106.0" text="Speichern" />
             </children>
         </HBox>
     </children>
