@@ -37,7 +37,11 @@ public class VerificationController extends ConnectionController implements Init
      JSONObject jsonObject = new JSONObject(JSONObjectGET("http://localhost:8080/user/find/"+email).toString());
            if(jsonObject.get("verfiyCode").equals(Integer.parseInt(inputCode.getText()))){
                System.out.println("Verifizierung Erfolgreich");
+               Main m = new Main();
+               m.ChangeScene("Startseite.fxml");
            }
+           Main m = new Main();
+           m.ChangeScene("Login.fxml");
        }
   }
 
