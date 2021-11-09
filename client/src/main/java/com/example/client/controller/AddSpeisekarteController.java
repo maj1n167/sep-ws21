@@ -69,6 +69,12 @@ public class AddSpeisekarteController extends ConnectionController implements In
 
     }
 
+    @FXML
+    public void zurückButton() throws IOException{
+        Main m = new Main();
+        m.ChangeScene("Startseite.fxml");
+    }
+
 
 
 
