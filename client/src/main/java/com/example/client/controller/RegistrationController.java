@@ -59,7 +59,7 @@ public class RegistrationController extends ConnectionController {
             alert.setContentText("Konto erfolgreich erstellt!");
             alert.showAndWait();
             Main m = new Main();
-            m.ChangeScene("Startseite.fxml");
+            m.ChangeScene("Login.fxml");
         } else {
 /*          Hier erstmal alles kommentiert, da das hier in Zyklus 2 relevant sein wird. -ok
             String url = "http://localhost:8080/user/add";
