@@ -3,14 +3,12 @@ package com.example.client.controller;
 import com.example.client.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import javafx.scene.control.PasswordField;
+import javafx.scene.control.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.Optional;
 
 public class RegistrationController extends ConnectionController {
 
@@ -24,6 +22,10 @@ public class RegistrationController extends ConnectionController {
     TextField emailTextfield;
     @FXML
     PasswordField passwortTextfield;
+    @FXML
+    RadioButton BusinessUser;
+    @FXML
+    RadioButton Kunde;
 
 
     @FXML
@@ -54,7 +56,6 @@ public class RegistrationController extends ConnectionController {
             Alert alert = new Alert (Alert.AlertType.INFORMATION);
             alert.setTitle("Speise hinzugefügt");
             alert.setContentText("Konto erfolgreich erstellt!");
-
             alert.showAndWait();
         }
 
@@ -70,15 +71,22 @@ public class RegistrationController extends ConnectionController {
         Main m= new Main();
         m.ChangeScene("Login.fxml");
     }
+
+
+    @FXML
+    ToggleGroup group = new ToggleGroup();
+
     @FXML
     public void onPrivatKundeClick(ActionEvent event) throws IOException {
 
         //Privatkunde --> Fortsetzung in Zyklus 2
+        Kunde.setToggleGroup(group);
     }
     @FXML
     public void onBusinessUserClick(ActionEvent event) throws IOException {
 
-        //BusinessUser --> Weiterleitung zu Restaurand anlegen
+        //BusinessUser --> Weiterleitung zur Startseite
+        BusinessUser.setToggleGroup(group);
     }
 
 }

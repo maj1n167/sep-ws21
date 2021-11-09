@@ -67,8 +67,8 @@
                 </HBox>
                 <HBox alignment="CENTER" prefHeight="59.0" prefWidth="800.0" spacing="30.0">
                     <children>
-                        <RadioButton mnemonicParsing="false" text="Ich bin Business User" />
-                        <RadioButton mnemonicParsing="false" text="Ich bin Kunde" />
+                        <RadioButton fx:id="BusinessUser" mnemonicParsing="false" onAction="#onBusinessUserClick" text="Ich bin Business User" />
+                        <RadioButton fx:id="Kunde" mnemonicParsing="false" onAction="#onPrivatKundeClick" text="Ich bin Kunde" />
                     </children>
                 </HBox>
                 <HBox alignment="CENTER" prefHeight="64.0" prefWidth="800.0">
