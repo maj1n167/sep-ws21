@@ -7,20 +7,32 @@ import javafx.fxml.FXML;
 import java.io.IOException;
 
 public class StartseiteController {
-    public void onEditProfileClick(ActionEvent event) {
-    }
-
-    public void onCreateRestaurantClick(ActionEvent event) {
-    }
-
-    public void onEditRestaurantClick(ActionEvent event) {
-    }
-
-    public void onSpeisekarteClick(ActionEvent event) {
+    @FXML
+    public void onEditProfileClick() throws IOException {
+//        Main m= new Main()
+//        m.ChangeScene(".fxml");
     }
 
     @FXML
-    public void onLogoutClick(ActionEvent event) throws IOException {
+    public void onCreateRestaurantClick() throws IOException {
+        Main m= new Main();
+        m.ChangeScene("CreateRestaurant.fxml");
+    }
+
+    @FXML
+    public void onEditRestaurantClick() throws IOException {
+        Main m= new Main();
+        m.ChangeScene("EditRestaurant.fxml");
+    }
+
+    @FXML
+    public void onSpeisekarteClick() throws IOException {
+        Main m= new Main();
+        m.ChangeScene("Speisekarte.fxml");
+    }
+
+    @FXML
+    public void onLogoutClick() throws IOException {
         // Change Scenes
         Main m= new Main();
         m.ChangeScene("Login.fxml");

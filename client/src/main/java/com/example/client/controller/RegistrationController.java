@@ -66,7 +66,7 @@ public class RegistrationController extends ConnectionController {
 
 
     @FXML
-    public void goBackButtonClick(ActionEvent event) throws IOException {
+    public void goBackButtonClick() throws IOException {
         // Change Scenes
         Main m= new Main();
         m.ChangeScene("Login.fxml");
@@ -77,13 +77,13 @@ public class RegistrationController extends ConnectionController {
     ToggleGroup group = new ToggleGroup();
 
     @FXML
-    public void onPrivatKundeClick(ActionEvent event) throws IOException {
+    public void onPrivatKundeClick() throws IOException {
 
         //Privatkunde --> Fortsetzung in Zyklus 2
         Kunde.setToggleGroup(group);
     }
     @FXML
-    public void onBusinessUserClick(ActionEvent event) throws IOException {
+    public void onBusinessUserClick() throws IOException {
 
         //BusinessUser --> Weiterleitung zur Startseite
         BusinessUser.setToggleGroup(group);

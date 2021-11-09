@@ -35,7 +35,7 @@ public class LoginController extends ConnectionController {
     public static String email;
 
     @FXML
-    protected void onLoginButtonClick(ActionEvent event) throws IOException {
+    protected void onLoginButtonClick() throws IOException {
 
        String url = "http://localhost:8080/user";
 
@@ -59,7 +59,7 @@ public class LoginController extends ConnectionController {
         alert.showAndWait();
     }
     @FXML
-    public void onRegisterButtonClick(ActionEvent event) throws IOException {
+    public void onRegisterButtonClick() throws IOException {
         // Change Scenes
         Main m= new Main();
         m.ChangeScene("Registration.fxml");
