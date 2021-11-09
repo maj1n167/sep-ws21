@@ -11,14 +11,22 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.client.controller.RegistrationController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity"
+            minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="600.0" prefWidth="800.0"
+            xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.client.controller.RegistrationController">
     <children>
-        <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="50.0" prefHeight="50.0" style="-fx-background-color: #90ee90;" text="Supreme Eating Program" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="50.0" prefHeight="50.0"
+               style="-fx-background-color: #90ee90;" text="Supreme Eating Program" textAlignment="CENTER"
+               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <font>
                 <Font name="System Bold" size="20.0" />
             </font>
         </Label>
-        <VBox alignment="CENTER" layoutX="350.0" layoutY="111.0" prefHeight="487.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+        <VBox alignment="CENTER" layoutX="350.0" layoutY="111.0" prefHeight="487.0" prefWidth="800.0"
+              AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+              AnchorPane.topAnchor="50.0">
             <children>
                 <HBox alignment="CENTER" prefHeight="150.0" prefWidth="800.0">
                     <children>
@@ -73,12 +81,14 @@
                 </HBox>
                 <HBox alignment="CENTER" prefHeight="64.0" prefWidth="800.0">
                     <children>
-                        <Button fx:id="registerButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onRegisterButtonClick" prefHeight="40.0" prefWidth="100.0" text="Registrieren" />
+                        <Button fx:id="registerButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false"
+                                onAction="#onRegisterButtonClick" prefHeight="40.0" prefWidth="100.0" text="Registrieren" />
                     </children>
                 </HBox>
                 <HBox prefHeight="61.0" prefWidth="800.0">
                     <children>
-                        <Button fx:id="goBackButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#goBackButtonClick" prefHeight="40.0" prefWidth="100.0" text="Zurück" />
+                        <Button fx:id="goBackButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false"
+                                onAction="#goBackButtonClick" prefHeight="40.0" prefWidth="100.0" text="Zurück" />
                     </children>
                     <padding>
                         <Insets left="20.0" top="20.0" />
