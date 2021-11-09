@@ -28,8 +28,8 @@ public class User implements Serializable {
     private int verfiyCode;
 
 
-
-    public User(int userId,String name, String vorname, String email, String password, String strasse, String plz, String stadt) {
+    //konstruktor zur Registrierung - ok
+    public User(int userId,String name, String vorname, String email, String password, String strasse, String plz, String stadt, Boolean restaurantBesitzer) {
         this.name = name;
         this.vorname = vorname;
         this.email = email;
@@ -37,10 +37,11 @@ public class User implements Serializable {
         this.strasse = strasse;
         this.plz = plz;
         this.stadt = stadt;
+        this.restaurantBesitzer = restaurantBesitzer;
     }
 
-
-    public User(int userId, String name, String vorname, String email, String password, String strasse, String plz, String stadt, int restaurantId) {
+    //Konstruktor zur Erstellung des Restaurants - ok
+    public User(int userId, String name, String vorname, String email, String password, String strasse, String plz, String stadt, Boolean restaurantBesitzer, int restaurantId) {
         this.name = name;
         this.vorname = vorname;
         this.email = email;
@@ -48,6 +49,7 @@ public class User implements Serializable {
         this.strasse = strasse;
         this.plz = plz;
         this.stadt = stadt;
+        this.restaurantBesitzer = restaurantBesitzer;
     }
 
     public User() {

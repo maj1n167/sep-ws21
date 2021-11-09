@@ -13,7 +13,7 @@ import java.util.Optional;
 public class RegistrationController extends ConnectionController {
 
     @FXML
-    Button RegisterButton;
+    Button registerButton;
     @FXML
     TextField vornameTextfield;
     @FXML
@@ -23,70 +23,85 @@ public class RegistrationController extends ConnectionController {
     @FXML
     PasswordField passwortTextfield;
     @FXML
-    RadioButton BusinessUser;
+    RadioButton businessUser;
     @FXML
-    RadioButton Kunde;
-
+    RadioButton kunde;
+    @FXML
+    ToggleGroup group = new ToggleGroup();
 
     @FXML
-    protected void onRegisterButtonClick() throws  IOException{
+    protected void onRegisterButtonClick() throws IOException {
 
-        if (vornameTextfield.getText().equals("")||nameTextfield.getText().equals("")||emailTextfield.getText().equals("")
-                ||passwortTextfield.getText().equals("")){
+        if (vornameTextfield.getText().equals("") || nameTextfield.getText().equals("") || emailTextfield.getText().equals("")
+                || passwortTextfield.getText().equals("") || !(businessUser.isSelected() || kunde.isSelected()) ) {
 
-            Alert alert = new Alert (Alert.AlertType.INFORMATION);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Error");
             alert.setTitle("Error: Fehlende Zeile");
             alert.setContentText("Bitte füllen Sie alle Felder aus");
 
             alert.showAndWait();
-        }
-        else {
+        } else if (businessUser.isSelected()) {
+
+            String url = "http://localhost:8080/user/add";
+
+
+            String data = "{ \"vorname\": \"" + vornameTextfield.getText().toString() + "\",\n" +
+                    " \"name\": \"" + nameTextfield.getText().toString() + "\",\n" +
+                    " \"email\":\"" + emailTextfield.getText().toString() + "\",\n" +
+                    " \"password\": \"" + passwortTextfield.getText().toString() + "\",\n" +
+                    " \"restaurantBesitzer\": \"true\" }";
+
+            JSONObjectPOST(url, data);
+            System.out.println("Daten korrekt übertragen");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Konto hinzugefügt");
+            alert.setContentText("Konto erfolgreich erstellt!");
+            alert.showAndWait();
+            Main m = new Main();
+            m.ChangeScene("Startseite.fxml");
+        } else {
+/*          Hier erstmal alles kommentiert, da das hier in Zyklus 2 relevant sein wird. -ok
             String url = "http://localhost:8080/user/add";
 
 
             String data = "{ \"vorname\": \""+vornameTextfield.getText().toString()+"\",\n" +
-                            " \"name\": \""+nameTextfield.getText().toString()+"\",\n" +
-                            " \"email\":\""+emailTextfield.getText().toString()+"\",\n"+
-                            " \"password\": \""+passwortTextfield.getText().toString()+"\" }";
+                    " \"name\": \""+nameTextfield.getText().toString()+"\",\n" +
+                    " \"email\":\""+emailTextfield.getText().toString()+"\",\n"+
+                    " \"password\": \""+passwortTextfield.getText().toString()+"\",\n" +
+                    " \"restaurantBesitzer\": \"false\" }";
 
-//            String data = "{\"vorname\" : \"leon\", \"name\" : \"gashi\", \"email\" : \"leongashi@fxml.de\", \"password\" : \"hanswurst\" }";
             JSONObjectPOST(url, data);
             System.out.println("Daten korrekt übertragen");
             Alert alert = new Alert (Alert.AlertType.INFORMATION);
-            alert.setTitle("Speise hinzugefügt");
+            alert.setTitle("Konto hinzugefügt");
             alert.setContentText("Konto erfolgreich erstellt!");
             alert.showAndWait();
+            Main m = new Main();
+            //Hier kommt dann die view vom normalen Kunden rein. - ok
+            m.ChangeScene("Login.fxml");*/
         }
-
-
     }
-
-
-
 
     @FXML
     public void goBackButtonClick() throws IOException {
         // Change Scenes
-        Main m= new Main();
+        Main m = new Main();
         m.ChangeScene("Login.fxml");
     }
-
-
-    @FXML
-    ToggleGroup group = new ToggleGroup();
 
     @FXML
     public void onPrivatKundeClick() throws IOException {
 
         //Privatkunde --> Fortsetzung in Zyklus 2
-        Kunde.setToggleGroup(group);
+        kunde.setToggleGroup(group);
     }
+
     @FXML
     public void onBusinessUserClick() throws IOException {
 
         //BusinessUser --> Weiterleitung zur Startseite
-        BusinessUser.setToggleGroup(group);
+        businessUser.setToggleGroup(group);
     }
-
 }
+
