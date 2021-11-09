@@ -3,6 +3,7 @@ package com.example.client.controller;
 import com.example.client.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
@@ -26,10 +27,42 @@ public class RegistrationController extends ConnectionController {
 
 
     @FXML
-    protected void onRegisterButtonClick() {
+    protected void onRegisterButtonClick() throws  IOException{
+
+        if (vornameTextfield.getText().equals("")||nameTextfield.getText().equals("")||emailTextfield.getText().equals("")
+                ||passwortTextfield.getText().equals("")){
+
+            Alert alert = new Alert (Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setTitle("Error: Fehlende Zeile");
+            alert.setContentText("Bitte füllen Sie alle Felder aus");
+
+            alert.showAndWait();
+        }
+        else {
+            String url = "http://localhost:8080/user/add";
+
+
+            String data = "{ \"vorname\": \""+vornameTextfield.getText().toString()+"\",\n" +
+                            " \"name\": \""+nameTextfield.getText().toString()+"\",\n" +
+                            " \"email\":\""+emailTextfield.getText().toString()+"\",\n"+
+                            " \"password\": \""+passwortTextfield.getText().toString()+"\" }";
+
+//            String data = "{\"vorname\" : \"leon\", \"name\" : \"gashi\", \"email\" : \"leongashi@fxml.de\", \"password\" : \"hanswurst\" }";
+            JSONObjectPOST(url, data);
+            System.out.println("Daten korrekt übertragen");
+            Alert alert = new Alert (Alert.AlertType.INFORMATION);
+            alert.setTitle("Speise hinzugefügt");
+            alert.setContentText("Konto erfolgreich erstellt!");
+
+            alert.showAndWait();
+        }
 
 
     }
+
+
+
 
     @FXML
     public void goBackButtonClick(ActionEvent event) throws IOException {
