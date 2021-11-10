@@ -8,7 +8,7 @@ import java.util.List;
 @Entity
 public class Menu implements Serializable {
 
-    @GeneratedValue(strategy = GenerationType.AUTO)
+
     @Id
     private long menuId;
     @OneToMany

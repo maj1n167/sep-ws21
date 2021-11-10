@@ -31,11 +31,14 @@ public class AddFoodController extends ConnectionController implements Initializ
     @FXML
     private TextField preis;
 
+    private int userId;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         kategorie.getItems().addAll("Pizza","Pasta","Salate","Desserts");
         kategorie.setValue("Pizza");
         kategorie.show();
+        this.userId=LoginController.userId;
     }
 
     @FXML
@@ -52,10 +55,11 @@ public class AddFoodController extends ConnectionController implements Initializ
         else {
             String Url = "http://localhost:8080/food/add";
 
-            String data = "{   \"name\": \""+name.getText()+"\",\n" +
+            String data = "\"menuId\":"+userId+","+
+                        "\"foods\": [{   \"name\": \""+name.getText()+"\",\n" +
                     "        \"beschreibung\": \""+beschreibung.getText()+"\",\n" +
                     "        \"preis\":"+Double.parseDouble(preis.getText())+",\n"+
-                    "        \"kategorie\": \""+kategorie.getValue()+"\"}";
+                    "        \"kategorie\": \""+kategorie.getValue()+"\"}]";
 
             JSONObjectPOST(Url, data);
             System.out.println("Daten korrekt übertragen");
