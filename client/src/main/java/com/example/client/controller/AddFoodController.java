@@ -72,7 +72,7 @@ public class AddFoodController extends ConnectionController implements Initializ
     @FXML
     public void zurückButton() throws IOException{
         Main m = new Main();
-        m.ChangeScene("Startseite.fxml");
+        m.ChangeScene("Speisekarte.fxml");
     }
 
 

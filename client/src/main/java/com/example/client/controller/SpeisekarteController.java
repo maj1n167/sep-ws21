@@ -32,7 +32,7 @@ public class SpeisekarteController extends  ConnectionController{
     }
 
     @FXML
-    public void zurueckButton() throws IOException {
+    public void zurückButton() throws IOException {
         Main m = new Main();
         m.ChangeScene("Startseite.fxml");
     }

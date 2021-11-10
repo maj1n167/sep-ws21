@@ -23,19 +23,19 @@
             <Font size="36.0" />
          </font>
       </Label>
-      <Button layoutX="112.0" layoutY="182.0" mnemonicParsing="false"
+      <Button layoutX="112.0" layoutY="182.0" mnemonicParsing="false" onAction="#speiseHinzufuegen"
               prefHeight="50.0" prefWidth="150.0" text="Speise Hinzufügen">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <Button layoutX="112.0" layoutY="275.0" mnemonicParsing="false"
+      <Button layoutX="112.0" layoutY="275.0" mnemonicParsing="false" onAction="#speiseBearbeiten"
               prefHeight="50.0" prefWidth="150.0" text="Speise Bearbeiten">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <Button layoutX="112.0" layoutY="367.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="xml">
+      <Button layoutX="112.0" layoutY="367.0" mnemonicParsing="false"  prefHeight="50.0" prefWidth="150.0" text="xml">
          <font>
             <Font size="14.0" />
          </font>
