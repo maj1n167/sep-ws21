@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class AddSpeisekarteController extends ConnectionController implements Initializable {
+public class AddFoodController extends ConnectionController implements Initializable {
     @FXML
     private Button bearbeiten;
     @FXML

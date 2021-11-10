@@ -10,15 +10,17 @@ public class Restaurant  implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int restaurantId;
     private String name;
+    private String strasse;
     private String plz;
     private String stadt;
     private double mbw;
     private double lieferkosten;
-    private String katgorie;
+    private String kategorie;
     private int lieferbereich;
     @JoinColumn(name = "menuId")
     @OneToOne
     private Menu menu;
+
 
 
     public Restaurant(int restaurantId, String name, String plz, String stadt, double mbw, double lieferkosten, int lieferbereich) {
@@ -35,6 +37,16 @@ public class Restaurant  implements Serializable {
 
     }
 
+    public Restaurant(String name, String strasse, String plz, String stadt, double mbw, double lieferkosten, String kategorie, int lieferbereich) {
+        this.name = name;
+        this.strasse = strasse;
+        this.plz = plz;
+        this.stadt = stadt;
+        this.mbw = mbw;
+        this.lieferkosten = lieferkosten;
+        this.kategorie = kategorie;
+        this.lieferbereich = lieferbereich;
+    }
 
     public int getRestaurantId() {
         return restaurantId;

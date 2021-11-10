@@ -16,7 +16,7 @@ public class StartseiteController {
     @FXML
     public void onCreateRestaurantClick() throws IOException {
         Main m= new Main();
-        m.ChangeScene("CreateRestaurant.fxml");
+        m.ChangeScene("AddRestaurant.fxml");
     }
 
     @FXML

@@ -21,7 +21,7 @@ public class AddRestaurantController extends ConnectionController {
     private TextField nameTextfield;
 
     @FXML
-    private TextField straßeTextfield;
+    private TextField strasseTextfield;
 
     @FXML
     private TextField plzTextfield;
@@ -46,7 +46,7 @@ public class AddRestaurantController extends ConnectionController {
     ChoiceBox<String> kategorieChoicebox;
 
     @FXML
-    private Button SpeichernButton;
+    private Button speichernButton;
 
     @FXML
     private Button zurueckButton;
@@ -98,7 +98,7 @@ public class AddRestaurantController extends ConnectionController {
             dec.format(mbw);
 
 
-            if (nameTextfield.getText().equals("") || straßeTextfield.getText().equals("") || plzTextfield.getText().equals("")
+            if (nameTextfield.getText().equals("") || strasseTextfield.getText().equals("") || plzTextfield.getText().equals("")
                     || stadtTextfield.getText().equals("") || lieferkostenTextfield.getText().equals("") || mbwTextfield.getText().equals("")
                     || lieferbereichTextfield.getText().equals("")) {
 
@@ -123,13 +123,13 @@ public class AddRestaurantController extends ConnectionController {
                  */
                 String url = "http://localhost:8080/restaurant/add";
                 String json = "{ \"name\": \"" + nameTextfield.getText() + "\",\n" +
-                        "        \"straße\": \"" + straßeTextfield.getText() + "\",\n" +
-                        "        \"plz\":" + plzTextfield.getText() + ",\n" +
-                        "        \"stadt\": \"" + stadtTextfield.getText() + "\",\n" +
-                        "        \"mbw\": \"" + mbw + "\",\n" +
-                        "        \"lieferkosten\": \"" + lieferkosten + "\",\n" +
-                        "        \"kategorie\": \"" + kategorieChoicebox.getValue() + "\",\n" +
-                        "        \"lieferbereich\": \"" + radius + "\"}";
+                            " \"strasse\": \"" + strasseTextfield.getText() + "\",\n" +
+                            " \"plz\":" + plzTextfield.getText() + ",\n" +
+                            " \"stadt\": \"" + stadtTextfield.getText() + "\",\n" +
+                            " \"mbw\": \"" + mbw + "\",\n" +
+                            " \"lieferkosten\": \"" + lieferkosten + "\",\n" +
+                            " \"kategorie\": \"" + kategorieChoicebox.getValue() + "\",\n" +
+                            " \"lieferbereich\": \"" + radius + "\"}";
 
                 JSONObjectPOST(url, json);
 
