@@ -7,7 +7,7 @@ import java.util.List;
 @Entity
 public class Restaurant  implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int restaurantId;
     private String name;
     private String plz;
@@ -16,7 +16,7 @@ public class Restaurant  implements Serializable {
     private double lieferkosten;
     private String katgorie;
     private int lieferbereich;
-    @JoinColumn(name = "menuId")
+    @JoinColumn(name = "menuId" ,referencedColumnName = "menuId")
     @OneToOne
     private Menu menu;
 

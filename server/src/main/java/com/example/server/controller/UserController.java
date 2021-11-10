@@ -1,5 +1,6 @@
 package com.example.server.controller;
 
+import com.example.server.model.Restaurant;
 import com.example.server.model.User;
 import com.example.server.service.UserService;
 import org.springframework.http.HttpStatus;

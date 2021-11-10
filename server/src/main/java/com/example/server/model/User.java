@@ -10,7 +10,7 @@ public class User implements Serializable {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int userId;
     private String email;
     private String password;
@@ -20,7 +20,7 @@ public class User implements Serializable {
     private Boolean restaurantBesitzer;
 
     @OneToOne
-    @JoinColumn(name="restaurantId")
+    @JoinColumn(name="restaurantId" ,referencedColumnName = "restaurantId")
     private Restaurant restaurant;
 
     private int verfiyCode;
