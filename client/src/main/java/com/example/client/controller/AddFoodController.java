@@ -7,19 +7,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.XML;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Files;
 import java.util.ResourceBundle;
 
-import static org.json.XML.toJSONObject;
-
-public class AddSpeisekarteController extends ConnectionController implements Initializable {
+public class AddFoodController extends ConnectionController implements Initializable {
     @FXML
     private Button bearbeiten;
     @FXML
@@ -37,14 +31,11 @@ public class AddSpeisekarteController extends ConnectionController implements In
     @FXML
     private TextField preis;
 
-    private String email;
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         kategorie.getItems().addAll("Pizza","Pasta","Salate","Desserts");
         kategorie.setValue("Pizza");
         kategorie.show();
-        this.email = LoginController.email;
     }
 
     @FXML
@@ -55,6 +46,7 @@ public class AddSpeisekarteController extends ConnectionController implements In
             alert.setTitle("Error");
             alert.setTitle("Error: Fehlende Zeile");
             alert.setContentText("Bitte füllen Sie alle Felder aus");
+
             alert.showAndWait();
         }
         else {

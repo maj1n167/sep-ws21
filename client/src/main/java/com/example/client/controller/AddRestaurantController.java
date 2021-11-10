@@ -21,7 +21,7 @@ public class AddRestaurantController extends ConnectionController {
     private TextField nameTextfield;
 
     @FXML
-    private TextField straßeTextfield;
+    private TextField strasseTextfield;
 
     @FXML
     private TextField plzTextfield;
@@ -39,39 +39,26 @@ public class AddRestaurantController extends ConnectionController {
     private TextField lieferbereichTextfield;
 
     @FXML
-    private TextField sonstigeText;
-
-
-    @FXML
     ChoiceBox<String> kategorieChoicebox;
 
     @FXML
-    private Button SpeichernButton;
+    private Button speichernButton;
 
     @FXML
     private Button zurueckButton;
 
+
+
+
     public void initialize() {
 
-        kategorieChoicebox.getItems().addAll("Italienisch", "Indisch", "Asiatisch", "Amerikanisch", "Sonstige:");
+        kategorieChoicebox.getItems().addAll("Italienisch", "Indisch", "Spanisch", "Deutsch", "Asiatisch", "Amerikanisch", "Türkisch", "Sonstige");
         //ersten Punkt auf Pizza setzen
         kategorieChoicebox.setValue("Italienisch");
 
-
-
-      /*  Wenn die Kategorie nicht dabei ist, eine neue hinzufügen und Sonstige wird visible gemacht
-        {
-            if (kategorieChoicebox.getValue().equals("Sonstige:")) {
-                sonstigeText.setVisible(true);
-            }
-        }
-    */
     }
 
-    //Kategorie muss jedes mal aktualisiert werden
-    public void populateView() {
 
-    }
 
     @FXML
     public void speichernButtonClick() throws IOException {
@@ -98,7 +85,7 @@ public class AddRestaurantController extends ConnectionController {
             dec.format(mbw);
 
 
-            if (nameTextfield.getText().equals("") || straßeTextfield.getText().equals("") || plzTextfield.getText().equals("")
+            if (nameTextfield.getText().equals("") || strasseTextfield.getText().equals("") || plzTextfield.getText().equals("")
                     || stadtTextfield.getText().equals("") || lieferkostenTextfield.getText().equals("") || mbwTextfield.getText().equals("")
                     || lieferbereichTextfield.getText().equals("")) {
 
@@ -122,14 +109,15 @@ public class AddRestaurantController extends ConnectionController {
                  private int lieferbereich;
                  */
                 String url = "http://localhost:8080/restaurant/add";
+
                 String json = "{ \"name\": \"" + nameTextfield.getText() + "\",\n" +
-                        "        \"straße\": \"" + straßeTextfield.getText() + "\",\n" +
-                        "        \"plz\":" + plzTextfield.getText() + ",\n" +
-                        "        \"stadt\": \"" + stadtTextfield.getText() + "\",\n" +
-                        "        \"mbw\": \"" + mbw + "\",\n" +
-                        "        \"lieferkosten\": \"" + lieferkosten + "\",\n" +
-                        "        \"kategorie\": \"" + kategorieChoicebox.getValue() + "\",\n" +
-                        "        \"lieferbereich\": \"" + radius + "\"}";
+                            " \"strasse\": \"" + strasseTextfield.getText() + "\",\n" +
+                            " \"plz\":" + plzTextfield.getText() + ",\n" +
+                            " \"stadt\": \"" + stadtTextfield.getText() + "\",\n" +
+                            " \"mbw\": \"" + mbw + "\",\n" +
+                            " \"lieferkosten\": \"" + lieferkosten + "\",\n" +
+                            " \"kategorie\": \"" + kategorieChoicebox.getValue() + "\",\n" +
+                            " \"lieferbereich\": \"" + radius + "\"}";
 
                 JSONObjectPOST(url, json);
 

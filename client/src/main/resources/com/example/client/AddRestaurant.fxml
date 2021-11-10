@@ -13,7 +13,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity"
             minHeight="-Infinity" minWidth="-Infinity"
             prefHeight="600.0" prefWidth="800.0"
-            xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.example.client.controller.AddRestaurantController">
     <children>
         <HBox alignment="CENTER" layoutY="82.0" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="440.0"
@@ -37,14 +37,14 @@
               AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="1.0"
               AnchorPane.topAnchor="150.0">
             <children>
-                <VBox alignment="CENTER_RIGHT" prefHeight="330.0" prefWidth="114.0" spacing="28.0">
+                <VBox alignment="CENTER_RIGHT" prefHeight="332.0" prefWidth="147.0" spacing="28.0">
                     <children>
                         <Label text="Name:" />
                         <Label text="Straße:" />
-                        <Label text="Postleizahl:" />
+                        <Label text="Postleitzahl:" />
                         <Label text="Stadt:" />
-                        <Label text="Mindestbestellwert:" />
-                        <Label text="Lieferkosten:" />
+                        <Label text="Mindestbestellwert in €:" />
+                        <Label text="Lieferkosten in €:" />
                     </children>
                     <HBox.margin>
                         <Insets />
@@ -53,7 +53,7 @@
                 <VBox alignment="CENTER" prefHeight="330.0" prefWidth="237.0" spacing="20.0">
                     <children>
                         <TextField fx:id="nameTextfield" />
-                        <TextField fx:id="straßeTextfield" />
+                        <TextField fx:id="strasseTextfield" />
                         <TextField fx:id="plzTextfield" />
                         <TextField fx:id="stadtTextfield" />
                         <TextField fx:id="mbwTextfield" />
@@ -63,14 +63,22 @@
                         <Insets />
                     </HBox.margin>
                 </VBox>
-                <VBox alignment="CENTER" prefHeight="323.0" prefWidth="128.0" spacing="28.0">
+                <VBox alignment="CENTER" prefHeight="215.0" prefWidth="128.0" spacing="28.0">
                     <opaqueInsets>
                         <Insets />
                     </opaqueInsets>
                     <children>
-                        <Label focusTraversable="false" text="Kategorie:" />
-                        <Label fx:id="sonstigeLabel" text="Sonstige:" visible="false" />
-                        <Label prefWidth="128.0" text="Lieferbereich (Radius in km):" wrapText="true" />
+                        <Label focusTraversable="false" prefHeight="14.0" prefWidth="54.0" text="Kategorie:">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin></Label>
+                        <Label text="Lieferbereich (Radius in km):" wrapText="true">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin></Label>
                     </children>
                 </VBox>
                 <VBox alignment="CENTER" prefHeight="277.0" prefWidth="128.0" spacing="20.0">
@@ -79,14 +87,16 @@
                     </opaqueInsets>
                     <children>
                         <ChoiceBox fx:id="kategorieChoicebox" accessibleText="hhhhh" prefWidth="150.0" />
-                        <TextField fx:id="sonstigeText" visible="false" />
-                        <TextField fx:id="lieferbereichTextfield" prefHeight="11.0" prefWidth="128.0" />
+                        <TextField fx:id="lieferbereichTextfield" prefHeight="11.0" prefWidth="128.0">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets></TextField>
                     </children>
                 </VBox>
             </children>
         </HBox>
-        <HBox alignment="CENTER" layoutX="3.0" layoutY="510.0" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="3.0"
-              AnchorPane.rightAnchor="-3.0" AnchorPane.topAnchor="510.0">
+        <HBox alignment="CENTER" layoutX="3.0" layoutY="510.0" AnchorPane.bottomAnchor="45.0"
+              AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="-3.0" AnchorPane.topAnchor="510.0">
             <children>
                 <Button fx:id="zurueckButton" mnemonicParsing="false"
                         onAction="#zurueckButtonClick" prefHeight="47.0" prefWidth="106.0" text="Zurück" />
@@ -94,5 +104,10 @@
                         onAction="#speichernButtonClick" prefHeight="47.0" prefWidth="106.0" text="Speichern" />
             </children>
         </HBox>
+      <HBox layoutX="52.0" layoutY="467.0" prefHeight="34.0" prefWidth="422.0">
+         <children>
+            <Label prefHeight="17.0" prefWidth="421.0" text="Notiz: Bitte nutzen Sie für Dezimalzahlen einen Punkt z. B. 10.5" />
+         </children>
+      </HBox>
     </children>
 </AnchorPane>

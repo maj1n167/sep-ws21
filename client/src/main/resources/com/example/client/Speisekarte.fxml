@@ -5,9 +5,15 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.client.controller.SpeisekarteController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity"
+            minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="600.0" prefWidth="800.0"
+            xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.client.controller.SpeisekarteController">
     <children>
-        <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="50.0" prefHeight="50.0" style="-fx-background-color: #90ee90;" text="Supreme Eating Program" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="50.0" prefHeight="50.0"
+               style="-fx-background-color: #90ee90;" text="Supreme Eating Program" textAlignment="CENTER"
+               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <font>
                 <Font name="System Bold" size="20.0" />
             </font>
@@ -17,12 +23,14 @@
             <Font size="36.0" />
          </font>
       </Label>
-      <Button layoutX="112.0" layoutY="182.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Speise Hinzufügen">
+      <Button layoutX="112.0" layoutY="182.0" mnemonicParsing="false"
+              prefHeight="50.0" prefWidth="150.0" text="Speise Hinzufügen">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <Button layoutX="112.0" layoutY="275.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Speise Bearbeiten">
+      <Button layoutX="112.0" layoutY="275.0" mnemonicParsing="false"
+              prefHeight="50.0" prefWidth="150.0" text="Speise Bearbeiten">
          <font>
             <Font size="14.0" />
          </font>

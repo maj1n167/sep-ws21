@@ -9,14 +9,14 @@ import java.io.IOException;
 public class StartseiteController {
     @FXML
     public void onEditProfileClick() throws IOException {
-//        Main m= new Main()
-//        m.ChangeScene(".fxml");
+        Main m= new Main();
+        m.ChangeScene("EditProfile.fxml");
     }
 
     @FXML
     public void onCreateRestaurantClick() throws IOException {
         Main m= new Main();
-        m.ChangeScene("CreateRestaurant.fxml");
+        m.ChangeScene("AddRestaurant.fxml");
     }
 
     @FXML
