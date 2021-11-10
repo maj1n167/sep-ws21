@@ -1,15 +1,12 @@
 package com.example.client.controller;
 
 import com.example.client.Main;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import java.io.IOException;
-import java.util.Optional;
 
-public class EditProfileController extends ConnectionController{
+
+public class EditProfileController extends ConnectionController {
 
     @FXML
     Button safeButton;
@@ -23,9 +20,22 @@ public class EditProfileController extends ConnectionController{
     PasswordField neuesPasswort;
 
     @FXML
-    public void onSafeButtonClick() {
+    public void onSafeButtonClick() throws IOException {
 
         //Hier werden die alten Daten von den neuen überschrieben -lg
+
+        String url = "http://localhost:8080/user/put";
+
+
+        String data = "{ \"vorname\": \"" + neuerVorname.getText().toString() + "\",\n" +
+                " \"name\": \"" + neuerName.getText().toString() + "\",\n" +
+                " \"email\":\"" + neueEmail.getText().toString() + "\",\n" +
+                " \"password\": \"" + neuesPasswort.getText().toString() + "\",\n" +
+                " \"restaurantBesitzer\": \"true\" }";
+
+        JSONObjectPOST(url, data);
+
+
     }
 
     public void onGoBackButtonClick() throws IOException {

@@ -9,18 +9,30 @@ import java.io.IOException;
 public class SpeisekarteController extends  ConnectionController{
 
     @FXML
-    private Button speiseHinzufügen;
+    private Button speiseHinzufuegen;
     @FXML
     private Button speiseBearbeiten;
     @FXML
-    private Button zurück;
+    private Button zurueck;
 
 
 
 
 
     @FXML
-    public void zurückButton() throws IOException {
+    public void speiseHinzufuegen() throws IOException {
+        Main m = new Main();
+        m.ChangeScene("AddFood.fxml");
+    }
+
+    @FXML
+    public void speiseBearbeiten() throws IOException {
+        Main m = new Main();
+        m.ChangeScene("Startseite.fxml");
+    }
+
+    @FXML
+    public void zurueckButton() throws IOException {
         Main m = new Main();
         m.ChangeScene("Startseite.fxml");
     }
