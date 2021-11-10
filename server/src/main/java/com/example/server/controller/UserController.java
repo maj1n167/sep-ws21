@@ -64,7 +64,7 @@ public class UserController {
     }
 
     // Bei Änderungen durch den Nutzer seiner Informationen werden hierdurch die Änderungen in der Datenbank hinterlegt und bestätigt
-    @PutMapping("/update")
+    @PutMapping("/update/{userId}")
     public ResponseEntity<User> updateUser(@RequestBody User users) {
         User updateUser = userService.addUser(users);
         return new ResponseEntity<>(updateUser, HttpStatus.OK);
