@@ -122,6 +122,8 @@ public class AddRestaurantController extends ConnectionController {
                             " \"lieferbereich\": \"" + radius + "\"\n}";
                 System.out.println(json);
                 JSONObjectPOST(url, json);
+                String json2 = "{ \"menuId\":"+ userId + " }";
+                JSONObjectPOST("http://localhost:8080/menu/add",json2);
 
                 Main m = new Main();
                 m.ChangeScene("Startseite.fxml");

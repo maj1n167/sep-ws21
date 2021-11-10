@@ -39,6 +39,7 @@ public class VerificationController extends ConnectionController implements Init
                System.out.println("Verifizierung Erfolgreich");
                Main m = new Main();
                m.ChangeScene("Startseite.fxml");
+               return;
            }
            Main m = new Main();
            m.ChangeScene("Login.fxml");
