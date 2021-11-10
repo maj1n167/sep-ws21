@@ -39,10 +39,6 @@ public class AddRestaurantController extends ConnectionController {
     private TextField lieferbereichTextfield;
 
     @FXML
-    private TextField sonstigeText;
-
-
-    @FXML
     ChoiceBox<String> kategorieChoicebox;
 
     @FXML
@@ -51,27 +47,18 @@ public class AddRestaurantController extends ConnectionController {
     @FXML
     private Button zurueckButton;
 
+
+
+
     public void initialize() {
 
-        kategorieChoicebox.getItems().addAll("Italienisch", "Indisch", "Asiatisch", "Amerikanisch", "Sonstige:");
+        kategorieChoicebox.getItems().addAll("Italienisch", "Indisch", "Spanisch", "Deutsch", "Asiatisch", "Amerikanisch", "Türkisch", "Sonstige");
         //ersten Punkt auf Pizza setzen
         kategorieChoicebox.setValue("Italienisch");
 
-
-
-      /*  Wenn die Kategorie nicht dabei ist, eine neue hinzufügen und Sonstige wird visible gemacht
-        {
-            if (kategorieChoicebox.getValue().equals("Sonstige:")) {
-                sonstigeText.setVisible(true);
-            }
-        }
-    */
     }
 
-    //Kategorie muss jedes mal aktualisiert werden
-    public void populateView() {
 
-    }
 
     @FXML
     public void speichernButtonClick() throws IOException {
@@ -122,6 +109,7 @@ public class AddRestaurantController extends ConnectionController {
                  private int lieferbereich;
                  */
                 String url = "http://localhost:8080/restaurant/add";
+
                 String json = "{ \"name\": \"" + nameTextfield.getText() + "\",\n" +
                             " \"strasse\": \"" + strasseTextfield.getText() + "\",\n" +
                             " \"plz\":" + plzTextfield.getText() + ",\n" +
