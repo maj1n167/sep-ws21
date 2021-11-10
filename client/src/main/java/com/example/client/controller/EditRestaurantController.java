@@ -50,8 +50,16 @@ public class EditRestaurantController extends ConnectionController {
 
 
     public void initialize() throws IOException {
+
+        kategorieChoicebox.getItems().addAll("Italienisch", "Indisch", "Spanisch", "Deutsch", "Asiatisch", "Amerikanisch", "Türkisch", "Sonstige");
+        /**
+         * TODO: Hier müsste die Kategorie auf die vorher ausgewählte Kategorie gesetzt werden
+         */
+        kategorieChoicebox.setValue("Italienisch");
+
+
         /*
-        Afgabe: Setze aktuelle Restaurantdaten in die Textfelder ein:
+        Aufgabe: Setze aktuelle Restaurantdaten in die Textfelder ein:
                  private int restaurantId;
                  private String name;
                  private String plz;
@@ -68,30 +76,40 @@ public class EditRestaurantController extends ConnectionController {
          */
 
         ConnectionController con = new ConnectionController();
-        StringBuffer curr = con.JSONObjectGET("http://localhost:8080/restaurant");
 
-        /* einfacher:
-        JSONObject curr = con.JSONObjectGET("http://localhost:8080/restaurant");
 
-        nameTetfield.setText(curr.getName());
-         */
+        String url = "http://localhost:8080/restaurant/update";
+
+        String temp =  "{ \"name\": \"" + nameTextfield.getText() + "\",\n" +
+                " \"strasse\": \"" + straßeTextfield.getText() + "\",\n" +
+                " \"plz\":" + plzTextfield.getText() + ",\n" +
+                " \"stadt\": \"" + stadtTextfield.getText() + "\",\n" +
+                " \"mbw\": \"" + mbwTextfield.getText() + "\",\n" +
+                " \"lieferkosten\": \"" + lieferkostenTextfield.getText() + "\",\n" +
+                " \"kategorie\": \"" + kategorieChoicebox.getValue() + "\",\n" +
+                " \"lieferbereich\": \"" + lieferbereichTextfield.getText() + "\"}";
+
+       JSONObjectPUT(temp, url);
 
 /**
  * Schneide mein JSON Objekt in die einzelnen Parameter aus
  * Jede Zeile ist eine Komponente (RestaurantId, name, plz ...)
  * TODO: name nach perfekter Größe der Komponente anpassen
  */
-        String name = curr.substring(1,10);
+
+
+
 
         /**
          * füge Daten in die Textfelder ein (ab name)
           */
-        nameTextfield.setText(name);
-        //straßeTextfield.setText(...hier straße eintragen..)
+       // nameTextfield.setText(name);
+
 
     }
 
     public void speichernButtonClick() throws IOException {
+
         /**
          *
          @PutMapping("/update")
