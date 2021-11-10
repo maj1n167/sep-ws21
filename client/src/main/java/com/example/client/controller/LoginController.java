@@ -34,6 +34,8 @@ public class LoginController extends ConnectionController {
 
     public static String email;
 
+    public static int userId;
+
     @FXML
     protected void onLoginButtonClick() throws IOException {
 
@@ -45,6 +47,8 @@ public class LoginController extends ConnectionController {
          if(jsonObject.get("email").equals(inputEmail.getText()) && jsonObject.get("password").equals(inputPassword.getText())){
             JSONObjectGET("http://localhost:8080/user/send/"+jsonObject.get("email"));
             email = jsonObject.get("email").toString();
+            userId = Integer.parseInt(jsonObject.get("userId").toString());
+            System.out.println(userId);
              System.out.println("Login erfolgreich!");
              Main m = new Main();
              m.ChangeScene("Verify-View.fxml");

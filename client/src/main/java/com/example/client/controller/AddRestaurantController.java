@@ -47,7 +47,7 @@ public class AddRestaurantController extends ConnectionController {
     @FXML
     private Button zurueckButton;
 
-
+    private int userId;
 
 
     public void initialize() {
@@ -55,7 +55,8 @@ public class AddRestaurantController extends ConnectionController {
         kategorieChoicebox.getItems().addAll("Italienisch", "Indisch", "Spanisch", "Deutsch", "Asiatisch", "Amerikanisch", "Türkisch", "Sonstige");
         //ersten Punkt auf Pizza setzen
         kategorieChoicebox.setValue("Italienisch");
-
+        System.out.println(kategorieChoicebox.getValue());
+        this.userId = LoginController.userId;
     }
 
 
@@ -111,14 +112,15 @@ public class AddRestaurantController extends ConnectionController {
                 String url = "http://localhost:8080/restaurant/add";
 
                 String json = "{ \"name\": \"" + nameTextfield.getText() + "\",\n" +
+                            " \"restaurantId\": \"" + userId + "\",\n" +
                             " \"strasse\": \"" + strasseTextfield.getText() + "\",\n" +
-                            " \"plz\":" + plzTextfield.getText() + ",\n" +
+                            " \"plz\": \"" + plzTextfield.getText() + "\",\n" +
                             " \"stadt\": \"" + stadtTextfield.getText() + "\",\n" +
                             " \"mbw\": \"" + mbw + "\",\n" +
                             " \"lieferkosten\": \"" + lieferkosten + "\",\n" +
                             " \"kategorie\": \"" + kategorieChoicebox.getValue() + "\",\n" +
-                            " \"lieferbereich\": \"" + radius + "\"}";
-
+                            " \"lieferbereich\": \"" + radius + "\"\n}";
+                System.out.println(json);
                 JSONObjectPOST(url, json);
 
                 Main m = new Main();

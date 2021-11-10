@@ -7,7 +7,6 @@ import java.util.List;
 @Entity
 public class Restaurant  implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int restaurantId;
     private String name;
     private String strasse;
@@ -17,27 +16,16 @@ public class Restaurant  implements Serializable {
     private double lieferkosten;
     private String kategorie;
     private int lieferbereich;
-    @JoinColumn(name = "menuId" ,referencedColumnName = "menuId")
+    @JoinColumn(name = "menuId")
     @OneToOne
     private Menu menu;
 
 
-
-    public Restaurant(int restaurantId, String name, String plz, String stadt, double mbw, double lieferkosten, int lieferbereich) {
-        this.restaurantId = restaurantId;
-        this.name = name;
-        this.plz = plz;
-        this.stadt = stadt;
-        this.mbw = mbw;
-        this.lieferkosten = lieferkosten;
-        this.lieferbereich = lieferbereich;
-    }
-
     public Restaurant() {
-
     }
 
-    public Restaurant(String name, String strasse, String plz, String stadt, double mbw, double lieferkosten, String kategorie, int lieferbereich) {
+    public Restaurant(int restaurantId, String name, String strasse, String plz, String stadt, double mbw, double lieferkosten, String kategorie, int lieferbereich, User owner) {
+        this.restaurantId = restaurantId;
         this.name = name;
         this.strasse = strasse;
         this.plz = plz;
@@ -46,6 +34,7 @@ public class Restaurant  implements Serializable {
         this.lieferkosten = lieferkosten;
         this.kategorie = kategorie;
         this.lieferbereich = lieferbereich;
+
     }
 
     public int getRestaurantId() {
@@ -55,6 +44,14 @@ public class Restaurant  implements Serializable {
     public void setRestaurantId(int restaurantId) {
         this.restaurantId = restaurantId;
     }
+
+    public String getStrasse() {return strasse;}
+
+    public void setStrasse(String strasse) {this.strasse = strasse;}
+
+    public String getKategorie() { return kategorie; }
+
+    public void setKategorie(String kategorie) { this.kategorie = kategorie; }
 
     public String getName() {
         return name;
