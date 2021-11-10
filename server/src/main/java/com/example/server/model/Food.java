@@ -19,6 +19,17 @@ public class Food  implements Serializable {
     private String name;
     private String beschreibung;
     private String url;
+    private int menuId;
+
+    public Food(int foodId, String kategorie, double preis, String name, String beschreibung, String url, int menuId) {
+        this.foodId = foodId;
+        this.kategorie = kategorie;
+        this.preis = preis;
+        this.name = name;
+        this.beschreibung = beschreibung;
+        this.url = url;
+        this.menuId = menuId;
+    }
 
     public Food(int foodId, String kategorie, double preis, String name, String beschreibung, String url) {
         this.foodId = foodId;
@@ -81,4 +92,12 @@ public class Food  implements Serializable {
         this.url = url;
     }
 
+
+    public int getMenuId() {
+        return menuId;
+    }
+
+    public void setMenuId(int menuId) {
+        this.menuId = menuId;
+    }
 }

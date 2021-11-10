@@ -12,7 +12,6 @@ public class Menu implements Serializable {
     @Id
     private long menuId;
     @OneToMany
-    @JoinColumn(name = "foodId")
     private List<Food> foods;
 
 
