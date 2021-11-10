@@ -68,7 +68,7 @@ public class EditRestaurantController extends ConnectionController {
          */
 
         ConnectionController con = new ConnectionController();
-        StringBuffer curr = con.JSONObjectGET("http://localhost:8080/restaurant");
+      //  StringBuffer curr = con.JSONObjectGET("http://localhost:8080/restaurant");
 
         /* einfacher:
         JSONObject curr = con.JSONObjectGET("http://localhost:8080/restaurant");
@@ -81,12 +81,12 @@ public class EditRestaurantController extends ConnectionController {
  * Jede Zeile ist eine Komponente (RestaurantId, name, plz ...)
  * TODO: name nach perfekter Größe der Komponente anpassen
  */
-        String name = curr.substring(1,10);
+  //      String name = curr.substring(1,10);
 
         /**
          * füge Daten in die Textfelder ein (ab name)
           */
-        nameTextfield.setText(name);
+      //  nameTextfield.setText(name);
         //straßeTextfield.setText(...hier straße eintragen..)
 
     }

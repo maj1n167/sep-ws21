@@ -100,7 +100,6 @@ public class AddFoodController extends ConnectionController implements Initializ
             }
         }
         allFoods =allFoods+jsonArray1.toString()+"}";
-        System.out.println(allFoods);
         JSONObjectPOST("http://localhost:8080/menu/add", allFoods);
         System.out.println("Speisekarte Erfolgreich erstellt");
     }
