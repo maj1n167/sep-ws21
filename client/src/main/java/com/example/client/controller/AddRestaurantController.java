@@ -9,6 +9,7 @@ import javafx.scene.control.*;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ResourceBundle;
 
 public class AddRestaurantController extends ConnectionController {
@@ -74,28 +75,80 @@ public class AddRestaurantController extends ConnectionController {
 
     @FXML
     public void speichernButtonClick() throws IOException {
-        if (nameTextfield.getText().equals("") || straßeTextfield.getText().equals("") || plzTextfield.getText().equals("")
-                || stadtTextfield.getText().equals("") || lieferkostenTextfield.getText().equals("") || mbwTextfield.getText().equals("")
-                || lieferbereichTextfield.getText().equals("")) {
+        try {
+            /**
+             *
+             *     private String plz;
+             *     private double mbw;
+             *     private double lieferkosten;
+             *     private int lieferbereich;
+             */
+
+            double lieferkosten = Double.parseDouble(lieferkostenTextfield.getText());
+            //nur zur Prüfung
+            int plz = Integer.parseInt(plzTextfield.getText());
+            double mbw = Double.parseDouble(mbwTextfield.getText());
+            int radius = Integer.parseInt(lieferbereichTextfield.getText());
+
+
+            DecimalFormat dec = new DecimalFormat();
+            dec.setMinimumFractionDigits(2);
+            dec.setMaximumFractionDigits(2);
+            dec.format(lieferkosten);
+            dec.format(mbw);
+
+
+            if (nameTextfield.getText().equals("") || straßeTextfield.getText().equals("") || plzTextfield.getText().equals("")
+                    || stadtTextfield.getText().equals("") || lieferkostenTextfield.getText().equals("") || mbwTextfield.getText().equals("")
+                    || lieferbereichTextfield.getText().equals("")) {
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Error!");
+                alert.setTitle("Error: Fehlende Zeilen!");
+                alert.setContentText("Bitte füllen Sie alle Felder aus!");
+
+                alert.showAndWait();
+
+            } else {
+
+                /**
+                 private int restaurantId;
+                 private String name;
+                 private String plz;
+                 private String stadt;
+                 private double mbw;
+                 private double lieferkosten;
+                 private String katgorie;
+                 private int lieferbereich;
+                 */
+                String url = "http://localhost:8080/restaurant/add";
+                String json = "{ \"name\": \"" + nameTextfield.getText() + "\",\n" +
+                        "        \"straße\": \"" + straßeTextfield.getText() + "\",\n" +
+                        "        \"plz\":" + plzTextfield.getText() + ",\n" +
+                        "        \"stadt\": \"" + stadtTextfield.getText() + "\",\n" +
+                        "        \"mbw\": \"" + mbw + "\",\n" +
+                        "        \"lieferkosten\": \"" + lieferkosten + "\",\n" +
+                        "        \"kategorie\": \"" + kategorieChoicebox.getValue() + "\",\n" +
+                        "        \"lieferbereich\": \"" + radius + "\"}";
+
+                JSONObjectPOST(url, json);
+
+                Main m = new Main();
+                m.ChangeScene("Startseite.fxml");
+            }
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Error!");
-            alert.setTitle("Error: Fehlende Zeilen!");
-            alert.setContentText("Bitte füllen Sie alle Felder aus!");
+            alert.setTitle("Falsches Zeichenformat!");
+            alert.setContentText("Bitte korrigieren!");
 
             alert.showAndWait();
-        } else {
-            String url = "localhost:8080/restaurant/add";
-            String json= nameTextfield.getText() + ", " + straßeTextfield.getText()  + ", " + plzTextfield.getText()  + ", "
-                    + stadtTextfield.getText()  + ", " + lieferkostenTextfield.getText()  + ", " + mbwTextfield.getText()  + ", "
-                    + lieferbereichTextfield.getText();
-            JSONObjectPUT(url,json);
-
-            Main m = new Main();
-            m.ChangeScene("Startseite.fxml");
         }
     }
-    public void zurueckButtonClick () throws IOException {
+
+    public void zurueckButtonClick() throws IOException {
         Main m = new Main();
         m.ChangeScene("Startseite.fxml");
     }

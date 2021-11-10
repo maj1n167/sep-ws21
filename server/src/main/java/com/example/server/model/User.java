@@ -12,6 +12,8 @@ public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int userId;
+    private String name;
+    private String vorname;
     private String email;
     private String password;
     private String strasse;
@@ -26,26 +28,44 @@ public class User implements Serializable {
     private int verfiyCode;
 
 
-
-    public User(int userId, String email, String password, String strasse, String plz, String stadt) {
+    //konstruktor zur Registrierung - ok
+    public User(int userId,String name, String vorname, String email, String password, String strasse, String plz, String stadt, Boolean restaurantBesitzer) {
+        this.name = name;
+        this.vorname = vorname;
         this.email = email;
         this.password = password;
         this.strasse = strasse;
         this.plz = plz;
         this.stadt = stadt;
+        this.restaurantBesitzer = restaurantBesitzer;
     }
 
-
-    public User(int userId, String email, String password, String strasse, String plz, String stadt, int restaurantId) {
+    //Konstruktor zur Erstellung des Restaurants - ok
+    public User(int userId, String name, String vorname, String email, String password, String strasse, String plz, String stadt, Boolean restaurantBesitzer, int restaurantId) {
+        this.name = name;
+        this.vorname = vorname;
         this.email = email;
         this.password = password;
         this.strasse = strasse;
         this.plz = plz;
         this.stadt = stadt;
+        this.restaurantBesitzer = restaurantBesitzer;
     }
 
     public User() {
 
+    }
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public String getVorname() {
+        return vorname;
+    }
+    public void setVorname(String vorname) {
+        this.vorname = vorname;
     }
 
     public String getEmail() {
