@@ -29,6 +29,8 @@ public class RegistrationController extends ConnectionController {
     @FXML
     ToggleGroup group = new ToggleGroup();
 
+
+
     @FXML
     protected void onRegisterButtonClick() throws IOException {
 

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.client.controller.EditFoodController">
+    <children>
+        <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="50.0" prefHeight="50.0" style="-fx-background-color: #90ee90;" text="Supreme Eating Program" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <font>
+                <Font name="System Bold" size="20.0" />
+            </font>
+        </Label>
+      <Label layoutX="120.0" layoutY="103.0" prefWidth="250.0" text="Ändern Sie hier ihre Speise ">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="65.0" layoutY="239.0" prefWidth="110.0" text="Kategorie :" />
+      <Label layoutX="65.0" layoutY="196.0" prefWidth="100.0" text="FoodID :" />
+      <Label layoutX="65.0" layoutY="283.0" prefWidth="110.0" text="Name :" />
+      <Label layoutX="65.0" layoutY="327.0" prefWidth="110.0" text="Beschreibung :" />
+      <Label layoutX="65.0" layoutY="409.0" prefWidth="110.0" text="Preis :" />
+      <TextField fx:id="name" layoutX="175.0" layoutY="279.0" />
+      <TextField fx:id="beschreibung" layoutX="175.0" layoutY="323.0" prefHeight="62.0" prefWidth="160.0" />
+      <TextField fx:id="preis" layoutX="175.0" layoutY="404.0" />
+      <ChoiceBox fx:id="kategorie" layoutX="175.0" layoutY="235.0" prefHeight="26.0" prefWidth="160.0" />
+      <Label layoutX="65.0" layoutY="456.0" prefWidth="110.0" text="Bild :" />
+      <Label layoutX="175.0" layoutY="456.0" prefWidth="170.0" text=".jpg-, .png-, oder .jpeg Dateien" />
+      <Button layoutX="175.0" layoutY="491.0" mnemonicParsing="false" text="Datei auswählen" />
+      <Button id="speichern" layoutX="544.0" layoutY="486.0" mnemonicParsing="false" onAction="#änderungSpeichern" prefHeight="36.0" prefWidth="144.0" text="Speichern" />
+      <Button layoutX="22.0" layoutY="554.0" mnemonicParsing="false" onAction="#zurückButton" text="zurück" />
+      <Button layoutX="727.0" layoutY="554.0" mnemonicParsing="false" onAction="#fertigButton" text="Fertig" />
+      <TextField layoutX="175.0" layoutY="192.0" />
+      <TextArea fx:id="AusgabeFood" layoutX="505.0" layoutY="229.0" prefHeight="230.0" prefWidth="223.0" text="&#10;&#10;" />
+      <Button fx:id="DeleteMenu" layoutX="683.0" layoutY="70.0" mnemonicParsing="false" onAction="#deleteMenu" prefHeight="36.0" prefWidth="79.0" text="Delete" />
+      <Label layoutX="426.0" layoutY="73.0" prefHeight="30.0" prefWidth="250.0" text="Löschen der kompletten Speisekarte :" />
+      <Button layoutX="683.0" layoutY="125.0" mnemonicParsing="false" onAction="#deleteFood" prefHeight="36.0" prefWidth="79.0" text="Delete" />
+      <Label layoutX="456.0" layoutY="128.0" prefHeight="30.0" prefWidth="220.0" text="Löschen der Speise :" />
+    </children>
+</AnchorPane>

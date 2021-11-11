@@ -4,7 +4,6 @@ import com.example.client.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -28,29 +27,23 @@ public class VerificationController extends ConnectionController implements Init
         }
 
 
-    public void onGoBackButtonClick() throws IOException {
+    public void onGoBackButtonClick(ActionEvent event) throws IOException {
         Main m = new Main();
         m.ChangeScene("Login.fxml");
     }
 
-    public void onVerifyButtonClicked() throws IOException {
-        System.out.println(email);
-        JSONObject jsonObject = new JSONObject(JSONObjectGET("http://localhost:8080/user/find/"+email).toString());
-        if(jsonObject.get("verfiyCode").equals(Integer.parseInt(inputCode.getText()))){
-            System.out.println("Verifizierung Erfolgreich");
-            Main m = new Main();
-            m.ChangeScene("Startseite.fxml");
-            return;
-            }
-        Alert alert = new Alert (Alert.AlertType.INFORMATION);
-        alert.setTitle("Error");
-        alert.setTitle("Error: Verifizierungscode falsch");
-        alert.setContentText("Verifizierungscode falsch. Bitte wiederholen Sie den Vorgang!");
-        alert.showAndWait();
-        Main m = new Main();
-        m.ChangeScene("Login.fxml");
-    }
-}
-
+   public void onVerifyButtonClicked(ActionEvent event) throws IOException {
+       System.out.println(email);
+     JSONObject jsonObject = new JSONObject(JSONObjectGET("http://localhost:8080/user/find/"+email).toString());
+           if(jsonObject.get("verfiyCode").equals(Integer.parseInt(inputCode.getText()))){
+               System.out.println("Verifizierung Erfolgreich");
+               Main m = new Main();
+               m.ChangeScene("Startseite.fxml");
+               return;
+           }
+           Main m = new Main();
+           m.ChangeScene("Login.fxml");
+       }
+  }
 
 

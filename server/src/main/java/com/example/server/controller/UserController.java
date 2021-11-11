@@ -1,5 +1,6 @@
 package com.example.server.controller;
 
+import com.example.server.model.Restaurant;
 import com.example.server.model.User;
 import com.example.server.service.UserService;
 import org.springframework.http.HttpStatus;
@@ -63,7 +64,7 @@ public class UserController {
     }
 
     // Bei Änderungen durch den Nutzer seiner Informationen werden hierdurch die Änderungen in der Datenbank hinterlegt und bestätigt
-    @PutMapping("/update")
+    @PutMapping("/update/{userId}")
     public ResponseEntity<User> updateUser(@RequestBody User users) {
         User updateUser = userService.addUser(users);
         return new ResponseEntity<>(updateUser, HttpStatus.OK);
