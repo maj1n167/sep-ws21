@@ -49,13 +49,37 @@ public class AddRestaurantController extends ConnectionController {
 
     private int userId;
 
+     public int restaurantId;
+     public static String name;
+    public static String plz;
+    public static String stadt;
+    public static double mbw;
+    public static double lieferkosten;
+    public static String katgorie;
+    public static int lieferbereich;
+
+/*
+    public AddRestaurantController(int restaurantId, String name, String plz, String stadt, double mbw, double lieferkosten, String kategorie, int lieferbereich ){
+        this.restaurantId = restaurantId;
+        this.name = name;
+        this.stadt = stadt;
+        this.plz = plz;
+        this.mbw = mbw;
+        this.lieferkosten = lieferkosten;
+        this.katgorie = kategorie;
+        this.lieferbereich = lieferbereich;
+    }
+
+*/
+
+
 
     public void initialize() {
 
         kategorieChoicebox.getItems().addAll("Italienisch", "Indisch", "Spanisch", "Deutsch", "Asiatisch", "Amerikanisch", "Türkisch", "Sonstige");
         //ersten Punkt auf Pizza setzen
         kategorieChoicebox.setValue("Italienisch");
-        System.out.println(kategorieChoicebox.getValue());
+     //   System.out.println(kategorieChoicebox.getValue());
         this.userId = LoginController.userId;
     }
 
@@ -72,7 +96,7 @@ public class AddRestaurantController extends ConnectionController {
              *     private int lieferbereich;
              */
 
-            double lieferkosten = Double.parseDouble(lieferkostenTextfield.getText());
+           double lieferkosten = Double.parseDouble(lieferkostenTextfield.getText());
             //nur zur Prüfung
             int plz = Integer.parseInt(plzTextfield.getText());
             double mbw = Double.parseDouble(mbwTextfield.getText());
@@ -111,6 +135,7 @@ public class AddRestaurantController extends ConnectionController {
                  */
                 String url = "http://localhost:8080/restaurant/add";
 
+
                 String json = "{ \"name\": \"" + nameTextfield.getText() + "\",\n" +
                             " \"restaurantId\": \"" + userId + "\",\n" +
                             " \"strasse\": \"" + strasseTextfield.getText() + "\",\n" +
@@ -144,5 +169,7 @@ public class AddRestaurantController extends ConnectionController {
         Main m = new Main();
         m.ChangeScene("Startseite.fxml");
     }
+
+
 }
 
