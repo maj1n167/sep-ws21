@@ -33,7 +33,7 @@ public class ConnectionController {
     }
 
     //POST request um Daten über ein POSTMapping in die DB zu bekommen
-    public void JSONObjectPOST (String inputUrl , String data) throws IOException {
+    public void JSONObjectPOST(String inputUrl, String data) throws IOException {
         URL url = new URL(inputUrl);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("POST");
@@ -42,8 +42,9 @@ public class ConnectionController {
         con.getOutputStream().write(data.getBytes("UTF-8"));
         con.getInputStream();
     }
+
     //PUT request
-    public void JSONObjectPUT (String inputUrl , String data) throws IOException {
+    public void JSONObjectPUT(String inputUrl, String data) throws IOException {
         URL url = new URL(inputUrl);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("PUT");
@@ -53,11 +54,16 @@ public class ConnectionController {
         con.getInputStream();
     }
 
-  /** TODO: public void neueRestaurantDaten (String name, String straße){
-        JSONObject jObj = new JSONObject();
+    //Delete request
+    public void JSONObjectDELETE(String inputUrl) throws IOException {
+        URL url = new URL(inputUrl);
 
+        HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
+        httpCon.setDoOutput(true);
+        httpCon.setRequestProperty("Content-Type", "application/x-www-form-urlencoded" );
+        httpCon.setRequestMethod("DELETE");
+        System.out.println(httpCon.getResponseCode());
+        httpCon.connect();
     }
 
-
-   **/
 }

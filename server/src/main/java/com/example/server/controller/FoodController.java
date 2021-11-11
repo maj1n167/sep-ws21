@@ -39,5 +39,12 @@ public class FoodController {
         Food updateFood = foodService.addFood(foods);
         return new ResponseEntity<>(updateFood, HttpStatus.OK);
     }
+
+    @DeleteMapping("/delete/{foodId}")
+    public ResponseEntity<?> deleteFood(@PathVariable("foodId") int id){
+        foodService.deleteFood(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 }
 

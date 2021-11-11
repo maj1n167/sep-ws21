@@ -7,8 +7,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class EditFoodController extends ConnectionController {
     @FXML
@@ -20,51 +26,85 @@ public class EditFoodController extends ConnectionController {
     @FXML
     private TextArea AusgabeSpeisekarte;
     @FXML
-    private TextField  foodId;
-    @FXML
-    private ChoiceBox<String> neuekategorie;
-    @FXML
-    private TextField neuername;
-    @FXML
-    private TextField neuebeschreibung;
-    @FXML
-    private TextField neuepreis;
-
-
-   public void initialize() throws IOException{
-
-
-
-   }
+    private TextField foodId;
 
     @FXML
-    public void änderungSpeichern()throws IOException {
+    private TextFlow foods;
+
+    private int menuId;
+
+    private int foodIdn;
+
+    public EditFoodController() {
+    }
+
+
+    public void initialize() throws IOException {
+        this.menuId = LoginController.userId;
+
+
+    }
+
+    @FXML
+    public void änderungSpeichern() throws IOException {
 // hier werden die alten daten von den neuen überschrieben
-            String url = "http://localhost:8080/food/update";
+        String url = "http://localhost:8080/food/update";
 
     }
 
 
-
-
     @FXML
-    public void zurückButton() throws IOException{
+    public void zurückButton() throws IOException {
         Main m = new Main();
         m.ChangeScene("Speisekarte.fxml");
     }
 
     public void deleteMenu() throws IOException {
+        String url = "http://localhost:8080/menu/update";
+        String json = "{\"menuId\":" + menuId + ",\n" +
+                "\"foods\": [] }";
+        JSONObjectPUT(url, json);
+        String url1 = "http://localhost:8080/food";
+        JSONArray jsonArray = new JSONArray(JSONObjectGET(url1).toString());
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject jsonObject = jsonArray.getJSONObject(i);
+            if (jsonObject.get("menuId").equals(menuId)) {
+                JSONObjectDELETE("http://localhost:8080/food/delete/"+jsonObject.get("foodId").toString());
+            }
 
+        }
+    }
+
+
+    public void fertigButton() throws IOException {
+        Main m = new Main();
+        m.ChangeScene("Startseite.fxml");
 
     }
 
-    public void deleteFood() throws IOException {
-       
+    public void ShowFood(ActionEvent event) throws IOException {
+        foods.getChildren().clear();
+        String allFood = "Ihre Speise: \n";
+        String url1 = "http://localhost:8080/food";
+        JSONArray jsonArray = new JSONArray(JSONObjectGET(url1).toString());
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject jsonObject = jsonArray.getJSONObject(i);
+            if (jsonObject.get("menuId").equals(menuId)) {
+                allFood = allFood + "Foodid: " + jsonObject.get("foodId").toString() +
+                        "   Name: " + jsonObject.get("name").toString() + "\n";
+
+            }
+        }
+        Text text = new Text(allFood);
+        foods.getChildren().add(text);
+    }
+
+
+    public void ChangeFood(ActionEvent event) throws IOException {
+        this.foodIdn = Integer.parseInt(foodId.getText());
+        Main m = new Main();
+        m.ChangeScene(".fxml");
 
     }
 
-    public void fertigButton() throws IOException{
-
-
-    }
 }
