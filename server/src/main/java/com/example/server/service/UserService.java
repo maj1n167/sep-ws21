@@ -30,7 +30,9 @@ public class UserService {
             return userRepo.save(users);
         }
 
-
+    public void deleteUser(int userId){
+        userRepo.deleteById(userId);
+    }
 
         @Autowired
     private JavaMailSender mailSender;
@@ -52,9 +54,8 @@ public class UserService {
         System.out.println("Mail Send...");
 
     }
+
     public User findUserByEmail(String email) {
-            return userRepo.findUserByEmail(email);
-
-
+        return userRepo.findUserByEmail(email);
     }
 }

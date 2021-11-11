@@ -102,5 +102,7 @@ public class AddFoodController extends ConnectionController implements Initializ
         allFoods =allFoods+jsonArray1.toString()+"}";
         JSONObjectPOST("http://localhost:8080/menu/add", allFoods);
         System.out.println("Speisekarte Erfolgreich erstellt");
+        Main m = new Main();
+        m.ChangeScene("Speisekarte.fxml");
     }
 }

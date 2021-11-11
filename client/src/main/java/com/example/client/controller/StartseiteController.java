@@ -15,9 +15,9 @@ public class StartseiteController extends ConnectionController {
     @FXML
     public void initialize() throws IOException {
        JSONArray j = new JSONArray(JSONObjectGET("http://localhost:8080/restaurant").toString());
-    if(j.getJSONObject(0)!=null){
-        createRestaurant.setVisible(false);
-    }
+  //  if(j.getJSONObject(0)!=null){
+  //      createRestaurant.setVisible(false);
+   // }
     }
 
     @FXML

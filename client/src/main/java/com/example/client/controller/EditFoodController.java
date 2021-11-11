@@ -27,13 +27,12 @@ public class EditFoodController extends ConnectionController {
     private TextArea AusgabeSpeisekarte;
     @FXML
     private TextField foodId;
-
     @FXML
     private TextFlow foods;
 
     private int menuId;
 
-    private int foodIdn;
+    public static JSONObject food;
 
     public EditFoodController() {
     }
@@ -101,10 +100,18 @@ public class EditFoodController extends ConnectionController {
 
 
     public void ChangeFood(ActionEvent event) throws IOException {
-        this.foodIdn = Integer.parseInt(foodId.getText());
-        Main m = new Main();
-        m.ChangeScene(".fxml");
 
+        String url1 = "http://localhost:8080/food";
+        JSONArray jsonArray = new JSONArray(JSONObjectGET(url1).toString());
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject jsonObject = jsonArray.getJSONObject(i);
+            if(jsonObject.getInt("foodId") == Integer.parseInt(foodId.getText())) {
+                this.food = jsonObject;
+            }
+        }
+
+        Main m = new Main();
+        m.ChangeScene("EditFood2.fxml");
     }
 
 }

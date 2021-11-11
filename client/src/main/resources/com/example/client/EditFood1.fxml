@@ -25,7 +25,7 @@
       <Button id="speichern" layoutX="370.0" layoutY="243.0" mnemonicParsing="false" onAction="#ShowFood" prefHeight="30.0" prefWidth="31.0" />
       <Button layoutX="22.0" layoutY="554.0" mnemonicParsing="false" onAction="#zurückButton" text="zurück" />
       <Button layoutX="667.0" layoutY="530.0" mnemonicParsing="false" onAction="#fertigButton" prefHeight="50.0" prefWidth="109.0" text="Fertig" />
-      <TextField layoutX="145.0" layoutY="192.0" prefHeight="26.0" prefWidth="190.0" />
+      <TextField layoutX="145.0" layoutY="192.0" prefHeight="26.0" prefWidth="190.0" fx:id="foodId"/>
       <Button fx:id="DeleteMenu" layoutX="658.0" layoutY="107.0" mnemonicParsing="false" onAction="#deleteMenu" prefHeight="36.0" prefWidth="79.0" text="Delete" />
       <Label layoutX="431.0" layoutY="110.0" prefHeight="30.0" prefWidth="220.0" text="Löschen der kompletten Speisekarte :" />
 
