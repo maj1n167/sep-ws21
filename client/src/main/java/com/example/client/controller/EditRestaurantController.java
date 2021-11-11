@@ -94,11 +94,16 @@ public class EditRestaurantController extends ConnectionController {
     public void speichernButtonClick() throws IOException {
 
         try {
+
             /**
-             *
+             *     private int restaurantId;
+             *     private String name;
+             *     private String strasse;
              *     private String plz;
+             *     private String stadt;
              *     private double mbw;
              *     private double lieferkosten;
+             *     private String kategorie;
              *     private int lieferbereich;
              */
 
