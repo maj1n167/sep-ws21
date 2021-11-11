@@ -50,12 +50,14 @@ public class AddRestaurantController extends ConnectionController {
     private int userId;
 
 
+
+
     public void initialize() {
 
         kategorieChoicebox.getItems().addAll("Italienisch", "Indisch", "Spanisch", "Deutsch", "Asiatisch", "Amerikanisch", "Türkisch", "Sonstige");
         //ersten Punkt auf Pizza setzen
         kategorieChoicebox.setValue("Italienisch");
-        System.out.println(kategorieChoicebox.getValue());
+
         this.userId = LoginController.userId;
     }
 
@@ -64,15 +66,9 @@ public class AddRestaurantController extends ConnectionController {
     @FXML
     public void speichernButtonClick() throws IOException {
         try {
-            /**
-             *
-             *     private String plz;
-             *     private double mbw;
-             *     private double lieferkosten;
-             *     private int lieferbereich;
-             */
 
-            double lieferkosten = Double.parseDouble(lieferkostenTextfield.getText());
+
+           double lieferkosten = Double.parseDouble(lieferkostenTextfield.getText());
             //nur zur Prüfung
             int plz = Integer.parseInt(plzTextfield.getText());
             double mbw = Double.parseDouble(mbwTextfield.getText());
@@ -80,8 +76,10 @@ public class AddRestaurantController extends ConnectionController {
 
 
             DecimalFormat dec = new DecimalFormat();
+            //Nachkommastellen
             dec.setMinimumFractionDigits(2);
             dec.setMaximumFractionDigits(2);
+            //€-Format
             dec.format(lieferkosten);
             dec.format(mbw);
 
@@ -90,26 +88,29 @@ public class AddRestaurantController extends ConnectionController {
                     || stadtTextfield.getText().equals("") || lieferkostenTextfield.getText().equals("") || mbwTextfield.getText().equals("")
                     || lieferbereichTextfield.getText().equals("")) {
 
+                //pop-up
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Error!");
-                alert.setTitle("Error: Fehlende Zeilen!");
-                alert.setContentText("Bitte füllen Sie alle Felder aus!");
-
+                alert.setTitle("Falsches Zeichenformat oder fehlende Werte!");
+                alert.setContentText("Bitte korrigieren!");
+                //benutzeraction abwarten
                 alert.showAndWait();
 
             } else {
 
-                /**
-                 private int restaurantId;
-                 private String name;
-                 private String plz;
-                 private String stadt;
-                 private double mbw;
-                 private double lieferkosten;
-                 private String katgorie;
-                 private int lieferbereich;
-                 */
                 String url = "http://localhost:8080/restaurant/add";
+
+                /**
+                 *     private int restaurantId;
+                 *     private String name;
+                 *     private String strasse;
+                 *     private String plz;
+                 *     private String stadt;
+                 *     private double mbw;
+                 *     private double lieferkosten;
+                 *     private String kategorie;
+                 *     private int lieferbereich;
+                 */
 
                 String json = "{ \"name\": \"" + nameTextfield.getText() + "\",\n" +
                             " \"restaurantId\": \"" + userId + "\",\n" +
@@ -120,8 +121,13 @@ public class AddRestaurantController extends ConnectionController {
                             " \"lieferkosten\": \"" + lieferkosten + "\",\n" +
                             " \"kategorie\": \"" + kategorieChoicebox.getValue() + "\",\n" +
                             " \"lieferbereich\": \"" + radius + "\"\n}";
+
                 System.out.println(json);
+
+                //Request
                 JSONObjectPOST(url, json);
+
+                //Speisekarte ID weiterleiten
                 String json2 = "{ \"menuId\":"+ userId + " }";
                 JSONObjectPOST("http://localhost:8080/menu/add",json2);
 
@@ -133,7 +139,7 @@ public class AddRestaurantController extends ConnectionController {
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Error!");
-            alert.setTitle("Falsches Zeichenformat!");
+            alert.setTitle("Falsches Zeichenformat oder fehlende Werte!");
             alert.setContentText("Bitte korrigieren!");
 
             alert.showAndWait();
@@ -144,5 +150,7 @@ public class AddRestaurantController extends ConnectionController {
         Main m = new Main();
         m.ChangeScene("Startseite.fxml");
     }
+
+
 }
 
