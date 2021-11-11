@@ -79,7 +79,7 @@ public class AddRestaurantController extends ConnectionController {
         kategorieChoicebox.getItems().addAll("Italienisch", "Indisch", "Spanisch", "Deutsch", "Asiatisch", "Amerikanisch", "Türkisch", "Sonstige");
         //ersten Punkt auf Pizza setzen
         kategorieChoicebox.setValue("Italienisch");
-     //   System.out.println(kategorieChoicebox.getValue());
+
         this.userId = LoginController.userId;
     }
 
@@ -116,8 +116,8 @@ public class AddRestaurantController extends ConnectionController {
 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Error!");
-                alert.setTitle("Error: Fehlende Zeilen!");
-                alert.setContentText("Bitte füllen Sie alle Felder aus!");
+                alert.setTitle("Falsches Zeichenformat oder fehlende Werte!");
+                alert.setContentText("Bitte korrigieren!");
 
                 alert.showAndWait();
 
@@ -158,7 +158,7 @@ public class AddRestaurantController extends ConnectionController {
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Error!");
-            alert.setTitle("Falsches Zeichenformat!");
+            alert.setTitle("Falsches Zeichenformat oder fehlende Werte!");
             alert.setContentText("Bitte korrigieren!");
 
             alert.showAndWait();

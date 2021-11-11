@@ -7,6 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 
 public class EditRestaurantController extends ConnectionController {
 
@@ -49,8 +50,11 @@ public class EditRestaurantController extends ConnectionController {
 
 
     public void initialize() throws IOException {
+
+        kategorieChoicebox.getItems().addAll("Italienisch", "Indisch", "Spanisch", "Deutsch", "Asiatisch", "Amerikanisch", "Türkisch", "Sonstige");
+
         String name = "";
-        String strasse = "";
+        String straße = "";
         String plz = "";
         String stadt = "";
         double mbw = 0;
@@ -64,7 +68,7 @@ public class EditRestaurantController extends ConnectionController {
 
             JSONObject currentjson = j.getJSONObject(i);
             name = currentjson.get("name").toString();
-            strasse = currentjson.get("strasse").toString();
+            straße = currentjson.get("strasse").toString();
             plz = currentjson.get("plz").toString();
             stadt = currentjson.get("stadt").toString();
             lieferkosten = Double.valueOf(currentjson.get("lieferkosten").toString());
@@ -73,14 +77,11 @@ public class EditRestaurantController extends ConnectionController {
             kategorie = currentjson.get(kategorie).toString();
         }
 
-        kategorieChoicebox.getItems().addAll("Italienisch", "Indisch", "Spanisch", "Deutsch", "Asiatisch", "Amerikanisch", "Türkisch", "Sonstige");
-        /**
-         * TODO: Hier müsste die Kategorie auf die vorher ausgewählte Kategorie gesetzt werden
-         */
+
 
         nameTextfield.setText(name);
-       // kategorieChoicebox.setValue(katgorie);
         stadtTextfield.setText(stadt);
+        straßeTextfield.setText(straße);
         plzTextfield.setText(plz);
         mbwTextfield.setText(String.valueOf(mbw));
         lieferkostenTextfield.setText(String.valueOf(lieferkosten));
@@ -92,40 +93,75 @@ public class EditRestaurantController extends ConnectionController {
 
     public void speichernButtonClick() throws IOException {
 
-        if (nameTextfield.getText().equals("") || straßeTextfield.getText().equals("") || plzTextfield.getText().equals("")
-                || stadtTextfield.getText().equals("") || lieferkostenTextfield.getText().equals("") || mbwTextfield.getText().equals("")
-                || lieferbereichTextfield.getText().equals("")) {
+        try {
+            /**
+             *
+             *     private String plz;
+             *     private double mbw;
+             *     private double lieferkosten;
+             *     private int lieferbereich;
+             */
+
+            double lieferkosten = Double.parseDouble(lieferkostenTextfield.getText());
+            //nur zur Prüfung
+            int plz = Integer.parseInt(plzTextfield.getText());
+            double mbw = Double.parseDouble(mbwTextfield.getText());
+            int radius = Integer.parseInt(lieferbereichTextfield.getText());
+
+
+            DecimalFormat dec = new DecimalFormat();
+            dec.setMinimumFractionDigits(2);
+            dec.setMaximumFractionDigits(2);
+            dec.format(lieferkosten);
+            dec.format(mbw);
+
+
+            if (nameTextfield.getText().equals("") || straßeTextfield.getText().equals("") || plzTextfield.getText().equals("")
+                    || stadtTextfield.getText().equals("") || lieferkostenTextfield.getText().equals("") || mbwTextfield.getText().equals("")
+                    || lieferbereichTextfield.getText().equals("")) {
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Error!");
+                alert.setTitle("Falsches Zeichenformat oder fehlende Werte!");
+                alert.setContentText("Bitte korrigieren!");
+
+                alert.showAndWait();
+
+            } else {
+
+
+                String url = "http://localhost:8080/restaurant/update" + LoginController.userId;
+
+                String temp = "{ \"name\": \"" + nameTextfield.getText() + "\",\n" +
+                        " \"strasse\": \"" + straßeTextfield.getText() + "\",\n" +
+                        " \"plz\":" + plzTextfield.getText() + ",\n" +
+                        " \"stadt\": \"" + stadtTextfield.getText() + "\",\n" +
+                        " \"mbw\": \"" + mbwTextfield.getText() + "\",\n" +
+                        " \"lieferkosten\": \"" + lieferkostenTextfield.getText() + "\",\n" +
+                        " \"kategorie\": \"" + kategorieChoicebox.getValue() + "\",\n" +
+                        " \"lieferbereich\": \"" + lieferbereichTextfield.getText() + "\"}";
+
+                JSONObjectPUT(temp, url);
+
+
+                Main m = new Main();
+                m.ChangeScene("Startseite.fxml");
+
+            }
+        }
+        catch (NumberFormatException e){
+            e.printStackTrace();
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Error!");
-            alert.setTitle("Error: Fehlende Zeilen!");
-            alert.setContentText("Bitte füllen Sie alle Felder aus!");
+            alert.setTitle("Falsches Zeichenformat oder fehlende Werte!");
+            alert.setContentText("Bitte korrigieren!");
 
             alert.showAndWait();
-
-        }
-        else {
-
-
-            String url = "http://localhost:8080/restaurant/update" + LoginController.userId;
-
-            String temp = "{ \"name\": \"" + nameTextfield.getText() + "\",\n" +
-                    " \"strasse\": \"" + straßeTextfield.getText() + "\",\n" +
-                    " \"plz\":" + plzTextfield.getText() + ",\n" +
-                    " \"stadt\": \"" + stadtTextfield.getText() + "\",\n" +
-                    " \"mbw\": \"" + mbwTextfield.getText() + "\",\n" +
-                    " \"lieferkosten\": \"" + lieferkostenTextfield.getText() + "\",\n" +
-                    " \"kategorie\": \"" + kategorieChoicebox.getValue() + "\",\n" +
-                    " \"lieferbereich\": \"" + lieferbereichTextfield.getText() + "\"}";
-
-            JSONObjectPUT(temp, url);
-
-
-            Main m = new Main();
-            m.ChangeScene("Startseite.fxml");
-
         }
     }
+
+
 
     @FXML
     public void zurueckButtonClick () throws IOException {
