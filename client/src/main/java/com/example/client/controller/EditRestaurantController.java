@@ -18,7 +18,7 @@ public class EditRestaurantController extends ConnectionController {
     private TextField nameTextfield;
 
     @FXML
-    private TextField straßeTextfield;
+    private TextField strasseTextfield;
 
     @FXML
     private TextField plzTextfield;
@@ -68,29 +68,31 @@ public class EditRestaurantController extends ConnectionController {
 
 
         JSONArray j = new JSONArray(JSONObjectGET("http://localhost:8080/restaurant").toString());
-        for (int i = 1 ; i<j.length();i++){
-
+        for (int i = 0; i<j.length();i++){
             JSONObject currentjson = j.getJSONObject(i);
+
             name = currentjson.get("name").toString();
-           // strasse = currentjson.get("strasse").toString();
+           strasse = currentjson.get("strasse").toString();
             plz = currentjson.get("plz").toString();
             stadt = currentjson.get("stadt").toString();
             lieferkosten = Double.valueOf(currentjson.get("lieferkosten").toString());
             mbw = Double.valueOf(currentjson.get("mbw").toString());
             lieferbereich = Integer.valueOf(currentjson.get("lieferbereich").toString());
-           // kategorie = currentjson.get(kategorie).toString();
+           kategorie = currentjson.get("kategorie").toString();
+
+
         }
 
 
 
         nameTextfield.setText(name);
         stadtTextfield.setText(stadt);
-        //straßeTextfield.setText(strasse);
+        strasseTextfield.setText(strasse);
         plzTextfield.setText(plz);
         mbwTextfield.setText(String.valueOf(mbw));
         lieferkostenTextfield.setText(String.valueOf(lieferkosten));
         lieferbereichTextfield.setText(String.valueOf(lieferbereich));
-       // kategorieChoicebox.setValue(kategorie);
+        kategorieChoicebox.setValue(kategorie);
 
 
     }
@@ -125,7 +127,7 @@ public class EditRestaurantController extends ConnectionController {
             dec.format(mbw);
 
 
-            if (nameTextfield.getText().equals("") || straßeTextfield.getText().equals("") || plzTextfield.getText().equals("")
+            if (nameTextfield.getText().equals("") || strasseTextfield.getText().equals("") || plzTextfield.getText().equals("")
                     || stadtTextfield.getText().equals("") || lieferkostenTextfield.getText().equals("") || mbwTextfield.getText().equals("")
                     || lieferbereichTextfield.getText().equals("")) {
 
@@ -139,10 +141,11 @@ public class EditRestaurantController extends ConnectionController {
             } else {
 
 
-                String url = "http://localhost:8080/restaurant/update" + LoginController.userId;
+                String url = "http://localhost:8080/restaurant/update";
 
                 String temp = "{ \"name\": \"" + nameTextfield.getText() + "\",\n" +
-                        " \"strasse\": \"" + straßeTextfield.getText() + "\",\n" +
+                        " \"restaurantId\": \"" + userId + "\",\n" +
+                        " \"strasse\": \"" + strasseTextfield.getText() + "\",\n" +
                         " \"plz\":" + plzTextfield.getText() + ",\n" +
                         " \"stadt\": \"" + stadtTextfield.getText() + "\",\n" +
                         " \"mbw\": \"" + mbwTextfield.getText() + "\",\n" +
@@ -150,7 +153,7 @@ public class EditRestaurantController extends ConnectionController {
                         " \"kategorie\": \"" + kategorieChoicebox.getValue() + "\",\n" +
                         " \"lieferbereich\": \"" + lieferbereichTextfield.getText() + "\"}";
 
-                JSONObjectPUT(temp, url);
+                JSONObjectPUT(url, temp);
 
 
                 Main m = new Main();
