@@ -48,13 +48,17 @@ public class EditRestaurantController extends ConnectionController {
     @FXML
     private Button zurueckButton;
 
+    private int userId;
+
 
     public void initialize() throws IOException {
+
+        this.userId = LoginController.userId;
 
         kategorieChoicebox.getItems().addAll("Italienisch", "Indisch", "Spanisch", "Deutsch", "Asiatisch", "Amerikanisch", "Türkisch", "Sonstige");
 
         String name = "";
-        String straße = "";
+        String strasse = "";
         String plz = "";
         String stadt = "";
         double mbw = 0;
@@ -68,25 +72,25 @@ public class EditRestaurantController extends ConnectionController {
 
             JSONObject currentjson = j.getJSONObject(i);
             name = currentjson.get("name").toString();
-            straße = currentjson.get("strasse").toString();
+           // strasse = currentjson.get("strasse").toString();
             plz = currentjson.get("plz").toString();
             stadt = currentjson.get("stadt").toString();
             lieferkosten = Double.valueOf(currentjson.get("lieferkosten").toString());
             mbw = Double.valueOf(currentjson.get("mbw").toString());
             lieferbereich = Integer.valueOf(currentjson.get("lieferbereich").toString());
-            kategorie = currentjson.get(kategorie).toString();
+           // kategorie = currentjson.get(kategorie).toString();
         }
 
 
 
         nameTextfield.setText(name);
         stadtTextfield.setText(stadt);
-        straßeTextfield.setText(straße);
+        //straßeTextfield.setText(strasse);
         plzTextfield.setText(plz);
         mbwTextfield.setText(String.valueOf(mbw));
         lieferkostenTextfield.setText(String.valueOf(lieferkosten));
         lieferbereichTextfield.setText(String.valueOf(lieferbereich));
-        kategorieChoicebox.setValue(kategorie);
+       // kategorieChoicebox.setValue(kategorie);
 
 
     }
