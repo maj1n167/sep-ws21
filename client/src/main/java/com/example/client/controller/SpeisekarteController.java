@@ -7,7 +7,7 @@ import javafx.scene.control.Button;
 
 import java.io.IOException;
 
-public class SpeisekarteController extends  ConnectionController{
+public class SpeisekarteController extends  ConnectionController {
 
     @FXML
     private Button speiseHinzufuegen;
@@ -15,9 +15,6 @@ public class SpeisekarteController extends  ConnectionController{
     private Button speiseBearbeiten;
     @FXML
     private Button zurueck;
-
-
-
 
 
     @FXML
@@ -37,5 +34,11 @@ public class SpeisekarteController extends  ConnectionController{
         Main m = new Main();
         m.ChangeScene("Startseite.fxml");
     }
+    @FXML
+    public void xmlButton() throws IOException {
+        Main m = new Main();
+        m.ChangeScene("xml.fxml");
 
+    }
 }
+
