@@ -143,7 +143,8 @@ public class EditRestaurantController extends ConnectionController {
 
                 String url = "http://localhost:8080/restaurant/update";
 
-                String temp = "{ \"name\": \"" + nameTextfield.getText() + "\",\n" +
+                String temp = "{ \"restaurantId\":"+userId+"\n,"+
+                        "\"name\": \"" + nameTextfield.getText() + "\",\n" +
                         " \"restaurantId\": \"" + userId + "\",\n" +
                         " \"strasse\": \"" + strasseTextfield.getText() + "\",\n" +
                         " \"plz\":" + plzTextfield.getText() + ",\n" +
