@@ -26,11 +26,10 @@ public class StartseiteController extends ConnectionController {
             JSONObject curretnJson = new JSONObject(j.getJSONObject(i).toString());
             if (curretnJson.get("restaurantId").equals(LoginController.userId)) {
                 createRestaurant.setVisible(false);
-                return;
-            }
-                editRestaurant.setVisible(false);
+
             }
         }
+    }
 
 
     @FXML

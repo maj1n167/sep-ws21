@@ -4,6 +4,8 @@ import com.example.client.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.ListView;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
@@ -124,7 +126,13 @@ public static JSONObject fertigeSpeiseK;
         }
         allFoods =allFoods+jsonArray1.toString()+"}";
         JSONObjectPOST("http://localhost:8080/menu/add", allFoods);
-            System.out.println("Daten gesendet");
+        System.out.println("Daten gesendet");
+
+        Alert alert = new Alert (Alert.AlertType.INFORMATION);
+        alert.setTitle("");
+        alert.setTitle("Erfolg!");
+        alert.setContentText("Speisekarte erfolgreich erstellt");
+        alert.showAndWait();
         }
     }
 
