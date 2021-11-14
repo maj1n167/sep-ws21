@@ -6,25 +6,47 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.stage.FileChooser;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.security.cert.Extension;
+import java.util.List;
 
 public class xmlController {
 @FXML
-public ListView listView;
-
+public ListView listview;
+public static String path;
     @FXML
     public void öffnenButton(ActionEvent actionEvent) throws IOException {
         FileChooser fileChooser = new FileChooser();
+       //fileChooser.setInitialDirectory(new File()); Für genaure paths
         File selectedFile = fileChooser.showOpenDialog(null);
+        // fileChooser.getExtensionFilters().addAll(
+           //     new FileChooser.ExtensionFilter("xml File","*.xml"));
+
         if(selectedFile != null){
-            listView.getItems().add(selectedFile.getAbsolutePath());
+           // listview.getItems().add(selectedFile.getAbsolutePath());
+            System.out.println(selectedFile.getAbsolutePath().toString());
+            path=selectedFile.getAbsolutePath().toString();
         } else {
             System.out.println("file is not valid");
         }
     }
 
-    public void speichernButton() {
+    public void speichernButton() throws IOException {
+        File xmlFile= new File(path);
+        Reader filereader = new FileReader(xmlFile);
+        BufferedReader bufferedReader= new BufferedReader(filereader);
+
+        StringBuilder sb = new StringBuilder();
+        String line = bufferedReader.readLine();
+        while (line!= null){
+            sb.append(line).append("\n");
+            line= bufferedReader.readLine();
+        }
+        String xml2String = sb.toString();
+        System.out.println("XML to String with Bufferreader :");
+        System.out.println(xml2String);
+
+        bufferedReader.close();
 
     }
 
