@@ -27,13 +27,21 @@ import java.util.List;
             return new ResponseEntity<>(restaurants, HttpStatus.OK);
 
         }
-/**
+
         @GetMapping("/find/{id}")
-        public ResponseEntity<Restaurant> getRestaurantById(@PathVariable("id") int id) {
-            Restaurant restaurant = restaurantService.findRestaurantById(id);
-            return new ResponseEntity<>(restaurant, HttpStatus.OK);
+        public ResponseEntity<Restaurant> getRestaurantByRestaurantId(@PathVariable("id") int id) {
+            List<Restaurant> restaurants = restaurantService.findAllRestaurants();
+            Restaurant restaurant = null;
+            for (int i = 0; i < restaurants.size(); i++) {
+                if (restaurants.get(i).getRestaurantId() == id) {
+                    restaurant = restaurants.get(i);
+                }
+            }
+            if (restaurant != null) {
+                return new ResponseEntity<>(restaurant, HttpStatus.OK);
+            } else { return new ResponseEntity<>(null, HttpStatus.NOT_FOUND); }
         }
-**/
+
         @PostMapping("/add")
         public ResponseEntity<Restaurant> addRestaurant(@RequestBody Restaurant restaurants) {
             Restaurant newRestaurant = restaurantService.addRestaurant(restaurants);
