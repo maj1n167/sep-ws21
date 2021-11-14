@@ -30,7 +30,7 @@ public class MenuService {
         return menuRepo.save(menu);
     }
 
-    public void deleteFood(int menuId){
+    public void deleteMenu(int menuId){
         menuRepo.deleteById(menuId);
     }
 

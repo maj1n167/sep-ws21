@@ -32,7 +32,9 @@ public class EditFood2Controller extends ConnectionController implements Initial
     @Override
     public void initialize(URL location, ResourceBundle resources) {
        food = EditFoodController.food;
+       kategorie.getItems().addAll("Pizza", "Pasta", "Salate", "Desserts");
        kategorie.setValue(food.get("kategorie"));
+       kategorie.show();
        name.setText(food.getString("name"));
        beschreibung.setText(food.getString("beschreibung"));
        preis.setText(String.valueOf(food.getDouble("preis")));

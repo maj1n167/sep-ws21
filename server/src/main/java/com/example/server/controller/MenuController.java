@@ -39,6 +39,12 @@ public class MenuController {
         Menu updateMenu=  menuService.addMenu(menus);
         return new ResponseEntity<>(updateMenu, HttpStatus.OK);
     }
+
+    @DeleteMapping("/delete/{menuId}")
+    public ResponseEntity<?> deleteMenu(@PathVariable("menuId") int menuId){
+        menuService.deleteMenu(menuId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
 
 
