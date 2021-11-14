@@ -70,16 +70,17 @@ public class EditRestaurantController extends ConnectionController {
         JSONArray j = new JSONArray(JSONObjectGET("http://localhost:8080/restaurant").toString());
         for (int i = 0; i<j.length();i++){
             JSONObject currentjson = j.getJSONObject(i);
+            if(currentjson.get("restaurantId").equals(userId)) {
 
-            name = currentjson.get("name").toString();
-           strasse = currentjson.get("strasse").toString();
-            plz = currentjson.get("plz").toString();
-            stadt = currentjson.get("stadt").toString();
-            lieferkosten = Double.valueOf(currentjson.get("lieferkosten").toString());
-            mbw = Double.valueOf(currentjson.get("mbw").toString());
-            lieferbereich = Integer.valueOf(currentjson.get("lieferbereich").toString());
-           kategorie = currentjson.get("kategorie").toString();
-
+                name = currentjson.get("name").toString();
+                strasse = currentjson.get("strasse").toString();
+                plz = currentjson.get("plz").toString();
+                stadt = currentjson.get("stadt").toString();
+                lieferkosten = Double.valueOf(currentjson.get("lieferkosten").toString());
+                mbw = Double.valueOf(currentjson.get("mbw").toString());
+                lieferbereich = Integer.valueOf(currentjson.get("lieferbereich").toString());
+                kategorie = currentjson.get("kategorie").toString();
+            }
 
         }
 
