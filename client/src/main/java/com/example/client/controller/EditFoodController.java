@@ -40,6 +40,20 @@ public class EditFoodController extends ConnectionController {
 
     public void initialize() throws IOException {
         this.menuId = LoginController.userId;
+        foods.getChildren().clear();
+        String allFood = "Ihre Speisen: \n";
+        String url1 = "http://localhost:8080/food";
+        JSONArray jsonArray = new JSONArray(JSONObjectGET(url1).toString());
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject jsonObject = jsonArray.getJSONObject(i);
+            if (jsonObject.get("menuId").equals(menuId)) {
+                allFood = allFood + "Foodid: " + jsonObject.get("foodId").toString() +
+                        "   Name: " + jsonObject.get("name").toString() + "\n";
+
+            }
+        }
+        Text text = new Text(allFood);
+        foods.getChildren().add(text);
 
 
     }
@@ -72,6 +86,7 @@ public class EditFoodController extends ConnectionController {
             }
 
         }
+        initialize();
     }
 
 
@@ -81,22 +96,22 @@ public class EditFoodController extends ConnectionController {
 
     }
 
-    public void ShowFood(ActionEvent event) throws IOException {
-        foods.getChildren().clear();
-        String allFood = "Ihre Speise: \n";
-        String url1 = "http://localhost:8080/food";
-        JSONArray jsonArray = new JSONArray(JSONObjectGET(url1).toString());
-        for (int i = 0; i < jsonArray.length(); i++) {
-            JSONObject jsonObject = jsonArray.getJSONObject(i);
-            if (jsonObject.get("menuId").equals(menuId)) {
-                allFood = allFood + "Foodid: " + jsonObject.get("foodId").toString() +
-                        "   Name: " + jsonObject.get("name").toString() + "\n";
-
-            }
-        }
-        Text text = new Text(allFood);
-        foods.getChildren().add(text);
-    }
+//    public void ShowFood(ActionEvent event) throws IOException {
+//        foods.getChildren().clear();
+//        String allFood = "Ihre Speise: \n";
+//        String url1 = "http://localhost:8080/food";
+//        JSONArray jsonArray = new JSONArray(JSONObjectGET(url1).toString());
+//        for (int i = 0; i < jsonArray.length(); i++) {
+//            JSONObject jsonObject = jsonArray.getJSONObject(i);
+//            if (jsonObject.get("menuId").equals(menuId)) {
+//                allFood = allFood + "Foodid: " + jsonObject.get("foodId").toString() +
+//                        "   Name: " + jsonObject.get("name").toString() + "\n";
+//
+//            }
+//        }
+//        Text text = new Text(allFood);
+//        foods.getChildren().add(text);
+//    }
 
 
     public void ChangeFood(ActionEvent event) throws IOException {

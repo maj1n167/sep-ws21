@@ -34,6 +34,7 @@
                         <Button fx:id="editProfile" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onEditProfileClick" prefHeight="31.0" prefWidth="180.0" text="Profil bearbeiten" />
                         <Button fx:id="createRestaurant" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onCreateRestaurantClick" prefHeight="31.0" prefWidth="180.0" text="Restaurant anlegen" />
                         <Button fx:id="editRestaurant" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onEditRestaurantClick" prefHeight="31.0" prefWidth="180.0" text="Restaurant bearbeiten" />
+                  <Button fx:id="map" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onMapClick" prefHeight="25.0" prefWidth="181.0" text="Map anzeigen" />
                         <Button fx:id="speisekarte" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onSpeisekarteClick" prefHeight="27.0" prefWidth="180.0" text="Speisekarte" />
                     </children>
                 </VBox>

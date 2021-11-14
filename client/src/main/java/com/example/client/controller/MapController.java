@@ -8,15 +8,20 @@ import com.dlsc.gmapsfx.javascript.object.MapOptions;
 import com.dlsc.gmapsfx.javascript.object.MapTypeIdEnum;
 import com.dlsc.gmapsfx.javascript.object.Marker;
 import com.dlsc.gmapsfx.javascript.object.MarkerOptions;
+import com.example.client.Main;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -29,23 +34,43 @@ public class MapController extends ConnectionController implements Initializable
     private GoogleMap map;
     private String address;
     private String inputUrl = "http://localhost:8080/restaurant/find/";
-    private String urlTest = "http://localhost:8080/restaurant/find/4";
+    private String urlTest = "http://localhost:8080/restaurant/find/65";
     private JSONObject j;
     private LatLong restaurantLocation;
-
 
     @Override
     public void initialize(URL url, ResourceBundle rB) {
         mapView.addMapInitializedListener(this);
 
+        JSONArray jarray = null;
         try {
-//            j = new JSONObject(JSONObjectGET(inputUrl + Integer.toString(LoginController.userId)));
-            j = new JSONObject(JSONObjectGET(urlTest).toString());
+            jarray = new JSONArray(JSONObjectGET("http://localhost:8080/restaurant").toString());
         } catch (IOException e) {
             e.printStackTrace();
         }
-        address = j.get("strasse").toString() + ", " + j.get("plz").toString() + " " + j.get("stadt").toString();
+        System.out.println(jarray.toString());
+        for (int i = 0; i < jarray.length(); i++) {
+            System.out.println(jarray.length());
+            JSONObject j = new JSONObject(jarray.getJSONObject(i).toString());
+            if (j.get("restaurantId").equals(LoginController.userId)) {
+                address = j.get("strasse").toString() + ", " + j.get("plz").toString() + " " + j.get("stadt").toString();
+
+            }
+        }
         System.out.println(address);
+        if(address == null) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error!");
+            alert.setTitle("Kein Restaurant vorhanden!");
+            alert.setContentText("Bitte Restaurant erstellen!");
+            alert.showAndWait();
+            Main m = new Main();
+            try {
+                m.ChangeScene("Startseite.fxml");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override

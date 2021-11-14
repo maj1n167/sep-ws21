@@ -19,6 +19,8 @@ public class StartseiteController extends ConnectionController {
 
     @FXML
     public void initialize() throws IOException {
+
+
         JSONArray j = new JSONArray(JSONObjectGET("http://localhost:8080/restaurant").toString());
         System.out.println(j.toString());
         for (int i = 0; i < j.length(); i++) {
@@ -61,5 +63,12 @@ public class StartseiteController extends ConnectionController {
         // Change Scenes
         Main m= new Main();
         m.ChangeScene("Login.fxml");
+    }
+
+    @FXML
+    public void onMapClick() throws IOException {
+        // Change Scenes
+        Main m= new Main();
+        m.ChangeScene("Map.fxml");
     }
 }
