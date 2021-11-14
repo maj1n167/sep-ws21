@@ -4,13 +4,15 @@ import com.example.client.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
 
 public class StartseiteController extends ConnectionController {
-
+    @FXML
+    public Image bild;
     @FXML
     Button createRestaurant;
 
@@ -19,8 +21,6 @@ public class StartseiteController extends ConnectionController {
 
     @FXML
     public void initialize() throws IOException {
-
-
         JSONArray j = new JSONArray(JSONObjectGET("http://localhost:8080/restaurant").toString());
         System.out.println(j.toString());
         for (int i = 0; i < j.length(); i++) {

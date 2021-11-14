@@ -74,7 +74,7 @@ public static JSONObject fertigeSpeiseK;
             jsonObject2.put("menuId",id);
                 allFood = allFood+
                         "Name: " + jsonObject2.get("name").toString() + "\nBeschreibung : "+jsonObject2.get("beschreibung")+
-            "\nPreis : "+jsonObject2.get("preis")+"\nKategorie : "+jsonObject2.get("kategorie")+"\n\n";
+            "\nPreis : "+jsonObject2.get("preis")+"$"+"\nKategorie : "+jsonObject2.get("kategorie")+"\n\n";
 
         }
         jsonObject.put("foods",jsonArray);

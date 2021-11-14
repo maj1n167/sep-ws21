@@ -4,6 +4,7 @@ import com.example.client.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -41,8 +42,12 @@ public class VerificationController extends ConnectionController implements Init
                m.ChangeScene("Startseite.fxml");
                return;
            }
-           Main m = new Main();
-           m.ChangeScene("Login.fxml");
+       Alert alert = new Alert (Alert.AlertType.INFORMATION);
+       alert.setTitle("Error");
+       alert.setTitle("Error: Daten nicht Korrekt");
+       alert.setContentText("Bitte überprüfen sie ihre Eingaben!");
+
+       alert.showAndWait();
        }
   }
 
