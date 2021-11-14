@@ -68,7 +68,7 @@ public class MapController extends ConnectionController implements Initializable
                 .rotateControl(false)
                 .scaleControl(false)
                 .streetViewControl(false)
-                .zoomControl(false)
+                .fullscreenControl(false)
                 .zoom(17)
         ;
         map = mapView.createMap(mapOptions);
