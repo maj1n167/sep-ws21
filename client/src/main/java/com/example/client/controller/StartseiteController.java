@@ -5,20 +5,33 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.IOException;
 
 public class StartseiteController extends ConnectionController {
 
-@FXML
+    @FXML
     Button createRestaurant;
+
+    @FXML
+    Button editRestaurant;
+
     @FXML
     public void initialize() throws IOException {
-       JSONArray j = new JSONArray(JSONObjectGET("http://localhost:8080/restaurant").toString());
-   if(j.getJSONObject(0)!=null){
-        createRestaurant.setVisible(false);
-    }
-    }
+        JSONArray j = new JSONArray(JSONObjectGET("http://localhost:8080/restaurant").toString());
+        System.out.println(j.toString());
+        for (int i = 0; i < j.length(); i++) {
+            System.out.println(j.length());
+            JSONObject curretnJson = new JSONObject(j.getJSONObject(i).toString());
+            if (curretnJson.get("restaurantId").equals(LoginController.userId)) {
+                createRestaurant.setVisible(false);
+                return;
+            }
+                editRestaurant.setVisible(false);
+            }
+        }
+
 
     @FXML
     public void onEditProfileClick() throws IOException {
