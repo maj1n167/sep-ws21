@@ -4,5 +4,5 @@ import com.example.server.model.Restaurant;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface RestaurantRepo extends JpaRepository<Restaurant, Integer> {
-   // Restaurant findRestaurantById(int id);
+   // Restaurant findRestaurantByRestaurantId(int id);
 }

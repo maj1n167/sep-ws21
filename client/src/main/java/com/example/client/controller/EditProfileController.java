@@ -68,6 +68,4 @@ public class EditProfileController extends ConnectionController {
         Main m = new Main();
         m.ChangeScene("Startseite.fxml");
     }
-
-
 }
