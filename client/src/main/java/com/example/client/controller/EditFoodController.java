@@ -82,7 +82,8 @@ public class EditFoodController extends ConnectionController {
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
             if (jsonObject.get("menuId").equals(menuId)) {
-                JSONObjectDELETE("http://localhost:8080/food/delete/"+jsonObject.get("foodId").toString());
+                JSONObjectDELETE("http://localhost:8080/food/delete/"+jsonObject.get("foodId"));
+
             }
 
         }

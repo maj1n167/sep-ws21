@@ -60,6 +60,7 @@ public class ConnectionController {
         httpCon.setDoOutput(true);
         httpCon.setRequestProperty("Content-Type", "application/x-www-form-urlencoded" );
         httpCon.setRequestMethod("DELETE");
+        httpCon.getResponseCode();
         httpCon.connect();
     }
 
