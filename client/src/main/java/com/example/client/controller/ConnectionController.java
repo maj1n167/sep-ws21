@@ -20,7 +20,6 @@ public class ConnectionController {
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("GET");
         con.setRequestProperty("Content-Type", "application/json");
-
         int status = con.getResponseCode();
         BufferedReader in = new BufferedReader(
                 new InputStreamReader(con.getInputStream()));
@@ -57,12 +56,10 @@ public class ConnectionController {
     //Delete request
     public void JSONObjectDELETE(String inputUrl) throws IOException {
         URL url = new URL(inputUrl);
-
         HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
         httpCon.setDoOutput(true);
         httpCon.setRequestProperty("Content-Type", "application/x-www-form-urlencoded" );
         httpCon.setRequestMethod("DELETE");
-        System.out.println(httpCon.getResponseCode());
         httpCon.connect();
     }
 
