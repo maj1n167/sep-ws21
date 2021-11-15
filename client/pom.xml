@@ -168,7 +168,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>theMainClass</mainClass>
+                            <mainClass>com.example.client.newMain</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

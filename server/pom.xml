@@ -53,7 +53,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>ServerApplication.Class</mainClass>
+                            <mainClass>com.example.server.ServerApplication</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
