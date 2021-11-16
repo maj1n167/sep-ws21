@@ -60,7 +60,6 @@ public class EditFood2Controller extends ConnectionController implements Initial
     }
 
     public void fertigButton() throws IOException{
-        System.out.println(food.toString());
         String Url = "http://localhost:8080/food/update";
 
         String data =

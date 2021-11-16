@@ -22,9 +22,7 @@ public class StartseiteController extends ConnectionController {
     @FXML
     public void initialize() throws IOException {
         JSONArray j = new JSONArray(JSONObjectGET("http://localhost:8080/restaurant").toString());
-        System.out.println(j.toString());
         for (int i = 0; i < j.length(); i++) {
-            System.out.println(j.length());
             JSONObject curretnJson = new JSONObject(j.getJSONObject(i).toString());
             if (curretnJson.get("restaurantId").equals(LoginController.userId)) {
                 createRestaurant.setVisible(false);

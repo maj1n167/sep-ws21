@@ -122,8 +122,6 @@ public class AddRestaurantController extends ConnectionController {
                             " \"kategorie\": \"" + kategorieChoicebox.getValue() + "\",\n" +
                             " \"lieferbereich\": \"" + radius + "\"\n}";
 
-                System.out.println(json);
-
                 //Request
                 JSONObjectPOST(url, json);
 

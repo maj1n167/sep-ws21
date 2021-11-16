@@ -49,8 +49,6 @@ public class EditProfileController extends ConnectionController {
         data = data + " \"password\": \"" + neuesPasswort.getText().toString() + "\",\n";
         data = data + " \"restaurantBesitzer\": \"true\" }";
 
-        System.out.println(data);
-
         JSONObjectPUT(url, data);
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
