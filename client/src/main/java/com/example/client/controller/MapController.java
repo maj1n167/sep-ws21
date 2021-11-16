@@ -3,17 +3,13 @@ package com.example.client.controller;
 import com.dlsc.gmapsfx.GoogleMapView;
 import com.dlsc.gmapsfx.MapComponentInitializedListener;
 import com.dlsc.gmapsfx.javascript.JavascriptArray;
-import com.dlsc.gmapsfx.javascript.object.GoogleMap;
-import com.dlsc.gmapsfx.javascript.object.LatLong;
-import com.dlsc.gmapsfx.javascript.object.MapOptions;
-import com.dlsc.gmapsfx.javascript.object.MapTypeIdEnum;
-import com.dlsc.gmapsfx.javascript.object.Marker;
-import com.dlsc.gmapsfx.javascript.object.MarkerOptions;
+import com.dlsc.gmapsfx.javascript.object.*;
 import com.dlsc.gmapsfx.service.directions.DirectionsGeocodedWaypointStatus;
 import com.dlsc.gmapsfx.service.geocoding.GeocoderStatus;
 import com.dlsc.gmapsfx.service.geocoding.GeocodingResult;
 import com.dlsc.gmapsfx.service.geocoding.GeocodingService;
 import com.dlsc.gmapsfx.service.geocoding.GeocodingServiceCallback;
+import com.dlsc.gmapsfx.shapes.*;
 import com.example.client.Main;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
@@ -39,6 +35,7 @@ public class MapController extends ConnectionController implements Initializable
     GoogleMapView mapView;
     private GoogleMap map;
     private String addresse;
+    private int lieferbereich;
     private String addresseTest;
     private JSONObject j;
     GeocodingService geocodingService;
@@ -69,11 +66,10 @@ public class MapController extends ConnectionController implements Initializable
                 .scaleControl(false)
                 .streetViewControl(false)
                 .fullscreenControl(false)
-                .zoom(17)
+                .mapTypeControl(false)
+                .zoom(12)
         ;
         map = mapView.createMap(mapOptions);
-        MarkerOptions mOptions = new MarkerOptions();
-        mOptions.visible(true);
 
         geocodingService.geocode(addresse, (GeocodingResult[] results, GeocoderStatus status) -> {
 //        geocodingService.geocode(addresseTest, (GeocodingResult[] results, GeocoderStatus status) -> {
@@ -91,11 +87,30 @@ public class MapController extends ConnectionController implements Initializable
                 System.out.println(latlong.toString());
             }
             map.setCenter(latlong);
+
+            MarkerOptions mOptions = new MarkerOptions();
+            mOptions.visible(true);
             mOptions.position(latlong);
             Marker marker = new Marker(mOptions);
             marker.setTitle(j.get("name").toString());
             marker.setPosition(latlong);
             map.addMarker(marker);
+
+            CircleOptions cOptions = new CircleOptions()
+                    .center(latlong)
+                    .radius(lieferbereich*1000)
+//                    .radius(2000)
+                    .strokeColor("black")
+                    .strokeWeight(2)
+                    .fillColor("green")
+                    .fillOpacity(0.3)
+                    .clickable(false)
+                    .editable(false)
+                    .draggable(false)
+                    .visible(true)
+                    ;
+            Circle c = new Circle(cOptions);
+            map.addMapShape(c);
         });
     }
 
@@ -112,7 +127,7 @@ public class MapController extends ConnectionController implements Initializable
                 j = new JSONObject(jarray.getJSONObject(i).toString());
                 if (j.get("restaurantId").equals(LoginController.userId)) {
                     addresse = j.get("strasse").toString() + ", " + j.get("plz").toString() + " " + j.get("stadt").toString();
-
+                    lieferbereich = Integer.parseInt(j.get("lieferbereich").toString());
                 }
             }
             System.out.println(addresse);
