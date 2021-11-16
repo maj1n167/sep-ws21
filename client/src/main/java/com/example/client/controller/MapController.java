@@ -2,28 +2,17 @@ package com.example.client.controller;
 
 import com.dlsc.gmapsfx.GoogleMapView;
 import com.dlsc.gmapsfx.MapComponentInitializedListener;
-import com.dlsc.gmapsfx.javascript.JavascriptArray;
 import com.dlsc.gmapsfx.javascript.object.*;
-import com.dlsc.gmapsfx.service.directions.DirectionsGeocodedWaypointStatus;
 import com.dlsc.gmapsfx.service.geocoding.GeocoderStatus;
 import com.dlsc.gmapsfx.service.geocoding.GeocodingResult;
 import com.dlsc.gmapsfx.service.geocoding.GeocodingService;
-import com.dlsc.gmapsfx.service.geocoding.GeocodingServiceCallback;
 import com.dlsc.gmapsfx.shapes.*;
 import com.example.client.Main;
-import javafx.application.Application;
-import static javafx.application.Application.launch;
-
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.stage.Stage;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -45,7 +34,6 @@ public class MapController extends ConnectionController implements Initializable
         mapView.addMapInitializedListener(this);
         mapView.setKey("AIzaSyA-qLMdcnsAVwBvC0Xpi2N73coqLzq9v0o");
         addresseTest = "Hermannstr. 9, 45327 Essen";
-
     }
 
     @Override
@@ -72,19 +60,24 @@ public class MapController extends ConnectionController implements Initializable
         map = mapView.createMap(mapOptions);
 
         geocodingService.geocode(addresse, (GeocodingResult[] results, GeocoderStatus status) -> {
-//        geocodingService.geocode(addresseTest, (GeocodingResult[] results, GeocoderStatus status) -> {
+//        geocodingService.geocode(addresseTest, (GeocodingResult[] results, GeocoderStatus status) -> {    // testing
             LatLong latlong = null;
             if (status == GeocoderStatus.ZERO_RESULTS) {
-                System.out.println("noresult");
+//                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+//                alert.setTitle("Google API hat kein Ergebnis!");
+//                alert.setContentText("Bitte erneut versuchen!\nFalls der Fehler weiterhin auftritt,\nbitte Restaurantdaten ueberpruefen");
+//                alert.showAndWait();
+//                Main m= new Main();
+//                try {
+//                    m.ChangeScene("Login.fxml");
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
                 return;
             } else if (results.length > 1) {
                 latlong = new LatLong(results[0].getGeometry().getLocation().getLatitude(), results[0].getGeometry().getLocation().getLongitude());
-                System.out.println("morethan1result");
-                System.out.println(latlong.toString());
             } else {
                 latlong = new LatLong(results[0].getGeometry().getLocation().getLatitude(), results[0].getGeometry().getLocation().getLongitude());
-                System.out.println("1result");
-                System.out.println(latlong.toString());
             }
             map.setCenter(latlong);
 
@@ -121,7 +114,6 @@ public class MapController extends ConnectionController implements Initializable
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            System.out.println(jarray.toString());
             for (int i = 0; i < jarray.length(); i++) {
                 System.out.println(jarray.length());
                 j = new JSONObject(jarray.getJSONObject(i).toString());
@@ -130,7 +122,6 @@ public class MapController extends ConnectionController implements Initializable
                     lieferbereich = Integer.parseInt(j.get("lieferbereich").toString());
                 }
             }
-            System.out.println(addresse);
             if (addresse == null) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Error!");
