@@ -55,7 +55,7 @@ public class EditRestaurantController extends ConnectionController {
 
         this.userId = LoginController.userId;
 
-        kategorieChoicebox.getItems().addAll("Italienisch", "Indisch", "Spanisch", "Deutsch", "Asiatisch", "Amerikanisch", "Türkisch", "Sonstige");
+        kategorieChoicebox.getItems().addAll("Italienisch", "Griechisch", "Indisch", "Spanisch", "Deutsch", "Asiatisch", "Amerikanisch", "Türkisch", "Sonstige");
 
         String name = "";
         String strasse = "";
