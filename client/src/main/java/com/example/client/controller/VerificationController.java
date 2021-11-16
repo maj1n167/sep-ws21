@@ -34,10 +34,8 @@ public class VerificationController extends ConnectionController implements Init
     }
 
    public void onVerifyButtonClicked(ActionEvent event) throws IOException {
-       System.out.println(email);
      JSONObject jsonObject = new JSONObject(JSONObjectGET("http://localhost:8080/user/find/"+email).toString());
            if(jsonObject.get("verfiyCode").equals(Integer.parseInt(inputCode.getText()))){
-               System.out.println("Verifizierung Erfolgreich");
                Main m = new Main();
                m.ChangeScene("Startseite.fxml");
                return;

@@ -55,8 +55,6 @@ public class LoginController extends ConnectionController {
              password = jsonObject.get("password").toString();
              email = jsonObject.get("email").toString();
              userId = Integer.parseInt(jsonObject.get("userId").toString());
-             System.out.println(userId);
-             System.out.println("Login erfolgreich!");
              Main m = new Main();
              m.ChangeScene("Verify-View.fxml");
              return;

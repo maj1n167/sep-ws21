@@ -12,9 +12,6 @@ import java.text.DecimalFormat;
 public class EditRestaurantController extends ConnectionController {
 
     @FXML
-    private Label restaurantHeaderLabel;
-
-    @FXML
     private TextField nameTextfield;
 
     @FXML
@@ -36,17 +33,7 @@ public class EditRestaurantController extends ConnectionController {
     private TextField lieferbereichTextfield;
 
     @FXML
-    private TextField sonstigeText;
-
-
-    @FXML
     ChoiceBox<String> kategorieChoicebox;
-
-    @FXML
-    private Button speichernButton;
-
-    @FXML
-    private Button zurueckButton;
 
     private int userId;
 
@@ -68,6 +55,7 @@ public class EditRestaurantController extends ConnectionController {
 
 
         JSONArray j = new JSONArray(JSONObjectGET("http://localhost:8080/restaurant").toString());
+
         for (int i = 0; i<j.length();i++){
             JSONObject currentjson = j.getJSONObject(i);
             if(currentjson.get("restaurantId").equals(userId)) {
@@ -80,11 +68,10 @@ public class EditRestaurantController extends ConnectionController {
                 mbw = Double.valueOf(currentjson.get("mbw").toString());
                 lieferbereich = Integer.valueOf(currentjson.get("lieferbereich").toString());
                 kategorie = currentjson.get("kategorie").toString();
+
             }
 
         }
-
-
 
         nameTextfield.setText(name);
         stadtTextfield.setText(stadt);

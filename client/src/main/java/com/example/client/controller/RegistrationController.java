@@ -55,7 +55,6 @@ public class RegistrationController extends ConnectionController {
                     " \"restaurantBesitzer\": \"true\" }";
 
             JSONObjectPOST(url, data);
-            System.out.println("Daten korrekt übertragen");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Konto hinzugefügt");
             alert.setContentText("Konto erfolgreich erstellt!");

@@ -66,7 +66,6 @@ public class AddFoodController extends ConnectionController implements Initializ
                                     "\"menuId\":" + userId + "}";
 
             JSONObjectPOST(Url, data);
-            System.out.println("Daten korrekt übertragen");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Speise hinzugefügt");
             alert.setContentText("Speise wurde erfolgreich hinzugefügt");
@@ -101,7 +100,6 @@ public class AddFoodController extends ConnectionController implements Initializ
         }
         allFoods =allFoods+jsonArray1.toString()+"}";
         JSONObjectPOST("http://localhost:8080/menu/add", allFoods);
-        System.out.println("Speisekarte Erfolgreich erstellt");
         Main m = new Main();
         m.ChangeScene("Speisekarte.fxml");
     }
