@@ -91,7 +91,7 @@ public class MapController extends ConnectionController implements Initializable
 
             CircleOptions cOptions = new CircleOptions()
                     .center(latlong)
-                    .radius(lieferbereich*1000)
+                    .radius(lieferbereich)
 //                    .radius(2000)
                     .strokeColor("black")
                     .strokeWeight(2)
