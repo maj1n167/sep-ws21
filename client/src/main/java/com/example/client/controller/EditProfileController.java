@@ -3,6 +3,9 @@ package com.example.client.controller;
 import com.example.client.Main;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.IOException;
 
 
@@ -20,11 +23,19 @@ public class EditProfileController extends ConnectionController {
     PasswordField neuesPasswort;
 
 
+
     public void initialize() throws IOException {
-        neuerVorname.setText(LoginController.vorname);
-        neuerName.setText(LoginController.name);
-        neuesPasswort.setText(LoginController.password);
-        neueEmail.setText(LoginController.email);
+        JSONArray j = new JSONArray(JSONObjectGET("http://localhost:8080/user").toString());
+
+        for (int i = 0; i < j.length(); i++) {
+            JSONObject currentjson = j.getJSONObject(i);
+            if (currentjson.get("userId").equals(LoginController.userId)) {
+                neuerVorname.setText(currentjson.get("vorname").toString());
+                neuerName.setText(currentjson.get("name").toString());
+                neuesPasswort.setText(currentjson.get("password").toString());
+                neueEmail.setText(currentjson.get("email").toString());
+            }
+        }
     }
 
     @FXML
@@ -34,13 +45,7 @@ public class EditProfileController extends ConnectionController {
 
         String url = "http://localhost:8080/user/update/"+ LoginController.userId;
 
-        LoginController.vorname = neuerVorname.getText();
-        LoginController.name = neuerName.getText();
-        LoginController.password = neuesPasswort.getText();
         LoginController.email = neueEmail.getText();
-
-
-
 
         String data = "{ \"userId\": \""+LoginController.userId+"\", \n";
         data = data + "\"vorname\": \"" + neuerVorname.getText().toString() + "\",\n";
@@ -57,8 +62,6 @@ public class EditProfileController extends ConnectionController {
         alert.showAndWait();
         Main m = new Main();
         m.ChangeScene("Startseite.fxml");
-
-
     }
 
     public void onGoBackButtonClick() throws IOException {
