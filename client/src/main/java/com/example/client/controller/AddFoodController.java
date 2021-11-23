@@ -6,9 +6,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
+import javafx.stage.FileChooser;
+import org.controlsfx.control.action.Action;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -102,5 +105,24 @@ public class AddFoodController extends ConnectionController implements Initializ
         JSONObjectPOST("http://localhost:8080/menu/add", allFoods);
         Main m = new Main();
         m.ChangeScene("Speisekarte.fxml");
+    }
+
+    @FXML
+    public void uploadImage(ActionEvent event) throws IOException {
+
+        FileChooser fileChooser = new FileChooser();
+
+
+        FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.JPG)", "*.JPG");
+
+        FileChooser.ExtensionFilter extFilterjpg = new FileChooser.ExtensionFilter("jpg files (*.jpg)", "*.jpg");
+
+        FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.PNG)", "*.PNG");
+
+        FileChooser.ExtensionFilter extFilterpng = new FileChooser.ExtensionFilter("png files (*.png)", "*.png");
+
+        fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterjpg, extFilterPNG, extFilterpng);
+
+        File file = fileChooser.showOpenDialog(null);
     }
 }
