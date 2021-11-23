@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.client.controller.AddSpeisekarteController">
+    <children>
+        <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="50.0" prefHeight="50.0" style="-fx-background-color: #90ee90;" text="Supreme Eating Program" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <font>
+                <Font name="System Bold" size="20.0" />
+            </font>
+        </Label>
+      <Label layoutX="296.0" layoutY="117.0" prefHeight="30.0" prefWidth="208.0" text="Guthaben Aufladen">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="96.0" layoutY="208.0" prefHeight="25.0" prefWidth="210.0" text="Wie viel möchten sie Aufladen :">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <TextField fx:id="AufladenButton" layoutX="96.0" layoutY="253.0" prefWidth="200.0" promptText="Betrag in €..." />
+      <Label layoutX="475.0" layoutY="208.0" prefHeight="25.0" prefWidth="210.0" text="Ihr aktuelles Guthaben Beträgt :">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Button layoutX="151.0" layoutY="300.0" mnemonicParsing="false" text="Aufladen" />
+      <ListView fx:id="aktuellesGuthaben" layoutX="475.0" layoutY="253.0" prefHeight="26.0" prefWidth="194.0" />
+      <Button fx:id="zurück" layoutX="14.0" layoutY="560.0" mnemonicParsing="false" onAction="#zurückButton" text="zurück" />
+      <Button layoutX="737.0" layoutY="560.0" mnemonicParsing="false" onAction="#fertigButton" text="Fertig" />
+    </children>
+</AnchorPane>
