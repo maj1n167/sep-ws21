@@ -11,37 +11,32 @@ public class KundeStartseiteController extends ConnectionController{
 
     @FXML
     public void initialize() throws IOException {
-        JSONArray j = new JSONArray(JSONObjectGET("http://localhost:8080/kunde").toString());
-        for (int i = 0; i < j.length(); i++) {
-            JSONObject curretnJson = new JSONObject(j.getJSONObject(i).toString());
-
-            }
-        }
+    }
 
 
 
     @FXML
     public void onSeekRestaurantClick() throws IOException {
         Main m= new Main();
-        m.ChangeScene("EditProfile.fxml");
+        m.ChangeScene("Restaurants.fxml");
     }
 
     @FXML
     public void onShowOrderClick() throws IOException {
         Main m= new Main();
-        m.ChangeScene("AddRestaurant.fxml");
+        m.ChangeScene("KStartseite.fxml");
     }
 
     @FXML
     public void onBuyCreditClick() throws IOException {
         Main m= new Main();
-        m.ChangeScene("EditRestaurant.fxml");
+        m.ChangeScene("Guthaben.fxml");
     }
 
     @FXML
     public void onValuationClick() throws IOException {
         Main m= new Main();
-        m.ChangeScene("Speisekarte.fxml");
+        m.ChangeScene("KStartseite.fxml");
     }
 
     @FXML
@@ -55,7 +50,7 @@ public class KundeStartseiteController extends ConnectionController{
     public void onLoyaltyPointsClick() throws IOException {
         // Change Scenes
         Main m= new Main();
-        m.ChangeScene("Map.fxml");
+        m.ChangeScene("KStartseite.fxml");
     }
 }
 
