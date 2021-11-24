@@ -34,17 +34,17 @@ public class VerificationController extends ConnectionController implements Init
     }
 
    public void onVerifyButtonClicked(ActionEvent event) throws IOException {
-     JSONObject jsonObject = new JSONObject(JSONObjectGET("http://localhost:8080/user/find/"+email).toString());
+        JSONObject jsonObject = new JSONObject(JSONObjectGET("http://localhost:8080/user/find/"+email).toString());
            if(jsonObject.get("verfiyCode").equals(Integer.parseInt(inputCode.getText()))) {
                if (jsonObject.get("restaurantBesitzer").equals(true)) {
                    Main m = new Main();
                    m.ChangeScene("Startseite.fxml");
                    return;
-               } /*else {
+               } else {
                    Main m = new Main();
                    m.ChangeScene("kStartseite.fxml");
                    return;
-               }*/
+               }
            }
        Alert alert = new Alert (Alert.AlertType.INFORMATION);
        alert.setTitle("Error");

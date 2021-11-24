@@ -62,7 +62,7 @@ public class RegistrationController extends ConnectionController {
             Main m = new Main();
             m.ChangeScene("Login.fxml");
         } else {
-/*          Hier erstmal alles kommentiert, da das hier in Zyklus 2 relevant sein wird. -ok
+//         Hier erstmal alles kommentiert, da das hier in Zyklus 2 relevant sein wird. -ok
             String url = "http://localhost:8080/user/add";
 
 
@@ -80,7 +80,7 @@ public class RegistrationController extends ConnectionController {
             alert.showAndWait();
             Main m = new Main();
             //Hier kommt dann die view vom normalen Kunden rein. - ok
-            m.ChangeScene("Login.fxml");*/
+            m.ChangeScene("KRegistration.fxml");
         }
     }
 
