@@ -42,7 +42,7 @@ public class VerificationController extends ConnectionController implements Init
                    return;
                } else {
                    Main m = new Main();
-                   m.ChangeScene("kStartseite.fxml");
+                   m.ChangeScene("KStartseite.fxml");
                    return;
                }
            }
