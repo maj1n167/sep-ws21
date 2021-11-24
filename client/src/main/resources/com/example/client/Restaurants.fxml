@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.dlsc.gmapsfx.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.client.controller.RestaurantsController">
+    <children>
+        <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="50.0" prefHeight="50.0" style="-fx-background-color: #90ee90;" text="Supreme Eating Program" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <font>
+                <Font name="System Bold" size="20.0" />
+            </font>
+        </Label>
+        <GoogleMapView fx:id="mapView" layoutX="573.0" layoutY="377.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="23.0" AnchorPane.leftAnchor="573.0" AnchorPane.rightAnchor="27.0" AnchorPane.topAnchor="377.0" />
+        <VBox alignment="TOP_CENTER" fillWidth="false" layoutX="26.0" layoutY="29.0" prefHeight="478.0" prefWidth="221.0" spacing="10.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="26.0" AnchorPane.topAnchor="88.0" BorderPane.alignment="CENTER" />
+        <Button fx:id="zurueckButton" layoutX="26.0" layoutY="552.0" mnemonicParsing="false" onAction="#onZurueckButtonClick" prefHeight="35.0" prefWidth="70.0" text="Zurück" />
+    </children>
+
+</AnchorPane>
