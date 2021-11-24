@@ -11,8 +11,9 @@ public class Menu implements Serializable {
 
     @Id
     private long menuId;
+
     @OneToMany
-    private List<Food> foods;
+    private List<Kategorie> kategories;
 
 
 
@@ -24,13 +25,16 @@ public class Menu implements Serializable {
         this.menuId = menuId;
     }
 
-    public List<Food> getFoods() {
-        return foods;
+
+    public List<Kategorie> getKategories() {
+        return kategories;
     }
 
-    public void setFoods(List<Food> foods) {
-        this.foods = foods;
+    public void setKategories(List<Kategorie> kategories) {
+        this.kategories = kategories;
     }
+
+
 
 
     public Menu(long menuId, String name, String beschreibung, String kategorie, double preis, String bild) {

@@ -5,44 +5,52 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 public class Food  implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int foodId;
-
-    private String kategorie;
-
     private double preis;
     private String name;
     private String beschreibung;
     private String url;
-    private int menuId;
+    private Long kategorieId;
 
-    public Food(int foodId, String kategorie, double preis, String name, String beschreibung, String url, int menuId) {
+
+
+    public Food(int foodId, double preis, String name, String beschreibung, String url) {
         this.foodId = foodId;
-        this.kategorie = kategorie;
         this.preis = preis;
         this.name = name;
         this.beschreibung = beschreibung;
         this.url = url;
-        this.menuId = menuId;
+
     }
 
-    public Food(int foodId, String kategorie, double preis, String name, String beschreibung, String url) {
+    public Food(int foodId, Long kategorieId, double preis, String name, String beschreibung, String url) {
         this.foodId = foodId;
-        this.kategorie = kategorie;
         this.preis = preis;
         this.name = name;
         this.beschreibung = beschreibung;
         this.url = url;
+        this.kategorieId = kategorieId;
     }
 
     public Food() {
 
     }
+
+    public Long getKategorieId() {
+        return kategorieId;
+    }
+
+    public void setKategorieId(Long kategorieId) {
+        this.kategorieId = kategorieId;
+    }
+
 
     public int getFoodId() {
         return foodId;
@@ -52,13 +60,6 @@ public class Food  implements Serializable {
         this.foodId = foodId;
     }
 
-    public String getKategorie() {
-        return kategorie;
-    }
-
-    public void setKategorie(String kategorie) {
-        this.kategorie = kategorie;
-    }
 
     public double getPreis() {
         return preis;
@@ -92,12 +93,4 @@ public class Food  implements Serializable {
         this.url = url;
     }
 
-
-    public int getMenuId() {
-        return menuId;
-    }
-
-    public void setMenuId(int menuId) {
-        this.menuId = menuId;
-    }
 }
