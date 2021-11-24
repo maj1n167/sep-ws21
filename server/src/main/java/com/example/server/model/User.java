@@ -21,6 +21,11 @@ public class User implements Serializable {
     private String stadt;
     private Boolean restaurantBesitzer;
 
+    private Double guthaben;
+    private String altAdresse;
+    private String altPlz;
+    private String altStadt;
+
     @OneToOne
     @JoinColumn(name="restaurantId" ,referencedColumnName = "restaurantId")
     private Restaurant restaurant;
@@ -29,7 +34,12 @@ public class User implements Serializable {
 
 
     //konstruktor zur Registrierung - ok
-    public User(int userId,String name, String vorname, String email, String password, String strasse, String plz, String stadt, Boolean restaurantBesitzer) {
+
+
+    public User(int userId, String name, String vorname, String email, String password, String strasse, String plz, String stadt
+                , String altAdresse,
+                String altPlz, String altStadt) {
+        this.userId = userId;
         this.name = name;
         this.vorname = vorname;
         this.email = email;
@@ -37,7 +47,12 @@ public class User implements Serializable {
         this.strasse = strasse;
         this.plz = plz;
         this.stadt = stadt;
-        this.restaurantBesitzer = restaurantBesitzer;
+        this.restaurantBesitzer = false;
+        this.guthaben = 0.0;
+        this.altAdresse = altAdresse;
+        this.altPlz = altPlz;
+        this.altStadt = altStadt;
+
     }
 
     //Konstruktor zur Erstellung des Restaurants - ok
@@ -125,4 +140,35 @@ public class User implements Serializable {
 
     public void setVerfiyCode(int verfiyCode) {this.verfiyCode = verfiyCode;}
 
+    public Double getGuthaben() {
+        return guthaben;
+    }
+
+    public void setGuthaben(Double guthaben) {
+        this.guthaben = guthaben;
+    }
+
+    public String getAltAdresse() {
+        return altAdresse;
+    }
+
+    public void setAltAdresse(String altAdresse) {
+        this.altAdresse = altAdresse;
+    }
+
+    public String getAltPlz() {
+        return altPlz;
+    }
+
+    public void setAltPlz(String altPlz) {
+        this.altPlz = altPlz;
+    }
+
+    public String getAltStadt() {
+        return altStadt;
+    }
+
+    public void setAltStadt(String altStadt) {
+        this.altStadt = altStadt;
+    }
 }
