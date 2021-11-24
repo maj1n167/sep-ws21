@@ -29,6 +29,8 @@ public class RegistrationController extends ConnectionController {
     @FXML
     ToggleGroup group = new ToggleGroup();
 
+    public static int regUserId;
+
 
 
     @FXML
@@ -62,7 +64,7 @@ public class RegistrationController extends ConnectionController {
             Main m = new Main();
             m.ChangeScene("Login.fxml");
         } else {
-/*          Hier erstmal alles kommentiert, da das hier in Zyklus 2 relevant sein wird. -ok
+//         Hier erstmal alles kommentiert, da das hier in Zyklus 2 relevant sein wird. -ok
             String url = "http://localhost:8080/user/add";
 
 
@@ -70,17 +72,21 @@ public class RegistrationController extends ConnectionController {
                     " \"name\": \""+nameTextfield.getText().toString()+"\",\n" +
                     " \"email\":\""+emailTextfield.getText().toString()+"\",\n"+
                     " \"password\": \""+passwortTextfield.getText().toString()+"\",\n" +
+                    " \"guthaben\": \"0\",\n" +
                     " \"restaurantBesitzer\": \"false\" }";
 
             JSONObjectPOST(url, data);
             System.out.println("Daten korrekt übertragen");
-            Alert alert = new Alert (Alert.AlertType.INFORMATION);
-            alert.setTitle("Konto hinzugefügt");
-            alert.setContentText("Konto erfolgreich erstellt!");
-            alert.showAndWait();
+
+            JSONArray jsonArray = new JSONArray(JSONObjectGET("http://localhost:8080/user").toString());
+            for(int i = 0; i<jsonArray.length(); i++){
+                JSONObject jsonObject =  jsonArray.getJSONObject(i);
+                if(jsonObject.get("email").equals(emailTextfield.getText().toString()) && jsonObject.get("password").equals(passwortTextfield.getText().toString())){
+                    regUserId = Integer.parseInt(jsonObject.get("userId").toString());
+                }
+            }
             Main m = new Main();
-            //Hier kommt dann die view vom normalen Kunden rein. - ok
-            m.ChangeScene("Login.fxml");*/
+            m.ChangeScene("KRegistration.fxml");
         }
     }
 
