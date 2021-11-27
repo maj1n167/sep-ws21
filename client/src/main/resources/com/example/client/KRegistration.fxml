@@ -10,14 +10,20 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.client.controller.KundeRegistrationController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.client.controller.KundeRegistrationController">
     <children>
-        <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="50.0" prefHeight="50.0" style="-fx-background-color: #90ee90;" text="Supreme Eating Program" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="50.0" prefHeight="50.0"
+               style="-fx-background-color: #90ee90;" text="Supreme Eating Program" textAlignment="CENTER"
+               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <font>
                 <Font name="System Bold" size="20.0" />
             </font>
         </Label>
-        <VBox alignment="CENTER" layoutX="350.0" layoutY="111.0" prefHeight="487.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+        <VBox alignment="CENTER" layoutX="350.0" layoutY="111.0" prefHeight="487.0" prefWidth="800.0"
+              AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+              AnchorPane.topAnchor="50.0">
             <children>
                 <HBox alignment="CENTER" prefHeight="150.0" prefWidth="800.0">
                     <children>
@@ -59,7 +65,7 @@
                                 <TextField fx:id="geburtsdatumTextfield" />
                                 <TextField fx:id="postleitzahlTextfield" />
                                 <TextField fx:id="stadtTextfield" />
-                                <PasswordField fx:id="strasseTextfield" />
+                                <TextField fx:id="strasseTextfield" />
                             </children>
                         </VBox>
                     </children>
@@ -67,12 +73,14 @@
                 <HBox alignment="CENTER" prefHeight="59.0" prefWidth="800.0" spacing="30.0" />
                 <HBox alignment="CENTER" prefHeight="64.0" prefWidth="800.0">
                     <children>
-                        <Button fx:id="KundeRegisterButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onKundeRegisterButtonClick" prefHeight="40.0" prefWidth="168.0" text="Registrierung abschließen" />
+                        <Button fx:id="KundeRegisterButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false"
+                                onAction="#onKundeRegisterButtonClick" prefHeight="40.0" prefWidth="168.0" text="Registrierung abschließen" />
                     </children>
                 </HBox>
                 <HBox prefHeight="61.0" prefWidth="800.0">
                     <children>
-                        <Button fx:id="goBackToButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#goBackToButtonClick" prefHeight="40.0" prefWidth="100.0" text="Zurück" />
+                        <Button fx:id="goBackToButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false"
+                                onAction="#goBackToButtonClick" prefHeight="40.0" prefWidth="100.0" text="Zurück" />
                     </children>
                     <padding>
                         <Insets left="20.0" top="20.0" />
