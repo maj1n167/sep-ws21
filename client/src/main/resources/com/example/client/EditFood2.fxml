@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.text.Text?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.client.controller.EditFood2Controller">
     <children>
         <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="50.0" prefHeight="50.0" style="-fx-background-color: #90ee90;" text="Supreme Eating Program" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -26,7 +27,6 @@
       <TextField fx:id="name" layoutX="345.0" layoutY="279.0" />
       <TextField fx:id="beschreibung" layoutX="345.0" layoutY="327.0" prefHeight="62.0" prefWidth="160.0" />
       <TextField fx:id="preis" layoutX="345.0" layoutY="413.0" />
-      <ChoiceBox fx:id="kategorie" layoutX="345.0" layoutY="235.0" prefHeight="26.0" prefWidth="160.0" />
       <Label layoutX="235.0" layoutY="456.0" prefWidth="110.0" text="Bild :" />
       <Label layoutX="345.0" layoutY="456.0" prefWidth="170.0" text=".jpg-, .png-, oder .jpeg Dateien" />
       <Button layoutX="371.0" layoutY="498.0" mnemonicParsing="false" text="Datei auswählen" />

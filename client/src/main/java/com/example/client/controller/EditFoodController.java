@@ -32,6 +32,8 @@ public class EditFoodController extends ConnectionController {
 
     private int menuId;
 
+    public static int foodId2;
+
     public static JSONObject food;
 
     public EditFoodController() {
@@ -71,7 +73,7 @@ public class EditFoodController extends ConnectionController {
         Main m = new Main();
         m.ChangeScene("Speisekarte.fxml");
     }
-
+    @FXML
     public void deleteMenu() throws IOException {
         String url = "http://localhost:8080/menu/update";
         String json = "{\"menuId\":" + menuId + ",\n" +
@@ -90,7 +92,7 @@ public class EditFoodController extends ConnectionController {
         initialize();
     }
 
-
+    @FXML
     public void fertigButton() throws IOException {
         Main m = new Main();
         m.ChangeScene("Startseite.fxml");
@@ -114,20 +116,26 @@ public class EditFoodController extends ConnectionController {
 //        foods.getChildren().add(text);
 //    }
 
-
+    @FXML
     public void ChangeFood(ActionEvent event) throws IOException {
 
         String url1 = "http://localhost:8080/food";
         JSONArray jsonArray = new JSONArray(JSONObjectGET(url1).toString());
+        System.out.println(jsonArray);
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
-            if(jsonObject.getInt("foodId") == Integer.parseInt(foodId.getText())) {
+            int x = Integer.parseInt(foodId.getText());
+
+            System.out.println(jsonObject.get("foodId")+foodId.getText());
+            if(jsonObject.get("foodId").equals(x)) {
                 this.food = jsonObject;
+                System.out.println(this.food);
+                Main m = new Main();
+                m.ChangeScene("EditFood2.fxml");
             }
         }
 
-        Main m = new Main();
-        m.ChangeScene("EditFood2.fxml");
+
     }
 
 }

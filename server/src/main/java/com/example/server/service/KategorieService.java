@@ -26,7 +26,7 @@ public class KategorieService {
         return kategorieRepo.findAll();
     }
 
-    public Kategorie updateKategorie(Kategorie kategorie){
+    public Kategorie updateKategorie( Kategorie kategorie){
         return kategorieRepo.save(kategorie);
     }
 
