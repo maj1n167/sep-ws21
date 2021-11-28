@@ -24,7 +24,7 @@
       <TextField fx:id="name" layoutX="175.0" layoutY="279.0" />
       <TextField fx:id="beschreibung" layoutX="175.0" layoutY="323.0" prefHeight="62.0" prefWidth="160.0" />
       <TextField fx:id="preis" layoutX="175.0" layoutY="404.0" />
-      <ChoiceBox fx:id="kategorie" layoutX="175.0" layoutY="235.0" prefHeight="26.0" prefWidth="160.0" />
+      <TextField fx:id="kategorie" layoutX="175.0" layoutY="235.0" prefHeight="26.0" prefWidth="160.0" />
       <Label layoutX="65.0" layoutY="456.0" prefWidth="110.0" text="Bild :" />
       <Label layoutX="175.0" layoutY="456.0" prefWidth="170.0" text=".jpg-, .png-, oder .jpeg Dateien" />
       <Button layoutX="175.0" layoutY="507.0" mnemonicParsing="false" onAction="#uploadImage" text="Datei auswählen" />

@@ -69,6 +69,46 @@ public static JSONObject fertigeSpeiseK;
         String xml2String = sb.toString();
         JSONObject jsonObject =  XML.toJSONObject(xml2String);
 
+
+
+        JSONObject  gerichte = (JSONObject) jsonObject.get("speisekarte");
+        JSONObject kategorie = (JSONObject) gerichte.get("gerichte");
+        JSONArray jsonArray = new JSONArray(kategorie.names());
+        System.out.println("Daten gesendet");
+
+        for(int i=0; i<jsonArray.length(); i++){
+            JSONArray jsonArray1 = kategorie.names();
+            System.out.println(jsonArray1.get(i));
+            JSONObject x = (JSONObject) kategorie.get(jsonArray.get(i).toString());
+            System.out.println(x.get("gericht"));
+            JSONArray jsonArray2 = x.optJSONArray("gericht");
+            if (jsonArray2 != null) {
+                System.out.println(jsonArray2);
+                for (int j = 0; j < jsonArray2.length(); j++) {
+                    JSONObject y = jsonArray2.optJSONObject(j);
+                    y.put("kategorieId",1);
+                    if (y.get("name").equals("Döner Box")) {
+                        y.put("preis", 4.5);
+                        System.out.println("done");
+                    }
+                    System.out.println(y.toString());
+
+                    JSONObjectPOST("http://localhost:8080/food/add", y.toString());
+                    System.out.println("Daten gesendet");
+                }
+
+
+
+            }else {
+                JSONObject newFood = x.getJSONObject("gericht");
+                System.out.println(newFood);
+                newFood.put("kategorieId",1);
+                JSONObjectPOST("http://localhost:8080/food/add",newFood.toString());
+            }
+        }
+
+
+        /**
         JSONArray jsonArray= new JSONArray(jsonObject.get("foods").toString());
         JSONObject jsonObject2;
         for(int i = 0; i< jsonArray.length(); i++){
@@ -85,6 +125,7 @@ public static JSONObject fertigeSpeiseK;
         jsonObject.put("menuId",id);
        this.fertigeSpeiseK=jsonObject;
         bufferedReader.close();
+         **/
 
     }
 

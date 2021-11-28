@@ -3,15 +3,18 @@ package com.example.client.controller;
 import com.example.client.Main;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import org.json.JSONArray;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class EditFood2Controller extends ConnectionController implements Initializable {
+public class EditFood2Controller extends ConnectionController  {
 
     @FXML
     TextField name;
@@ -22,24 +25,43 @@ public class EditFood2Controller extends ConnectionController implements Initial
     @FXML
     TextField preis;
 
-    @FXML
-    ChoiceBox kategorie;
+    public int foodId;
 
     JSONObject food;
 
 
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-       food = EditFoodController.food;
-       kategorie.getItems().addAll("Pizza", "Pasta", "Salate", "Desserts");
-       kategorie.setValue(food.get("kategorie"));
-       kategorie.show();
-       name.setText(food.getString("name"));
-       beschreibung.setText(food.getString("beschreibung"));
-       preis.setText(String.valueOf(food.getDouble("preis")));
+    public  void initialize() {
+        try {
+            food = EditFoodController.food;
+            JSONArray jsonArray2 = new JSONArray(JSONObjectGET("http://localhost:8080/food").toString());
+            System.out.println(food);
+            System.out.println(jsonArray2);
+            for (int i = 0; i < jsonArray2.length(); i++) {
+                JSONObject jsonObject = jsonArray2.getJSONObject(i);
+                System.out.println("H");
+                if (jsonObject.get("foodId").equals(food.get("foodId"))) {
+                    food = jsonObject;
+                    name.setText(food.get("name").toString());
+                    beschreibung.setText(food.get("beschreibung").toString());
+                    preis.setText(food.get("preis").toString());
+                    return;
 
+
+                }
+            }
+
+            Main m = new Main();
+            m.ChangeScene("EditFood1.fxml");
+
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+
+
+
+
 
 
 
@@ -55,6 +77,7 @@ public class EditFood2Controller extends ConnectionController implements Initial
         JSONObjectDELETE("http://localhost:8080/food/delete/"+String.valueOf(food.getInt("foodId")));
         Main m = new Main();
         m.ChangeScene("EditFood1.fxml");
+        initialize();
 
 
     }
@@ -67,8 +90,8 @@ public class EditFood2Controller extends ConnectionController implements Initial
                                          "\"name\": \"" + name.getText() + "\",\n" +
                         "        \"beschreibung\": \"" + beschreibung.getText() + "\",\n" +
                         "        \"preis\":" + Double.parseDouble(preis.getText()) + ",\n" +
-                        "       \"menuId\":" + food.getInt("menuId") +",\n"+
-                        "        \"kategorie\": \"" + kategorie.getValue() + "\"}";
+                        "       \"menuId\":" + food.getInt("menuId") +"}";
+
 
 
         JSONObjectPUT(Url, data);

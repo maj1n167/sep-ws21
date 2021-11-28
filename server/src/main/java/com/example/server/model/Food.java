@@ -18,6 +18,7 @@ public class Food  implements Serializable {
     private String beschreibung;
     private String url;
     private Long kategorieId;
+    private Long menuId;
 
 
 
@@ -41,6 +42,14 @@ public class Food  implements Serializable {
 
     public Food() {
 
+    }
+
+    public Long getMenuId() {
+        return menuId;
+    }
+
+    public void setMenuId(Long menuId) {
+        this.menuId = menuId;
     }
 
     public Long getKategorieId() {

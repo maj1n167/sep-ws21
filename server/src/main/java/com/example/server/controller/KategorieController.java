@@ -33,7 +33,7 @@ public class KategorieController {
     }
 
 
-    @PutMapping("/update")
+    @PutMapping("/update/{kategorieId}")
     public ResponseEntity<Kategorie> updateKategorie(@RequestBody Kategorie kategorie){
         Kategorie newKategorie = kategorieService.updateKategorie(kategorie);
                 return new ResponseEntity<>(newKategorie, HttpStatus.OK);
