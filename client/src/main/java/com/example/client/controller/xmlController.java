@@ -28,6 +28,9 @@ public TextFlow textFlow;
 public static String path;
 public static int id;
 public static JSONObject fertigeSpeiseK;
+  public   int katID1;
+  public  String newKategorie;
+  public int kategorieId;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -69,43 +72,173 @@ public static JSONObject fertigeSpeiseK;
         String xml2String = sb.toString();
         JSONObject jsonObject =  XML.toJSONObject(xml2String);
 
-
+        System.out.println(jsonObject);
 
         JSONObject  gerichte = (JSONObject) jsonObject.get("speisekarte");
         JSONObject kategorie = (JSONObject) gerichte.get("gerichte");
+        System.out.println(kategorie);
         JSONArray jsonArray = new JSONArray(kategorie.names());
-        System.out.println("Daten gesendet");
+
 
         for(int i=0; i<jsonArray.length(); i++){
             JSONArray jsonArray1 = kategorie.names();
+            newKategorie =(String) jsonArray1.get(i);
             System.out.println(jsonArray1.get(i));
             JSONObject x = (JSONObject) kategorie.get(jsonArray.get(i).toString());
             System.out.println(x.get("gericht"));
             JSONArray jsonArray2 = x.optJSONArray("gericht");
+            //Wenn ein jsonArray vorhanden ist
             if (jsonArray2 != null) {
+                JSONArray kateg1 = new JSONArray(JSONObjectGET("http://localhost:8080/kategorie").toString());
+                for (int j = 0; j < kateg1.length(); j++) {
+                    JSONObject jsonObject1 = kateg1.getJSONObject(j);
+                    if (jsonObject1.get("kategorie").equals(jsonArray1.get(i))) {
+                        kategorieId = (int) jsonObject1.get("kategorieId");
+                        System.out.println(kategorieId);
+                    }
+                }
                 System.out.println(jsonArray2);
                 for (int j = 0; j < jsonArray2.length(); j++) {
                     JSONObject y = jsonArray2.optJSONObject(j);
-                    y.put("kategorieId",1);
-                    if (y.get("name").equals("Döner Box")) {
-                        y.put("preis", 4.5);
-                        System.out.println("done");
+                    try{
+                        String preis = y.getString("preis");
+                        char [] b =preis.toCharArray();
+                        for(int n = 0;  n<b.length; n++){
+                            if(b[n] == ','){
+                                b[n]= '.';
+
+
+                            }
+
+                        }
+                        String string = new String(b);
+
+                        double preis1 = Double.parseDouble(string);
+                        y.put("preis", preis1);
+
+                    }catch (Exception e){
+
                     }
+                    Text text = new Text(y.get("name")+"\n");
+                    textFlow.getChildren().add(text);
+                    y.put("menuId",id);
+                    y.put("kategorieId", kategorieId);
                     System.out.println(y.toString());
 
                     JSONObjectPOST("http://localhost:8080/food/add", y.toString());
-                    System.out.println("Daten gesendet");
+                }
+                System.out.println("Daten gesendet");
+                String url1 = "http://localhost:8080/food";
+                String allFoods = "{" +
+                        "\"kategorieId\":" + kategorieId + "\n," +
+                        "\"kategorie\":" + "\"" + newKategorie + "\"" + "\n," +
+                        "\"menuId\":" + id + "\n," +
+                        "\"foods\":";
+                JSONArray jsonArray3 = new JSONArray();
+                System.out.println(allFoods);
+                System.out.println(kategorieId);
+                JSONArray jsonArrayA = new JSONArray(JSONObjectGET(url1).toString());
+                System.out.println(jsonArrayA);
+                for (int v = 0; v < jsonArrayA.length(); v++) {
+                    JSONObject jsonObject5 = jsonArrayA.getJSONObject(v);
+                    System.out.println(jsonObject5);
+                    if (jsonObject5.get("kategorieId").equals(kategorieId) && jsonObject5.get("menuId").equals(id)) {
+                        jsonArray3.put(jsonObject5);
+
+                    }
+                }
+                System.out.println(jsonArray3);
+                System.out.println(allFoods+jsonArray3.toString());
+                JSONObjectPOST("http://localhost:8080/kategorie/add", allFoods + jsonArray3.toString() + "}");
+
+            }
+            else{
+                //Wenn es kein JSONArray gibt
+                JSONArray kateg = new JSONArray(JSONObjectGET("http://localhost:8080/kategorie").toString());
+                for (int j = 0; j < kateg.length(); j++) {
+                    JSONObject jsonObject1 = kateg.getJSONObject(j);
+                    if (jsonObject1.get("kategorie").equals(jsonArray1.get(i))) {
+                        kategorieId = (int) jsonObject1.get("kategorieId");
+                    }
+                }
+                if(kategorieId == 0){
+                    String allFoods = "{" +
+                            "\"kategorie\":" + "\"" + newKategorie + "\"" + "\n," +
+                            "\"menuId\":" + 1 + "\n}";
+
+                    JSONObjectPOST("http://localhost:8080/kategorie/add", allFoods);
                 }
 
 
-
-            }else {
                 JSONObject newFood = x.getJSONObject("gericht");
-                System.out.println(newFood);
-                newFood.put("kategorieId",1);
-                JSONObjectPOST("http://localhost:8080/food/add",newFood.toString());
+                System.out.println(newKategorie);
+                System.out.println("xxx");
+                JSONArray kateg2 = new JSONArray(JSONObjectGET("http://localhost:8080/kategorie").toString());
+                for (int j = 0; j < kateg2.length(); j++) {
+                    JSONObject jsonObject1 = kateg2.getJSONObject(j);
+                    System.out.println(jsonObject1.get("kategorie"));
+
+                    if (jsonObject1.get("kategorie").equals(newKategorie)) {
+                        katID1 = (int) jsonObject1.get("kategorieId");
+                        newFood.put("kategorieId", jsonObject1.get("kategorieId"));
+                        newFood.put("menuId", id);
+
+                       try{
+                           String preis = newFood.getString("preis");
+                           char [] b =preis.toCharArray();
+                           for(int n = 0;  n<b.length; n++){
+                               if(b[n] == ','){
+                                   b[n]= '.';
+
+
+                               }
+
+                           }
+                           String string = new String(b);
+
+                           double preis1 = Double.parseDouble(string);
+                           newFood.put("preis", preis1);
+
+                       }catch (Exception e){
+
+                        }
+
+                        System.out.println(newFood);
+                        JSONObjectPOST("http://localhost:8080/food/add", newFood.toString());
+                        }
+
+                        }
+
+                String url1 = "http://localhost:8080/food";
+                String allFoods = "{" +
+                        "\"kategorieId\":" + katID1 + "\n," +
+                        "\"kategorie\":" + "\"" + newKategorie + "\"" + "\n," +
+                        "\"menuId\":" + 1 + "\n," +
+                        "\"foods\":";
+                JSONArray jsonArray3 = new JSONArray();
+                System.out.println(allFoods);
+                System.out.println(katID1);
+                JSONArray jsonArrayA = new JSONArray(JSONObjectGET(url1).toString());
+                System.out.println(jsonArrayA);
+                for (int v = 0; v < jsonArrayA.length(); v++) {
+                    JSONObject jsonObject5 = jsonArrayA.getJSONObject(v);
+                    System.out.println(jsonObject5);
+                    if (jsonObject5.get("menuId").equals(1) && jsonObject5.get("kategorieId").equals(katID1)) {
+                        Text text = new Text(jsonObject5.get("name")+"\n");
+                        textFlow.getChildren().add(text);
+                        jsonArray3.put(jsonObject5);
+                    }
+                }
+
+
+                System.out.println(allFoods + jsonArray3.toString() + "}");
+                System.out.println("H");
+                JSONObjectPOST("http://localhost:8080/kategorie/add", allFoods + jsonArray3.toString() + "}");
+
             }
+
         }
+
 
 
         /**
@@ -138,17 +271,12 @@ public static JSONObject fertigeSpeiseK;
     public void fertigButton() throws IOException {
         String url = "http://localhost:8080/menu/update";
         String json = "{\"menuId\":" + id + ",\n" +
-                "\"foods\": [] }";
+                "\"kategories\": [] }";
         JSONObjectPUT(url, json);
-        String url1 = "http://localhost:8080/food";
+        String url1 = "http://localhost:8080/kategorie";
         JSONArray jsonArray = new JSONArray(JSONObjectGET(url1).toString());
-        for (int i = 0; i < jsonArray.length(); i++) {
-            JSONObject jsonObject = jsonArray.getJSONObject(i);
-            if (jsonObject.get("menuId").equals(id)) {
-                JSONObjectDELETE("http://localhost:8080/food/delete/"+jsonObject.get("foodId").toString());
-            }
-        }
-        JSONArray newFood = new JSONArray(fertigeSpeiseK.getJSONArray("foods"));
+
+        JSONArray newFood = new JSONArray(fertigeSpeiseK.getJSONArray("kategories"));
 
         for(int x = 0; x<newFood.length(); x++){
             JSONObject currentFood = newFood.getJSONObject(x);
