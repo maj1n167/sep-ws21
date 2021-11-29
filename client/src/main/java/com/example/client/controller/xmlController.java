@@ -274,17 +274,10 @@ public static JSONObject fertigeSpeiseK;
                 "\"kategories\": [] }";
         JSONObjectPUT(url, json);
         String url1 = "http://localhost:8080/kategorie";
-        JSONArray jsonArray = new JSONArray(JSONObjectGET(url1).toString());
 
-        JSONArray newFood = new JSONArray(fertigeSpeiseK.getJSONArray("kategories"));
-
-        for(int x = 0; x<newFood.length(); x++){
-            JSONObject currentFood = newFood.getJSONObject(x);
-            JSONObjectPOST("http://localhost:8080/food/add",currentFood.toString());
-        }
 
         String allFoods = "{\"menuId\":" + id+ "\n," +
-                "\"foods\":";
+                "\"kategories\":";
         JSONArray jsonArray1 = new JSONArray();
 
 
