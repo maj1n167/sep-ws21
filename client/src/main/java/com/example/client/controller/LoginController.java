@@ -63,4 +63,9 @@ public class LoginController extends ConnectionController {
         Main m= new Main();
         m.ChangeScene("Registration.fxml");
     }
+
+    @FXML
+    public void onExitButtonClick() throws IOException {
+        System.exit(0);
+    }
 }
