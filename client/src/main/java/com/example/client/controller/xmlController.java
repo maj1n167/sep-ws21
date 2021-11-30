@@ -92,7 +92,7 @@ public static JSONObject fertigeSpeiseK;
                 JSONArray kateg1 = new JSONArray(JSONObjectGET("http://localhost:8080/kategorie").toString());
                 for (int j = 0; j < kateg1.length(); j++) {
                     JSONObject jsonObject1 = kateg1.getJSONObject(j);
-                    if (jsonObject1.get("kategorie").equals(jsonArray1.get(i))) {
+                    if (jsonObject1.get("kategorie").equals(jsonArray1.get(i))&& jsonObject1.get("menuId").equals(id) ) {
                         kategorieId = (int) jsonObject1.get("kategorieId");
                         System.out.println(kategorieId);
                     }
@@ -157,7 +157,7 @@ public static JSONObject fertigeSpeiseK;
                 JSONArray kateg = new JSONArray(JSONObjectGET("http://localhost:8080/kategorie").toString());
                 for (int j = 0; j < kateg.length(); j++) {
                     JSONObject jsonObject1 = kateg.getJSONObject(j);
-                    if (jsonObject1.get("kategorie").equals(jsonArray1.get(i))) {
+                    if (jsonObject1.get("kategorie").equals(jsonArray1.get(i))&& jsonObject1.get("menuId").equals(id)) {
                         kategorieId = (int) jsonObject1.get("kategorieId");
                     }
                 }
@@ -223,7 +223,7 @@ public static JSONObject fertigeSpeiseK;
                 for (int v = 0; v < jsonArrayA.length(); v++) {
                     JSONObject jsonObject5 = jsonArrayA.getJSONObject(v);
                     System.out.println(jsonObject5);
-                    if (jsonObject5.get("menuId").equals(1) && jsonObject5.get("kategorieId").equals(katID1)) {
+                    if (jsonObject5.get("menuId").equals(id) && jsonObject5.get("kategorieId").equals(katID1)) {
                         Text text = new Text(jsonObject5.get("name")+"\n");
                         textFlow.getChildren().add(text);
                         jsonArray3.put(jsonObject5);
@@ -289,6 +289,7 @@ public static JSONObject fertigeSpeiseK;
             }
         }
         allFoods =allFoods+jsonArray1.toString()+"}";
+        System.out.println(allFoods);
         JSONObjectPOST("http://localhost:8080/menu/add", allFoods);
         System.out.println("Daten gesendet");
 
