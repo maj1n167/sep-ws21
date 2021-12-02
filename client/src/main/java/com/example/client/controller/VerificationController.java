@@ -34,7 +34,7 @@ public class VerificationController extends ConnectionController implements Init
     }
 
    public void onVerifyButtonClicked(ActionEvent event) throws IOException {
-        JSONObject jsonObject = new JSONObject(JSONObjectGET("http://localhost:8080/user/findemail/"+email).toString());
+        JSONObject jsonObject = new JSONObject(JSONObjectGET("http://localhost:8080/user/find/"+email).toString());
            if(jsonObject.get("verifyCode").equals(Integer.parseInt(inputCode.getText()))) {
                if (jsonObject.get("restaurantBesitzer").equals(true)) {
                    jsonObject.put("verifyCode",0);
