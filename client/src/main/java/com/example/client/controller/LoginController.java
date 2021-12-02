@@ -42,7 +42,7 @@ public class LoginController extends ConnectionController {
        for(int i = 0; i<jsonArray.length(); i++){
          JSONObject jsonObject =  jsonArray.getJSONObject(i);
          if(jsonObject.get("email").equals(inputEmail.getText()) && jsonObject.get("password").equals(inputPassword.getText())){
-             JSONObjectGET("http://localhost:8080/user/send/"+jsonObject.get("email"));
+             JSONObjectGET("http://localhost:8080/user/send/verification/"+jsonObject.get("email"));
              email = jsonObject.get("email").toString();
              userId = Integer.parseInt(jsonObject.get("userId").toString());
              Main m = new Main();
