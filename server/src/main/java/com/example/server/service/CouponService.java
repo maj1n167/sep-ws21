@@ -5,6 +5,8 @@ import com.example.server.model.Food;
 import com.example.server.repo.CouponRepo;
 import com.example.server.repo.FoodRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,6 +36,26 @@ public class CouponService {
 
     public void deleteCoupon(String coupon){
         couponRepo.deleteByCoupon(coupon);
+    }
+
+    @Autowired
+    private JavaMailSender mailSender;
+
+    public void sendEmail(String toEmail,
+                          String body,
+                          String subject) {
+
+        SimpleMailMessage message = new SimpleMailMessage();
+
+
+        message.setFrom("suprmeorderingsystem@gmail.com");
+        message.setTo(toEmail);
+        message.setText(body);
+        message.setSubject(subject);
+
+        mailSender.send(message);
+        System.out.println("Mail Send...");
+
     }
 
 

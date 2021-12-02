@@ -50,7 +50,7 @@ public class KundeStartseiteController extends ConnectionController{
     public void onLoyaltyPointsClick() throws IOException {
         // Change Scenes
         Main m= new Main();
-        m.ChangeScene("KStartseite.fxml");
+        m.ChangeScene("Treuepunkte.fxml");
     }
 }
 
