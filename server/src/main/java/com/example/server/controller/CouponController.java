@@ -1,17 +1,16 @@
 package com.example.server.controller;
 
 import com.example.server.model.Coupon;
-import com.example.server.model.Food;
-import com.example.server.model.User;
 import com.example.server.service.CouponService;
-import com.example.server.service.FoodService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Random;
 
+@Component
 @RestController
 @RequestMapping("/coupon")
 public class CouponController {

@@ -7,10 +7,10 @@ import javax.persistence.Id;
 public class Coupon {
 
     @Id
-    String Coupon;
+    String coupon;
 
     public Coupon(String coupon) {
-        Coupon = coupon;
+        coupon = coupon;
     }
 
     public Coupon() {
@@ -18,10 +18,10 @@ public class Coupon {
     }
 
     public String getCoupon() {
-        return Coupon;
+        return coupon;
     }
 
     public void setCoupon(String coupon) {
-        Coupon = coupon;
+        coupon = coupon;
     }
 }

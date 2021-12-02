@@ -1,9 +1,7 @@
 package com.example.server.service;
 
 import com.example.server.model.Coupon;
-import com.example.server.model.Food;
 import com.example.server.repo.CouponRepo;
-import com.example.server.repo.FoodRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
