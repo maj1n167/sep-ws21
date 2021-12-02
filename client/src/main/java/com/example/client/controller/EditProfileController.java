@@ -22,20 +22,15 @@ public class EditProfileController extends ConnectionController {
     @FXML
     PasswordField neuesPasswort;
 
-
+    JSONObject current;
 
     public void initialize() throws IOException {
-        JSONArray j = new JSONArray(JSONObjectGET("http://localhost:8080/user").toString());
+        current = new JSONObject(JSONObjectGET("http://localhost:8080/user/findbyid/"+LoginController.userId).toString());
 
-        for (int i = 0; i < j.length(); i++) {
-            JSONObject currentjson = j.getJSONObject(i);
-            if (currentjson.get("userId").equals(LoginController.userId)) {
-                neuerVorname.setText(currentjson.get("vorname").toString());
-                neuerName.setText(currentjson.get("name").toString());
-                neuesPasswort.setText(currentjson.get("password").toString());
-                neueEmail.setText(currentjson.get("email").toString());
-            }
-        }
+        neuerVorname.setText(current.get("vorname").toString());
+        neuerName.setText(current.get("name").toString());
+        neuesPasswort.setText(current.get("password").toString());
+        neueEmail.setText(current.get("email").toString());
     }
 
     @FXML
@@ -47,14 +42,18 @@ public class EditProfileController extends ConnectionController {
 
         LoginController.email = neueEmail.getText();
 
-        String data = "{ \"userId\": \""+LoginController.userId+"\", \n";
+        current.put("vorname", neuerVorname.getText());
+        current.put("name", neuerName.getText());
+        current.put("email", neueEmail.getText());
+        current.put("password", neuesPasswort.getText());
+        /*String data = "{ \"userId\": \""+LoginController.userId+"\", \n";
         data = data + "\"vorname\": \"" + neuerVorname.getText().toString() + "\",\n";
         data = data + " \"name\": \"" + neuerName.getText().toString() + "\",\n";
         data = data + " \"email\": \"" + neueEmail.getText().toString() + "\",\n";
         data = data + " \"password\": \"" + neuesPasswort.getText().toString() + "\",\n";
-        data = data + " \"restaurantBesitzer\": \"true\" }";
+        data = data + " \"restaurantBesitzer\": \"true\" }";*/
 
-        JSONObjectPUT(url, data);
+        JSONObjectPUT(url, current.toString());
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Daten editiert");
