@@ -13,6 +13,10 @@ public class Coupon {
         Coupon = coupon;
     }
 
+    public Coupon() {
+
+    }
+
     public String getCoupon() {
         return Coupon;
     }
