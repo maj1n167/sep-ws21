@@ -31,21 +31,35 @@ public class UserController {
         return new ResponseEntity<>(users, HttpStatus.OK);
 
     }
-    // Sending Verfiycode to Email
-    @GetMapping("/send/{email}")
-    public ResponseEntity<User> getUserByEmailAndSendEmail(@PathVariable("email") String email) {
+    // Sending Coupon to Email
+    @GetMapping("/send/coupon/{email}")
+    public ResponseEntity<User> sendCoupon(@PathVariable("email") String email) {
 
-       User users = userService.findUserByEmail(email);
-       String currentEmail = users.getEmail();
+        User users = userService.findUserByEmail(email);
+        String currentEmail = users.getEmail();
         System.out.println(currentEmail);
         Random rnd = new Random();
         int number = rnd.nextInt(999999);
-        users.setVerfiyCode(number);
+        users.setVerifyCode(number);
         userService.updateUser(users);
-       int code = users.getVerfiyCode();
-       userService.sendEmail(currentEmail.toString(), "Ihr Verifizierung Code: "+code, "Verifizierungcode");
+        int code = users.getVerifyCode();
+        userService.sendEmail(currentEmail.toString(), "Ihr Verifizierung Code: "+code, "Verifizierungcode");
+        return new ResponseEntity<>(users, HttpStatus.OK);
 
+    }
+    // Sending Verifycode to Email
+    @GetMapping("/send/verification/{email}")
+    public ResponseEntity<User> sendVerification(@PathVariable("email") String email) {
 
+        User users = userService.findUserByEmail(email);
+        String currentEmail = users.getEmail();
+        System.out.println(currentEmail);
+        Random rnd = new Random();
+        int number = rnd.nextInt(999999);
+        users.setVerifyCode(number);
+        userService.updateUser(users);
+        int code = users.getVerifyCode();
+        userService.sendEmail(currentEmail.toString(), "Ihr Verifizierung Code: "+code, "Verifizierungcode");
         return new ResponseEntity<>(users, HttpStatus.OK);
 
     }

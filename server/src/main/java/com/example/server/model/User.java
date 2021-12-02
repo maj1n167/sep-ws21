@@ -20,7 +20,7 @@ public class User implements Serializable {
     private String plz;
     private String stadt;
     private Boolean restaurantBesitzer;
-
+    private int treuepunkte;
     private Double guthaben;
     private String altAdresse;
     private String altPlz;
@@ -30,7 +30,7 @@ public class User implements Serializable {
     @JoinColumn(name="restaurantId" ,referencedColumnName = "restaurantId")
     private Restaurant restaurant;
 
-    private int verfiyCode;
+    private int verifyCode;
 
 
     //konstruktor zur Registrierung - ok
@@ -136,9 +136,9 @@ public class User implements Serializable {
 
     public void setUserId(int userId) {this.userId = userId;}
 
-    public int getVerfiyCode() {return verfiyCode;}
+    public int getVerifyCode() {return verifyCode;}
 
-    public void setVerfiyCode(int verfiyCode) {this.verfiyCode = verfiyCode;}
+    public void setVerifyCode(int verifyCode) {this.verifyCode = verifyCode;}
 
     public Double getGuthaben() {
         return guthaben;
@@ -171,4 +171,9 @@ public class User implements Serializable {
     public void setAltStadt(String altStadt) {
         this.altStadt = altStadt;
     }
+
+    public int getTreuepunkte() { return treuepunkte; }
+
+    public void setTreuepunkte(int treuepunkte) { this.treuepunkte = treuepunkte; }
+
 }
