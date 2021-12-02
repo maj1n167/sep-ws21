@@ -64,10 +64,24 @@ public class UserController {
 
     }
     // Zum Abgleich, ob eine Registrierung bereits vorhanden ist und um die Daten der registrierten Person zu erhalten.
-    @GetMapping("/find/{email}")
+    @GetMapping("/findemail/{email}")
     public ResponseEntity<User> getUserByEmail(@PathVariable("email") String email) {
         User users = userService.findUserByEmail(email);
         return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
+    @GetMapping("/find/{id}")
+    public ResponseEntity<User> getUserByUserId(@PathVariable("id") int id) {
+        List<User> users = userService.findAllUsers();
+        User user = null;
+        for (int i = 0; i < users.size(); i++) {
+            if (users.get(i).getUserId() == id) {
+                user = users.get(i);
+            }
+        }
+        if (user != null) {
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        } else { return new ResponseEntity<>(null, HttpStatus.NOT_FOUND); }
     }
 
     // Bei abgeschlossener Registrierung wird so die Information auf der Datenbank hinterlegt und bestätigt

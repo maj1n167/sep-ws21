@@ -26,7 +26,7 @@ public class EditProfileController extends ConnectionController {
 
     public void initialize() throws IOException {
         JSONArray j = new JSONArray(JSONObjectGET("http://localhost:8080/user").toString());
-        current = new JSONObject(JSONObjectGET("http://localhost:8080/find/"+LoginController.email));
+        current = new JSONObject(JSONObjectGET("http://localhost:8080/find/"+LoginController.userId));
 
         /*for (int i = 0; i < j.length(); i++) {
             currentjson = j.getJSONObject(i);
