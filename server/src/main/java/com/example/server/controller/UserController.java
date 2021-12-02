@@ -38,12 +38,13 @@ public class UserController {
         User users = userService.findUserByEmail(email);
         String currentEmail = users.getEmail();
         System.out.println(currentEmail);
-        Random rnd = new Random();
-        int number = rnd.nextInt(999999);
-        users.setVerifyCode(number);
-        userService.updateUser(users);
-        int code = users.getVerifyCode();
-        userService.sendEmail(currentEmail.toString(), "Ihr Verifizierung Code: "+code, "Verifizierungcode");
+        Random rnd1 = new Random();
+        int number1 = rnd1.nextInt(999999);
+        Random rnd2 = new Random();
+        int number2 = rnd2.nextInt(999999);
+        String code;
+        code = String.format("%06d", number1) + String.format("%06d", number2);
+        userService.sendEmail(currentEmail.toString(), "Ihr Rabattcode lautet: "+code, "Rabattcode");
         return new ResponseEntity<>(users, HttpStatus.OK);
 
     }
