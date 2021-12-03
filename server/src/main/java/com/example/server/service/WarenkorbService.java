@@ -1,40 +1,40 @@
 package com.example.server.service;
 
 import com.example.server.model.Warenkorb;
-import com.example.server.repo.WarenRepo;
+import com.example.server.repo.WarenkorbRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class WarenService {
+public class WarenkorbService {
 
-    private final WarenRepo warenRepo;
+    private final WarenkorbRepo warenkorbRepo;
 
     @Autowired
-    public WarenService(WarenRepo warenRepo) {
-        this.warenRepo = warenRepo;
+    public WarenkorbService(WarenkorbRepo warenkorbRepo) {
+        this.warenkorbRepo = warenkorbRepo;
     }
 
     public Warenkorb addWare(Warenkorb warenkorb){
-        return warenRepo.save(warenkorb);
+        return warenkorbRepo.save(warenkorb);
     }
 
     public List<Warenkorb> findAllWaren(){
-        return warenRepo.findAll();
+        return warenkorbRepo.findAll();
     }
 
     public Warenkorb updateWaren(Warenkorb warenkorb){
-        return warenRepo.save(warenkorb);
+        return warenkorbRepo.save(warenkorb);
     }
 
     public void deleteWaren(int warenId){
-        warenRepo.deleteById(warenId);
+        warenkorbRepo.deleteById(warenId);
     }
 
     public Warenkorb findWarenkorbById(int warenkorbId) {
-        return warenRepo.findUserById(warenkorbId);
+        return warenkorbRepo.findWarenkorbByWarenkorbId(warenkorbId);
     }
 }
 

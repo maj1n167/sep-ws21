@@ -1,9 +1,7 @@
 package com.example.server.controller;
 
-import com.example.server.model.Food;
 import com.example.server.model.Warenkorb;
-import com.example.server.service.FoodService;
-import com.example.server.service.WarenService;
+import com.example.server.service.WarenkorbService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,35 +10,35 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/Warenkorb")
-public class WarenController {
+public class WarenkorbController {
 
 
-    private final WarenService warenService;
+    private final WarenkorbService warenkorbService;
 
-    public WarenController(WarenService warenService) {
-        this.warenService = warenService;
+    public WarenkorbController(WarenkorbService warenkorbService) {
+        this.warenkorbService = warenkorbService;
     }
 
 
     @GetMapping
     public ResponseEntity<List<Warenkorb>> getAllWarenkorb() {
 
-        List<Warenkorb> waren = warenService.findAllWaren();
+        List<Warenkorb> warenkorb = warenkorbService.findAllWaren();
 
-        return new ResponseEntity<>(waren, HttpStatus.OK);
+        return new ResponseEntity<>(warenkorb, HttpStatus.OK);
 
     }
 
 
     @PostMapping("/add")
     public ResponseEntity<Warenkorb> addWarenkorb(@RequestBody Warenkorb warenkorb) {
-        Warenkorb newWarenkorb = warenService.addWare(warenkorb);
+        Warenkorb newWarenkorb = warenkorbService.addWare(warenkorb);
         return new ResponseEntity<>(newWarenkorb, HttpStatus.CREATED);
     }
 
     @PutMapping("/update")
     public ResponseEntity<Warenkorb> updateWaren(@RequestBody Warenkorb warenkorb) {
-        Warenkorb updateWare = warenService.addWare(warenkorb);
+        Warenkorb updateWare = warenkorbService.addWare(warenkorb);
         return new ResponseEntity<>(updateWare, HttpStatus.OK);
     }
 
