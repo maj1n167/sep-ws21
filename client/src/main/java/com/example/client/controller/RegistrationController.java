@@ -76,7 +76,7 @@ public class RegistrationController extends ConnectionController {
             user.put("password",passwortTextfield.getText());
             user.put("guthaben",0);
             user.put("restaurantBesitzer", false);
-            
+
 
             JSONObjectPOST(url, user.toString());
             System.out.println("Daten korrekt übertragen");

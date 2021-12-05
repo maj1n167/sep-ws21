@@ -35,29 +35,29 @@ public class UserService {
     }
 
         @Autowired
-    private JavaMailSender mailSender;
+        private JavaMailSender mailSender;
 
     //Method to send Emails
-    public void sendEmail(String toEmail,
-                          String body,
-                          String subject) {
+        public void sendEmail(String toEmail,
+                              String body,
+                              String subject) {
 
-        SimpleMailMessage message = new SimpleMailMessage();
+            SimpleMailMessage message = new SimpleMailMessage();
 
 
-        message.setFrom("suprmeorderingsystem@gmail.com");
-        message.setTo(toEmail);
-        message.setText(body);
-        message.setSubject(subject);
+            message.setFrom("suprmeorderingsystem@gmail.com");
+            message.setTo(toEmail);
+            message.setText(body);
+            message.setSubject(subject);
 
-        mailSender.send(message);
-        System.out.println("Mail Send...");
+            mailSender.send(message);
+            System.out.println("Mail Send...");
 
-    }
+        }
 
-    public User findUserByEmail(String email) {
-        return userRepo.findUserByEmail(email);
-    }
+        public User findUserByEmail(String email) {
+            return userRepo.findUserByEmail(email);
+        }
 
-    public User findUserByUserId(int id) { return userRepo.findUserByUserId(id); }
+        public User findUserByUserId(int id) { return userRepo.findUserByUserId(id); }
 }
