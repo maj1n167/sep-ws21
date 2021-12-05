@@ -8,6 +8,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.Locale;
 import java.util.Optional;
 
 public class RegistrationController extends ConnectionController {
@@ -67,15 +68,17 @@ public class RegistrationController extends ConnectionController {
 //         Hier erstmal alles kommentiert, da das hier in Zyklus 2 relevant sein wird. -ok
             String url = "http://localhost:8080/user/add";
 
+            JSONObject user = new JSONObject();
 
-            String data = "{ \"vorname\": \""+vornameTextfield.getText().toString()+"\",\n" +
-                    " \"name\": \""+nameTextfield.getText().toString()+"\",\n" +
-                    " \"email\":\""+emailTextfield.getText().toString()+"\",\n"+
-                    " \"password\": \""+passwortTextfield.getText().toString()+"\",\n" +
-                    " \"guthaben\": \"0\",\n" +
-                    " \"restaurantBesitzer\": \"false\" }";
+            user.put("vorname", vornameTextfield.getText());
+            user.put("name",nameTextfield.getText());
+            user.put("email", emailTextfield.getText());
+            user.put("password",passwortTextfield.getText());
+            user.put("guthaben",0);
+            user.put("restaurantBesitzer", false);
+            
 
-            JSONObjectPOST(url, data);
+            JSONObjectPOST(url, user.toString());
             System.out.println("Daten korrekt übertragen");
 
             JSONArray jsonArray = new JSONArray(JSONObjectGET("http://localhost:8080/user").toString());

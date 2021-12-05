@@ -18,10 +18,10 @@ public class GuthabenAufladenController extends ConnectionController {
 private TextField textField;
 @FXML
 private ListView <String> listView;
-public int userId=1;
+public int userId;
 public double guthaben;
    public void initialize() throws IOException{
-   //     userId = LoginController.userId;
+       userId = LoginController.userId;
     //   JSONObject user = new JSONObject(JSONObjectGET("http://localhost:8080/user/findbyId/"+userId).toString());
        String url1 = "http://localhost:8080/user";
        JSONArray jsonArray =  new JSONArray(JSONObjectGET(url1).toString());
@@ -35,7 +35,7 @@ public double guthaben;
            }
        }
        textField.setText(jsonObject.get("guthaben").toString());
-       guthaben=(double) jsonObject.get("guthaben");
+       guthaben=Double.parseDouble(jsonObject.get("guthaben").toString());
    }
 
 
