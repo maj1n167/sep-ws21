@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
@@ -17,7 +18,7 @@ public class GuthabenAufladenController extends ConnectionController {
 @FXML
 private TextField textField;
 @FXML
-private ListView <String> listView;
+private Label label;
 public int userId=1;
 public double guthaben;
    public void initialize() throws IOException{
@@ -34,8 +35,8 @@ public double guthaben;
                jsonObject = jsonObject1;
            }
        }
-       textField.setText(jsonObject.get("guthaben").toString());
-       guthaben=(double) jsonObject.get("guthaben");
+       label.setText(jsonObject.get("guthaben").toString());
+      // guthaben=(double) jsonObject.get("guthaben");
    }
 
 
