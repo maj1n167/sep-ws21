@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
@@ -17,12 +18,12 @@ public class GuthabenAufladenController extends ConnectionController {
 @FXML
 private TextField textField;
 @FXML
-private ListView <String> listView;
+private Label label;
 public int userId;
 public double guthaben;
    public void initialize() throws IOException{
        userId = LoginController.userId;
-    //   JSONObject user = new JSONObject(JSONObjectGET("http://localhost:8080/user/findbyId/"+userId).toString());
+      // JSONObject user = new JSONObject(JSONObjectGET("http://localhost:8080/user/findbyid/"+userId).toString());
        String url1 = "http://localhost:8080/user";
        JSONArray jsonArray =  new JSONArray(JSONObjectGET(url1).toString());
        JSONObject jsonObject = new JSONObject();
@@ -34,7 +35,7 @@ public double guthaben;
                jsonObject = jsonObject1;
            }
        }
-       textField.setText(jsonObject.get("guthaben").toString());
+       label.setText(jsonObject.get("guthaben").toString());
        guthaben=Double.parseDouble(jsonObject.get("guthaben").toString());
    }
 
