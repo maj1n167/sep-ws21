@@ -51,8 +51,24 @@ public double guthaben;
 
             alert.showAndWait();
         }else {
-            textField.getText();
-            System.out.println(textField.getText());
+            double aufladen =  Double.parseDouble(textField.getText());
+             guthaben +=aufladen;
+            String url1 = "http://localhost:8080/user";
+            JSONArray jsonArray =  new JSONArray(JSONObjectGET(url1).toString());
+            JSONObject jsonObject = new JSONObject();
+
+            for(int i = 0; i<jsonArray.length(); i++){
+                JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+
+                if (jsonObject1.get("userId").equals(userId)){
+                    jsonObject = jsonObject1;
+                }
+            }
+            jsonObject.put("guthaben",guthaben);
+            JSONObjectPOST("http://localhost:8080/user/add",jsonObject.toString());
+            initialize();
+
+
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Error");

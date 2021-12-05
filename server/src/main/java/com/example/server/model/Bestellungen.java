@@ -2,6 +2,7 @@ package com.example.server.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.net.DatagramSocket;
 import java.util.Date;
 import java.util.List;
 
@@ -12,7 +13,7 @@ public class Bestellungen implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long bestellungId;
 
-    Date datum;
+    String datum;
 
     int restaurantId;
 
@@ -23,7 +24,7 @@ public class Bestellungen implements Serializable {
     @OneToMany
     List<Food> liste;
 
-    public Bestellungen(long bestellungId, Date datum, int restaurantId, double summe, int userId, List<Food> liste) {
+    public Bestellungen(long bestellungId, String datum, int restaurantId, double summe, int userId, List<Food> liste) {
         this.bestellungId = bestellungId;
         this.datum = datum;
         this.restaurantId = restaurantId;
@@ -32,7 +33,7 @@ public class Bestellungen implements Serializable {
         this.liste = liste;
     }
 
-    public Bestellungen(long bestellungId, Date datum, int restaurantId, double summe, List<Food> liste) {
+    public Bestellungen(long bestellungId, String datum, int restaurantId, double summe, List<Food> liste) {
         this.bestellungId = bestellungId;
         this.datum = datum;
         this.restaurantId = restaurantId;
@@ -60,11 +61,13 @@ public class Bestellungen implements Serializable {
         this.bestellungId = bestellungId;
     }
 
-    public Date getDatum() {
+    public String getDatum() {
+
+
         return datum;
     }
 
-    public void setDatum(Date datum) {
+    public void setDatum(String datum) {
         this.datum = datum;
     }
 
