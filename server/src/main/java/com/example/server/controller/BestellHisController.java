@@ -11,7 +11,7 @@ import java.util.List;
 
 @Component
 @RestController
-@RequestMapping
+@RequestMapping("/bestellHistorie")
 public class BestellHisController {
     private final BestellHisService bestellHisService;
 
