@@ -36,7 +36,7 @@ public double guthaben;
            }
        }
        label.setText(jsonObject.get("guthaben").toString());
-      // guthaben=(double) jsonObject.get("guthaben");
+       guthaben=Double.parseDouble(jsonObject.get("guthaben").toString()); 
    }
 
 
