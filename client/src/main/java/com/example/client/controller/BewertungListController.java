@@ -15,6 +15,11 @@ public class BewertungListController extends ConnectionController {
     @FXML
     ScrollPane scrollField;
 
+    public void initialize () {
+
+
+    }
+
     public void zurueckButtonClick() throws IOException {
         Main m = new Main();
         m.ChangeScene("Startseite.fxml");

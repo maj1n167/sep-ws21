@@ -30,25 +30,29 @@ public class BewertungController extends ConnectionController {
     private Button zurueckButton;
 
 
-    private int userId;
+    private int restaurantId;
+
 
 
 
     public void initialize() {
 
-        gerichtChoiceBox.getItems().addAll("*", "**", "***", "****", "*****");
-        //ersten Punkt auf * setzen
-        gerichtChoiceBox.setValue("*");
+        gerichtChoiceBox.getItems().addAll("1", "2", "3", "4", "5");
+        //ersten Punkt auf 5 setzen
+        gerichtChoiceBox.setValue("5");
 
-        lieferungChoiceBox.getItems().addAll("*", "**", "***", "****", "*****");
-        //ersten Punkt auf * setzen
-        lieferungChoiceBox.setValue("*");
+        lieferungChoiceBox.getItems().addAll("1", "2", "3", "4", "5");
+        //ersten Punkt auf 5 setzen
+        lieferungChoiceBox.setValue("5");
 
-        this.userId = LoginController.userId;
+        /**
+         * TODO: this.restaurantId = 0;
+         */
+        this.restaurantId = 1;
     }
 
 
-    public void speichernButtonClick (){
+    public void speichernButtonClick () throws IOException {
 
         if (kommentarTextfield.getText().equals("")) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -59,23 +63,34 @@ public class BewertungController extends ConnectionController {
             alert.showAndWait();
         }
         else {
-            String url = "http://localhost:8080/bewertung/add";
+
+            /**
+             * int id;
+             *     int starsLieferung;
+             *     int starsFood;
+             *     String comment;
+             */
+            String url = "http://localhost:8080/rating/add";
 
             JSONObject bewertung = new JSONObject();
 
-            bewertung.put("kommentar", kommentarTextfield.getText());
+            bewertung.put("comment", kommentarTextfield.getText());
+            bewertung.put("starsLieferung", Integer.parseInt(lieferungChoiceBox.getValue()));
+            bewertung.put("starsFood", Integer.parseInt(gerichtChoiceBox.getValue()));
+            bewertung.put("restaurantId", restaurantId);
 
-           // JSONObjectPOST(url, bewertung.toString());
 
-           /** Main m = new Main();
-            m.ChangeScene("Startseite.fxml");
-            **/
+            JSONObjectPOST(url, bewertung.toString());
+
+            Main m = new Main();
+            m.ChangeScene("KStartseite.fxml");
+
         }
 
     }
 
     public void zurueckButtonClick() throws IOException {
         Main m = new Main();
-        m.ChangeScene("Startseite.fxml");
+        m.ChangeScene("KStartseite.fxml");
     }
 }
