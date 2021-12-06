@@ -10,6 +10,7 @@ public class Rating {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
+    int restaurantId;
     int starsLieferung;
     int starsFood;
     String comment;

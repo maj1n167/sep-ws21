@@ -16,6 +16,7 @@ public class Restaurant  implements Serializable {
     private double lieferkosten;
     private String kategorie;
     private int lieferbereich;
+    private double rating;
     @JoinColumn(name = "menuId")
     @OneToOne
     private Menu menu;
