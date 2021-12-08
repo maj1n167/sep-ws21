@@ -45,7 +45,6 @@ public class CouponController {
         couponService.addCoupon(coupon);
         couponService.sendEmail(currentEmail, "Ihr Rabattcode lautet: "+code, "Rabattcode");
         return new ResponseEntity<>(null, HttpStatus.OK);
-
     }
 
     @PostMapping("/add")
