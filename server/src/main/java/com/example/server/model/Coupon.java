@@ -13,9 +13,7 @@ public class Coupon {
         coupon = coupon;
     }
 
-    public Coupon() {
-
-    }
+    public Coupon() { }
 
     public String getCoupon() {
         return coupon;
