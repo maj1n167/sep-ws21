@@ -36,7 +36,7 @@ public class KundeStartseiteController extends ConnectionController{
     @FXML
     public void onValuationClick() throws IOException {
         Main m= new Main();
-        m.ChangeScene("KStartseite.fxml");
+        m.ChangeScene("Bewertung.fxml");
     }
 
     @FXML

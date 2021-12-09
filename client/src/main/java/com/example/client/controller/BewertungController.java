@@ -79,11 +79,11 @@ public class BewertungController extends ConnectionController {
             bewertung.put("starsFood", Integer.parseInt(gerichtChoiceBox.getValue()));
             bewertung.put("restaurantId", restaurantId);
 
-            System.out.println(bewertung.toString());
+            System.out.println(bewertung);
             JSONObjectPOST(url, bewertung.toString());
 
             Main m = new Main();
-            m.ChangeScene("KStartseite.fxml");
+            m.ChangeScene("BewertungList.fxml");
 
         }
 

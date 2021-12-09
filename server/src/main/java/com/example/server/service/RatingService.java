@@ -21,7 +21,15 @@ public class RatingService {
         System.out.println("Service= " + ratings.toString());
         return ratingRepo.save(ratings); }
 
-    public List<Rating> findAllRatings(){
+    public List<Rating> findAllRatings() {
         return ratingRepo.findAll();
     }
+
+    public List<Rating> findAllRatingsForRestaurantId(int id) {
+            List<Rating> test = ratingRepo.findAll();
+            test.removeIf(n -> n.getRestaurantId() != id);
+            return test;
+        }
+
+
 }
