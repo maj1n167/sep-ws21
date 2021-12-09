@@ -20,7 +20,6 @@ public class CouponService {
     }
 
     public Coupon addCoupon(Coupon coupons){
-        System.out.println("Service = " + coupons.getCoupon());
         return couponRepo.save(coupons);
     }
 
