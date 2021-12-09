@@ -101,4 +101,12 @@ public class Restaurant  implements Serializable {
     public void setLieferbereich(int lieferbereich) {
         this.lieferbereich = lieferbereich;
     }
+
+    public double getRating() { return rating;}
+
+    public void setRating(double rating) {this.rating = rating;}
+
+    public Menu getMenu() {return menu;}
+
+    public void setMenu(Menu menu) {this.menu = menu;}
 }
