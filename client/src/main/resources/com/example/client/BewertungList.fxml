@@ -33,8 +33,10 @@
                      <children>
                         <TableView prefHeight="313.0" prefWidth="452.0">
                           <columns>
-                            <TableColumn prefWidth="75.0" text="C1" />
-                            <TableColumn prefWidth="75.0" text="C2" />
+                            <TableColumn fx:id="lieferung" prefWidth="75.0" text="Lieferung" />
+                            <TableColumn fx:id="speise" prefWidth="75.0" text="Speise" />
+                              <TableColumn fx:id="comment" prefWidth="75.0" text="Kommentar" />
+                              <TableColumn fx:id="name" prefWidth="75.0" text="Name" />
                           </columns>
                         </TableView>
                      </children></AnchorPane>

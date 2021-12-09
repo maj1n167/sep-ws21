@@ -41,7 +41,9 @@ public class RestaurantsController extends ConnectionController implements Initi
     @FXML
     TableColumn kategorie = new TableColumn("Kategorie");
     @FXML
-    TableColumn rating = new TableColumn("Bewertung");
+    TableColumn rating = new TableColumn("DS-Bewertung");
+    @FXML
+    TableColumn ratings = new TableColumn("Bewertung");
     @FXML
     TableColumn mbw = new TableColumn("Mindestbestellwert");
     @FXML
@@ -79,6 +81,7 @@ public class RestaurantsController extends ConnectionController implements Initi
             name.setCellValueFactory(new PropertyValueFactory<RestaurantList, String>("name"));
             kategorie.setCellValueFactory(new PropertyValueFactory<RestaurantList, String>("kategorie"));
             rating.setCellValueFactory(new PropertyValueFactory<RestaurantList, Double>("rating"));
+            ratings.setCellValueFactory(new PropertyValueFactory<RestaurantList, Button>("ratings"));
             mbw.setCellValueFactory(new PropertyValueFactory<RestaurantList, Double>("mbw"));
             lieferkosten.setCellValueFactory(new PropertyValueFactory<RestaurantList, Double>("lieferkosten"));
             menu.setCellValueFactory(new PropertyValueFactory<RestaurantList, Button>("menu"));
@@ -132,11 +135,15 @@ public class RestaurantsController extends ConnectionController implements Initi
  */
             //buttons konfigurieren
 
+
+            Button curRating = new Button();
+            curMenu.setText("Bewertungen");
+
             RestaurantList r = new RestaurantList();
             output.add(r = new RestaurantList(current.getInt("restaurantId"), current.getString("name"), current.getString("strasse"),
                     current.getString("plz"), current.getString("stadt"), current.getDouble("mbw"),
                     current.getDouble("lieferkosten"), current.getString("kategorie"), current.getInt("lieferbereich"),
-                    current.getDouble("rating"), curMenu, curOrder));
+                    current.getDouble("rating"), curRating, curMenu, curOrder));
         }
         data = FXCollections.observableArrayList(output);
         return output;
@@ -183,6 +190,7 @@ public class RestaurantsController extends ConnectionController implements Initi
         private String kategorie;
         private int lieferbereich;
         private double rating;
+        private Button ratings;
         private Button menu;
         private Button order;
 
@@ -190,7 +198,7 @@ public class RestaurantsController extends ConnectionController implements Initi
 
         public RestaurantList(int id, String name, String strasse, String plz,
                               String stadt, double mbw, double lieferkosten,
-                              String kategorie, int lieferbereich, double rating, Button menu, Button order) {
+                              String kategorie, int lieferbereich, double rating, Button ratings, Button menu, Button order) {
             this.id = id;
             this.name = name;
             this.strasse = strasse;
@@ -201,6 +209,7 @@ public class RestaurantsController extends ConnectionController implements Initi
             this.kategorie = kategorie;
             this.lieferbereich = lieferbereich;
             this.rating = rating;
+            this.ratings = ratings;
             this.menu = menu;
             this.order = order;
         }
@@ -288,6 +297,10 @@ public class RestaurantsController extends ConnectionController implements Initi
         public Button getOrder() {return order;}
 
         public void setOrder(Button order) {this.order = order;}
+
+        public Button getRatings() {return ratings;}
+
+        public void setRatings(Button ratings) {this.ratings = ratings;}
 
 
         @Override

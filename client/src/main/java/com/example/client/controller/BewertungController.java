@@ -18,6 +18,9 @@ public class BewertungController extends ConnectionController {
     private TextField kommentarTextfield;
 
     @FXML
+    private TextField nameTextfield;
+
+    @FXML
     ChoiceBox<String> gerichtChoiceBox;
 
     @FXML
@@ -54,7 +57,7 @@ public class BewertungController extends ConnectionController {
 
     public void speichernButtonClick () throws IOException {
 
-        if (kommentarTextfield.getText().equals("")) {
+        if (kommentarTextfield.getText().equals("") || nameTextfield.getText().equals("") ) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Error");
             alert.setTitle("Error: Fehlendes Kommentarfeld.");
@@ -75,6 +78,7 @@ public class BewertungController extends ConnectionController {
             JSONObject bewertung = new JSONObject();
 
             bewertung.put("comment", kommentarTextfield.getText());
+            bewertung.put("name", nameTextfield.getText());
             bewertung.put("starsLieferung", Integer.parseInt(lieferungChoiceBox.getValue()));
             bewertung.put("starsFood", Integer.parseInt(gerichtChoiceBox.getValue()));
             bewertung.put("restaurantId", restaurantId);

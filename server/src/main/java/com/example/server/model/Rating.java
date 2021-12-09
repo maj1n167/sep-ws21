@@ -14,12 +14,14 @@ public class Rating {
     int starsLieferung;
     int starsFood;
     String comment;
+    String name;
 
-    public Rating(int restaurantId, int starsLieferung, int starsFood, String comment) {
+    public Rating(int restaurantId, int starsLieferung, int starsFood, String comment, String name) {
         this.restaurantId = restaurantId;
         this.starsLieferung = starsLieferung;
         this.starsFood = starsFood;
         this.comment = comment;
+        this.name = name;
     }
 
     public Rating() {
@@ -64,5 +66,9 @@ public class Rating {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

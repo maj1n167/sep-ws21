@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.client.controller.BewertungController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.client.controller.BewertungController">
     <children>
         <HBox alignment="CENTER" layoutY="82.0" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="440.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
             <children>
@@ -58,6 +58,11 @@
                      <VBox.margin>
                         <Insets />
                      </VBox.margin></Label>
+                  <Label text="Name:" wrapText="true">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </Label>
                     </children>
                 </VBox>
                 <VBox alignment="CENTER" prefHeight="277.0" prefWidth="128.0" spacing="20.0">
@@ -69,6 +74,11 @@
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets></TextField>
+                  <TextField fx:id="nameTextField" prefHeight="34.0" prefWidth="128.0">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </TextField>
                     </children>
                 </VBox>
             </children>

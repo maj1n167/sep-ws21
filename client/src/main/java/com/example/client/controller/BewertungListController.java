@@ -30,8 +30,9 @@ public class BewertungListController extends ConnectionController implements Ini
             id.setCellValueFactory(new PropertyValueFactory<BewertungListController.BewertungList, Integer>("Id"));
             restaurantId.setCellValueFactory(new PropertyValueFactory<BewertungListController.BewertungList, Integer>("restaurantId"));
             lieferung.setCellValueFactory(new PropertyValueFactory<BewertungListController.BewertungList, Integer>("starsLieferung"));
-            gericht.setCellValueFactory(new PropertyValueFactory<BewertungListController.BewertungList, Integer>("starsFood"));
+            speise.setCellValueFactory(new PropertyValueFactory<BewertungListController.BewertungList, Integer>("starsFood"));
             comment.setCellValueFactory(new PropertyValueFactory<BewertungListController.BewertungList, String>("comment"));
+            name.setCellValueFactory(new PropertyValueFactory<BewertungListController.BewertungList, String>("name"));
             list.setItems(getBewertungen());
         } catch (IOException e) {
             e.printStackTrace();
@@ -52,9 +53,11 @@ public class BewertungListController extends ConnectionController implements Ini
     @FXML
     TableColumn lieferung = new TableColumn("Lieferung");
     @FXML
-    TableColumn gericht = new TableColumn("Gericht");
+    TableColumn speise = new TableColumn("Speise");
     @FXML
     TableColumn comment = new TableColumn("Kommentar");
+    @FXML
+    TableColumn name = new TableColumn("Name");
 
     ObservableList<BewertungListController.BewertungList> data = FXCollections.observableArrayList();
 
@@ -78,7 +81,7 @@ public class BewertungListController extends ConnectionController implements Ini
 
             BewertungListController.BewertungList r = new BewertungListController.BewertungList();
             output.add(r = new BewertungListController.BewertungList(current.getInt("id"), current.getInt("restaurantId"), current.getInt("starsLieferung"),
-                    current.getInt("starsFood"), current.getString("comment")));
+                    current.getInt("starsFood"), current.getString("comment"), current.getString("name")));
         }
         data = FXCollections.observableArrayList(output);
         return output;
@@ -94,15 +97,17 @@ public class BewertungListController extends ConnectionController implements Ini
         private int lieferung;
         private int gericht;
         private String comment;
+        private String name;
 
         public BewertungList() { }
 
-        public BewertungList(int id, int restaurantId, int lieferung, int gericht, String comment) {
+        public BewertungList(int id, int restaurantId, int lieferung, int gericht, String comment, String name) {
             this.id = id;
             this.restaurantId = restaurantId;
             this.lieferung = lieferung;
             this.gericht = gericht;
             this.comment = comment;
+            this.name = name;
         }
 
         public int getId() {
@@ -143,6 +148,10 @@ public class BewertungListController extends ConnectionController implements Ini
 
         public void setComment(String comment) {
             this.comment = comment;
+        }
+
+        public void setName(String name) {
+            this.name = name;
         }
 
 
