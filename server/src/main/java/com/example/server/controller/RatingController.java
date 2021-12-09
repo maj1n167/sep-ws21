@@ -24,6 +24,13 @@ public class RatingController {
         return new ResponseEntity<>(ratings, HttpStatus.OK);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<List<Rating>> getAllRatingsforRestaurantId(@PathVariable int restaurantId) {
+        List<Rating> ratings = ratingService.findAllRatingsForRestaurantId(restaurantId);
+        return new ResponseEntity<>(ratings, HttpStatus.OK);
+    }
+
+
     @PostMapping("/add")
     public ResponseEntity<Rating> addRating(@RequestBody Rating rating) {
         System.out.println("Controller= " + rating.toString());
