@@ -1,6 +1,5 @@
 package com.example.server.controller;
 
-import com.example.server.model.Restaurant;
 import com.example.server.model.User;
 import com.example.server.service.UserService;
 import org.springframework.http.HttpStatus;
@@ -31,23 +30,7 @@ public class UserController {
         return new ResponseEntity<>(users, HttpStatus.OK);
 
     }
-    // Sending Coupon to Email
-    @GetMapping("/send/coupon/{email}")
-    public ResponseEntity<User> sendCoupon(@PathVariable("email") String email) {
 
-        User users = userService.findUserByEmail(email);
-        String currentEmail = users.getEmail();
-        System.out.println(currentEmail);
-        Random rnd1 = new Random();
-        int number1 = rnd1.nextInt(999999);
-        Random rnd2 = new Random();
-        int number2 = rnd2.nextInt(999999);
-        String code;
-        code = String.format("%06d", number1) + String.format("%06d", number2);
-        userService.sendEmail(currentEmail.toString(), "Ihr Rabattcode lautet: "+code, "Rabattcode");
-        return new ResponseEntity<>(users, HttpStatus.OK);
-
-    }
     // Sending Verifycode to Email
     @GetMapping("/send/verification/{email}")
     public ResponseEntity<User> sendVerification(@PathVariable("email") String email) {

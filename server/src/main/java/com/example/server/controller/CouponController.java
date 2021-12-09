@@ -31,9 +31,7 @@ public class CouponController {
 
     // Sending Coupon to Email
     @GetMapping("/send/{email}")
-    public ResponseEntity<?> sendCoupon(@PathVariable("email") String email) {
-
-
+    public ResponseEntity<Coupon> sendCoupon(@PathVariable("email") String email) {
         String currentEmail = email;
         Random rnd1 = new Random();
         int number1 = rnd1.nextInt(999999);
@@ -42,9 +40,9 @@ public class CouponController {
         String code;
         code = String.format("%06d", number1) + String.format("%06d", number2);
         Coupon coupon = new Coupon(code);
-        couponService.addCoupon(coupon);
-        couponService.sendEmail(currentEmail, "Ihr Rabattcode lautet: "+code, "Rabattcode");
-        return new ResponseEntity<>(null, HttpStatus.OK);
+        addCoupon(coupon);
+        couponService.sendEmail(currentEmail.toString(), "Ihr Rabattcode lautet: "+code, "Rabattcode");
+        return new ResponseEntity<>(coupon, HttpStatus.OK);
     }
 
     @PostMapping("/add")
@@ -53,9 +51,9 @@ public class CouponController {
         return new ResponseEntity<>(newCoupon, HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/delete/{coupon}")
-    public ResponseEntity<?> deleteCoupon(@PathVariable("coupon") String coupon) {
-        couponService.deleteCoupon(coupon);
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteCoupon(@PathVariable("id") String id) {
+        couponService.deleteCoupon(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

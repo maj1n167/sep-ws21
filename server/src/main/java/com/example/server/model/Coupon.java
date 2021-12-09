@@ -9,9 +9,7 @@ public class Coupon {
     @Id
     String coupon;
 
-    public Coupon(String coupon) {
-        coupon = coupon;
-    }
+    public Coupon(String coupon) {this.coupon = coupon;}
 
     public Coupon() { }
 
@@ -20,6 +18,6 @@ public class Coupon {
     }
 
     public void setCoupon(String coupon) {
-        coupon = coupon;
+        this.coupon = coupon;
     }
 }

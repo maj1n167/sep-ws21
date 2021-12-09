@@ -8,7 +8,6 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 
 @Service
@@ -21,6 +20,7 @@ public class CouponService {
     }
 
     public Coupon addCoupon(Coupon coupons){
+        System.out.println("Service = " + coupons.getCoupon());
         return couponRepo.save(coupons);
     }
 
@@ -35,6 +35,7 @@ public class CouponService {
     public void deleteCoupon(String coupon){
         couponRepo.deleteByCoupon(coupon);
     }
+
 
     @Autowired
     private JavaMailSender mailSender;
@@ -52,7 +53,7 @@ public class CouponService {
         message.setSubject(subject);
 
         mailSender.send(message);
-        System.out.println("Mail Send...");
+        System.out.println("Mail Sent...");
 
     }
 
