@@ -1,5 +1,6 @@
 package com.example.client.controller;
 
+import com.example.client.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -26,7 +27,10 @@ public class TreuepunkteController extends ConnectionController {
     }
 
     @FXML
-    public void onGoBackButtonClick(ActionEvent event) {
+    public void onGoBackButtonClick(ActionEvent event) throws IOException {
+
+        Main m = new Main();
+        m.ChangeScene("KStartseite.fxml");
     }
 
 
