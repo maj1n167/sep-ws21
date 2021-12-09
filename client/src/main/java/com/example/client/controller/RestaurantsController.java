@@ -31,6 +31,9 @@ public class RestaurantsController extends ConnectionController implements Initi
     @FXML
     RadioButton alternative;
 
+    private int restaurantId;
+
+
     @FXML
     TableView list = new TableView();
     @FXML
@@ -46,7 +49,7 @@ public class RestaurantsController extends ConnectionController implements Initi
     @FXML
     TableColumn menu = new TableColumn("Speisekarte");
     @FXML
-    TableColumn order = new TableColumn("Bestellen");
+    TableColumn order = new TableColumn("Favoriten");
 
     ObservableList<RestaurantList> data = FXCollections.observableArrayList();
 
@@ -62,6 +65,8 @@ public class RestaurantsController extends ConnectionController implements Initi
     public void onAendernButtonClick(ActionEvent actionEvent) {
 
     }
+
+
 
 //    public void onFilternButtonClick(ActionEvent actionEvent) {
 //
@@ -93,12 +98,38 @@ public class RestaurantsController extends ConnectionController implements Initi
         ObservableList<RestaurantList> output = FXCollections.observableArrayList();
         JSONArray j = new JSONArray(JSONObjectGET("http://localhost:8080/restaurant").toString());
         for(int i =0; i<j.length();i++) {
+
             JSONObject current = new JSONObject(j.get(i).toString());
-            Button curMenu = new Button();
+            Button curMenu=new Button();
+            Button curOrder=new Button();
+            curMenu.setText("Ansehen");
+            curOrder.setText("Favorit");
+
+
+
+
+
+           /* Button curMenu = new Button();
             curMenu.setText("Menu");
             //buttons konfigurieren
+            if(current.get("menuId").equals(menu.getId())){
+
+            }//else nichts machen.
+
             Button curOrder = new Button();
             curOrder.setText("Favorit");
+            current.put("Favorit",curOrder);
+            JSONObjectPOST("http://localhost:8080/user/add",curOrder.toString());
+            if(current.get("restaurantId").equals(restaurantId)){
+
+            }
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setTitle("Restaurant wurde als Favorit gespeichert");
+            alert.setContentText("Restaurant wurde erfolgreich als Favorit gespeichert");
+
+            alert.showAndWait();
+ */
             //buttons konfigurieren
 
             RestaurantList r = new RestaurantList();
@@ -129,6 +160,7 @@ public class RestaurantsController extends ConnectionController implements Initi
 //        }
 //        return output;
 //    }
+
 
     @FXML
     public void onStandardClick() throws IOException {
@@ -256,6 +288,7 @@ public class RestaurantsController extends ConnectionController implements Initi
         public Button getOrder() {return order;}
 
         public void setOrder(Button order) {this.order = order;}
+
 
         @Override
         public String toString() {
