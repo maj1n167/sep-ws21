@@ -14,6 +14,12 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
+/**
+ * @TODO: Favoriten fehlt.
+ */
+
+
+
 public class RestaurantsController extends ConnectionController implements Initializable {
 
     @FXML
@@ -27,9 +33,6 @@ public class RestaurantsController extends ConnectionController implements Initi
 
     @FXML
     TableView list = new TableView();
-
-    @FXML
-    TableColumn id = new TableColumn("ID");
     @FXML
     TableColumn name = new TableColumn("Name");
     @FXML
@@ -45,6 +48,8 @@ public class RestaurantsController extends ConnectionController implements Initi
     @FXML
     TableColumn order = new TableColumn("Bestellen");
 
+    ObservableList<RestaurantList> data = FXCollections.observableArrayList();
+
 
     @FXML
     public void onZurueckButtonClick() throws IOException {
@@ -58,15 +63,14 @@ public class RestaurantsController extends ConnectionController implements Initi
 
     }
 
-    public void onFilternButtonClick(ActionEvent actionEvent) {
-
-    }
+//    public void onFilternButtonClick(ActionEvent actionEvent) {
+//
+//    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
             list.setEditable(true);
-            id.setCellValueFactory(new PropertyValueFactory<RestaurantList, Integer>("id"));
             name.setCellValueFactory(new PropertyValueFactory<RestaurantList, String>("name"));
             kategorie.setCellValueFactory(new PropertyValueFactory<RestaurantList, String>("kategorie"));
             rating.setCellValueFactory(new PropertyValueFactory<RestaurantList, Double>("rating"));
@@ -83,7 +87,6 @@ public class RestaurantsController extends ConnectionController implements Initi
     }
 
     /**
-     *
      * @TODO: Buttons konfigurieren
      */
     public ObservableList<RestaurantList> getRestaurants() throws IOException {
@@ -92,19 +95,25 @@ public class RestaurantsController extends ConnectionController implements Initi
         for(int i =0; i<j.length();i++) {
             JSONObject current = new JSONObject(j.get(i).toString());
             Button curMenu = new Button();
+            curMenu.setText("Menu");
+            //buttons konfigurieren
+            Button curOrder = new Button();
+            curOrder.setText("Favorit");
+            //buttons konfigurieren
+
             RestaurantList r = new RestaurantList();
             output.add(r = new RestaurantList(current.getInt("restaurantId"), current.getString("name"), current.getString("strasse"),
                     current.getString("plz"), current.getString("stadt"), current.getDouble("mbw"),
                     current.getDouble("lieferkosten"), current.getString("kategorie"), current.getInt("lieferbereich"),
-                    current.getDouble("rating")));
+                    current.getDouble("rating"), curMenu, curOrder));
         }
+        data = FXCollections.observableArrayList(output);
         return output;
     }
+/**
+  *     @TODO: Filter einbauen
+  */
 
-    /**
-     *
-     * @TODO: Filter einbauen
-     */
 //    public ObservableList<RestaurantList> getRestaurantsNearMe(String address) throws IOException {
 //        ObservableList<RestaurantList> output = FXCollections.observableArrayList();
 //        JSONArray j = new JSONArray(JSONObjectGET("http://localhost:8080/restaurant").toString());
@@ -149,7 +158,7 @@ public class RestaurantsController extends ConnectionController implements Initi
 
         public RestaurantList(int id, String name, String strasse, String plz,
                               String stadt, double mbw, double lieferkosten,
-                              String kategorie, int lieferbereich, double rating) {
+                              String kategorie, int lieferbereich, double rating, Button menu, Button order) {
             this.id = id;
             this.name = name;
             this.strasse = strasse;
@@ -160,8 +169,8 @@ public class RestaurantsController extends ConnectionController implements Initi
             this.kategorie = kategorie;
             this.lieferbereich = lieferbereich;
             this.rating = rating;
-            this.menu = new Button();
-            this.order = new Button();
+            this.menu = menu;
+            this.order = order;
         }
 
         public double getRating() { return rating; }
