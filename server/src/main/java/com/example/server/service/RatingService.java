@@ -17,7 +17,9 @@ public class RatingService {
         this.ratingRepo = ratingRepo;
     }
 
-    public Rating addRating(Rating ratings){ return ratingRepo.save(ratings); }
+    public Rating addRating(Rating ratings){
+        System.out.println("Service= " + ratings.toString());
+        return ratingRepo.save(ratings); }
 
     public List<Rating> findAllRatings(){
         return ratingRepo.findAll();

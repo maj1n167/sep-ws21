@@ -1,6 +1,5 @@
 package com.example.server.controller;
 
-import com.example.server.model.Coupon;
 import com.example.server.model.Rating;
 import com.example.server.service.RatingService;
 import org.springframework.http.HttpStatus;
@@ -27,6 +26,7 @@ public class RatingController {
 
     @PostMapping("/add")
     public ResponseEntity<Rating> addRating(@RequestBody Rating rating) {
+        System.out.println("Controller= " + rating.toString());
         Rating newRating = ratingService.addRating(rating);
         return new ResponseEntity<>(newRating, HttpStatus.CREATED);
     }

@@ -46,7 +46,7 @@ public class BewertungController extends ConnectionController {
         lieferungChoiceBox.setValue("5");
 
         /**
-         * TODO: this.restaurantId = 0;
+         * TODO: Speicherung fertigstellen
          */
         this.restaurantId = 1;
     }
@@ -79,7 +79,7 @@ public class BewertungController extends ConnectionController {
             bewertung.put("starsFood", Integer.parseInt(gerichtChoiceBox.getValue()));
             bewertung.put("restaurantId", restaurantId);
 
-
+            System.out.println(bewertung.toString());
             JSONObjectPOST(url, bewertung.toString());
 
             Main m = new Main();

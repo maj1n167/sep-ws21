@@ -4,7 +4,6 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<?import javafx.scene.control.cell.PropertyValueFactory?>
 
 <AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.client.controller.RestaurantsController">
     <children>
@@ -13,33 +12,33 @@
                 <Font name="System Bold" size="20.0" />
             </font>
         </Label>
-        <GoogleMapView fx:id="mapView" layoutX="573.0" layoutY="377.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="23.0" AnchorPane.leftAnchor="573.0" AnchorPane.rightAnchor="27.0" AnchorPane.topAnchor="377.0" />
+        <GoogleMapView fx:id="mapView" layoutX="563.0" layoutY="367.0" prefHeight="210.0" prefWidth="210.0" AnchorPane.bottomAnchor="23.0" AnchorPane.leftAnchor="563.0" AnchorPane.rightAnchor="27.0" AnchorPane.topAnchor="367.0" />
         <Button fx:id="zurueckButton" layoutX="26.0" layoutY="552.0" mnemonicParsing="false" onAction="#onZurueckButtonClick" prefHeight="35.0" prefWidth="70.0" text="Zurück" />
-      <TableView fx:id="list" layoutX="51.0" layoutY="64.0" prefHeight="300.0" prefWidth="700.0" >
+      <TableView fx:id="list" layoutX="51.0" layoutY="64.0" prefHeight="299.0" prefWidth="700.0">
           <columns>
-              <TableColumn fx:id="id" text="ID">
+              <TableColumn fx:id="id" prefWidth="39.0" text="ID">
               </TableColumn>
-              <TableColumn fx:id="name" text="Name">
+              <TableColumn fx:id="name" prefWidth="159.0" text="Name">
               </TableColumn>
-              <TableColumn fx:id="kategorie" text="Kategorie">
+              <TableColumn fx:id="kategorie" prefWidth="95.0" text="Kategorie">
               </TableColumn>
-              <TableColumn fx:id="rating" text="Bewertung">
+              <TableColumn fx:id="rating" minWidth="0.0" prefWidth="70.0" text="Bewertung">
               </TableColumn>
-              <TableColumn fx:id="mbw" text="Mindestbestellwert">
+              <TableColumn fx:id="mbw" prefWidth="117.0" text="Mindestbestellwert">
               </TableColumn>
-              <TableColumn fx:id="lieferkosten" text="Lieferkosten">
+              <TableColumn fx:id="lieferkosten" prefWidth="79.0" text="Lieferkosten">
               </TableColumn>
-              <TableColumn fx:id="menu" text="Speisekarte">
+              <TableColumn fx:id="menu" prefWidth="75.0" text="Speisekarte">
               </TableColumn>
-              <TableColumn fx:id="order" text="Bestellen">
+              <TableColumn fx:id="order" prefWidth="63.0" text="Bestellen">
               </TableColumn>
           </columns>
       </TableView>
-      <RadioButton fx:id="standard" layoutX="61.0" layoutY="377.0" mnemonicParsing="false" text="Standardadresse" onAction="#onStandardClick"/>
-      <RadioButton fx:id="alternative" layoutX="60.0" layoutY="403.0" mnemonicParsing="false" text="Alternativadresse" onAction="#onAlternativeClick"/>
+      <RadioButton fx:id="standard" layoutX="61.0" layoutY="377.0" mnemonicParsing="false" onAction="#onStandardClick" text="Standardadresse" />
+      <RadioButton fx:id="alternative" layoutX="60.0" layoutY="403.0" mnemonicParsing="false" onAction="#onAlternativeClick" text="Alternativadresse" />
       <Button fx:id="aendernButton" layoutX="215.0" layoutY="379.0" mnemonicParsing="false" onAction="#onAendernButtonClick" prefHeight="42.0" prefWidth="94.0" text="aendern" />
-      <TextField layoutX="326.0" layoutY="388.0" />
-      <Button fx:id="filternButton" layoutX="479.0" layoutY="379.0" mnemonicParsing="false" onAction="#onFilternButtonClick" prefHeight="42.0" prefWidth="94.0" text="filtern" />
+<!--      <TextField layoutX="326.0" layoutY="388.0" />-->
+<!--      <Button fx:id="filternButton" layoutX="479.0" layoutY="379.0" mnemonicParsing="false" onAction="#onFilternButtonClick" prefHeight="42.0" prefWidth="94.0" text="filtern" />-->
     </children>
 
 </AnchorPane>

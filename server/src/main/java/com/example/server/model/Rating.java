@@ -14,4 +14,55 @@ public class Rating {
     int starsLieferung;
     int starsFood;
     String comment;
+
+    public Rating(int restaurantId, int starsLieferung, int starsFood, String comment) {
+        this.restaurantId = restaurantId;
+        this.starsLieferung = starsLieferung;
+        this.starsFood = starsFood;
+        this.comment = comment;
+    }
+
+    public Rating() {
+
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getRestaurantId() {
+        return restaurantId;
+    }
+
+    public void setRestaurantId(int restaurantId) {
+        this.restaurantId = restaurantId;
+    }
+
+    public int getStarsLieferung() {
+        return starsLieferung;
+    }
+
+    public void setStarsLieferung(int starsLieferung) {
+        this.starsLieferung = starsLieferung;
+    }
+
+    public int getStarsFood() {
+        return starsFood;
+    }
+
+    public void setStarsFood(int starsFood) {
+        this.starsFood = starsFood;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
 }

@@ -75,28 +75,36 @@ public class RestaurantsController extends ConnectionController implements Initi
             menu.setCellValueFactory(new PropertyValueFactory<RestaurantList, Button>("menu"));
             order.setCellValueFactory(new PropertyValueFactory<RestaurantList, Button>("order"));
             list.setItems(getRestaurants());
+            standard.setSelected(true);
+            standard.setToggleGroup(group);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-
+    /**
+     *
+     * @TODO: Buttons konfigurieren
+     */
     public ObservableList<RestaurantList> getRestaurants() throws IOException {
         ObservableList<RestaurantList> output = FXCollections.observableArrayList();
         JSONArray j = new JSONArray(JSONObjectGET("http://localhost:8080/restaurant").toString());
         for(int i =0; i<j.length();i++) {
             JSONObject current = new JSONObject(j.get(i).toString());
+            Button curMenu = new Button();
             RestaurantList r = new RestaurantList();
             output.add(r = new RestaurantList(current.getInt("restaurantId"), current.getString("name"), current.getString("strasse"),
                     current.getString("plz"), current.getString("stadt"), current.getDouble("mbw"),
                     current.getDouble("lieferkosten"), current.getString("kategorie"), current.getInt("lieferbereich"),
                     current.getDouble("rating")));
-            System.out.println(r.toString());
         }
-        System.out.println(output.toString());
         return output;
     }
 
+    /**
+     *
+     * @TODO: Filter einbauen
+     */
 //    public ObservableList<RestaurantList> getRestaurantsNearMe(String address) throws IOException {
 //        ObservableList<RestaurantList> output = FXCollections.observableArrayList();
 //        JSONArray j = new JSONArray(JSONObjectGET("http://localhost:8080/restaurant").toString());
