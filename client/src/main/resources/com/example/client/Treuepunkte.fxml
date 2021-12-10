@@ -19,7 +19,6 @@
         <Button alignment="CENTER" contentDisplay="CENTER" layoutX="350.0" layoutY="385.0" mnemonicParsing="false" onAction="#onDiscountButtonClick" prefHeight="40.0" prefWidth="100.0" text="Weiter" />
         <TextField fx:id="DiscountText" layoutX="325.0" layoutY="287.0" AnchorPane.bottomAnchor="287.4" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="287.0" />
         <Button layoutX="14.0" layoutY="561.0" mnemonicParsing="false" onAction="#onGoBackButtonClick" text="Zurück" AnchorPane.bottomAnchor="13.399999999999999" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="733.2" AnchorPane.topAnchor="561.0" />
-      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="348.0" layoutY="464.0" mnemonicParsing="false" onAction="#onGenerate" text="Code generieren" />
-      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="349.0" layoutY="535.0" mnemonicParsing="false" onAction="#onAddTreuepunkt" text="Add Treuepunkt" />
+      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="349.0" layoutY="456.0" mnemonicParsing="false" onAction="#onAddTreuepunkt" prefHeight="40.0" prefWidth="102.0" text="Add Treuepunkt" />
     </children>
 </AnchorPane>
