@@ -26,4 +26,7 @@ public class Coupon implements Serializable {
         this.coupon = coupon;
     }
 
+    public int getId() {return id;}
+
+    public void setId(int id) {this.id = id;}
 }
