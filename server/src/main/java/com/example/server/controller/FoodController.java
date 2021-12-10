@@ -1,6 +1,7 @@
 package com.example.server.controller;
 
 import com.example.server.model.Food;
+import com.example.server.model.Warenkorb;
 import com.example.server.service.FoodService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -47,5 +48,16 @@ public class FoodController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @GetMapping("/find/{id}")
+    public ResponseEntity<Food> getBestellHisByRBestellHisId(@PathVariable("id") int id) {
+        List<Food> foods = foodService.findAllFoods();
+        Food war = null;
+        for (int i = 0; i < foods.size(); i++) {
+            if (foods.get(i).getFoodId() == id) {
+                war = foods.get(i);
+            }
+        }
+        return new ResponseEntity<>(war, HttpStatus.OK);
+    }
 }
 

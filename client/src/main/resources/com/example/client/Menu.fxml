@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.client.controller.WarenkorbController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.client.controller.MenuSpeisekarteeController">
     <children>
         <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="50.0" prefHeight="50.0" style="-fx-background-color: #90ee90;" text="Supreme Eating Program" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <font>
@@ -21,7 +21,7 @@
       </Label>
       <Button layoutX="14.0" layoutY="561.0" mnemonicParsing="false" onAction="#zurückButton" text="zurück" />
       <Button layoutX="737.0" layoutY="561.0" mnemonicParsing="false" text="Fertig" />
-      <TableView layoutX="41.0" layoutY="139.0" prefHeight="353.0" prefWidth="716.0">
+      <TableView layoutX="41.0" layoutY="139.0" prefHeight="353.0" prefWidth="716.0" fx:id="list">
         <columns>
           <TableColumn fx:id="Bild" prefWidth="117.0" text="Bild" />
             <TableColumn fx:id="Kategorie" prefWidth="111.0" text="Kategorie" />

@@ -1,5 +1,6 @@
 package com.example.server.controller;
 
+import com.example.server.model.BestellHistorie;
 import com.example.server.model.Warenkorb;
 import com.example.server.service.WarenkorbService;
 import org.springframework.http.HttpStatus;
@@ -42,6 +43,16 @@ public class WarenkorbController {
         return new ResponseEntity<>(updateWare, HttpStatus.OK);
     }
 
-
+    @GetMapping("/find/{id}")
+    public ResponseEntity<Warenkorb> getBestellHisByRBestellHisId(@PathVariable("id") int id) {
+        List<Warenkorb> warenkorbs = warenkorbService.findAllWaren();
+        Warenkorb war = null;
+        for (int i = 0; i < warenkorbs.size(); i++) {
+            if (warenkorbs.get(i).getWarenkorbId() == id) {
+                war = warenkorbs.get(i);
+            }
+        }
+        return new ResponseEntity<>(war, HttpStatus.OK);
+    }
 
 }
