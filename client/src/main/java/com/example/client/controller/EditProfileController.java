@@ -46,12 +46,6 @@ public class EditProfileController extends ConnectionController {
         current.put("name", neuerName.getText());
         current.put("email", neueEmail.getText());
         current.put("password", neuesPasswort.getText());
-        /*String data = "{ \"userId\": \""+LoginController.userId+"\", \n";
-        data = data + "\"vorname\": \"" + neuerVorname.getText().toString() + "\",\n";
-        data = data + " \"name\": \"" + neuerName.getText().toString() + "\",\n";
-        data = data + " \"email\": \"" + neueEmail.getText().toString() + "\",\n";
-        data = data + " \"password\": \"" + neuesPasswort.getText().toString() + "\",\n";
-        data = data + " \"restaurantBesitzer\": \"true\" }";*/
 
         JSONObjectPUT(url, current.toString());
 
@@ -59,13 +53,11 @@ public class EditProfileController extends ConnectionController {
         alert.setTitle("Daten editiert");
         alert.setContentText("Daten editiert!");
         alert.showAndWait();
-        Main m = new Main();
-        m.ChangeScene("Startseite.fxml");
+        changeScene("Startseite.fxml");
     }
 
     public void onGoBackButtonClick() throws IOException {
 
-        Main m = new Main();
-        m.ChangeScene("Startseite.fxml");
+        changeScene("Startseite.fxml");
     }
 }

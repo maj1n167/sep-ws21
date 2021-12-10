@@ -27,40 +27,34 @@ public class KundeStartseiteController extends ConnectionController{
 
     @FXML
     public void onSeekRestaurantClick() throws IOException {
-        Main m= new Main();
-        m.ChangeScene("Restaurants.fxml");
+        changeScene("Restaurants.fxml");
     }
 
     @FXML
     public void onShowOrderClick() throws IOException {
-        Main m= new Main();
-        m.ChangeScene("KStartseite.fxml");
+        changeScene("KStartseite.fxml");
     }
 
     @FXML
     public void onBuyCreditClick() throws IOException {
-        Main m= new Main();
-        m.ChangeScene("Guthaben.fxml");
+        changeScene("Guthaben.fxml");
     }
 
     @FXML
     public void onValuationClick() throws IOException {
-        Main m= new Main();
-        m.ChangeScene("Bewertung.fxml");
+        changeScene("Bewertung.fxml");
     }
 
     @FXML
     public void onLogoutClick() throws IOException {
         // Change Scenes
-        Main m= new Main();
-        m.ChangeScene("Login.fxml");
+        changeScene("Login.fxml");
     }
 
     @FXML
     public void onLoyaltyPointsClick() throws IOException {
         // Change Scenes
-        Main m= new Main();
-        m.ChangeScene("Treuepunkte.fxml");
+        changeScene("Treuepunkte.fxml");
     }
 }
 

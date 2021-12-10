@@ -16,7 +16,7 @@ import java.net.URL;
 import java.util.*;
 
 /**
- * @TODO: Favoriten fehlt.
+ * @TODO: Favoriten fehlt
  */
 
 
@@ -38,44 +38,53 @@ public class RestaurantsController extends ConnectionController implements Initi
     @FXML
     TableColumn kategorie = new TableColumn("Kategorie");
     @FXML
-    TableColumn ratingButton = new TableColumn("Bewertung");
+    TableColumn rating = new TableColumn("Bewertung");
     @FXML
     TableColumn mbw = new TableColumn("Mindestbestellwert");
     @FXML
     TableColumn lieferkosten = new TableColumn("Lieferkosten");
     @FXML
-    TableColumn menu = new TableColumn("Speisekarte");
+    TableColumn order = new TableColumn("Speisekarte");
     @FXML
-    TableColumn order = new TableColumn("Favoriten");
+    TableColumn fav = new TableColumn("Favoriten");
 
     public static int id=-1;
-    private ObservableList<RestaurantList> data = FXCollections.observableArrayList();
 
 
     @FXML
     public void onZurueckButtonClick() throws IOException {
-
-        // Change Scenes
-        Main m = new Main();
-        m.ChangeScene("KStartseite.fxml");
+        // Fertig
+        changeScene("KStartseite.fxml");
     }
 
-    public void onAendernButtonClick(ActionEvent actionEvent) {
+    public void onAendernButtonClick(ActionEvent actionEvent) throws IOException {
         //change scene to alternativaddress
+        changeScene("KStartseite.fxml");
     }
 
+    void populate() throws IOException {
+        // Fertig
+        if(standard.isArmed()) {
+            list.setItems(getRestaurants(VerificationController.standard));
+            list.refresh();
+        } else {
+            list.setItems(getRestaurants(VerificationController.alternative));
+            list.refresh();
+        }
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        // Fertig
         try {
             list.setEditable(true);
             name.setCellValueFactory(new PropertyValueFactory<RestaurantList, String>("name"));
             kategorie.setCellValueFactory(new PropertyValueFactory<RestaurantList, String>("kategorie"));
-            ratingButton.setCellValueFactory(new PropertyValueFactory<RestaurantList, Button>("ratingButton"));
+            rating.setCellValueFactory(new PropertyValueFactory<RestaurantList, Button>("ratingButton"));
             mbw.setCellValueFactory(new PropertyValueFactory<RestaurantList, Double>("mbw"));
             lieferkosten.setCellValueFactory(new PropertyValueFactory<RestaurantList, Double>("lieferkosten"));
-            menu.setCellValueFactory(new PropertyValueFactory<RestaurantList, Button>("menu"));
             order.setCellValueFactory(new PropertyValueFactory<RestaurantList, Button>("order"));
-            list.setItems(getRestaurants());
+            fav.setCellValueFactory(new PropertyValueFactory<RestaurantList, Button>("fav"));
+            list.setItems(getRestaurants(VerificationController.standard));
             standard.setSelected(true);
             standard.setToggleGroup(group);
         } catch (IOException e) {
@@ -83,51 +92,89 @@ public class RestaurantsController extends ConnectionController implements Initi
         }
     }
 
-    public ObservableList<RestaurantList> getRestaurants() throws IOException {
-        ObservableList<RestaurantList> output = FXCollections.observableArrayList();
-        JSONArray j = new JSONArray(JSONObjectGET("http://localhost:8080/restaurant").toString());
-        for(int i =0; i<j.length();i++) {
 
-            JSONObject current = new JSONObject(j.get(i).toString());
-            RestaurantList r = new RestaurantList();
-            output.add(r = new RestaurantList(current.getInt("restaurantId"), current.getString("name"), current.getString("strasse"),
-                    current.getString("plz"), current.getString("stadt"), current.getDouble("mbw"),
-                    current.getDouble("lieferkosten"), current.getString("kategorie"), current.getInt("lieferbereich"),
-                    current.getDouble("rating")));
+    public ObservableList<RestaurantList> getRestaurants(String address) throws IOException {
+        ObservableList<RestaurantList> output = FXCollections.observableArrayList();
+        JSONArray arrayAll = new JSONArray(JSONObjectGET("http://localhost:8080/restaurant").toString());
+        //Alle Restaurants durchdurchgehen
+        for(int i =0; i<arrayAll.length();i++) {
+            JSONObject current = new JSONObject(arrayAll.get(i).toString());
+            boolean isFav = false;
+            boolean isNear = true;
+            Button fav = new Button();
+            JSONArray arrayFavs = new JSONArray(JSONObjectGET("http://localhost:8080/fav/find/" + LoginController.userId).toString());
+            //Alle Favs mit den derzeitigen Restaurants vergleichen
+            for (int j = 0; j < arrayFavs.length(); j++) {
+                isFav = arrayFavs.getJSONObject(j).getInt("favOf") == current.getInt("restaurantId");
+                if (isFav) {
+                    String url = "http://localhost:8080/fav/del/" + arrayFavs.getJSONObject(j).get("id").toString();
+                    fav.setText("Favorit entfernen");
+                    fav.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent event) {
+                            try {
+                                JSONObjectDELETE(url);
+                                list.setItems(getRestaurants(address));
+                                list.refresh();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                } else {
+                    /**
+                     * @TODO: filter near me
+                     */
+                    String uri = "http://localhost:8080/restaurant/near/{street}/{nr}/{plz}/{stadt}";
+
+                    if (isNear) {
+                        String url = "http://localhost:8080/fav/add/" + arrayFavs.getJSONObject(j).get("id").toString();
+                        fav.setText("Als Favorit setzen");
+                        fav.setOnAction(new EventHandler<ActionEvent>() {
+                            @Override
+                            public void handle(ActionEvent event) {
+                                try {
+                                    JSONObjectPOST(url, String.valueOf(current.getInt("restaurantId")));
+                                    list.setItems(getRestaurants(address));
+                                    list.refresh();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+                    }
+                }
+            }
+            if (isNear || isFav) {
+                RestaurantList r = new RestaurantList(current.getInt("restaurantId"), current.getString("name"), current.getString("strasse"),
+                        current.getString("plz"), current.getString("stadt"), current.getDouble("mbw"),
+                        current.getDouble("lieferkosten"), current.getString("kategorie"), current.getInt("lieferbereich"),
+                        current.getDouble("rating"), fav);
+                output.add(r);
+            }
         }
-        data = FXCollections.observableArrayList(output);
         return output;
     }
 
-/**
-  *     @TODO: Filter einbauen
-  */
-//    public ObservableList<RestaurantList> getRestaurantsNearMe(String address) throws IOException {
-//        ObservableList<RestaurantList> output = FXCollections.observableArrayList();
-//        JSONArray j = new JSONArray(JSONObjectGET("http://localhost:8080/restaurant").toString());
-//        for(int i =0; i<j.length();i++) {
-//            JSONObject current = new JSONObject(j.get(i).toString());
-//            RestaurantList r = new RestaurantList();
-//            r.setKategorie(current.getString("kategorie"));
-//            r.setLieferkosten(current.getDouble("lieferkosten"));
-//            r.setMbw(current.getDouble("mbw"));
-//            r.setName(current.getString("name"));
-//            r.setId(current.getInt("restaurantId"));
-//            output.add(r);
-//        }
-//        return output;
-//    }
+    /**
+     *     @TODO: Filter einbauen
+     */
 
 
     @FXML
     public void onStandardClick() throws IOException {
+        // Fertig
         standard.setToggleGroup(group);
+        list.setItems(getRestaurants(VerificationController.standard));
+        list.refresh();
     }
 
     @FXML
     public void onAlternativeClick() throws IOException {
+        // Fertig
         alternative.setToggleGroup(group);
-
+        list.setItems(getRestaurants(VerificationController.alternative));
+        list.refresh();
     }
 
     public static class RestaurantList {
@@ -143,12 +190,13 @@ public class RestaurantsController extends ConnectionController implements Initi
         private double rating;
         private Button ratingButton;
         private Button order;
+        private Button fav;
 
         public RestaurantList() { }
 
         public RestaurantList(int id, String name, String strasse, String plz,
                               String stadt, double mbw, double lieferkosten,
-                              String kategorie, int lieferbereich, double rating) {
+                              String kategorie, int lieferbereich, double rating, Button fav) {
             this.id = id;
             this.name = name;
             this.strasse = strasse;
@@ -160,14 +208,13 @@ public class RestaurantsController extends ConnectionController implements Initi
             this.lieferbereich = lieferbereich;
             this.rating = rating;
             this.ratingButton = new Button();
-            this.ratingButton.setText("Bewertung");
+            this.ratingButton.setText(Double.toString(this.rating));
             this.ratingButton.setOnAction(new EventHandler<ActionEvent>() {
                 @Override public void handle(ActionEvent event) {
                     RestaurantsController.id = id;
-                    Main m = new Main();
                     try {
                         //Hier muss die View zu der Bewertungsliste
-                        m.ChangeScene("KStartseite.fxml");
+                        changeScene("BewertungList.fxml");
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -178,15 +225,15 @@ public class RestaurantsController extends ConnectionController implements Initi
             this.order.setOnAction(new EventHandler<ActionEvent>() {
                 @Override public void handle(ActionEvent event) {
                     RestaurantsController.id = id;
-                    Main m = new Main();
                     try {
                         //Hier muss die View zum Bestellvorgang
-                        m.ChangeScene("KStartseite.fxml");
+                        changeScene("KStartseite.fxml");
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
             });
+            this.fav = fav;
         }
 
         public double getRating() { return rating; }
@@ -272,6 +319,10 @@ public class RestaurantsController extends ConnectionController implements Initi
         public Button getRatingButton() {return ratingButton;}
 
         public void setRatingButton(Button ratings) {this.ratingButton = ratings;}
+
+        public Button getFav() {return fav;}
+
+        public void setFav(Button fav) {this.fav = fav;}
 
         @Override
         public String toString() {

@@ -45,8 +45,7 @@ public class LoginController extends ConnectionController {
              JSONObjectGET("http://localhost:8080/user/send/verification/"+jsonObject.get("email"));
              email = jsonObject.get("email").toString();
              userId = Integer.parseInt(jsonObject.get("userId").toString());
-             Main m = new Main();
-             m.ChangeScene("Verify-View.fxml");
+             changeScene("Verify-View.fxml");
              return;
          }
        }
@@ -60,8 +59,7 @@ public class LoginController extends ConnectionController {
     @FXML
     public void onRegisterButtonClick() throws IOException {
         // Change Scenes
-        Main m= new Main();
-        m.ChangeScene("Registration.fxml");
+        changeScene("Registration.fxml");
     }
 
     @FXML

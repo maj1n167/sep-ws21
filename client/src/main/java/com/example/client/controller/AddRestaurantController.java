@@ -129,8 +129,7 @@ public class AddRestaurantController extends ConnectionController {
                 String json2 = "{ \"menuId\":"+ userId + " }";
                 JSONObjectPOST("http://localhost:8080/menu/add",json2);
 
-                Main m = new Main();
-                m.ChangeScene("Startseite.fxml");
+                changeScene("Startseite.fxml");
             }
         } catch (NumberFormatException e) {
             e.printStackTrace();
@@ -145,8 +144,7 @@ public class AddRestaurantController extends ConnectionController {
     }
 
     public void zurueckButtonClick() throws IOException {
-        Main m = new Main();
-        m.ChangeScene("Startseite.fxml");
+        changeScene("Startseite.fxml");
     }
 
 

@@ -34,44 +34,37 @@ public class StartseiteController extends ConnectionController {
 
     @FXML
     public void onEditProfileClick() throws IOException {
-        Main m= new Main();
-        m.ChangeScene("EditProfile.fxml");
+        changeScene("EditProfile.fxml");
     }
 
     @FXML
     public void onCreateRestaurantClick() throws IOException {
-        Main m= new Main();
-        m.ChangeScene("AddRestaurant.fxml");
+        changeScene("AddRestaurant.fxml");
     }
 
     @FXML
     public void onEditRestaurantClick() throws IOException {
-        Main m= new Main();
-        m.ChangeScene("EditRestaurant.fxml");
+        changeScene("EditRestaurant.fxml");
     }
 
     @FXML
     public void onSpeisekarteClick() throws IOException {
-        Main m= new Main();
-        m.ChangeScene("Speisekarte.fxml");
+        changeScene("Speisekarte.fxml");
     }
 
     @FXML
     public void onLogoutClick() throws IOException {
         // Change Scenes
-        Main m= new Main();
-        m.ChangeScene("Login.fxml");
+        changeScene("Login.fxml");
     }
 
     @FXML
     public void onMapClick() throws IOException {
         // Change Scenes
-        Main m= new Main();
-        m.ChangeScene("Map.fxml");
+        changeScene("Map.fxml");
     }
     @FXML
     public void onRatingClick() throws IOException {
-        Main m= new Main();
-        m.ChangeScene("BewertungList.fxml");
+        changeScene("BewertungList.fxml");
     }
 }

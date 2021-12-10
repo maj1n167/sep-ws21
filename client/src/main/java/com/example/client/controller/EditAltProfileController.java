@@ -56,14 +56,12 @@ public class EditAltProfileController extends ConnectionController {
         alert.setTitle("Daten editiert");
         alert.setContentText("Daten editiert!");
         alert.showAndWait();
-        Main m = new Main();
-        m.ChangeScene("Startseite.fxml");
+        changeScene("Startseite.fxml");
     }
 
     public void onGoZueruckButtonClick() throws IOException {
 
-        Main m = new Main();
-        m.ChangeScene("Startseite.fxml");
+        changeScene("Startseite.fxml");
     }
 }
 

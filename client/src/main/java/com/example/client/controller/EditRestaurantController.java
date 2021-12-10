@@ -145,8 +145,7 @@ public class EditRestaurantController extends ConnectionController {
                 JSONObjectPUT(url, temp);
 
 
-                Main m = new Main();
-                m.ChangeScene("Startseite.fxml");
+                changeScene("Startseite.fxml");
 
             }
         }
@@ -167,8 +166,7 @@ public class EditRestaurantController extends ConnectionController {
     @FXML
     public void zurueckButtonClick () throws IOException {
         // Change Scenes
-        Main m= new Main();
-        m.ChangeScene("Startseite.fxml");
+        changeScene("Startseite.fxml");
 
     }
 }
