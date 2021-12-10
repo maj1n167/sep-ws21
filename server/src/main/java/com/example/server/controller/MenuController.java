@@ -2,6 +2,7 @@ package com.example.server.controller;
 
 
 
+import com.example.server.model.BestellHistorie;
 import com.example.server.model.Menu;
 import com.example.server.model.User;
 import com.example.server.service.MenuService;
@@ -44,6 +45,17 @@ public class MenuController {
     public ResponseEntity<?> deleteMenu(@PathVariable("menuId") int menuId){
         menuService.deleteMenu(menuId);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+    @GetMapping("/find/{id}")
+    public ResponseEntity<Menu> getMenuId(@PathVariable("id") int id) {
+        List<Menu> menus = menuService.findAllMenus();
+        Menu menu = null;
+        for (int i = 0; i < menus.size(); i++) {
+            if (menus.get(i).getMenuId() == id) {
+                menu = menus.get(i);
+            }
+        }
+        return new ResponseEntity<>(menu, HttpStatus.OK);
     }
 }
 
