@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.client.controller.StartseiteController">
     <children>
@@ -36,12 +40,11 @@
                         <Button fx:id="editRestaurant" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onEditRestaurantClick" prefHeight="31.0" prefWidth="180.0" text="Restaurant bearbeiten" />
                   <Button fx:id="map" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onMapClick" prefHeight="25.0" prefWidth="181.0" text="Map anzeigen" />
                         <Button fx:id="speisekarte" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onSpeisekarteClick" prefHeight="27.0" prefWidth="180.0" text="Speisekarte" />
+                  <Button fx:id="rating" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onRatingClick" prefHeight="31.0" prefWidth="180.0" text="Bewertungen" />
                     </children>
                 </VBox>
+                  <Button fx:id="logout" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onLogoutClick" prefHeight="40.0" prefWidth="100.0" text="Abmelden" />
                 <HBox alignment="BOTTOM_LEFT" prefHeight="75.0" prefWidth="800.0" VBox.vgrow="NEVER">
-                    <children>
-                        <Button fx:id="logout" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onLogoutClick" prefHeight="40.0" prefWidth="100.0" text="Abmelden" />
-                    </children>
                     <opaqueInsets>
                         <Insets />
                     </opaqueInsets>

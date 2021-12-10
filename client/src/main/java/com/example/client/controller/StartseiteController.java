@@ -69,4 +69,9 @@ public class StartseiteController extends ConnectionController {
         Main m= new Main();
         m.ChangeScene("Map.fxml");
     }
+    @FXML
+    public void onRatingClick() throws IOException {
+        Main m= new Main();
+        m.ChangeScene("BewertungList.fxml");
+    }
 }
