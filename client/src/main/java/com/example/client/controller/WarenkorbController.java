@@ -39,12 +39,12 @@ public class WarenkorbController extends ConnectionController {
     public void initialize() {
         try {
             list.setEditable(true);
-            Bild.setCellValueFactory(new PropertyValueFactory<Food, String>("Bild"));
-            //Kategorie.setCellValueFactory(new PropertyValueFactory<Menu, String>("Kategorie"));
-            Name.setCellValueFactory(new PropertyValueFactory<Food, String>("Name"));
-            Beschreibung.setCellValueFactory(new PropertyValueFactory<Food, String>("Beschreibung"));
-            Preis.setCellValueFactory(new PropertyValueFactory<Food, String>("Kategorie"));
-            Id.setCellValueFactory(new PropertyValueFactory<Food, String>("Id"));
+            //Bild.setCellValueFactory(new PropertyValueFactory<Food, String>("Bild"));
+            Kategorie.setCellValueFactory(new PropertyValueFactory<Menu, String>("kategorie"));
+            Name.setCellValueFactory(new PropertyValueFactory<Food, String>("name"));
+            Beschreibung.setCellValueFactory(new PropertyValueFactory<Food, String>("beschreibung"));
+            Preis.setCellValueFactory(new PropertyValueFactory<Food, Double>("preis"));
+            Id.setCellValueFactory(new PropertyValueFactory<Food, Integer>("foodId"));
             list.setItems(getSpeisekarte());
         } catch (IOException e) {
             e.printStackTrace();
