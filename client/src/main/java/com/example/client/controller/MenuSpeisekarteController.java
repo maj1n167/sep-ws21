@@ -1,75 +1,158 @@
 package com.example.client.controller;
 
 import com.example.client.Main;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class MenuSpeisekarteController extends ConnectionController {
     @FXML
-    TableView list = new TableView();
-    @FXML
-    TableColumn Kategorie = new TableColumn("Kategorie");
-    @FXML
-    TableColumn AddButton = new TableColumn("zumWarenkorb");
-    @FXML
-    TableColumn Preis = new TableColumn("Preis");
-    @FXML
-    TableColumn Beschreibung = new TableColumn("Beschreibung");
-    @FXML
-    TableColumn Id = new TableColumn("Id");
-    @FXML
-    TableColumn Bild = new TableColumn("Bild");
-    @FXML
-    TableColumn Name = new TableColumn("Name");
-    private ObservableList<Menu> data = FXCollections.observableArrayList();
+    ListView<String> listView;
+
+   public int userId =1;
+   public int restaurantid=2;
 
 
-    public void initialize() {
-        try {
-            list.setEditable(true);
-            Bild.setCellValueFactory(new PropertyValueFactory<Menu, String>("Bild"));
-            //Kategorie.setCellValueFactory(new PropertyValueFactory<Menu, String>("Kategorie"));
-            Name.setCellValueFactory(new PropertyValueFactory<Menu, String>("Name"));
-            Beschreibung.setCellValueFactory(new PropertyValueFactory<Menu, String>("Beschreibung"));
-            Preis.setCellValueFactory(new PropertyValueFactory<Menu, String>("Kategorie"));
-            Id.setCellValueFactory(new PropertyValueFactory<Menu, String>("Id"));
-            list.setItems(getSpeisekarte());
-        } catch (IOException e) {
-            e.printStackTrace();
+    public void initialize() throws IOException {
+        JSONArray jsonArray = new JSONArray(JSONObjectGET("http://localhost:8080/kategorie").toString());
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject jsonObject4 = jsonArray.getJSONObject(i);
+            if (jsonObject4.get("menuId").equals(restaurantid)) {
+                JSONArray foods = new JSONArray(jsonObject4.getJSONArray("foods").toString());
+                listView.getItems().add(jsonObject4.get("kategorie").toString());
+                for (int j = 0; j < foods.length(); j++) {
+                    JSONObject jsonObject = foods.getJSONObject(j);
+                    listView.getItems().add(jsonObject.get("name") +"  "+"Preis: " + jsonObject.get("preis").toString()+
+                           " " +"Beschreibung: "+jsonObject.get("beschreibung"));
+                    //listView.getItems().setAll("Pizza","Döner","Spaghetti");
+                }
+            }
         }
+        listView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
+
     }
+    public void WarenkorbAdd() throws IOException {
+       String x = listView.getSelectionModel().getSelectedItems().toString();
+        System.out.println(x);
+        String  url1 = "http://localhost:8080/warenkorb";
+        String url2 = "http://localhost:8080/bestellung/add";
+        String url3 = "http://localhost:8080/bestellHistorie/";
+        String url4 = "http://localhost:8080/user/findbyid/"+userId;
+        String url5 = "http://localhost:8080/restaurant/find/"+restaurantid;
 
-    public ObservableList<Menu> getSpeisekarte() throws IOException {
-        ObservableList<Menu> output = FXCollections.observableArrayList();
-        JSONArray j = new JSONArray(JSONObjectGET("http://localhost:8080/Menu").toString());
-        for (int i = 0; i < j.length(); i++) {
+        JSONArray jsonArray =  new JSONArray(JSONObjectGET(url1).toString());
+        JSONObject jsonObject = new JSONObject();
 
-            JSONObject current = new JSONObject(j.get(i).toString());
-            Menu r = new Menu();
-            output.add(r = new Menu(current.getString("Bild"), current.getString("Name"),
-                    current.getString("Beschreibung"), current.getString("Preis"), current.getDouble("Id");
+        for(int i = 0; i<jsonArray.length(); i++){
+            JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+
+            if (jsonObject1.get("warenkorbId").equals(userId)){
+                jsonObject = jsonObject1;
+            }
         }
-        data= FXCollections.observableArrayList(output);
-        return output;
+        JSONObject restaurant = new JSONObject(JSONObjectGET(url5).toString());
+        JSONObject user = new JSONObject(JSONObjectGET(url4).toString());
 
-            public void zurückButton () throws IOException {
-                Main m = new Main();
-                m.ChangeScene("KStartseite");
+        if(Double.parseDouble(user.get("guthaben").toString())>=Double.parseDouble(jsonObject.get("summe").toString()) &&
+                Double.parseDouble(jsonObject.get("summe").toString())>= Double.parseDouble(restaurant.get("mbw").toString())) {
+            double neuesGuthaben = Double.parseDouble(user.get("guthaben").toString())-Double.parseDouble(jsonObject.get("summe").toString());
+            user.put("guthaben",neuesGuthaben);
+            JSONObjectPOST("http://localhost:8080/user/add",user.toString());
+            System.out.println(jsonObject);
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            Date date = new Date();
+            System.out.println(date.toString());
+            System.out.println(jsonObject.getJSONArray("foodList"));
+            JSONArray jsonArray8 = new JSONArray(jsonObject.get("foodList").toString());
+            for(int z =0; z<jsonArray8.length(); z++){
+                JSONObject currentFood = jsonArray8.getJSONObject(z);
+                currentFood.put("date", date.toString());
+                JSONObjectPOST("http://localhost:8080/bestellFood/add",
+                        currentFood.toString());
             }
 
+            JSONArray fObject = new JSONArray();
+            JSONArray bestellFood = new JSONArray(JSONObjectGET("http://localhost:8080/bestellFood").toString());
+            for (int b = 0; b<bestellFood.length(); b++){
+                JSONObject newFood = bestellFood.getJSONObject(b);
+                if(date.toString().equals(newFood.get("date"))){
+                    fObject.put(newFood);
+                }
+            }
 
+            System.out.println(fObject);
+
+            System.out.println(date.toString());
+            JSONObject bestellung = new JSONObject();
+            System.out.println(restaurantid);
+            bestellung.put("restaurantId",restaurantid);
+            bestellung.put("userId", userId);
+            bestellung.put("summe", jsonObject.get("summe"));
+            bestellung.put("datum", date.toString());
+            bestellung.put("liste", fObject);
+
+
+            System.out.println(bestellung);
+            System.out.println(date.toString());
+            JSONObjectPOST(url2, bestellung.toString());
+
+            JSONArray jsonArray1 = new JSONArray(JSONObjectGET(url3).toString());
+            JSONArray bestellungen = new JSONArray();
+
+            JSONArray jsonArray2 = new JSONArray(JSONObjectGET("http://localhost:8080/bestellung").toString());
+
+            for (int j = 0; j < jsonArray2.length(); j++) {
+                JSONObject jsonObject1 = jsonArray2.getJSONObject(j);
+                if (jsonObject1.get("userId").equals(userId)) {
+                    bestellungen.put(jsonObject1);
+                }
+            }
+            System.out.println(bestellung);
+
+
+            JSONObject jsonObject2 = new JSONObject();
+            for (int i = 0; i < jsonArray1.length(); i++) {
+                JSONObject jsonObject1 = jsonArray1.getJSONObject(i);
+
+                if (jsonObject1.get("bestellHisId").equals(userId)) {
+                    jsonObject2 = jsonObject1;
+                }
+            }
+            jsonObject2.put("bestellHis", 1);
+            jsonObject2.put("bestellungenList", bestellungen);
+
+            JSONObjectPOST("http://localhost:8080/bestellHistorie/add", jsonObject2.toString());
+            System.out.printf("done");
+            JSONArray y = new JSONArray();
+            JSONObject emptyWarenkorb = new JSONObject();
+            emptyWarenkorb.put("warenkorbId", userId);
+            emptyWarenkorb.put("summe", 0);
+            emptyWarenkorb.put("foodList", y);
+
+            JSONObjectPOST(url1 + "/add", emptyWarenkorb.toString());
+
+            JSONObjectGET("http://localhost:8080/user/send/orderVerification/"+user.get("email"));
+
+        } else {
+            //   Mindestbestellwert oder Guthaben reicht nicht aus
+            System.out.println("zu wenig Guthaben");
         }
+
+    }
+
+
+
+
+    public void zurückButton() throws IOException {
+        Main m = new Main();
+        m.ChangeScene("KStartseite");
     }
 }

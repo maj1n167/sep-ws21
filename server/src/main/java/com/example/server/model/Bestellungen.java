@@ -21,10 +21,10 @@ public class Bestellungen implements Serializable {
 
     int userId;
 
-    @OneToMany
-    List<Food> liste;
+    @OneToMany(cascade = CascadeType.ALL)
+    List<BestellFood> liste;
 
-    public Bestellungen(long bestellungId, String datum, int restaurantId, double summe, int userId, List<Food> liste) {
+    public Bestellungen(long bestellungId, String datum, int restaurantId, double summe, int userId, List<BestellFood> liste) {
         this.bestellungId = bestellungId;
         this.datum = datum;
         this.restaurantId = restaurantId;
@@ -33,7 +33,7 @@ public class Bestellungen implements Serializable {
         this.liste = liste;
     }
 
-    public Bestellungen(long bestellungId, String datum, int restaurantId, double summe, List<Food> liste) {
+    public Bestellungen(long bestellungId, String datum, int restaurantId, double summe, List<BestellFood> liste) {
         this.bestellungId = bestellungId;
         this.datum = datum;
         this.restaurantId = restaurantId;
@@ -87,11 +87,11 @@ public class Bestellungen implements Serializable {
         this.summe = summe;
     }
 
-    public List<Food> getListe() {
+    public List<BestellFood> getListe() {
         return liste;
     }
 
-    public void setListe(List<Food> liste) {
+    public void setListe(List<BestellFood> liste) {
         this.liste = liste;
     }
 }

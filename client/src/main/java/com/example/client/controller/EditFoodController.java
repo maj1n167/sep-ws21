@@ -45,15 +45,22 @@ public class EditFoodController extends ConnectionController {
         foods.getChildren().clear();
         String allFood = "Ihre Speisen: \n";
         String url1 = "http://localhost:8080/food";
-        JSONArray jsonArray = new JSONArray(JSONObjectGET(url1).toString());
-        for (int i = 0; i < jsonArray.length(); i++) {
-            JSONObject jsonObject = jsonArray.getJSONObject(i);
-            if (jsonObject.get("menuId").equals(menuId)) {
-                allFood = allFood + "Foodid: " + jsonObject.get("foodId").toString() +
-                        "   Name: " + jsonObject.get("name").toString() + "\n";
+        JSONArray jsonArray1 = new JSONArray(JSONObjectGET("http://localhost:8080/kategorie").toString());
+        for (int i = 0; i < jsonArray1.length(); i++) {
+            JSONObject jsonObject4 = jsonArray1.getJSONObject(i);
+            if (jsonObject4.get("menuId").equals(menuId)) {
+                JSONArray foods = new JSONArray(jsonObject4.getJSONArray("foods").toString());
+                allFood += "Kategorie: "+ jsonObject4.get("kategorie")+"\n";
+            for(int j = 0; j<foods.length(); j++){
+                JSONObject jsonObject = foods.getJSONObject(j);
+                    allFood = allFood + "Foodid: " + jsonObject.get("foodId").toString() +
+                            "   Name: " + jsonObject.get("name").toString() + "\n";
+
+                }
+            }
 
             }
-        }
+
         Text text = new Text(allFood);
         foods.getChildren().add(text);
 

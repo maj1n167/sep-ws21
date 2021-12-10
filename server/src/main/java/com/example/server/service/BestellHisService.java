@@ -16,5 +16,6 @@ public class BestellHisService {
     public List<BestellHistorie> findAllBestellHistories(){return bestellHisRepo.findAll();}
     public BestellHistorie upddateBestellHistorie(BestellHistorie bestellHistorie){return bestellHisRepo.save(bestellHistorie);}
     public void deleteBestellHistorie(int bestellHisId){bestellHisRepo.deleteById(bestellHisId);}
+
 }
 

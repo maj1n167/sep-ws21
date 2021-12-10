@@ -22,4 +22,5 @@ private final BestellRepo bestellRepo;
     public List<Bestellungen> findAllBestellungens(){return bestellRepo.findAll();}
     public  Bestellungen updateBestellungen(Bestellungen bestellungen){return bestellRepo.save(bestellungen);}
     public void deleteBestellungen(int bestellId){bestellRepo.deleteById(bestellId);}
+
 }

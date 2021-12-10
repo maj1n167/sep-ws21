@@ -47,6 +47,17 @@ public class UserController {
         return new ResponseEntity<>(users, HttpStatus.OK);
 
     }
+    @GetMapping("/send/orderVerification/{email}")
+    public ResponseEntity<User> sendOrderVerification(@PathVariable("email") String email) {
+
+        User users = userService.findUserByEmail(email);
+        String currentEmail = users.getEmail();
+        System.out.println(currentEmail);
+        userService.sendEmail(currentEmail.toString(), "Hallo "+users.getName()+",\n\n"+
+                "Ihre Bestellung ist bei uns eingegangen.\n \n Viele Grüße\n Ihr SuprmeOrdering Team", "Bestätigungsmail");
+        return new ResponseEntity<>(users, HttpStatus.OK);
+
+    }
     // Zum Abgleich, ob eine Registrierung bereits vorhanden ist und um die Daten der registrierten Person zu erhalten.
     @GetMapping("/findbyemail/{email}")
     public ResponseEntity<User> getUserByEmail(@PathVariable("email") String email) {
