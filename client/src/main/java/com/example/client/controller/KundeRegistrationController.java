@@ -21,6 +21,8 @@ public class KundeRegistrationController extends ConnectionController {
     TextField stadtTextfield;
     @FXML
     TextField strasseTextfield;
+    @FXML
+    TextField nummerTextfield;
 
 
 
@@ -52,8 +54,9 @@ public class KundeRegistrationController extends ConnectionController {
             }
             data = data + "   \"geburtsdatum\": \"" + geburtsdatumTextfield.getText().toString() + "\",\n" +
                     "   \"plz\": \"" + postleitzahlTextfield.getText().toString() + "\",\n" +
-                    "   \"guthaben\": \"0\",\n" +
+                    "   \"nummer\": \""+nummerTextfield.getText().toString() +"\",\n" +
                     "   \"stadt\":\"" + stadtTextfield.getText().toString() + "\",\n" +
+                    "   \"guthaben\": \"0\",\n" +
                     "   \"altAdresse\": \"\",\n" +
                     "   \"altPlz\": \"\",\n" +
                     "   \"altStadt\": \"\",\n" +

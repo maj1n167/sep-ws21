@@ -17,6 +17,7 @@ public class User implements Serializable {
     private String email;
     private String password;
     private String strasse;
+    private String nummer;
     private String plz;
     private String stadt;
     private Boolean restaurantBesitzer;
@@ -32,53 +33,20 @@ public class User implements Serializable {
 
     private int verifyCode;
 
+    public User() {}
 
-    //konstruktor zur Registrierung - ok
-
-
-    public User(int userId, String name, String vorname, String email, String password, String strasse, String plz, String stadt
-                , String altAdresse,
-                String altPlz, String altStadt) {
-        this.userId = userId;
-        this.name = name;
-        this.vorname = vorname;
-        this.email = email;
-        this.password = password;
-        this.strasse = strasse;
-        this.plz = plz;
-        this.stadt = stadt;
-        this.restaurantBesitzer = false;
-        this.guthaben = 0.0;
-        this.altAdresse = altAdresse;
-        this.altPlz = altPlz;
-        this.altStadt = altStadt;
-
-    }
-
-    //Konstruktor zur Erstellung des Restaurants - ok
-    public User(int userId, String name, String vorname, String email, String password, String strasse, String plz, String stadt, Boolean restaurantBesitzer, int restaurantId) {
-        this.name = name;
-        this.vorname = vorname;
-        this.email = email;
-        this.password = password;
-        this.strasse = strasse;
-        this.plz = plz;
-        this.stadt = stadt;
-        this.restaurantBesitzer = restaurantBesitzer;
-    }
-
-    public User() {
-
-    }
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
+
     public String getVorname() {
         return vorname;
     }
+
     public void setVorname(String vorname) {
         this.vorname = vorname;
     }
@@ -131,6 +99,13 @@ public class User implements Serializable {
         this.restaurantBesitzer = restaurantBesitzer;
     }
 
+    public String getNummer() {return nummer;}
+
+    public void setNummer(String nummer) {this.nummer = nummer;}
+
+    public Restaurant getRestaurant() {return restaurant;}
+
+    public void setRestaurant(Restaurant restaurant) {this.restaurant = restaurant;}
 
     public int getUserId() {return userId;}
 

@@ -51,7 +51,7 @@ public class BewertungController extends ConnectionController {
         /**
          * TODO: Speicherung fertigstellen
          */
-        this.restaurantId = 1;
+        this.restaurantId = RestaurantsController.id;
     }
 
 

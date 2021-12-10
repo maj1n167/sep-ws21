@@ -1,5 +1,6 @@
 package com.example.client.controller;
 
+import com.example.client.Main;
 import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -63,4 +64,8 @@ public class ConnectionController {
         httpCon.connect();
     }
 
+    public static void changeScene(String fxml) throws IOException {
+        Main m = new Main();
+        m.changeScene(fxml);
+    }
 }
