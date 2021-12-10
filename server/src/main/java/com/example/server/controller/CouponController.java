@@ -23,9 +23,7 @@ public class CouponController {
 
     @GetMapping
     public ResponseEntity<List<Coupon>> getAllCoupons() {
-
         List<Coupon> coupons = couponService.findAllCoupons();
-
         return new ResponseEntity<>(coupons, HttpStatus.OK);
     }
 
@@ -53,7 +51,7 @@ public class CouponController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteCoupon(@PathVariable("id") String id) {
-        couponService.deleteCoupon(id);
+        couponService.deleteCoupon(Integer.parseInt(id));
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
