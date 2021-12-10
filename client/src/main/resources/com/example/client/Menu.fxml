@@ -14,22 +14,22 @@
                 <Font name="System Bold" size="20.0" />
             </font>
         </Label>
-      <Label alignment="CENTER" layoutX="196.0" layoutY="72.0" prefHeight="34.0" prefWidth="390.0" text="Speisekarte :">
+      <Label alignment="CENTER" layoutX="196.0" layoutY="63.0" prefHeight="34.0" prefWidth="390.0" text="Speisekarte :">
          <font>
             <Font size="28.0" />
          </font>
       </Label>
       <Button layoutX="14.0" layoutY="561.0" mnemonicParsing="false" onAction="#zurückButton" text="zurück" />
       <Button layoutX="737.0" layoutY="561.0" mnemonicParsing="false" text="Fertig" />
-      <TableView layoutX="41.0" layoutY="139.0" prefHeight="353.0" prefWidth="716.0" fx:id="list">
+      <TableView layoutX="14.0" layoutY="113.0" prefHeight="430.0" prefWidth="772.0">
         <columns>
-          <TableColumn fx:id="Bild" prefWidth="87.0" text="Bild" />
-            <TableColumn fx:id="Kategorie" prefWidth="121.0" text="Kategorie" />
-            <TableColumn fx:id="Name" prefWidth="134.0" text="Name" />
-          <TableColumn fx:id="Beschreibung" prefWidth="266.0" text="Beschreibung" />
-            <TableColumn fx:id="Preis" prefWidth="36.0" text="Preis" />
-            <TableColumn fx:id="Id" prefWidth="22.0" text="Id" />
-            <TableColumn fx:id="addWarenkorb" prefWidth="49.0" />
+          <TableColumn fx:id="Bild" prefWidth="89.0"  text="Bild" />
+            <TableColumn fx:id="Kategorie" prefWidth="109.0" text="Kategorie" />
+            <TableColumn fx:id="Name" prefWidth="151.0" text="Name" />
+          <TableColumn fx:id="Beschreibung" prefWidth="276.0" text="Beschreibung" />
+            <TableColumn fx:id="Preis" prefWidth="44.0" text="Preis" />
+            <TableColumn fx:id="Id" prefWidth="25.0" text="Id" />
+            <TableColumn fx:id="addWarenkorb" prefWidth="77.0" />
         </columns>
       </TableView>
     </children>
