@@ -2,7 +2,8 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -18,13 +19,18 @@
             <Font size="28.0" />
          </font>
       </Label>
-      <ListView  fx:id="listView" layoutX="92.0" layoutY="127.0" prefHeight="316.0" prefWidth="616.0" />
       <Button layoutX="14.0" layoutY="561.0" mnemonicParsing="false" onAction="#zurückButton" text="zurück" />
       <Button layoutX="737.0" layoutY="561.0" mnemonicParsing="false" text="Fertig" />
-      <Button layoutX="301.0" layoutY="460.0" minHeight="40.0" mnemonicParsing="false" onAction="#WarenkorbAdd" prefHeight="50.0" prefWidth="165.0" text="Warenkorb hinzufügen">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Button>
+      <TableView layoutX="41.0" layoutY="139.0" prefHeight="353.0" prefWidth="716.0">
+        <columns>
+          <TableColumn fx:id="Bild" prefWidth="117.0" text="Bild" />
+            <TableColumn fx:id="Kategorie" prefWidth="111.0" text="Kategorie" />
+            <TableColumn fx:id="Name" prefWidth="97.0" text="Name" />
+          <TableColumn fx:id="Beschreibung" prefWidth="235.0" text="Beschreibung" />
+            <TableColumn fx:id="Preis" prefWidth="54.0" text="Preis" />
+            <TableColumn fx:id="Id" prefWidth="42.0" text="Id" />
+            <TableColumn fx:id="addWarenkorb" prefWidth="59.0" />
+        </columns>
+      </TableView>
     </children>
 </AnchorPane>
