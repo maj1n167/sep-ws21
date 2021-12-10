@@ -11,6 +11,16 @@ public class KundeStartseiteController extends ConnectionController{
 
     @FXML
     public void initialize() throws IOException {
+        /*      Zum Testen der Buttons in Restaurants
+        if(RestaurantsController.id!=-1){
+            System.out.println(RestaurantsController.id);
+        } else {
+            System.out.println("no restaurant chosen");
+        }
+
+         */
+        System.out.println("Standard: " + VerificationController.standard);
+        System.out.println("Alternativ: " + VerificationController.alternative);
     }
 
 

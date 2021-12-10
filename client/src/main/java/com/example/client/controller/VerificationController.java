@@ -21,6 +21,10 @@ public class VerificationController extends ConnectionController implements Init
 
     String email;
 
+    //wichtig damit user bestellungen durchführen können anpassungen in keditprofile und kaltaddress erforderlich
+    public static String standard;
+    public static String alternative;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -43,6 +47,8 @@ public class VerificationController extends ConnectionController implements Init
                    m.ChangeScene("Startseite.fxml");
                    return;
                } else {
+                   standard = jsonObject.getString("strasse") + " " + jsonObject.getString("plz") + " " + jsonObject.getString("stadt");
+                   alternative = jsonObject.getString("altAdresse") + " " + jsonObject.getString("altPlz") + " " + jsonObject.getString("altStadt");
                    jsonObject.put("verifyCode",0);
                    JSONObjectPUT("http://localhost:8080/user/update/"+jsonObject.get("userId"), jsonObject.toString());
                    Main m = new Main();

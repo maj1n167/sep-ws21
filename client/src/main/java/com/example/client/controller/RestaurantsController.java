@@ -4,6 +4,7 @@ import com.example.client.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -24,14 +25,10 @@ public class RestaurantsController extends ConnectionController implements Initi
 
     @FXML
     ToggleGroup group = new ToggleGroup();
-
     @FXML
     RadioButton standard;
-
     @FXML
     RadioButton alternative;
-
-    private int restaurantId;
 
 
     @FXML
@@ -41,9 +38,7 @@ public class RestaurantsController extends ConnectionController implements Initi
     @FXML
     TableColumn kategorie = new TableColumn("Kategorie");
     @FXML
-    TableColumn rating = new TableColumn("DS-Bewertung");
-    @FXML
-    TableColumn ratings = new TableColumn("Bewertung");
+    TableColumn ratingButton = new TableColumn("Bewertung");
     @FXML
     TableColumn mbw = new TableColumn("Mindestbestellwert");
     @FXML
@@ -53,7 +48,8 @@ public class RestaurantsController extends ConnectionController implements Initi
     @FXML
     TableColumn order = new TableColumn("Favoriten");
 
-    ObservableList<RestaurantList> data = FXCollections.observableArrayList();
+    public static int id=-1;
+    private ObservableList<RestaurantList> data = FXCollections.observableArrayList();
 
 
     @FXML
@@ -65,14 +61,8 @@ public class RestaurantsController extends ConnectionController implements Initi
     }
 
     public void onAendernButtonClick(ActionEvent actionEvent) {
-
+        //change scene to alternativaddress
     }
-
-
-
-//    public void onFilternButtonClick(ActionEvent actionEvent) {
-//
-//    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -80,8 +70,7 @@ public class RestaurantsController extends ConnectionController implements Initi
             list.setEditable(true);
             name.setCellValueFactory(new PropertyValueFactory<RestaurantList, String>("name"));
             kategorie.setCellValueFactory(new PropertyValueFactory<RestaurantList, String>("kategorie"));
-            rating.setCellValueFactory(new PropertyValueFactory<RestaurantList, Double>("rating"));
-            ratings.setCellValueFactory(new PropertyValueFactory<RestaurantList, Button>("ratings"));
+            ratingButton.setCellValueFactory(new PropertyValueFactory<RestaurantList, Button>("ratingButton"));
             mbw.setCellValueFactory(new PropertyValueFactory<RestaurantList, Double>("mbw"));
             lieferkosten.setCellValueFactory(new PropertyValueFactory<RestaurantList, Double>("lieferkosten"));
             menu.setCellValueFactory(new PropertyValueFactory<RestaurantList, Button>("menu"));
@@ -94,64 +83,25 @@ public class RestaurantsController extends ConnectionController implements Initi
         }
     }
 
-    /**
-     * @TODO: Buttons konfigurieren
-     */
     public ObservableList<RestaurantList> getRestaurants() throws IOException {
         ObservableList<RestaurantList> output = FXCollections.observableArrayList();
         JSONArray j = new JSONArray(JSONObjectGET("http://localhost:8080/restaurant").toString());
         for(int i =0; i<j.length();i++) {
 
             JSONObject current = new JSONObject(j.get(i).toString());
-            Button curMenu=new Button();
-            Button curOrder=new Button();
-            curMenu.setText("Ansehen");
-            curOrder.setText("Favorit");
-
-
-
-
-
-           /* Button curMenu = new Button();
-            curMenu.setText("Menu");
-            //buttons konfigurieren
-            if(current.get("menuId").equals(menu.getId())){
-
-            }//else nichts machen.
-
-            Button curOrder = new Button();
-            curOrder.setText("Favorit");
-            current.put("Favorit",curOrder);
-            JSONObjectPOST("http://localhost:8080/user/add",curOrder.toString());
-            if(current.get("restaurantId").equals(restaurantId)){
-
-            }
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
-            alert.setTitle("Restaurant wurde als Favorit gespeichert");
-            alert.setContentText("Restaurant wurde erfolgreich als Favorit gespeichert");
-
-            alert.showAndWait();
- */
-            //buttons konfigurieren
-
-
-            Button curRating = new Button();
-            curMenu.setText("Bewertungen");
-
             RestaurantList r = new RestaurantList();
             output.add(r = new RestaurantList(current.getInt("restaurantId"), current.getString("name"), current.getString("strasse"),
                     current.getString("plz"), current.getString("stadt"), current.getDouble("mbw"),
                     current.getDouble("lieferkosten"), current.getString("kategorie"), current.getInt("lieferbereich"),
-                    current.getDouble("rating"), curRating, curMenu, curOrder));
+                    current.getDouble("rating")));
         }
         data = FXCollections.observableArrayList(output);
         return output;
     }
+
 /**
   *     @TODO: Filter einbauen
   */
-
 //    public ObservableList<RestaurantList> getRestaurantsNearMe(String address) throws IOException {
 //        ObservableList<RestaurantList> output = FXCollections.observableArrayList();
 //        JSONArray j = new JSONArray(JSONObjectGET("http://localhost:8080/restaurant").toString());
@@ -177,6 +127,7 @@ public class RestaurantsController extends ConnectionController implements Initi
     @FXML
     public void onAlternativeClick() throws IOException {
         alternative.setToggleGroup(group);
+
     }
 
     public static class RestaurantList {
@@ -190,15 +141,14 @@ public class RestaurantsController extends ConnectionController implements Initi
         private String kategorie;
         private int lieferbereich;
         private double rating;
-        private Button ratings;
-        private Button menu;
+        private Button ratingButton;
         private Button order;
 
         public RestaurantList() { }
 
         public RestaurantList(int id, String name, String strasse, String plz,
                               String stadt, double mbw, double lieferkosten,
-                              String kategorie, int lieferbereich, double rating, Button ratings, Button menu, Button order) {
+                              String kategorie, int lieferbereich, double rating) {
             this.id = id;
             this.name = name;
             this.strasse = strasse;
@@ -209,9 +159,34 @@ public class RestaurantsController extends ConnectionController implements Initi
             this.kategorie = kategorie;
             this.lieferbereich = lieferbereich;
             this.rating = rating;
-            this.ratings = ratings;
-            this.menu = menu;
-            this.order = order;
+            this.ratingButton = new Button();
+            this.ratingButton.setText("Bewertung");
+            this.ratingButton.setOnAction(new EventHandler<ActionEvent>() {
+                @Override public void handle(ActionEvent event) {
+                    RestaurantsController.id = id;
+                    Main m = new Main();
+                    try {
+                        //Hier muss die View zu der Bewertungsliste
+                        m.ChangeScene("KStartseite.fxml");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            this.order = new Button();
+            this.order.setText("Bestellen");
+            this.order.setOnAction(new EventHandler<ActionEvent>() {
+                @Override public void handle(ActionEvent event) {
+                    RestaurantsController.id = id;
+                    Main m = new Main();
+                    try {
+                        //Hier muss die View zum Bestellvorgang
+                        m.ChangeScene("KStartseite.fxml");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
         }
 
         public double getRating() { return rating; }
@@ -290,18 +265,13 @@ public class RestaurantsController extends ConnectionController implements Initi
             this.lieferbereich = lieferbereich;
         }
 
-        public Button getMenu() {return menu;}
-
-        public void setMenu(Button menu) {this.menu = menu;}
-
         public Button getOrder() {return order;}
 
         public void setOrder(Button order) {this.order = order;}
 
-        public Button getRatings() {return ratings;}
+        public Button getRatingButton() {return ratingButton;}
 
-        public void setRatings(Button ratings) {this.ratings = ratings;}
-
+        public void setRatingButton(Button ratings) {this.ratingButton = ratings;}
 
         @Override
         public String toString() {

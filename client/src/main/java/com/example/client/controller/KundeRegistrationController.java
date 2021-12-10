@@ -51,9 +51,12 @@ public class KundeRegistrationController extends ConnectionController {
                 }
             }
             data = data + "   \"geburtsdatum\": \"" + geburtsdatumTextfield.getText().toString() + "\",\n" +
-                    "   \"postleitzahl\": \"" + postleitzahlTextfield.getText().toString() + "\",\n" +
+                    "   \"plz\": \"" + postleitzahlTextfield.getText().toString() + "\",\n" +
                     "   \"guthaben\": \"0\",\n" +
                     "   \"stadt\":\"" + stadtTextfield.getText().toString() + "\",\n" +
+                    "   \"altAdresse\": \"\",\n" +
+                    "   \"altPlz\": \"\",\n" +
+                    "   \"altStadt\": \"\",\n" +
                     "   \"strasse\": \"" + strasseTextfield.getText().toString() + "\"\n }";
             System.out.println(data);
             JSONObjectPUT(url, data);

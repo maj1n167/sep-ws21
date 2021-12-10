@@ -19,7 +19,7 @@ public class Main extends Application {
 
 
         mainStage=stage;
-        Parent root = FXMLLoader.load(getClass().getResource("Menu.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
         stage.setTitle("Supreme Eating Program");
         stage.setScene(new Scene(root, 800, 600));
         stage.show();
