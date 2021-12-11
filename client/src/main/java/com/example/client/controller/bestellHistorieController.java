@@ -22,7 +22,7 @@ public class bestellHistorieController extends ConnectionController implements I
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        userId=4;
+        userId=LoginController.userId;
         //userId = LoginController.userId;
         try {
             JSONObject currentBestellHis = new JSONObject();

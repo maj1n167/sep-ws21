@@ -32,7 +32,7 @@ public class KundeStartseiteController extends ConnectionController{
 
     @FXML
     public void onShowOrderClick() throws IOException {
-        changeScene("KStartseite.fxml");
+        changeScene("bestellHistorie.fxml");
     }
 
     @FXML
