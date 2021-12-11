@@ -39,7 +39,7 @@ public class CouponController {
         code = String.format("%06d", number1) + String.format("%06d", number2);
         Coupon coupon = new Coupon(code);
         addCoupon(coupon);
-        couponService.sendEmail(currentEmail.toString(), "Ihr Rabattcode lautet: "+code, "Rabattcode");
+        couponService.sendEmail(currentEmail.toString(), "Mit diesem Code sparen Sie 10%: "+code, "10% Rabattcode!");
         return new ResponseEntity<>(coupon, HttpStatus.OK);
     }
 
