@@ -1,8 +1,10 @@
 package com.example.client.controller;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -15,9 +17,13 @@ public class bestellHistorieController extends ConnectionController implements I
 
     public int userId;
 
+    @FXML
+    public TreeView treeView;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        userId = LoginController.userId;
+        userId=4;
+        //userId = LoginController.userId;
         try {
             JSONObject currentBestellHis = new JSONObject();
             JSONArray jsonArray = new JSONArray(JSONObjectGET("http://localhost:8080/bestellHistorie").toString());
@@ -30,18 +36,29 @@ public class bestellHistorieController extends ConnectionController implements I
             TreeItem<String> root = new TreeItem<>("Speisekarte");
             // Alle Bestellungen drinnen
             JSONArray bestellList = new JSONArray(currentBestellHis.get("bestellungenList").toString());
-            String x [] = new String[bestellList.length()];
-
+            System.out.println(bestellList);
             for(int j =0; j<bestellList.length(); j++) {
-                x[j] = String.valueOf(j);
                 JSONObject jsonObject = bestellList.getJSONObject(j);
-                JSONObject restaurant = new JSONObject(JSONObjectGET("http://localhost:8080/restaurant/find"+jsonObject.get("restaurantId").toString()));
-                TreeItem<String> bestellung = new TreeItem<>(restaurant.get("name ").toString()+jsonObject.get("datum").toString());
-             //   restaurant.get("name ").toString()+jsonObject.get("datum").toString()
+                JSONArray jsonArray1 = new JSONArray(jsonObject.get("liste").toString());
+                System.out.println(jsonObject);
+                System.out.println(jsonObject.get("restaurantId"));
+                int id = jsonObject.getInt("restaurantId");
+                JSONObject restaurant = new JSONObject(JSONObjectGET("http://localhost:8080/restaurant/find/"+id).toString());
+                System.out.println(restaurant);
+                TreeItem<String> bestellung = new TreeItem<>("Restaurant: "+restaurant.get("name").toString()+" Datum: "+jsonObject.get("datum").toString()+" Summe: "+jsonObject.get("summe").toString());
+                for(int x = 0; x<jsonArray1.length(); x++){
+                    JSONObject jsonObject1 = jsonArray1.getJSONObject(x);
+                    System.out.println(jsonObject1);
+                    TreeItem<String> child = new TreeItem<>("Name: "+jsonObject1.get("name").toString()+" Beschreibung: "+ jsonObject1.get("beschreibung").toString()+" Preis: "+jsonObject1.get("preis").toString());
+                    bestellung.getChildren().add(child);
+
+                }
+                root.getChildren().add(bestellung);
 
 
             }
 
+          treeView.setRoot(root);
 
 
         } catch (IOException e) {
@@ -69,5 +86,8 @@ public class bestellHistorieController extends ConnectionController implements I
     }
 
     public void FertigButton(ActionEvent actionEvent) {
+    }
+
+    public void zurück(ActionEvent actionEvent) {
     }
 }
