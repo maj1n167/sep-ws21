@@ -82,7 +82,8 @@ public class bestellHistorieController extends ConnectionController implements I
 **/
     }
 
-    public void zurückButton(ActionEvent actionEvent) {
+    public void zurückButton(ActionEvent actionEvent) throws IOException {
+        changeScene("KStartseite.fxml");
     }
 
     public void FertigButton(ActionEvent actionEvent) {
