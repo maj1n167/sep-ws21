@@ -5,6 +5,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -84,6 +85,23 @@ public class BewertungController extends ConnectionController {
 
             System.out.println(bewertung);
             JSONObjectPOST(url, bewertung.toString());
+
+            //Avg Bewertung anpassen
+
+            JSONArray j = new JSONArray(JSONObjectGET("http://localhost:8080/rating/" + RestaurantsController.id).toString());
+            Double newAvgFood = 0.0;
+            Double newAvgDelivery = 0.0;
+            for(int i=0;i<j.length();i++) {
+                newAvgFood=newAvgFood+j.getJSONObject(i).getDouble("starsFood");
+                newAvgDelivery=newAvgDelivery+j.getJSONObject(i).getDouble("starsLieferung");
+            }
+            newAvgFood = newAvgFood/j.length();
+            newAvgDelivery = newAvgDelivery/j.length();
+            JSONObject updateRest= new JSONObject(JSONObjectGET("http://localhost:8080/restaurant/find/"+RestaurantsController.id).toString());
+            updateRest.put("ratingFood", newAvgFood);
+            updateRest.put("ratingDelivery", newAvgDelivery);
+            JSONObjectPUT("http://localhost:8080/restaurant/update", updateRest.toString());
+
 
             changeScene("KStartseite.fxml");
 

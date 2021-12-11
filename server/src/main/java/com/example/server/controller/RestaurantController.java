@@ -49,8 +49,8 @@ import java.util.List;
         }
 
         @PutMapping("/update")
-        public ResponseEntity<Restaurant> updateRestaurant(@RequestBody Restaurant restaurants) {
-            Restaurant updateRestaurant = restaurantService.addRestaurant(restaurants);
+        public ResponseEntity<Restaurant> updateRestaurant(@RequestBody Restaurant input) {
+            Restaurant updateRestaurant = restaurantService.updateRestaurant(input);
             return new ResponseEntity<>(updateRestaurant, HttpStatus.OK);
         }
     }

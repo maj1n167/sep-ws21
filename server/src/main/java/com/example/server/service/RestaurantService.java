@@ -25,7 +25,7 @@ public class RestaurantService {
         return restaurantRepo.findAll();
     }
 
-//    public Restaurant findRestaurantByRestaurantId(int id){ return restaurantRepo.findRestaurantByRestaurantId(id); }
+    public Restaurant findRestaurantByRestaurantId(int id){ return restaurantRepo.findRestaurantByRestaurantId(id); }
 
     public Restaurant updateRestaurant(Restaurant restaurants){
         return restaurantRepo.save(restaurants);

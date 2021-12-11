@@ -17,7 +17,8 @@ public class Restaurant  implements Serializable {
     private double lieferkosten;
     private String kategorie;
     private int lieferbereich;
-    private double rating;
+    private double ratingDelivery;
+    private double ratingFood;
     @JoinColumn(name = "menuId")
     @OneToOne
     private Menu menu;
@@ -103,9 +104,13 @@ public class Restaurant  implements Serializable {
         this.lieferbereich = lieferbereich;
     }
 
-    public double getRating() { return rating;}
+    public double getRatingDelivery() {return ratingDelivery;}
 
-    public void setRating(double rating) {this.rating = rating;}
+    public void setRatingDelivery(double ratingDelivery) {this.ratingDelivery = ratingDelivery;}
+
+    public double getRatingFood() {return ratingFood;}
+
+    public void setRatingFood(double ratingFood) {this.ratingFood = ratingFood;}
 
     public Menu getMenu() {return menu;}
 

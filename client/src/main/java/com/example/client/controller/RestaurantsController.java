@@ -46,6 +46,10 @@ public class RestaurantsController extends ConnectionController implements Initi
     @FXML
     TableColumn kategorie = new TableColumn("Kategorie");
     @FXML
+    TableColumn ratingFood;
+    @FXML
+    TableColumn ratingDelivery;
+    @FXML
     TableColumn rating = new TableColumn("Bewertung");
     @FXML
     TableColumn mbw = new TableColumn("Mindestbestellwert");
@@ -108,6 +112,8 @@ public class RestaurantsController extends ConnectionController implements Initi
             list.setEditable(true);
             name.setCellValueFactory(new PropertyValueFactory<RestaurantList, String>("name"));
             kategorie.setCellValueFactory(new PropertyValueFactory<RestaurantList, String>("kategorie"));
+            ratingFood.setCellValueFactory(new PropertyValueFactory<RestaurantList, Double>("ratingFood"));
+            ratingDelivery.setCellValueFactory(new PropertyValueFactory<RestaurantList, Double>("ratingLieferung"));
             rating.setCellValueFactory(new PropertyValueFactory<RestaurantList, Button>("ratingButton"));
             mbw.setCellValueFactory(new PropertyValueFactory<RestaurantList, Double>("mbw"));
             lieferkosten.setCellValueFactory(new PropertyValueFactory<RestaurantList, Double>("lieferkosten"));
@@ -226,7 +232,8 @@ public class RestaurantsController extends ConnectionController implements Initi
                                 curRest.getDouble("lieferkosten"),
                                 curRest.getString("kategorie"),
                                 curRest.getInt("lieferbereich"),
-                                curRest.getDouble("rating"),
+                                curRest.getDouble("ratingFood"),
+                                curRest.getDouble("ratingDelivery"),
                                 fav));
                         continue;
                     }
@@ -254,7 +261,8 @@ public class RestaurantsController extends ConnectionController implements Initi
                             curRest.getDouble("lieferkosten"),
                             curRest.getString("kategorie"),
                             curRest.getInt("lieferbereich"),
-                            curRest.getDouble("rating"),
+                            curRest.getDouble("ratingFood"),
+                            curRest.getDouble("ratingDelivery"),
                             fav));
                 }
             }
@@ -284,7 +292,8 @@ public class RestaurantsController extends ConnectionController implements Initi
                     curRest.getDouble("lieferkosten"),
                     curRest.getString("kategorie"),
                     curRest.getInt("lieferbereich"),
-                    curRest.getDouble("rating"),
+                    curRest.getDouble("ratingFood"),
+                    curRest.getDouble("ratingDelivery"),
                     fav));
         }
         }
@@ -444,7 +453,9 @@ public class RestaurantsController extends ConnectionController implements Initi
         private double lieferkosten;
         private String kategorie;
         private int lieferbereich;
-        private double rating;
+
+        private double ratingFood;
+        private double ratingLieferung;
         private Button ratingButton;
         private Button order;
         private Button fav;
@@ -453,7 +464,7 @@ public class RestaurantsController extends ConnectionController implements Initi
 
         public RestaurantList(int id, String name, String strasse, String plz,
                               String stadt, double mbw, double lieferkosten,
-                              String kategorie, int lieferbereich, double rating, Button fav) {
+                              String kategorie, int lieferbereich, double ratingFood, double ratingLieferung, Button fav) {
             this.id = id;
             this.name = name;
             this.strasse = strasse;
@@ -463,9 +474,10 @@ public class RestaurantsController extends ConnectionController implements Initi
             this.lieferkosten = lieferkosten;
             this.kategorie = kategorie;
             this.lieferbereich = lieferbereich;
-            this.rating = rating;
+            this.ratingFood = ratingFood;
+            this.ratingLieferung = ratingLieferung;
             this.ratingButton = new Button();
-            this.ratingButton.setText(Double.toString(this.rating));
+            this.ratingButton.setText("Bewertungen");
             this.ratingButton.setOnAction(new EventHandler<ActionEvent>() {
                 @Override public void handle(ActionEvent event) {
                     RestaurantsController.id = id;
@@ -493,81 +505,49 @@ public class RestaurantsController extends ConnectionController implements Initi
             this.fav = fav;
         }
 
-        public double getRating() { return rating; }
+        public double getRatingFood() {return ratingFood;}
 
-        public void setRating(double rating) { this.rating = rating; }
+        public void setRatingFood(double ratingFood) {this.ratingFood = ratingFood;}
 
-        public int getId() {
-            return id;
-        }
+        public double getRatingLieferung() {return ratingLieferung;}
 
-        public void setId(int restaurantId) {
-            this.id = restaurantId;
-        }
+        public void setRatingLieferung(double ratingLieferung) {this.ratingLieferung = ratingLieferung;}
 
-        public String getName() {
-            return name;
-        }
+        public int getId() {return id;}
 
-        public void setName(String name) {
-            this.name = name;
-        }
+        public void setId(int restaurantId) {this.id = restaurantId;}
 
-        public String getStrasse() {
-            return strasse;
-        }
+        public String getName() {return name;}
 
-        public void setStrasse(String strasse) {
-            this.strasse = strasse;
-        }
+        public void setName(String name) {this.name = name;}
 
-        public String getPlz() {
-            return plz;
-        }
+        public String getStrasse() {return strasse;}
 
-        public void setPlz(String plz) {
-            this.plz = plz;
-        }
+        public void setStrasse(String strasse) {this.strasse = strasse;}
 
-        public String getStadt() {
-            return stadt;
-        }
+        public String getPlz() {return plz;}
 
-        public void setStadt(String stadt) {
-            this.stadt = stadt;
-        }
+        public void setPlz(String plz) {this.plz = plz;}
 
-        public double getMbw() {
-            return mbw;
-        }
+        public String getStadt() {return stadt;}
 
-        public void setMbw(double mbw) {
-            this.mbw = mbw;
-        }
+        public void setStadt(String stadt) {this.stadt = stadt;}
 
-        public double getLieferkosten() {
-            return lieferkosten;
-        }
+        public double getMbw() {return mbw;}
 
-        public void setLieferkosten(double lieferkosten) {
-            this.lieferkosten = lieferkosten;
-        }
+        public void setMbw(double mbw) {this.mbw = mbw;}
 
-        public String getKategorie() {
-            return kategorie;
-        }
+        public double getLieferkosten() {return lieferkosten;}
 
-        public void setKategorie(String kategorie) {
-            this.kategorie = kategorie;
-        }
+        public void setLieferkosten(double lieferkosten) {this.lieferkosten = lieferkosten;}
 
-        public int getLieferbereich() {
-            return lieferbereich;
-        }
+        public String getKategorie() {return kategorie;}
 
-        public void setLieferbereich(int lieferbereich) {
-            this.lieferbereich = lieferbereich;
-        }
+        public void setKategorie(String kategorie) {this.kategorie = kategorie;}
+
+        public int getLieferbereich() {return lieferbereich;}
+
+        public void setLieferbereich(int lieferbereich) {this.lieferbereich = lieferbereich;}
 
         public Button getOrder() {return order;}
 
@@ -580,13 +560,6 @@ public class RestaurantsController extends ConnectionController implements Initi
         public Button getFav() {return fav;}
 
         public void setFav(Button fav) {this.fav = fav;}
-
-        @Override
-        public String toString() {
-            String output = "";
-            output = output + this.getId() + ", " + this.getName() + ", " + this.getKategorie() + ", " +  this.getStrasse() + ", " + this.getPlz() + " " + this.getStadt() + ", " + this.getRating() + ", " + this.getMbw() + ", " + this.getLieferkosten();
-            return output;
-        }
     }
 }
 
