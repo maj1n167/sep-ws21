@@ -18,6 +18,7 @@ public class TreuepunkteController extends ConnectionController {
     @FXML
     public int userId;
     public int treuepunkte;
+    public double discountedsumme;
 
     @FXML
     public void onDiscountButtonClick(ActionEvent event) throws IOException {
@@ -33,7 +34,14 @@ public class TreuepunkteController extends ConnectionController {
             }
 
         }
+
+        JSONObject jsonObject4 = new JSONObject(JSONObjectGET("http://localhost:8080/warenkorb/find/"+userId).toString());
+        discountedsumme = Double.parseDouble(jsonObject4.get("summe").toString());
+        discountedsumme = discountedsumme * 0.9;
+        jsonObject4.put("summe", discountedsumme);
+        JSONObjectPOST("http://localhost:8080/warenkorb/add", jsonObject4.toString());
         initialize();
+        changeScene("Warenkorb.fxml");
     }
 
     @FXML

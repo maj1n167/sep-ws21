@@ -18,10 +18,12 @@ public class WarenkorbController extends ConnectionController {
     @FXML
     ListView<String> listView;
     @FXML
-    Label summe;
+    public Label summe;
 
    public int userId;
    public int restaurantid;
+   public int treuepunkte;
+   public double profuenfer;
 
 
     public void initialize() throws IOException {
@@ -42,6 +44,12 @@ public class WarenkorbController extends ConnectionController {
         listView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
     }
+    @FXML
+    public void ichHabCodeButtonClick(ActionEvent event) throws IOException {
+
+        changeScene("Treuepunkte.fxml");
+    }
+
     @FXML
     public void bestellen(ActionEvent actionEvent) throws IOException {
        String x = listView.getSelectionModel().getSelectedItems().toString();
@@ -158,8 +166,30 @@ public class WarenkorbController extends ConnectionController {
 
             alert.showAndWait();
         }
+        JSONObject jsonObject31 = new JSONObject(JSONObjectGET("http://localhost:8080/warenkorb/find/"+userId).toString());
+        profuenfer = Double.parseDouble(jsonObject31.get("summe").toString());
+        while(profuenfer >= 5) {
+            int EinTreuepunkt = 0;
+            EinTreuepunkt = EinTreuepunkt + 1;
+            treuepunkte += EinTreuepunkt;
+            String url = "http://localhost:8080/user";
+            JSONArray jsonArrayABC = new JSONArray(JSONObjectGET(url).toString());
+            JSONObject jsonObjectABC = new JSONObject();
 
+            for (int i = 0; i < jsonArrayABC.length(); i++) {
+                JSONObject jsonObjectXYZ = jsonArray.getJSONObject(i);
+
+                if (jsonObjectXYZ.get("userId").equals(userId)) {
+                    jsonObjectABC = jsonObjectXYZ;
+                }
+            }
+            jsonObjectABC.put("treuepunkte", treuepunkte);
+            JSONObjectPOST("http://localhost:8080/user/add", jsonObjectABC.toString());
+            initialize();
+            profuenfer = profuenfer - 5;
+        }
     }
+
 
 
 
