@@ -38,7 +38,12 @@ public class BewertungListController extends ConnectionController implements Ini
     }
 
     public void zurueckButtonClick() throws IOException {
-        changeScene("Startseite.fxml");
+        JSONObject current = new JSONObject(JSONObjectGET("http://localhost:8080/user/findbyid/"+LoginController.userId).toString());
+        if(current.getBoolean("restaurantBesitzer")) {
+            changeScene("Startseite.fxml");
+        } else {
+            changeScene("Restaurants.fxml");
+        }
     }
 
     @FXML
@@ -59,10 +64,7 @@ public class BewertungListController extends ConnectionController implements Ini
     ObservableList<BewertungListController.BewertungList> data = FXCollections.observableArrayList();
 
 
-    @FXML
-    public void onZurueckButtonClick() throws IOException {
-        changeScene("KStartseite.fxml");
-    }
+
 
     /**
      * @TODO: Buttons konfigurieren

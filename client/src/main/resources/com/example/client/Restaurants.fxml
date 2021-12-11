@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.client.controller.RestaurantsController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.client.controller.RestaurantsController">
     <children>
         <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="50.0" prefHeight="50.0" style="-fx-background-color: #90ee90;" text="Supreme Eating Program" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <font>
@@ -16,19 +16,19 @@
         <Button fx:id="zurueckButton" layoutX="26.0" layoutY="552.0" mnemonicParsing="false" onAction="#onZurueckButtonClick" prefHeight="35.0" prefWidth="70.0" text="Zurück" />
       <TableView fx:id="list" layoutX="51.0" layoutY="64.0" prefHeight="299.0" prefWidth="700.0">
           <columns>
-              <TableColumn fx:id="name" prefWidth="137.0" text="Name">
+              <TableColumn fx:id="name" prefWidth="147.0" text="Name">
               </TableColumn>
-              <TableColumn fx:id="kategorie" prefWidth="94.0" text="Kategorie">
+              <TableColumn fx:id="kategorie" prefWidth="134.0" text="Kategorie">
               </TableColumn>
-              <TableColumn fx:id="rating" minWidth="0.0" prefWidth="93.0" text="Bewertung">
+              <TableColumn fx:id="rating" minWidth="0.0" prefWidth="71.0" text="Bewertung">
               </TableColumn>
-              <TableColumn fx:id="mbw" prefWidth="117.0" text="Mindestbestellwert">
+              <TableColumn fx:id="mbw" prefWidth="51.0" text="MBW">
               </TableColumn>
-              <TableColumn fx:id="lieferkosten" prefWidth="79.0" text="Lieferkosten">
+              <TableColumn fx:id="lieferkosten" prefWidth="82.0" text="Lieferkosten">
               </TableColumn>
-              <TableColumn fx:id="menu" prefWidth="75.0" text="Speisekarte">
+              <TableColumn fx:id="order" prefWidth="75.0" text="Bestellen">
               </TableColumn>
-              <TableColumn fx:id="order" prefWidth="63.0" text="Favoriten">
+              <TableColumn fx:id="fav" prefWidth="131.0" text="Favorit">
               </TableColumn>
           </columns>
       </TableView>

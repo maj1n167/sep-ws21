@@ -2,6 +2,7 @@ package com.example.server.controller;
 
 import com.example.server.model.Fav;
 import com.example.server.service.FavService;
+import org.json.JSONException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,9 +16,18 @@ public class FavController {
 
     public FavController(FavService favService) {this.favService = favService;}
 
-    @PostMapping("/add")
-    public ResponseEntity<Fav> addFav(@RequestBody String input) {
-        Fav newFav = new Fav();
+    @GetMapping
+    public ResponseEntity<List<Fav>> getAllUsers() {
+
+        List<Fav> favs = favService.findAllFavs();
+
+        return new ResponseEntity<>(favs, HttpStatus.OK);
+
+    }
+
+    @PostMapping("/add/{id}/{favOf}")
+    public ResponseEntity<Fav> addFav(@PathVariable int favOf, @PathVariable int id) throws JSONException {
+        Fav newFav = new Fav(favOf, id);
         Fav fav = favService.addFav(newFav);
         return new ResponseEntity<>(fav, HttpStatus.OK);
     }

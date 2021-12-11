@@ -11,9 +11,15 @@ public class Fav {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
+    int restaurantId;
     int favOf;
 
     public Fav() {}
+
+    public Fav(int favOf, int id) {
+        this.restaurantId=id;
+        this.favOf=favOf;
+    }
 
     public int getId() {return id;}
 
@@ -22,4 +28,8 @@ public class Fav {
     public int getFavOf() {return favOf;}
 
     public void setFavOf(int favOf) {this.favOf = favOf;}
+
+    public int getRestaurantId() {return restaurantId;}
+
+    public void setRestaurantId(int restaurantId) {this.restaurantId = restaurantId;}
 }
