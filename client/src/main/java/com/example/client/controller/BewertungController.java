@@ -1,6 +1,5 @@
 package com.example.client.controller;
 
-import com.example.client.Main;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -86,15 +85,13 @@ public class BewertungController extends ConnectionController {
             System.out.println(bewertung);
             JSONObjectPOST(url, bewertung.toString());
 
-            Main m = new Main();
-            m.ChangeScene("BewertungList.fxml");
+            changeScene("BewertungList.fxml");
 
         }
 
     }
 
     public void zurueckButtonClick() throws IOException {
-        Main m = new Main();
-        m.ChangeScene("KStartseite.fxml");
+        changeScene("KStartseite.fxml");
     }
 }

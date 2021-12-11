@@ -25,7 +25,6 @@ public class MapController extends ConnectionController implements Initializable
     private GoogleMap map;
     private String addresse;
     private int lieferbereich;
-    private String addresseTest;
     private JSONObject j;
     GeocodingService geocodingService;
 
@@ -33,7 +32,6 @@ public class MapController extends ConnectionController implements Initializable
     public void initialize(URL url, ResourceBundle rB) {
         mapView.addMapInitializedListener(this);
         mapView.setKey("AIzaSyA-qLMdcnsAVwBvC0Xpi2N73coqLzq9v0o");
-        addresseTest = "Hermannstr. 9, 45327 Essen";
     }
 
     @Override
@@ -43,7 +41,6 @@ public class MapController extends ConnectionController implements Initializable
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         geocodingService = new GeocodingService();
         MapOptions mapOptions = new MapOptions();
         mapOptions.center(new LatLong(0, 0))
@@ -58,21 +55,18 @@ public class MapController extends ConnectionController implements Initializable
                 .zoom(12)
         ;
         map = mapView.createMap(mapOptions);
-
         geocodingService.geocode(addresse, (GeocodingResult[] results, GeocoderStatus status) -> {
-//        geocodingService.geocode(addresseTest, (GeocodingResult[] results, GeocoderStatus status) -> {    // testing
             LatLong latlong = null;
             if (status == GeocoderStatus.ZERO_RESULTS) {
-//                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-//                alert.setTitle("Google API hat kein Ergebnis!");
-//                alert.setContentText("Bitte erneut versuchen!\nFalls der Fehler weiterhin auftritt,\nbitte Restaurantdaten ueberpruefen");
-//                alert.showAndWait();
-//                Main m= new Main();
-//                try {
-//                    m.ChangeScene("Login.fxml");
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Google API hat kein Ergebnis!");
+                alert.setContentText("Bitte erneut versuchen!\nFalls der Fehler weiterhin auftritt,\nbitte Restaurantdaten ueberpruefen");
+                alert.showAndWait();
+                try {
+                    changeScene("Login.fxml");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 return;
             } else if (results.length > 1) {
                 latlong = new LatLong(results[0].getGeometry().getLocation().getLatitude(), results[0].getGeometry().getLocation().getLongitude());
@@ -92,7 +86,6 @@ public class MapController extends ConnectionController implements Initializable
             CircleOptions cOptions = new CircleOptions()
                     .center(latlong)
                     .radius(lieferbereich)
-//                    .radius(2000)
                     .strokeColor("black")
                     .strokeWeight(2)
                     .fillColor("green")
@@ -106,38 +99,34 @@ public class MapController extends ConnectionController implements Initializable
             map.addMapShape(c);
         });
     }
-
-        public void restaurantCreated() throws IOException {
-            JSONArray jarray = null;
-            try {
-                jarray = new JSONArray(JSONObjectGET("http://localhost:8080/restaurant").toString());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            for (int i = 0; i < jarray.length(); i++) {
-                System.out.println(jarray.length());
-                j = new JSONObject(jarray.getJSONObject(i).toString());
-                if (j.get("restaurantId").equals(LoginController.userId)) {
-                    addresse = j.get("strasse").toString() + ", " + j.get("plz").toString() + " " + j.get("stadt").toString();
-                    lieferbereich = Integer.parseInt(j.get("lieferbereich").toString());
-                }
-            }
-            if (addresse == null) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Error!");
-                alert.setTitle("Kein Restaurant vorhanden!");
-                alert.setContentText("Bitte Restaurant erstellen!");
-                alert.showAndWait();
-                Main m = new Main();
-                m.ChangeScene("Startseite.fxml");
+    public void restaurantCreated() throws IOException {
+        JSONArray jarray = null;
+        try {
+            jarray = new JSONArray(JSONObjectGET("http://localhost:8080/restaurant").toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        for (int i = 0; i < jarray.length(); i++) {
+            System.out.println(jarray.length());
+            j = new JSONObject(jarray.getJSONObject(i).toString());
+            if (j.get("restaurantId").equals(LoginController.userId)) {
+                addresse = j.get("strasse").toString() + ", " + j.get("plz").toString() + " " + j.get("stadt").toString();
+                lieferbereich = Integer.parseInt(j.get("lieferbereich").toString());
             }
         }
-
-        @FXML
-        public void onButtonClick () throws IOException {
-            // Change Scenes
-            Main m = new Main();
-            m.ChangeScene("Startseite.fxml");
+        if (addresse == null) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error!");
+            alert.setTitle("Kein Restaurant vorhanden!");
+            alert.setContentText("Bitte Restaurant erstellen!");
+            alert.showAndWait();
+            changeScene("Startseite.fxml");
         }
     }
+    @FXML
+    public void onButtonClick () throws IOException {
+        // Change Scenes
+        changeScene("Startseite.fxml");
+    }
+}
 

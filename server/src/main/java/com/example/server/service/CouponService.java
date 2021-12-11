@@ -15,24 +15,16 @@ public class CouponService {
     private final CouponRepo couponRepo;
 
     @Autowired
-    public CouponService(CouponRepo couponRepo) {
-        this.couponRepo = couponRepo;
-    }
+    public CouponService(CouponRepo couponRepo) {this.couponRepo = couponRepo;}
 
-    public Coupon addCoupon(Coupon coupons){
-        return couponRepo.save(coupons);
-    }
+    public Coupon addCoupon(Coupon coupons){return couponRepo.save(coupons);}
 
     public List<Coupon> findAllCoupons(){
         return couponRepo.findAll();
     }
 
-    public Coupon updateCoupon(Coupon coupons){
-        return couponRepo.save(coupons);
-    }
-
-    public void deleteCoupon(String coupon){
-        couponRepo.deleteByCoupon(coupon);
+    public void deleteCoupon(int id){
+        couponRepo.deleteById(id);
     }
 
 

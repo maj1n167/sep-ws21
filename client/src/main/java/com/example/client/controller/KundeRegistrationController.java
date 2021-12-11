@@ -28,7 +28,7 @@ public class KundeRegistrationController extends ConnectionController {
 
     @FXML
     protected void onKundeRegisterButtonClick() throws IOException {
-
+//      JSONObject nutzen
         if (geburtsdatumTextfield.getText().equals("") || postleitzahlTextfield.getText().equals("") || stadtTextfield.getText().equals("")
                 || strasseTextfield.getText().equals("")) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -67,18 +67,13 @@ public class KundeRegistrationController extends ConnectionController {
             alert.setTitle("Konto hinzugefügt");
             alert.setContentText("Konto erfolgreich erstellt!");
             alert.showAndWait();
-            Main m = new Main();
-            m.ChangeScene("Login.fxml");
+            changeScene("Login.fxml");
         }
     }
-
     @FXML
     public void goBackToButtonClick(ActionEvent actionEvent) throws IOException {
-        // Change Scenes
-
         JSONObjectDELETE("http://localhost:8080/user/delete/"+RegistrationController.regUserId);
-        Main m = new Main();
-        m.ChangeScene("Login.fxml");
+        changeScene("Login.fxml");
     }
 }
 

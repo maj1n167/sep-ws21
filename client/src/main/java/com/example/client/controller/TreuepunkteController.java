@@ -20,17 +20,20 @@ public class TreuepunkteController extends ConnectionController {
     public int treuepunkte;
 
     @FXML
-    public void onDiscountButtonClick(ActionEvent event) {
-    }
+    public void onDiscountButtonClick(ActionEvent event) throws IOException {
 
+        String url = "http://localhost:8080/coupon/delete/";
+        String url1 = "http://localhost:8080/coupon";
+        JSONArray jsonArray = new JSONArray(JSONObjectGET(url1).toString());
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject jsonObject = jsonArray.getJSONObject(i);
+            if (jsonObject.get("coupon").equals(DiscountText.getText())) {
+                JSONObjectDELETE(url + jsonObject.get("id"));
 
-    @FXML
-    public void onGenerate(ActionEvent event) throws IOException {
+            }
 
-        String url ="http://localhost:8080/coupon/send/";
-
-        JSONObjectGET(url + LoginController.email);
-
+        }
+        initialize();
     }
 
     @FXML

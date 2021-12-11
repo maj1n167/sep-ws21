@@ -62,8 +62,7 @@ public class RegistrationController extends ConnectionController {
             alert.setTitle("Konto hinzugefügt");
             alert.setContentText("Konto erfolgreich erstellt!");
             alert.showAndWait();
-            Main m = new Main();
-            m.ChangeScene("Login.fxml");
+            changeScene("Login.fxml");
         } else {
 //         Hier erstmal alles kommentiert, da das hier in Zyklus 2 relevant sein wird. -ok
             String url = "http://localhost:8080/user/add";
@@ -88,16 +87,14 @@ public class RegistrationController extends ConnectionController {
                     regUserId = Integer.parseInt(jsonObject.get("userId").toString());
                 }
             }
-            Main m = new Main();
-            m.ChangeScene("KRegistration.fxml");
+            changeScene("KRegistration.fxml");
         }
     }
 
     @FXML
     public void goBackButtonClick() throws IOException {
         // Change Scenes
-        Main m = new Main();
-        m.ChangeScene("Login.fxml");
+        changeScene("Login.fxml");
     }
 
     @FXML

@@ -33,8 +33,7 @@ public class VerificationController extends ConnectionController implements Init
 
 
     public void onGoBackButtonClick(ActionEvent event) throws IOException {
-        Main m = new Main();
-        m.ChangeScene("Login.fxml");
+        changeScene("Login.fxml");
     }
 
    public void onVerifyButtonClicked(ActionEvent event) throws IOException {
@@ -43,16 +42,14 @@ public class VerificationController extends ConnectionController implements Init
                if (jsonObject.get("restaurantBesitzer").equals(true)) {
                    jsonObject.put("verifyCode",0);
                    JSONObjectPUT("http://localhost:8080/user/update/"+jsonObject.get("userId"), jsonObject.toString());
-                   Main m = new Main();
-                   m.ChangeScene("Startseite.fxml");
+                   changeScene("Startseite.fxml");
                    return;
                } else {
                    standard = jsonObject.getString("strasse") + " " + jsonObject.getInt("plz") + " " + jsonObject.getString("stadt");
                    alternative = jsonObject.getString("altAdresse") + " " + jsonObject.getString("altPlz") + " " + jsonObject.getString("altStadt");
                    jsonObject.put("verifyCode",0);
                    JSONObjectPUT("http://localhost:8080/user/update/"+jsonObject.get("userId"), jsonObject.toString());
-                   Main m = new Main();
-                   m.ChangeScene("KStartseite.fxml");
+                   changeScene("KStartseite.fxml");
                    return;
                }
            }

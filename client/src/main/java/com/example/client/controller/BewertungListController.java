@@ -1,9 +1,7 @@
 package com.example.client.controller;
 
-import com.example.client.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -40,8 +38,12 @@ public class BewertungListController extends ConnectionController implements Ini
     }
 
     public void zurueckButtonClick() throws IOException {
-        Main m = new Main();
-        m.ChangeScene("Startseite.fxml");
+        JSONObject current = new JSONObject(JSONObjectGET("http://localhost:8080/user/findbyid/"+LoginController.userId).toString());
+        if(current.getBoolean("restaurantBesitzer")) {
+            changeScene("Startseite.fxml");
+        } else {
+            changeScene("Restaurants.fxml");
+        }
     }
 
     @FXML
@@ -62,13 +64,7 @@ public class BewertungListController extends ConnectionController implements Ini
     ObservableList<BewertungListController.BewertungList> data = FXCollections.observableArrayList();
 
 
-    @FXML
-    public void onZurueckButtonClick() throws IOException {
 
-        // Change Scenes
-        Main m = new Main();
-        m.ChangeScene("KStartseite.fxml");
-    }
 
     /**
      * @TODO: Buttons konfigurieren
