@@ -59,6 +59,7 @@ public class KundeRegistrationController extends ConnectionController {
                     "   \"guthaben\": \"0\",\n" +
                     "   \"altAdresse\": \"\",\n" +
                     "   \"altPlz\": \"\",\n" +
+                    "   \"altNummer\": \"\",\n" +
                     "   \"altStadt\": \"\",\n" +
                     "   \"strasse\": \"" + strasseTextfield.getText().toString() + "\"\n }";
             System.out.println(data);

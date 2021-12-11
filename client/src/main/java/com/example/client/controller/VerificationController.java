@@ -45,8 +45,8 @@ public class VerificationController extends ConnectionController implements Init
                    changeScene("Startseite.fxml");
                    return;
                } else {
-                   standard = jsonObject.getString("strasse") + " " + jsonObject.getInt("plz") + " " + jsonObject.getString("stadt");
-                   alternative = jsonObject.getString("altAdresse") + " " + jsonObject.getString("altPlz") + " " + jsonObject.getString("altStadt");
+                   standard = jsonObject.getString("strasse") + " " + jsonObject.getString("nummer") + " " + jsonObject.getString("plz") + " " + jsonObject.getString("stadt");
+                   alternative = jsonObject.getString("altAdresse") + " " + jsonObject.getString("altNummer") + " " + jsonObject.getString("altPlz") + " " + jsonObject.getString("altStadt");
                    jsonObject.put("verifyCode",0);
                    JSONObjectPUT("http://localhost:8080/user/update/"+jsonObject.get("userId"), jsonObject.toString());
                    changeScene("KStartseite.fxml");

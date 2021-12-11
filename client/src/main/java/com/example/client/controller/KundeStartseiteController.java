@@ -32,17 +32,12 @@ public class KundeStartseiteController extends ConnectionController{
 
     @FXML
     public void onShowOrderClick() throws IOException {
-        changeScene("KStartseite.fxml");
+        changeScene("BewertungList.fxml");
     }
 
     @FXML
     public void onBuyCreditClick() throws IOException {
         changeScene("Guthaben.fxml");
-    }
-
-    @FXML
-    public void onValuationClick() throws IOException {
-        changeScene("Bewertung.fxml");
     }
 
     @FXML

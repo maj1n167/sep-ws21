@@ -18,6 +18,9 @@ public class EditRestaurantController extends ConnectionController {
     private TextField strasseTextfield;
 
     @FXML
+    private TextField nummerTextfield;
+
+    @FXML
     private TextField plzTextfield;
 
     @FXML
@@ -46,6 +49,7 @@ public class EditRestaurantController extends ConnectionController {
 
         String name = "";
         String strasse = "";
+        String nummer = "";
         String plz = "";
         String stadt = "";
         double mbw = 0;
@@ -62,6 +66,7 @@ public class EditRestaurantController extends ConnectionController {
 
                 name = currentjson.get("name").toString();
                 strasse = currentjson.get("strasse").toString();
+                nummer = currentjson.get("nummer").toString();
                 plz = currentjson.get("plz").toString();
                 stadt = currentjson.get("stadt").toString();
                 lieferkosten = Double.valueOf(currentjson.get("lieferkosten").toString());
@@ -76,6 +81,7 @@ public class EditRestaurantController extends ConnectionController {
         nameTextfield.setText(name);
         stadtTextfield.setText(stadt);
         strasseTextfield.setText(strasse);
+        nummerTextfield.setText(nummer);
         plzTextfield.setText(plz);
         mbwTextfield.setText(String.valueOf(mbw));
         lieferkostenTextfield.setText(String.valueOf(lieferkosten));
@@ -115,7 +121,7 @@ public class EditRestaurantController extends ConnectionController {
             dec.format(mbw);
 
 
-            if (nameTextfield.getText().equals("") || strasseTextfield.getText().equals("") || plzTextfield.getText().equals("")
+            if (nameTextfield.getText().equals("") || strasseTextfield.getText().equals("") || nummerTextfield.getText().equals("") || plzTextfield.getText().equals("")
                     || stadtTextfield.getText().equals("") || lieferkostenTextfield.getText().equals("") || mbwTextfield.getText().equals("")
                     || lieferbereichTextfield.getText().equals("")) {
 
@@ -135,6 +141,7 @@ public class EditRestaurantController extends ConnectionController {
                         "\"name\": \"" + nameTextfield.getText() + "\",\n" +
                         " \"restaurantId\": \"" + userId + "\",\n" +
                         " \"strasse\": \"" + strasseTextfield.getText() + "\",\n" +
+                        " \"nummer\": \"" + nummerTextfield.getText() + "\",\n" +
                         " \"plz\":" + plzTextfield.getText() + ",\n" +
                         " \"stadt\": \"" + stadtTextfield.getText() + "\",\n" +
                         " \"mbw\": \"" + mbwTextfield.getText() + "\",\n" +

@@ -10,6 +10,7 @@ public class Restaurant  implements Serializable {
     private int restaurantId;
     private String name;
     private String strasse;
+    private String nummer;
     private String plz;
     private String stadt;
     private double mbw;
@@ -109,4 +110,8 @@ public class Restaurant  implements Serializable {
     public Menu getMenu() {return menu;}
 
     public void setMenu(Menu menu) {this.menu = menu;}
+
+    public String getNummer() {return nummer;}
+
+    public void setNummer(String nummer) {this.nummer = nummer;}
 }
