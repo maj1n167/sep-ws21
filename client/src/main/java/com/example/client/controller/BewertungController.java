@@ -9,6 +9,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 
 
 public class BewertungController extends ConnectionController {
@@ -95,11 +96,12 @@ public class BewertungController extends ConnectionController {
                 newAvgFood=newAvgFood+j.getJSONObject(i).getDouble("starsFood");
                 newAvgDelivery=newAvgDelivery+j.getJSONObject(i).getDouble("starsLieferung");
             }
+
             newAvgFood = newAvgFood/j.length();
             newAvgDelivery = newAvgDelivery/j.length();
             JSONObject updateRest= new JSONObject(JSONObjectGET("http://localhost:8080/restaurant/find/"+RestaurantsController.id).toString());
-            updateRest.put("ratingFood", newAvgFood);
-            updateRest.put("ratingDelivery", newAvgDelivery);
+            updateRest.put("ratingFood", Math.round(newAvgFood*1e1)/1e1);
+            updateRest.put("ratingDelivery", Math.round(newAvgDelivery*1e1)/1e1);
             JSONObjectPUT("http://localhost:8080/restaurant/update", updateRest.toString());
 
 
