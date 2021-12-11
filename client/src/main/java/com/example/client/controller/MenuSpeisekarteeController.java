@@ -234,13 +234,11 @@ public class MenuSpeisekarteeController extends ConnectionController {
 
 
     public void zurückButton () throws IOException {
-        Main m = new Main();
-        m.ChangeScene("KStartseite");
+        changeScene("Restaurants.fxml");
     }
 
 
     public void fertig(ActionEvent actionEvent) throws IOException {
-        Main m = new Main();
-        m.changeScene("Warenkorb.fxml");
+        changeScene("Warenkorb.fxml");
     }
 }

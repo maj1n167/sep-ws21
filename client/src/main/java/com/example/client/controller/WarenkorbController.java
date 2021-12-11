@@ -144,7 +144,8 @@ public class WarenkorbController extends ConnectionController {
             JSONObjectPOST(url1 + "/add", emptyWarenkorb.toString());
 
             JSONObjectGET("http://localhost:8080/user/send/orderVerification/"+user.get("email"));
-            initialize();
+
+            changeScene("Bewertung.fxml");
 
         } else {
             //   Mindestbestellwert oder Guthaben reicht nicht aus

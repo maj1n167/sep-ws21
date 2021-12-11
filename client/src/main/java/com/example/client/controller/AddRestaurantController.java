@@ -24,6 +24,9 @@ public class AddRestaurantController extends ConnectionController {
     private TextField strasseTextfield;
 
     @FXML
+    private TextField nummerTextfield;
+
+    @FXML
     private TextField plzTextfield;
 
     @FXML
@@ -68,7 +71,7 @@ public class AddRestaurantController extends ConnectionController {
         try {
 
 
-           double lieferkosten = Double.parseDouble(lieferkostenTextfield.getText());
+            double lieferkosten = Double.parseDouble(lieferkostenTextfield.getText());
             //nur zur Prüfung
             int plz = Integer.parseInt(plzTextfield.getText());
             double mbw = Double.parseDouble(mbwTextfield.getText());
@@ -84,7 +87,7 @@ public class AddRestaurantController extends ConnectionController {
             dec.format(mbw);
 
 
-            if (nameTextfield.getText().equals("") || strasseTextfield.getText().equals("") || plzTextfield.getText().equals("")
+            if (nameTextfield.getText().equals("") || strasseTextfield.getText().equals("") || nummerTextfield.getText().equals("") || plzTextfield.getText().equals("")
                     || stadtTextfield.getText().equals("") || lieferkostenTextfield.getText().equals("") || mbwTextfield.getText().equals("")
                     || lieferbereichTextfield.getText().equals("")) {
 
@@ -115,6 +118,7 @@ public class AddRestaurantController extends ConnectionController {
                 String json = "{ \"name\": \"" + nameTextfield.getText() + "\",\n" +
                             " \"restaurantId\": \"" + userId + "\",\n" +
                             " \"strasse\": \"" + strasseTextfield.getText() + "\",\n" +
+                            " \"nummer\": \"" + nummerTextfield.getText() + "\",\n" +
                             " \"plz\": \"" + plzTextfield.getText() + "\",\n" +
                             " \"stadt\": \"" + stadtTextfield.getText() + "\",\n" +
                             " \"mbw\": \"" + mbw + "\",\n" +

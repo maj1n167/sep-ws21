@@ -26,10 +26,10 @@ public class EditAltProfileController extends ConnectionController {
     public void initialize() throws IOException {
         current = new JSONObject(JSONObjectGET("http://localhost:8080/user/findbyid/"+LoginController.userId).toString());
 
-        alternativeStreet.setText(current.get("strasse").toString());
-        alternativeNummer.setText(current.get("nummer").toString());
-        alternativeStadt.setText(current.get("stadt").toString());
-        alternativePostleitzahl.setText(current.get("postleitzahl").toString());
+        alternativeStreet.setText(current.get("altAdresse").toString());
+        alternativeNummer.setText(current.get("altNummer").toString());
+        alternativeStadt.setText(current.get("altStadt").toString());
+        alternativePostleitzahl.setText(current.get("altPlz").toString());
     }
     @FXML
     public void onSicherButtonClick() throws IOException {
@@ -39,10 +39,10 @@ public class EditAltProfileController extends ConnectionController {
         String url = "http://localhost:8080/user/update/";
 
 
-        current.put("street", alternativeStreet.getText());
-        current.put("nummer", alternativeNummer.getText());
-        current.put("stadt", alternativeStadt.getText());
-        current.put("postleitzahl", alternativePostleitzahl.getText());
+        current.put("altAdresse", alternativeStreet.getText());
+        current.put("altNummer", alternativeNummer.getText());
+        current.put("altStadt", alternativeStadt.getText());
+        current.put("altPlz", alternativePostleitzahl.getText());
         /*String data = "{ \"userId\": \""+LoginController.userId+"\", \n";
         data = data + "\"vorname\": \"" + neuerVorname.getText().toString() + "\",\n";
         data = data + " \"name\": \"" + neuerName.getText().toString() + "\",\n";
@@ -50,18 +50,19 @@ public class EditAltProfileController extends ConnectionController {
         data = data + " \"password\": \"" + neuesPasswort.getText().toString() + "\",\n";
         data = data + " \"restaurantBesitzer\": \"true\" }";*/
 
-        JSONObjectPUT(url, current.toString());
+        JSONObjectPUT(url+LoginController.userId, current.toString());
+
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Daten editiert");
         alert.setContentText("Daten editiert!");
         alert.showAndWait();
-        changeScene("Startseite.fxml");
+        changeScene("Restaurants.fxml");
     }
 
     public void onGoZueruckButtonClick() throws IOException {
 
-        changeScene("Startseite.fxml");
+        changeScene("Restaurants.fxml");
     }
 }
 

@@ -85,7 +85,7 @@ public class BewertungController extends ConnectionController {
             System.out.println(bewertung);
             JSONObjectPOST(url, bewertung.toString());
 
-            changeScene("BewertungList.fxml");
+            changeScene("KStartseite.fxml");
 
         }
 

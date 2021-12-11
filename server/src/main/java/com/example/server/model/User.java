@@ -24,6 +24,7 @@ public class User implements Serializable {
     private int treuepunkte;
     private Double guthaben;
     private String altAdresse;
+    private String altNummer;
     private String altPlz;
     private String altStadt;
 
@@ -151,4 +152,7 @@ public class User implements Serializable {
 
     public void setTreuepunkte(int treuepunkte) { this.treuepunkte = treuepunkte; }
 
+    public String getAltNummer() {return altNummer;}
+
+    public void setAltNummer(String altNummer) {this.altNummer = altNummer;}
 }
