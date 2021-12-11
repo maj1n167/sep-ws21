@@ -484,7 +484,7 @@ public class RestaurantsController extends ConnectionController implements Initi
                     RestaurantsController.id = id;
                     try {
                         //Hier muss die View zum Bestellvorgang
-                        changeScene("KStartseite.fxml");
+                        changeScene("Menu.fxml");
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

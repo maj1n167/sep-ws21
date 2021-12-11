@@ -35,7 +35,6 @@ public class KundeRegistrationController extends ConnectionController {
             alert.setTitle("Error");
             alert.setTitle("Error: Fehlende Zeile");
             alert.setContentText("Bitte füllen Sie alle Felder aus");
-
             alert.showAndWait();
         } else {
             String data = "";
@@ -64,6 +63,22 @@ public class KundeRegistrationController extends ConnectionController {
                     "   \"strasse\": \"" + strasseTextfield.getText().toString() + "\"\n }";
             System.out.println(data);
             JSONObjectPUT(url, data);
+
+            //WarenkorbErstellen
+
+            JSONObject wk = new JSONObject();
+            wk.put("warenkorbId", RegistrationController.regUserId);
+            wk.put("summe", 0.0);
+            JSONObjectPOST("http://localhost:8080/warenkorb/add", wk.toString());
+
+            //BestellHistorieErstellen
+
+            JSONObject bh = new JSONObject();
+            bh.put("bestellHisId", RegistrationController.regUserId);
+            JSONObjectPOST("http://localhost:8080/bestellHistorie/add", bh.toString());
+
+
+
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Konto hinzugefügt");
             alert.setContentText("Konto erfolgreich erstellt!");
