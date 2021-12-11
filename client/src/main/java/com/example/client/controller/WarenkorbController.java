@@ -1,7 +1,10 @@
 package com.example.client.controller;
 
 import com.example.client.Main;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import org.json.JSONArray;
@@ -14,31 +17,33 @@ import java.util.Date;
 public class WarenkorbController extends ConnectionController {
     @FXML
     ListView<String> listView;
+    @FXML
+    Label summe;
 
-   public int userId =1;
-   public int restaurantid=2;
+   public int userId;
+   public int restaurantid;
 
 
     public void initialize() throws IOException {
-        JSONArray jsonArray = new JSONArray(JSONObjectGET("http://localhost:8080/kategorie").toString());
+        userId = LoginController.userId;
+        restaurantid = MenuSpeisekarteeController.restaurantId;
+        System.out.println(userId);
+        System.out.println("Hello");
+        JSONObject jsonObject4= new JSONObject(JSONObjectGET("http://localhost:8080/warenkorb/find/"+userId).toString());
+        summe.setText(jsonObject4.get("summe").toString());
+        JSONArray jsonArray = new JSONArray(jsonObject4.getJSONArray("foodList").toString());
+        System.out.println(jsonArray);
         for (int i = 0; i < jsonArray.length(); i++) {
-            JSONObject jsonObject4 = jsonArray.getJSONObject(i);
-            if (jsonObject4.get("menuId").equals(restaurantid)) {
-                JSONArray foods = new JSONArray(jsonObject4.getJSONArray("foods").toString());
-                listView.getItems().add(jsonObject4.get("kategorie").toString());
-                for (int j = 0; j < foods.length(); j++) {
-                    JSONObject jsonObject = foods.getJSONObject(j);
+            JSONObject jsonObject = jsonArray.getJSONObject(i);
+            System.out.println(jsonObject);
                     listView.getItems().add(jsonObject.get("name") +"  "+"Preis: " + jsonObject.get("preis").toString()+
                            " " +"Beschreibung: "+jsonObject.get("beschreibung"));
-                    //listView.getItems().setAll("Pizza","Döner","Spaghetti");
                 }
-            }
-        }
         listView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
-
     }
-    public void WarenkorbAdd() throws IOException {
+    @FXML
+    public void bestellen(ActionEvent actionEvent) throws IOException {
        String x = listView.getSelectionModel().getSelectedItems().toString();
         System.out.println(x);
         String  url1 = "http://localhost:8080/warenkorb";
@@ -125,7 +130,7 @@ public class WarenkorbController extends ConnectionController {
                     jsonObject2 = jsonObject1;
                 }
             }
-            jsonObject2.put("bestellHis", 1);
+            jsonObject2.put("bestellHis", userId);
             jsonObject2.put("bestellungenList", bestellungen);
 
             JSONObjectPOST("http://localhost:8080/bestellHistorie/add", jsonObject2.toString());
@@ -139,10 +144,18 @@ public class WarenkorbController extends ConnectionController {
             JSONObjectPOST(url1 + "/add", emptyWarenkorb.toString());
 
             JSONObjectGET("http://localhost:8080/user/send/orderVerification/"+user.get("email"));
+            initialize();
 
         } else {
             //   Mindestbestellwert oder Guthaben reicht nicht aus
             System.out.println("zu wenig Guthaben");
+
+            Alert alert = new Alert (Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setTitle("Mbw nicht erreicht oder nicht genügend Guthaben ");
+            alert.setContentText("Mbw nicht erreicht oder nicht genügend Guthaben");
+
+            alert.showAndWait();
         }
 
     }
@@ -152,6 +165,9 @@ public class WarenkorbController extends ConnectionController {
 
     public void zurückButton() throws IOException {
         Main m = new Main();
-        m.ChangeScene("KStartseite");
+        m.ChangeScene("KStartseite.fxml");
+    }
+
+    public void FertigButton(ActionEvent actionEvent) {
     }
 }

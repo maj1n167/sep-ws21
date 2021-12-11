@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="801.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.client.controller.MenuSpeisekarteeController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="801.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.client.controller.WarenkorbController">
     <children>
         <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="50.0" prefHeight="50.0" style="-fx-background-color: #90ee90;" text="Supreme Eating Program" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <font>
@@ -19,19 +19,19 @@
             <Font size="27.0" />
          </font>
       </Label>
-      <ListView layoutX="225.0" layoutY="111.0" prefHeight="250.0" prefWidth="330.0" />
+      <ListView layoutX="225.0" layoutY="111.0" prefHeight="250.0" prefWidth="330.0" fx:id="listView" />
       <Button layoutX="738.0" layoutY="560.0" mnemonicParsing="false" onAction="#FertigButton" text="Fertig" />
-      <Label layoutX="225.0" layoutY="415.0" prefHeight="25.0" prefWidth="115.0" text="Gesamtsumme:">
+      <Label layoutX="225.0" layoutY="415.0" prefHeight="25.0" prefWidth="115.0" text="Gesamtsumme:" >
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Label fx:id="summeBestellung" layoutX="351.0" layoutY="415.0" prefHeight="25.0" prefWidth="100.0">
+      <Label fx:id="summe" layoutX="351.0" layoutY="415.0" prefHeight="25.0" prefWidth="100.0" >
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Button fx:id="bestellen" layoutX="340.0" layoutY="497.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Bestellen">
+      <Button onAction="#bestellen" fx:id="bestellen" layoutX="340.0" layoutY="497.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Bestellen">
          <font>
             <Font size="16.0" />
          </font>

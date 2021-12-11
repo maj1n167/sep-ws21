@@ -20,7 +20,7 @@
          </font>
       </Label>
       <Button layoutX="14.0" layoutY="561.0" mnemonicParsing="false" onAction="#zurückButton" text="zurück" />
-      <Button layoutX="737.0" layoutY="561.0" mnemonicParsing="false" text="Fertig" />
+      <Button layoutX="737.0" layoutY="561.0" mnemonicParsing="false" text="Fertig" onAction="#fertig" />
       <TableView layoutX="41.0" layoutY="139.0" prefHeight="353.0" prefWidth="716.0" fx:id="list">
         <columns>
           <TableColumn fx:id="Bild" prefWidth="87.0" text="Bild" />

@@ -181,7 +181,7 @@ public class RestaurantsController extends ConnectionController implements Initi
                     Main m = new Main();
                     try {
                         //Hier muss die View zum Bestellvorgang
-                        m.ChangeScene("KStartseite.fxml");
+                        m.ChangeScene("Menu.fxml");
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

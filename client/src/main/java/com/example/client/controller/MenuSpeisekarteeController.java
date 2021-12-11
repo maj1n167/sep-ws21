@@ -37,11 +37,12 @@ public class MenuSpeisekarteeController extends ConnectionController {
     TableColumn addWarenkorb = new TableColumn("");
 
     public static int userId;
-
+    public static int restaurantId;
 
     public void initialize() {
         try {
-            userId = 1;
+            restaurantId = RestaurantsController.id;
+            userId = LoginController.userId;
             list.setEditable(true);
             //Bild.setCellValueFactory(new PropertyValueFactory<Food, String>("Bild"));
             Kategorie.setCellValueFactory(new PropertyValueFactory<Food, String>("kategorie"));
@@ -50,7 +51,7 @@ public class MenuSpeisekarteeController extends ConnectionController {
             Preis.setCellValueFactory(new PropertyValueFactory<Food, Double>("preis"));
             Id.setCellValueFactory(new PropertyValueFactory<Food, Integer>("foodId"));
             addWarenkorb.setCellValueFactory(new PropertyValueFactory<Food,Button>("hinzufügen"));
-
+            list.setFixedCellSize(40);
             list.setItems(getSpeisekarte());
         } catch (IOException e) {
             e.printStackTrace();
@@ -59,7 +60,7 @@ public class MenuSpeisekarteeController extends ConnectionController {
 
     public ObservableList<Food> getSpeisekarte() throws IOException {
         ObservableList<Food> output = FXCollections.observableArrayList();
-        JSONObject b = new JSONObject(JSONObjectGET("http://localhost:8080/menu/find/2").toString());
+        JSONObject b = new JSONObject(JSONObjectGET("http://localhost:8080/menu/find/"+restaurantId).toString());
         JSONArray kategories= new JSONArray(b.get("kategories").toString());
         System.out.println(kategories);
         for (int i = 0; i < kategories.length(); i++) {
@@ -72,9 +73,6 @@ public class MenuSpeisekarteeController extends ConnectionController {
                 System.out.println(currentfoods);
                 currentfoods.put("kategorie",current.get("kategorie"));
                 Food r = new Food();
-                r = new Food(currentfoods.getString("name"),
-                        currentfoods.getString("beschreibung"), currentfoods.getDouble("preis"),
-                        currentfoods.getInt("foodId"),currentfoods.getString("kategorie"));
                 System.out.println(r.preis);
                 System.out.println("here");
                 output.add(r = new Food(currentfoods.getString("name"),
@@ -87,6 +85,8 @@ public class MenuSpeisekarteeController extends ConnectionController {
         System.out.println(output);
         return output;
     }
+
+
     public static class Food extends ConnectionController{
         private int foodId;
         private double preis;
@@ -146,14 +146,14 @@ public class MenuSpeisekarteeController extends ConnectionController {
             this.hinzufügen.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent event) {
                 try {
-                    JSONObject jsonObject = new JSONObject(JSONObjectGET("http://localhost:8080/warenkorb/find/1").toString());
+                    JSONObject jsonObject = new JSONObject(JSONObjectGET("http://localhost:8080/warenkorb/find/"+userId).toString());
                     JSONArray jsonArray = new JSONArray(jsonObject.get("foodList").toString());
                     JSONObject jsonObject1 = new JSONObject(JSONObjectGET("http://localhost:8080/food/find/"+foodId).toString());
                     System.out.println(jsonObject1);
                     jsonArray.put(jsonObject1);
                     jsonObject.put("foodList",jsonArray);
-                    System.out.println(jsonObject);
-                    double summe = jsonObject.getDouble("summe")+preis;
+                    double x =jsonObject.getDouble("summe");
+                    double summe = x +preis;
                     jsonObject.put("summe",summe);
                     JSONObjectPOST("http://localhost:8080/warenkorb/add",jsonObject.toString());
 
@@ -239,6 +239,8 @@ public class MenuSpeisekarteeController extends ConnectionController {
     }
 
 
-    public void FertigButton(ActionEvent actionEvent) {
+    public void fertig(ActionEvent actionEvent) throws IOException {
+        Main m = new Main();
+        m.changeScene("Warenkorb.fxml");
     }
 }
