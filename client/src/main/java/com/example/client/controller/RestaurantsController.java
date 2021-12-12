@@ -109,6 +109,8 @@ public class RestaurantsController extends ConnectionController implements Initi
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Fertig
         try {
+            standard.setSelected(true);
+            standard.setToggleGroup(group);
             list.setEditable(true);
             name.setCellValueFactory(new PropertyValueFactory<RestaurantList, String>("name"));
             kategorie.setCellValueFactory(new PropertyValueFactory<RestaurantList, String>("kategorie"));
@@ -120,8 +122,7 @@ public class RestaurantsController extends ConnectionController implements Initi
             order.setCellValueFactory(new PropertyValueFactory<RestaurantList, Button>("order"));
             fav.setCellValueFactory(new PropertyValueFactory<RestaurantList, Button>("fav"));
             list.setItems(getRestaurants(VerificationController.standard));
-            standard.setSelected(true);
-            standard.setToggleGroup(group);
+
 //            mapView.addMapInitializedListener(this);
 //            mapView.setKey("AIzaSyA-qLMdcnsAVwBvC0Xpi2N73coqLzq9v0o");
         } catch (IOException e) {
@@ -202,104 +203,6 @@ public class RestaurantsController extends ConnectionController implements Initi
 //         Favoriten des Users+ alle restaurants hinzufuegen
 
         //Funktioniert
-
-        if(allFavs.length()>0) {
-            for (int i = 0; i < allRests.length(); i++) {
-                for (int j = 0; j < allFavs.length(); j++) {
-                    JSONObject curRest = allRests.getJSONObject(i);
-                    JSONObject favRest = allFavs.getJSONObject(j);
-                    if (curRest.getInt("restaurantId") == favRest.getInt("restaurantId")) {
-                        Button fav = new Button();
-                        fav.setText("Favorit entfernen");
-                        fav.setOnAction(new EventHandler<ActionEvent>() {
-                            @Override
-                            public void handle(ActionEvent event) {
-                                try {
-                                    JSONObjectDELETE("http://localhost:8080/fav/del/" + favRest.getInt("id"));
-                                    populateList();
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        });
-                        RestaurantList r = new RestaurantList();
-                        output.add(r = new RestaurantList(curRest.getInt("restaurantId"),
-                                curRest.getString("name"),
-                                curRest.getString("strasse"),
-                                curRest.getString("plz"),
-                                curRest.getString("stadt"),
-                                curRest.getDouble("mbw"),
-                                curRest.getDouble("lieferkosten"),
-                                curRest.getString("kategorie"),
-                                curRest.getInt("lieferbereich"),
-                                curRest.getDouble("ratingFood"),
-                                curRest.getDouble("ratingDelivery"),
-                                fav));
-                        continue;
-                    }
-                    Button fav = new Button();
-                    fav.setText("Favorit hinzufuegen");
-                    fav.setOnAction(new EventHandler<ActionEvent>() {
-                        @Override
-                        public void handle(ActionEvent event) {
-                            try {
-//                            JSONObjectPOST("http://localhost:8080/fav/add/" + curRest.getInt("restaurantId") + "/" + LoginController.userId, "null");
-                                JSONObjectPOST("http://localhost:8080/fav/add/" + curRest.getInt("restaurantId") + "/" + userId, "null");
-                                populateList();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    });
-                    RestaurantList r = new RestaurantList();
-                    output.add(r = new RestaurantList(curRest.getInt("restaurantId"),
-                            curRest.getString("name"),
-                            curRest.getString("strasse"),
-                            curRest.getString("plz"),
-                            curRest.getString("stadt"),
-                            curRest.getDouble("mbw"),
-                            curRest.getDouble("lieferkosten"),
-                            curRest.getString("kategorie"),
-                            curRest.getInt("lieferbereich"),
-                            curRest.getDouble("ratingFood"),
-                            curRest.getDouble("ratingDelivery"),
-                            fav));
-                }
-            }
-        } else {
-            for(int i=0;i<allRests.length();i++) {
-            JSONObject curRest = allRests.getJSONObject(i);
-            Button fav = new Button();
-            fav.setText("Favorit hinzufuegen");
-            fav.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent event) {
-                    try {
-                        JSONObjectPOST("http://localhost:8080/fav/add/" + curRest.getInt("restaurantId")+ "/"+ userId, "null");
-                        populateList();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-            RestaurantList r = new RestaurantList();
-            output.add(r = new RestaurantList(curRest.getInt("restaurantId"),
-                    curRest.getString("name"),
-                    curRest.getString("strasse"),
-                    curRest.getString("plz"),
-                    curRest.getString("stadt"),
-                    curRest.getDouble("mbw"),
-                    curRest.getDouble("lieferkosten"),
-                    curRest.getString("kategorie"),
-                    curRest.getInt("lieferbereich"),
-                    curRest.getDouble("ratingFood"),
-                    curRest.getDouble("ratingDelivery"),
-                    fav));
-        }
-        }
-        return output;
-
-        // NearMe einbauen
 //
 //        if(allFavs.length()>0) {
 //            for (int i = 0; i < allRests.length(); i++) {
@@ -307,7 +210,6 @@ public class RestaurantsController extends ConnectionController implements Initi
 //                    JSONObject curRest = allRests.getJSONObject(i);
 //                    JSONObject favRest = allFavs.getJSONObject(j);
 //                    if (curRest.getInt("restaurantId") == favRest.getInt("restaurantId")) {
-//                        System.out.println("test");
 //                        Button fav = new Button();
 //                        fav.setText("Favorit entfernen");
 //                        fav.setOnAction(new EventHandler<ActionEvent>() {
@@ -315,7 +217,7 @@ public class RestaurantsController extends ConnectionController implements Initi
 //                            public void handle(ActionEvent event) {
 //                                try {
 //                                    JSONObjectDELETE("http://localhost:8080/fav/del/" + favRest.getInt("id"));
-//                                    populate();
+//                                    populateList();
 //                                } catch (IOException e) {
 //                                    e.printStackTrace();
 //                                }
@@ -331,7 +233,8 @@ public class RestaurantsController extends ConnectionController implements Initi
 //                                curRest.getDouble("lieferkosten"),
 //                                curRest.getString("kategorie"),
 //                                curRest.getInt("lieferbereich"),
-//                                curRest.getDouble("rating"),
+//                                curRest.getDouble("ratingFood"),
+//                                curRest.getDouble("ratingDelivery"),
 //                                fav));
 //                        continue;
 //                    }
@@ -343,7 +246,7 @@ public class RestaurantsController extends ConnectionController implements Initi
 //                            try {
 ////                            JSONObjectPOST("http://localhost:8080/fav/add/" + curRest.getInt("restaurantId") + "/" + LoginController.userId, "null");
 //                                JSONObjectPOST("http://localhost:8080/fav/add/" + curRest.getInt("restaurantId") + "/" + userId, "null");
-//                                populate();
+//                                populateList();
 //                            } catch (IOException e) {
 //                                e.printStackTrace();
 //                            }
@@ -359,69 +262,117 @@ public class RestaurantsController extends ConnectionController implements Initi
 //                            curRest.getDouble("lieferkosten"),
 //                            curRest.getString("kategorie"),
 //                            curRest.getInt("lieferbereich"),
-//                            curRest.getDouble("rating"),
+//                            curRest.getDouble("ratingFood"),
+//                            curRest.getDouble("ratingDelivery"),
 //                            fav));
 //                }
 //            }
 //        } else {
 //            for(int i=0;i<allRests.length();i++) {
-//                JSONObject curRest = allRests.getJSONObject(i);
-//                Button fav = new Button();
-//                fav.setText("Favorit hinzufuegen");
-//                fav.setOnAction(new EventHandler<ActionEvent>() {
-//                    @Override
-//                    public void handle(ActionEvent event) {
-//                        try {
-//                            JSONObjectPOST("http://localhost:8080/fav/add/" + curRest.getInt("restaurantId")+ "/"+ userId, "null");
-//                            populate();
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        }
+//            JSONObject curRest = allRests.getJSONObject(i);
+//            Button fav = new Button();
+//            fav.setText("Favorit hinzufuegen");
+//            fav.setOnAction(new EventHandler<ActionEvent>() {
+//                @Override
+//                public void handle(ActionEvent event) {
+//                    try {
+//                        JSONObjectPOST("http://localhost:8080/fav/add/" + curRest.getInt("restaurantId")+ "/"+ userId, "null");
+//                        populateList();
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
 //                    }
-//                });
-//                RestaurantList r = new RestaurantList();
-//                output.add(r = new RestaurantList(curRest.getInt("restaurantId"),
-//                        curRest.getString("name"),
-//                        curRest.getString("strasse"),
-//                        curRest.getString("plz"),
-//                        curRest.getString("stadt"),
-//                        curRest.getDouble("mbw"),
-//                        curRest.getDouble("lieferkosten"),
-//                        curRest.getString("kategorie"),
-//                        curRest.getInt("lieferbereich"),
-//                        curRest.getDouble("rating"),
-//                        fav));
-//            }
+//                }
+//            });
+//            RestaurantList r = new RestaurantList();
+//            output.add(r = new RestaurantList(curRest.getInt("restaurantId"),
+//                    curRest.getString("name"),
+//                    curRest.getString("strasse"),
+//                    curRest.getString("plz"),
+//                    curRest.getString("stadt"),
+//                    curRest.getDouble("mbw"),
+//                    curRest.getDouble("lieferkosten"),
+//                    curRest.getString("kategorie"),
+//                    curRest.getInt("lieferbereich"),
+//                    curRest.getDouble("ratingFood"),
+//                    curRest.getDouble("ratingDelivery"),
+//                    fav));
+//        }
 //        }
 //        return output;
+
+        // NearMe einbauen
+        boolean isNear = false;
+        boolean isFav = false;
+        int id = 0;
+        for(int i=0;i<allRests.length();i++){
+            JSONObject curRest = allRests.getJSONObject(i);
+            // ueberpruefung, ob restaurant fav ist
+            for (int j = 0; j < allFavs.length(); j++) {
+                JSONObject favRest = allFavs.getJSONObject(j);
+                    if (curRest.getInt("restaurantId") == favRest.getInt("restaurantId")) {
+                        isFav = true;
+                        id = favRest.getInt("id");
+                    }
+            }
+            //ueberpruefung, ob restaurant near ist
+            isNear = isRestaurantNear(curRest.getInt("restaurantId"));
+
+            if(isNear || isFav) {
+
+//                public RestaurantList(int id,
+//                String name,
+//                String strasse,
+//                String plz,
+//                String stadt,
+//                double mbw,
+//                double lieferkosten,
+//                String kategorie,
+//                int lieferbereich,
+//                double ratingFood,
+//                double ratingLieferung,
+//                Boolean isFav,
+//                int favId,
+//                int userId)
+
+                RestaurantList r = new RestaurantList();
+                output.add(r = new RestaurantList(curRest.getInt("restaurantId"),
+                        curRest.getString("name"),
+                        curRest.getString("strasse"),
+                        curRest.getString("plz"),
+                        curRest.getString("stadt"),
+                        curRest.getDouble("mbw"),
+                        curRest.getDouble("lieferkosten"),
+                        curRest.getString("kategorie"),
+                        curRest.getInt("lieferbereich"),
+                        curRest.getDouble("ratingFood"),
+                        curRest.getDouble("ratingDelivery"),
+                        isFav,
+                        id,
+                        userId));
+            }
+        }
+        return output;
     }
-
-
-
-
-
-
     /**
      *     @TODO: Filter einbauen
      */
-    private void isRestaurantNear(int restaurantId) throws IOException {
-//        Boolean output = false;
-
+    private Boolean isRestaurantNear(int restaurantId) throws IOException {
+        Boolean output = false;
         String url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=";
         JSONObject user = new JSONObject(JSONObjectGET("http://localhost:8080/user/findbyid/"+LoginController.userId).toString());
-        if(standard.isArmed()) {url = url + user.getString("strasse") + "%2C" + user.getString("nummer") + "%2C" + user.getString("plz") + "%2C" + user.getString("stadt");}
-        if(alternative.isArmed()) {url = url + user.getString("altStrasse") + "%2C" + user.getString("altNummer") + "%2C" + user.getString("altPlz") + "%2C" + user.getString("altStadt");}
-        JSONObject rest = new JSONObject(JSONObjectGET("http://localhost:8080/restaurant/findbyid/"+restaurantId).toString());
+        if(standard.isSelected()) {url = url + user.getString("strasse") + "%2C" + user.getString("nummer") + "%2C" + user.getString("plz") + "%2C" + user.getString("stadt");}
+        if(alternative.isSelected()) {url = url + user.getString("altAdresse") + "%2C" + user.getString("altNummer") + "%2C" + user.getString("altPlz") + "%2C" + user.getString("altStadt");}
+        JSONObject rest = new JSONObject(JSONObjectGET("http://localhost:8080/restaurant/find/"+restaurantId).toString());
         url = url + "&destinations=" + rest.getString("strasse") + "%2C" + rest.getString("nummer") + "%2C" + rest.getString("plz") + "%2C" + rest.getString("stadt");
         String end = "&departure_time=now&key=AIzaSyA-qLMdcnsAVwBvC0Xpi2N73coqLzq9v0o";
-        JSONArray ja = new JSONArray(JSONObjectGET(url).toString());
-        System.out.println(url);
-        System.out.println(ja.toString());
-
-//        if(ja.getJSONArray().getJSONObject().getInt("value") <= rest.getInt("lieferbereich")) {
-//            output = true;
-//        }
-//        return output;
+        url= url+end;
+        url = url.replaceAll(" ", "%2C");
+        JSONObject result = new JSONObject(JSONObjectGET(url).toString());
+        if(result.getJSONArray("rows").getJSONObject(0).getJSONArray("elements").getJSONObject(0).getJSONObject("distance").getInt("value") <= rest.getInt("lieferbereich")) {
+            output = true;
+        }
+        System.out.println("Distanz betraegt: " + result.getJSONArray("rows").getJSONObject(0).getJSONArray("elements").getJSONObject(0).getJSONObject("distance").getInt("value"));
+        return output;
     }
 
 
@@ -443,7 +394,7 @@ public class RestaurantsController extends ConnectionController implements Initi
         populateMap();
     }
 
-    public static class RestaurantList {
+    public class RestaurantList {
         private int id;
         private String name;
         private String strasse;
@@ -464,7 +415,8 @@ public class RestaurantsController extends ConnectionController implements Initi
 
         public RestaurantList(int id, String name, String strasse, String plz,
                               String stadt, double mbw, double lieferkosten,
-                              String kategorie, int lieferbereich, double ratingFood, double ratingLieferung, Button fav) {
+                              String kategorie, int lieferbereich, double ratingFood,
+                              double ratingLieferung, Boolean isFav, int favId, int userId) {
             this.id = id;
             this.name = name;
             this.strasse = strasse;
@@ -502,7 +454,34 @@ public class RestaurantsController extends ConnectionController implements Initi
                     }
                 }
             });
-            this.fav = fav;
+            this.fav = new Button();
+            if(isFav) {
+                this.fav.setText("Favorit entfernen");
+                this.fav.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        try {
+                            JSONObjectDELETE("http://localhost:8080/fav/del/" + favId);
+                            populateList();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            } else {
+                this.fav.setText("Favorit hinzufuegen");
+                this.fav.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        try {
+                            JSONObjectPOST("http://localhost:8080/fav/add/" + id + "/" + userId, "null");
+                            populateList();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            }
         }
 
         public double getRatingFood() {return ratingFood;}

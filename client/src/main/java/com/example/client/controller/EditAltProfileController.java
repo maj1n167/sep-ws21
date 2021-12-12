@@ -38,7 +38,7 @@ public class EditAltProfileController extends ConnectionController {
 
         String url = "http://localhost:8080/user/update/";
 
-
+        VerificationController.alternative = alternativeStreet.getText()+ " " + alternativeNummer.getText() + " " + alternativePostleitzahl.getText() + " " + alternativeStadt.getText();
         current.put("altAdresse", alternativeStreet.getText());
         current.put("altNummer", alternativeNummer.getText());
         current.put("altStadt", alternativeStadt.getText());
