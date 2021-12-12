@@ -21,18 +21,26 @@ public class WarenkorbController extends ConnectionController {
     @FXML
     public Label summe;
 
+    @FXML
+    public Label lieferkosten;
+
     public int userId;
     public int restaurantid;
     public int treuepunkte;
     public double profuenfer;
+    public double lieferkosten2;
 
 
     public void initialize() throws IOException {
         userId = LoginController.userId;
         restaurantid = MenuSpeisekarteeController.restaurantId;
-
+        JSONObject jsonObject5 = new JSONObject(JSONObjectGET("http://localhost:8080/restaurant/find/" + restaurantid).toString());
         JSONObject jsonObject4 = new JSONObject(JSONObjectGET("http://localhost:8080/warenkorb/find/" + userId).toString());
-        summe.setText(jsonObject4.get("summe").toString());
+        lieferkosten.setText(jsonObject5.get("lieferkosten").toString());
+        lieferkosten2 = jsonObject5.getDouble("lieferkosten");
+        double gesamtsumme = jsonObject4.getDouble("summe");
+        double round = round(gesamtsumme,2);
+        summe.setText(String.valueOf(round));
         JSONArray jsonArray = new JSONArray(jsonObject4.getJSONArray("foodList").toString());
         System.out.println(jsonArray);
         for (int i = 0; i < jsonArray.length(); i++) {
@@ -164,14 +172,18 @@ public class WarenkorbController extends ConnectionController {
                 }
             }
 
-            System.out.println(fObject);
 
+            double gesamtsumme = jsonObject.getDouble("summe");
+            System.out.println(gesamtsumme);
+            System.out.println(lieferkosten2);
+            gesamtsumme += lieferkosten2;
+            System.out.println(gesamtsumme);
             System.out.println(date.toString());
             JSONObject bestellung = new JSONObject();
             System.out.println(restaurantid);
             bestellung.put("restaurantId", restaurantid);
             bestellung.put("userId", userId);
-            bestellung.put("summe", jsonObject.get("summe"));
+            bestellung.put("summe", gesamtsumme);
             bestellung.put("datum", date.toString());
             bestellung.put("liste", fObject);
 
@@ -233,6 +245,10 @@ public class WarenkorbController extends ConnectionController {
 
     }
 
+    private double round(double value, int decimalPoints) {
+        double d = Math.pow(10, decimalPoints);
+        return Math.round(value * d) / d;
+    }
 
 
     public void zurückButton() throws IOException {

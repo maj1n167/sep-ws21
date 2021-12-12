@@ -35,8 +35,10 @@ public double guthaben;
                jsonObject = jsonObject1;
            }
        }
-       label.setText(jsonObject.get("guthaben").toString());
-       guthaben=Double.parseDouble(jsonObject.get("guthaben").toString());
+       double guthaben = jsonObject.getDouble("guthaben");
+       double round = round(guthaben,2);
+       label.setText(String.valueOf(round));
+       guthaben = round;
    }
 
 
@@ -89,6 +91,10 @@ public double guthaben;
     public void fertigButton() throws IOException{
         Main m = new Main();
         m.ChangeScene("KStartseite.fxml");
+    }
+    private double round(double value, int decimalPoints) {
+        double d = Math.pow(10, decimalPoints);
+        return Math.round(value * d) / d;
     }
 
 }
