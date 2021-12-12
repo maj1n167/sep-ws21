@@ -216,7 +216,7 @@ public class AddFoodController extends ConnectionController implements Initializ
 
 
     public void fertigButton(ActionEvent event) throws IOException {
-        String url1 = "http://localhost:8080/food";
+     /**   String url1 = "http://localhost:8080/kategorie";
         String allFoods = "{\"menuId\":" + userId+ "\n," +
                 "\"katagories\":";
         JSONArray jsonArray1 = new JSONArray();
@@ -229,11 +229,44 @@ public class AddFoodController extends ConnectionController implements Initializ
                 jsonArray1.put(jsonObject);
             }
         }
+
         allFoods =allFoods+jsonArray1.toString()+"}";
+        System.out.println(allFoods);
         JSONObjectPOST("http://localhost:8080/menu/add", allFoods);
         Main m = new Main();
-        m.ChangeScene("Speisekarte.fxml");
+       m.ChangeScene("Speisekarte.fxml");
+      **/
+        String url = "http://localhost:8080/menu/update";
+        String json = "{\"menuId\":" + userId + ",\n" +
+                "\"kategories\": [] }";
+        JSONObjectPUT(url, json);
+        String url1 = "http://localhost:8080/kategorie";
+
+
+        String allFoods = "{\"menuId\":" + userId+ "\n," +
+                "\"kategories\":";
+        JSONArray jsonArray1 = new JSONArray();
+
+
+        JSONArray jsonArray4 = new JSONArray(JSONObjectGET(url1).toString());
+        for (int i = 0; i < jsonArray4.length(); i++) {
+            JSONObject jsonObject = jsonArray4.getJSONObject(i);
+            if (jsonObject.get("menuId").equals(userId)) {
+                jsonArray1.put(jsonObject);
+            }
+        }
+        allFoods =allFoods+jsonArray1.toString()+"}";
+        System.out.println(allFoods);
+        JSONObjectPOST("http://localhost:8080/menu/add", allFoods);
+        System.out.println("Daten gesendet");
+
+        Alert alert = new Alert (Alert.AlertType.INFORMATION);
+        alert.setTitle("");
+        alert.setTitle("Erfolg!");
+        alert.setContentText("Speisekarte erfolgreich erstellt");
+        alert.showAndWait();
     }
+
 
     @FXML
     public void uploadImage(ActionEvent event) throws IOException {

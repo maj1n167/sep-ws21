@@ -166,9 +166,10 @@ public class WarenkorbController extends ConnectionController {
 
     public void zurückButton() throws IOException {
         Main m = new Main();
-        m.ChangeScene("KStartseite.fxml");
+        m.ChangeScene("Menu.fxml");
     }
 
-    public void FertigButton(ActionEvent actionEvent) {
+    public void FertigButton(ActionEvent actionEvent) throws IOException {
+        changeScene("KStartseite.fxml");
     }
 }

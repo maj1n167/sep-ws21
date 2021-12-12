@@ -4,8 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.awt.*;
 import java.io.Serializable;
-import java.util.List;
 
 @Entity
 public class Food  implements Serializable {
@@ -16,27 +16,24 @@ public class Food  implements Serializable {
     private double preis;
     private String name;
     private String beschreibung;
-    private String url;
+
     private Long kategorieId;
     private Long menuId;
 
 
 
-    public Food(int foodId, double preis, String name, String beschreibung, String url) {
+    public Food(int foodId, double preis, String name, String beschreibung) {
         this.foodId = foodId;
         this.preis = preis;
         this.name = name;
         this.beschreibung = beschreibung;
-        this.url = url;
-
     }
 
-    public Food(int foodId, Long kategorieId, double preis, String name, String beschreibung, String url) {
+    public Food(int foodId, Long kategorieId, double preis, String name, String beschreibung) {
         this.foodId = foodId;
         this.preis = preis;
         this.name = name;
         this.beschreibung = beschreibung;
-        this.url = url;
         this.kategorieId = kategorieId;
     }
 
@@ -92,14 +89,6 @@ public class Food  implements Serializable {
 
     public void setBeschreibung(String beschreibung) {
         this.beschreibung = beschreibung;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
     }
 
 }
