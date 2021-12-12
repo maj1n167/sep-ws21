@@ -6,14 +6,16 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import org.controlsfx.control.action.Action;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
+import java.util.Base64;
 import java.util.ResourceBundle;
 
 public class AddFoodController extends ConnectionController implements Initializable {
@@ -33,6 +35,8 @@ public class AddFoodController extends ConnectionController implements Initializ
     private TextField beschreibung;
     @FXML
     private TextField preis;
+    @FXML
+    private ImageView imageView;
 
     private int userId;
 
@@ -41,7 +45,6 @@ public class AddFoodController extends ConnectionController implements Initializ
     public void initialize(URL location, ResourceBundle resources) {
         this.userId = LoginController.userId;
     }
-
 
     @FXML
     public void speichernClick() throws IOException {
@@ -70,6 +73,7 @@ public class AddFoodController extends ConnectionController implements Initializ
                                         "        \"beschreibung\": \"" + beschreibung.getText() + "\",\n" +
                                         "        \"preis\":" + Double.parseDouble(preis.getText()) + ",\n" +
                                         "        \"kategorie\": \"" + kategorie.getText() + "\",\n" +
+                                       // "        \"url\": \"" + imageView.getImage().toString() + "\",\n" +
                                         " \"kategorieId\": \"" + kategorieId + "\",\n" +
                                         "\"menuId\":" + userId + "}";
                         JSONObjectPOST(Url, data);
@@ -148,6 +152,7 @@ public class AddFoodController extends ConnectionController implements Initializ
                                         "        \"beschreibung\": \"" + beschreibung.getText() + "\",\n" +
                                         "        \"preis\":" + Double.parseDouble(preis.getText()) + ",\n" +
                                         "        \"kategorie\": \"" + kategorie.getText() + "\",\n" +
+                                        //"        \"url\": \"" + imageView.getImage().toString() + "\",\n" +
                                         " \"kategorieId\": \"" + kob.get("kategorieId") + "\",\n" +
                                         "\"menuId\":" + userId + "}";
 
@@ -276,17 +281,13 @@ public class AddFoodController extends ConnectionController implements Initializ
 
         FileChooser fileChooser = new FileChooser();
 
-
-        FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.JPG)", "*.JPG");
-
-        FileChooser.ExtensionFilter extFilterjpg = new FileChooser.ExtensionFilter("jpg files (*.jpg)", "*.jpg");
-
-        FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.PNG)", "*.PNG");
-
-        FileChooser.ExtensionFilter extFilterpng = new FileChooser.ExtensionFilter("png files (*.png)", "*.png");
-
-        fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterjpg, extFilterPNG, extFilterpng);
-
         File file = fileChooser.showOpenDialog(null);
+        file.getAbsoluteFile();
+        System.out.println(file);
+        Image image = new Image(file.toURI().toString());
+        imageView.setImage(image);
     }
+
+
+
 }

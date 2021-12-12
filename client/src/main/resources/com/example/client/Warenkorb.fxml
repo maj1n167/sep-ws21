@@ -26,9 +26,9 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <Label fx:id="summe" layoutX="351.0" layoutY="415.0" prefHeight="25.0" prefWidth="100.0">
+      <Label fx:id="summe" layoutX="361.0" layoutY="415.0" prefHeight="25.0" prefWidth="100.0">
          <font>
-            <Font size="16.0" />
+            <Font size="17.0" />
          </font>
       </Label>
       <Button fx:id="bestellen" layoutX="340.0" layoutY="497.0" mnemonicParsing="false" onAction="#bestellen" prefHeight="40.0" prefWidth="100.0" text="Bestellen">
@@ -36,13 +36,13 @@
             <Font size="16.0" />
          </font>
       </Button>
-      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="319.0" layoutY="560.0" mnemonicParsing="false" onAction="#ichHabCodeButtonClick" text="Ich habe einen Rabattcode !" />
-      <Label layoutX="465.0" layoutY="408.0" prefHeight="40.0" prefWidth="115.0" text="Lieferkosten:">
+      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="306.0" layoutY="560.0" mnemonicParsing="false" onAction="#ichHabCodeButtonClick" text="Ich habe einen Rabattcode !" />
+      <Label layoutX="475.0" layoutY="408.0" prefHeight="40.0" prefWidth="115.0" text="Lieferkosten:">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="lieferkosten" layoutX="571.0" layoutY="416.0">
+      <Label fx:id="lieferkosten" layoutX="602.0" layoutY="416.0" prefHeight="24.0" prefWidth="25.0">
          <font>
             <Font size="19.0" />
          </font>
