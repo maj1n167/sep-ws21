@@ -28,8 +28,8 @@ import java.util.*;
  */
 
 
-//, MapComponentInitializedListener
-public class RestaurantsController extends ConnectionController implements Initializable {
+
+public class RestaurantsController extends ConnectionController implements Initializable, MapComponentInitializedListener {
 
     @FXML
     ToggleGroup group = new ToggleGroup();
@@ -62,10 +62,9 @@ public class RestaurantsController extends ConnectionController implements Initi
     public static int id=-1;
     int userId = LoginController.userId;
 
-//    @FXML
-//    GoogleMapView mapView;
-//    private GoogleMap map;
-//    GeocodingService geocodingService;
+    @FXML
+    GoogleMapView mapView;
+    private GoogleMap map;
 
 
     @FXML
@@ -81,7 +80,7 @@ public class RestaurantsController extends ConnectionController implements Initi
 
     void populateList() throws IOException {
         // Fertig
-        if(standard.isArmed()) {
+        if(standard.isSelected()) {
             list.getItems().removeAll();
             list.setItems(getRestaurants(VerificationController.standard));
             list.refresh();
@@ -94,14 +93,51 @@ public class RestaurantsController extends ConnectionController implements Initi
 
     void populateMap() throws IOException {
         // Fertig
-        if(standard.isArmed()) {
-            list.getItems().removeAll();
-            list.setItems(getRestaurants(VerificationController.standard));
-            list.refresh();
+        if(standard.isSelected()) {
+            String address = VerificationController.standard;
+            LatLong latlong = null;
+
+            String url = "https://maps.googleapis.com/maps/api/geocode/json?address="+ address.replaceAll(" ", "%2C")+"&key=AIzaSyA-qLMdcnsAVwBvC0Xpi2N73coqLzq9v0o";
+
+//        String urlTest = "https://maps.googleapis.com/maps/api/geocode/json?address=Hermannstr.%2C9%2C45327%2CEssen&key=AIzaSyA-qLMdcnsAVwBvC0Xpi2N73coqLzq9v0o";
+            JSONObject result = null;
+            try {
+                result = new JSONObject(JSONObjectGET(url).toString());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            latlong = new LatLong(  result.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location").getDouble("lat"),
+                    result.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location").getDouble("lng"));
+            map.setCenter(latlong);
+            MarkerOptions mOptions = new MarkerOptions();
+            mOptions.visible(true);
+            mOptions.position(latlong);
+            Marker marker = new Marker(mOptions);
+            marker.setTitle("Home");
+            marker.setPosition(latlong);
+            map.addMarker(marker);
         } else {
-            list.getItems().removeAll();
-            list.setItems(getRestaurants(VerificationController.alternative));
-            list.refresh();
+            LatLong latlong = null;
+            String address = VerificationController.alternative;
+            String url = "https://maps.googleapis.com/maps/api/geocode/json?address="+ address.replaceAll(" ", "%2C")+"&key=AIzaSyA-qLMdcnsAVwBvC0Xpi2N73coqLzq9v0o";
+
+//        String urlTest = "https://maps.googleapis.com/maps/api/geocode/json?address=Hermannstr.%2C9%2C45327%2CEssen&key=AIzaSyA-qLMdcnsAVwBvC0Xpi2N73coqLzq9v0o";
+            JSONObject result = null;
+            try {
+                result = new JSONObject(JSONObjectGET(url).toString());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            latlong = new LatLong(  result.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location").getDouble("lat"),
+                    result.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location").getDouble("lng"));
+            map.setCenter(latlong);
+            MarkerOptions mOptions = new MarkerOptions();
+            mOptions.visible(true);
+            mOptions.position(latlong);
+            Marker marker = new Marker(mOptions);
+            marker.setTitle("Home");
+            marker.setPosition(latlong);
+            map.addMarker(marker);
         }
     }
 
@@ -123,8 +159,8 @@ public class RestaurantsController extends ConnectionController implements Initi
             fav.setCellValueFactory(new PropertyValueFactory<RestaurantList, Button>("fav"));
             list.setItems(getRestaurants(VerificationController.standard));
 
-//            mapView.addMapInitializedListener(this);
-//            mapView.setKey("AIzaSyA-qLMdcnsAVwBvC0Xpi2N73coqLzq9v0o");
+            mapView.addMapInitializedListener(this);
+            mapView.setKey("AIzaSyA-qLMdcnsAVwBvC0Xpi2N73coqLzq9v0o");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -132,175 +168,86 @@ public class RestaurantsController extends ConnectionController implements Initi
 //        mapView.setKey("AIzaSyA-qLMdcnsAVwBvC0Xpi2N73coqLzq9v0o");
     }
 
-//    @Override
-//    public void mapInitialized() {
-//        String address = "";
-//
-//        if(standard.isArmed()) {
-//            address = VerificationController.standard;
-//        }
-//        if (alternative.isArmed()) {
-//            address = VerificationController.alternative;
-//        }
-//        System.out.println(address);
-//        geocodingService = new GeocodingService();
-//        MapOptions mapOptions = new MapOptions();
-//        mapOptions.center(new LatLong(0, 0))
-//                .mapType(MapTypeIdEnum.ROADMAP)
-//                .overviewMapControl(false)
-//                .panControl(false)
-//                .rotateControl(false)
-//                .scaleControl(false)
-//                .streetViewControl(false)
-//                .fullscreenControl(false)
-//                .mapTypeControl(false)
-//                .zoom(12)
-//        ;
-//        map = mapView.createMap(mapOptions);
-//        geocodingService.geocode(address, (GeocodingResult[] results, GeocoderStatus status) -> {
-//            LatLong latlong = null;
-//            System.out.println("test0");
-//            if (status == GeocoderStatus.ZERO_RESULTS) {
-//                System.out.println("test1");
-//                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-//                alert.setTitle("Google API hat kein Ergebnis!");
-//                alert.setContentText("Bitte erneut versuchen!\nFalls der Fehler weiterhin auftritt,\nbitte Restaurantdaten ueberpruefen");
-//                alert.showAndWait();
-//                try {
-//                    changeScene("Login.fxml");
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//                return;
-//            } else if (results.length > 1) {
-//                System.out.println("test2");
-//                latlong = new LatLong(results[0].getGeometry().getLocation().getLatitude(), results[0].getGeometry().getLocation().getLongitude());
-//            } else {
-//                System.out.println("test3");
-//                latlong = new LatLong(results[0].getGeometry().getLocation().getLatitude(), results[0].getGeometry().getLocation().getLongitude());
-//            }
-//            System.out.println(latlong);
-//            map.setCenter(latlong);
-//
-//            MarkerOptions mOptions = new MarkerOptions();
-//            mOptions.visible(true);
-//            mOptions.position(latlong);
-//            Marker marker = new Marker(mOptions);
-//            marker.setTitle("Home");
-//            marker.setPosition(latlong);
-//            map.addMarker(marker);
-//        });
-//    }
+    @Override
+    public void mapInitialized() {
+        String address = "";
+
+        if(standard.isSelected()) {
+            address = VerificationController.standard;
+        }
+        if (alternative.isSelected()) {
+            address = VerificationController.alternative;
+        }
+        System.out.println(address);
+        MapOptions mapOptions = new MapOptions();
+        mapOptions.center(new LatLong(0, 0))
+                .mapType(MapTypeIdEnum.ROADMAP)
+                .overviewMapControl(false)
+                .panControl(false)
+                .rotateControl(false)
+                .scaleControl(false)
+                .streetViewControl(false)
+                .fullscreenControl(false)
+                .mapTypeControl(false)
+                .zoomControl(false)
+                .zoom(12)
+        ;
+        map = mapView.createMap(mapOptions);
+        LatLong latlong = null;
+
+        String url = "https://maps.googleapis.com/maps/api/geocode/json?address="+ address.replaceAll(" ", "%2C")+"&key=AIzaSyA-qLMdcnsAVwBvC0Xpi2N73coqLzq9v0o";
+
+//        String urlTest = "https://maps.googleapis.com/maps/api/geocode/json?address=Hermannstr.%2C9%2C45327%2CEssen&key=AIzaSyA-qLMdcnsAVwBvC0Xpi2N73coqLzq9v0o";
+        JSONObject result = null;
+        try {
+             result = new JSONObject(JSONObjectGET(url).toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        latlong = new LatLong(  result.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location").getDouble("lat"),
+                                result.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location").getDouble("lng"));
+        map.setCenter(latlong);
+        MarkerOptions mOptions = new MarkerOptions();
+        mOptions.visible(true);
+        mOptions.position(latlong);
+        Marker marker = new Marker(mOptions);
+        marker.setTitle("Home");
+        marker.setPosition(latlong);
+        map.addMarker(marker);
+    }
+
+    public void addMarker(String address, int restaurantId) throws IOException {
+        LatLong latlong = null;
+        JSONObject rest = new JSONObject(JSONObjectGET("http://localhost:8080/restaurant/find/"+restaurantId).toString());
+        String url = "https://maps.googleapis.com/maps/api/geocode/json?address="+ address.replaceAll(" ", "%2C")+"&key=AIzaSyA-qLMdcnsAVwBvC0Xpi2N73coqLzq9v0o";
+
+//        String urlTest = "https://maps.googleapis.com/maps/api/geocode/json?address=Hermannstr.%2C9%2C45327%2CEssen&key=AIzaSyA-qLMdcnsAVwBvC0Xpi2N73coqLzq9v0o";
+        JSONObject result = null;
+        try {
+            result = new JSONObject(JSONObjectGET(url).toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        latlong = new LatLong(  result.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location").getDouble("lat"),
+                result.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location").getDouble("lng"));
+
+        MarkerOptions mOptions = new MarkerOptions();
+        mOptions.visible(true);
+        mOptions.position(latlong);
+        Marker marker = new Marker(mOptions);
+        marker.setTitle(rest.getString("name"));
+        marker.setPosition(latlong);
+        map.addMarker(marker);
+    }
 
     public ObservableList<RestaurantList> getRestaurants(String address) throws IOException {
         ObservableList<RestaurantList> output = FXCollections.observableArrayList();
-        output.clear();
+        output.removeAll();
         // alle restaurants in einem array
         JSONArray allRests = new JSONArray(JSONObjectGET("http://localhost:8080/restaurant").toString());
         // alle favoriten in einem array
         JSONArray allFavs = new JSONArray(JSONObjectGET("http://localhost:8080/fav/find/" + userId).toString());
 
-//         Favoriten des Users+ alle restaurants hinzufuegen
-
-        //Funktioniert
-//
-//        if(allFavs.length()>0) {
-//            for (int i = 0; i < allRests.length(); i++) {
-//                for (int j = 0; j < allFavs.length(); j++) {
-//                    JSONObject curRest = allRests.getJSONObject(i);
-//                    JSONObject favRest = allFavs.getJSONObject(j);
-//                    if (curRest.getInt("restaurantId") == favRest.getInt("restaurantId")) {
-//                        Button fav = new Button();
-//                        fav.setText("Favorit entfernen");
-//                        fav.setOnAction(new EventHandler<ActionEvent>() {
-//                            @Override
-//                            public void handle(ActionEvent event) {
-//                                try {
-//                                    JSONObjectDELETE("http://localhost:8080/fav/del/" + favRest.getInt("id"));
-//                                    populateList();
-//                                } catch (IOException e) {
-//                                    e.printStackTrace();
-//                                }
-//                            }
-//                        });
-//                        RestaurantList r = new RestaurantList();
-//                        output.add(r = new RestaurantList(curRest.getInt("restaurantId"),
-//                                curRest.getString("name"),
-//                                curRest.getString("strasse"),
-//                                curRest.getString("plz"),
-//                                curRest.getString("stadt"),
-//                                curRest.getDouble("mbw"),
-//                                curRest.getDouble("lieferkosten"),
-//                                curRest.getString("kategorie"),
-//                                curRest.getInt("lieferbereich"),
-//                                curRest.getDouble("ratingFood"),
-//                                curRest.getDouble("ratingDelivery"),
-//                                fav));
-//                        continue;
-//                    }
-//                    Button fav = new Button();
-//                    fav.setText("Favorit hinzufuegen");
-//                    fav.setOnAction(new EventHandler<ActionEvent>() {
-//                        @Override
-//                        public void handle(ActionEvent event) {
-//                            try {
-////                            JSONObjectPOST("http://localhost:8080/fav/add/" + curRest.getInt("restaurantId") + "/" + LoginController.userId, "null");
-//                                JSONObjectPOST("http://localhost:8080/fav/add/" + curRest.getInt("restaurantId") + "/" + userId, "null");
-//                                populateList();
-//                            } catch (IOException e) {
-//                                e.printStackTrace();
-//                            }
-//                        }
-//                    });
-//                    RestaurantList r = new RestaurantList();
-//                    output.add(r = new RestaurantList(curRest.getInt("restaurantId"),
-//                            curRest.getString("name"),
-//                            curRest.getString("strasse"),
-//                            curRest.getString("plz"),
-//                            curRest.getString("stadt"),
-//                            curRest.getDouble("mbw"),
-//                            curRest.getDouble("lieferkosten"),
-//                            curRest.getString("kategorie"),
-//                            curRest.getInt("lieferbereich"),
-//                            curRest.getDouble("ratingFood"),
-//                            curRest.getDouble("ratingDelivery"),
-//                            fav));
-//                }
-//            }
-//        } else {
-//            for(int i=0;i<allRests.length();i++) {
-//            JSONObject curRest = allRests.getJSONObject(i);
-//            Button fav = new Button();
-//            fav.setText("Favorit hinzufuegen");
-//            fav.setOnAction(new EventHandler<ActionEvent>() {
-//                @Override
-//                public void handle(ActionEvent event) {
-//                    try {
-//                        JSONObjectPOST("http://localhost:8080/fav/add/" + curRest.getInt("restaurantId")+ "/"+ userId, "null");
-//                        populateList();
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            });
-//            RestaurantList r = new RestaurantList();
-//            output.add(r = new RestaurantList(curRest.getInt("restaurantId"),
-//                    curRest.getString("name"),
-//                    curRest.getString("strasse"),
-//                    curRest.getString("plz"),
-//                    curRest.getString("stadt"),
-//                    curRest.getDouble("mbw"),
-//                    curRest.getDouble("lieferkosten"),
-//                    curRest.getString("kategorie"),
-//                    curRest.getInt("lieferbereich"),
-//                    curRest.getDouble("ratingFood"),
-//                    curRest.getDouble("ratingDelivery"),
-//                    fav));
-//        }
-//        }
-//        return output;
-
-        // NearMe einbauen
         boolean isNear = false;
         boolean isFav = false;
         int id = 0;
@@ -319,21 +266,6 @@ public class RestaurantsController extends ConnectionController implements Initi
 
             if(isNear || isFav) {
 
-//                public RestaurantList(int id,
-//                String name,
-//                String strasse,
-//                String plz,
-//                String stadt,
-//                double mbw,
-//                double lieferkosten,
-//                String kategorie,
-//                int lieferbereich,
-//                double ratingFood,
-//                double ratingLieferung,
-//                Boolean isFav,
-//                int favId,
-//                int userId)
-
                 RestaurantList r = new RestaurantList();
                 output.add(r = new RestaurantList(curRest.getInt("restaurantId"),
                         curRest.getString("name"),
@@ -349,14 +281,16 @@ public class RestaurantsController extends ConnectionController implements Initi
                         isFav,
                         id,
                         userId));
+//                String restAddress = curRest.getString("strasse")+ " " + curRest.getString("plz") + " " +curRest.getString("stadt");
+//                addMarker(restAddress, curRest.getInt("restaurantId"));
             }
         }
         return output;
     }
-    /**
-     *     @TODO: Filter einbauen
-     */
+
+
     private Boolean isRestaurantNear(int restaurantId) throws IOException {
+        // Funktioniert
         Boolean output = false;
         String url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=";
         JSONObject user = new JSONObject(JSONObjectGET("http://localhost:8080/user/findbyid/"+LoginController.userId).toString());
@@ -447,7 +381,6 @@ public class RestaurantsController extends ConnectionController implements Initi
                 @Override public void handle(ActionEvent event) {
                     RestaurantsController.id = id;
                     try {
-                        //Hier muss die View zum Bestellvorgang
                         changeScene("Menu.fxml");
                     } catch (IOException e) {
                         e.printStackTrace();
