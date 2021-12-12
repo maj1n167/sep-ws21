@@ -166,7 +166,8 @@ public class AddFoodController extends ConnectionController implements Initializ
                 JSONArray jsonArray1 = new JSONArray();
 
 
-                JSONArray jsonArrayA = new JSONArray(JSONObjectGET(url1).toString());
+
+        JSONArray jsonArrayA = new JSONArray(JSONObjectGET(url1).toString());
                 for (int i = 0; i < jsonArrayA.length(); i++) {
                     JSONObject jsonObject = jsonArrayA.getJSONObject(i);
                     if (jsonObject.get("menuId").equals(userId) && jsonObject.get("kategorieId").equals(katID1)) {
@@ -196,10 +197,12 @@ public class AddFoodController extends ConnectionController implements Initializ
                 System.out.println(allKata + newJsonArray1.toString() + "}");
                 JSONObjectPOST("http://localhost:8080/menu/add", allKata + newJsonArray1.toString() + "}");
                 System.out.println("done POST MENU");
-
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Speise hinzugefügt");
                 alert.setContentText("Speise wurde erfolgreich hinzugefügt");
+
+
+                alert.showAndWait();
 
             }
 
@@ -263,7 +266,7 @@ public class AddFoodController extends ConnectionController implements Initializ
         Alert alert = new Alert (Alert.AlertType.INFORMATION);
         alert.setTitle("");
         alert.setTitle("Erfolg!");
-        alert.setContentText("Speisekarte erfolgreich erstellt");
+        alert.setContentText("Speise erfolgreich erstellt");
         alert.showAndWait();
     }
 

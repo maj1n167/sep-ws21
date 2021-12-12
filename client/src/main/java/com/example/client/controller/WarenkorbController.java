@@ -30,8 +30,7 @@ public class WarenkorbController extends ConnectionController {
     public void initialize() throws IOException {
         userId = LoginController.userId;
         restaurantid = MenuSpeisekarteeController.restaurantId;
-        System.out.println(userId);
-        System.out.println("Hello");
+
         JSONObject jsonObject4 = new JSONObject(JSONObjectGET("http://localhost:8080/warenkorb/find/" + userId).toString());
         summe.setText(jsonObject4.get("summe").toString());
         JSONArray jsonArray = new JSONArray(jsonObject4.getJSONArray("foodList").toString());
