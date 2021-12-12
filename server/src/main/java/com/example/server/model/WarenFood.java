@@ -18,7 +18,7 @@ public class WarenFood {
     private String url;
     private Long kategorieId;
     private Long menuId;
-    private int warenid;
+    private int warenFId;
 
     public WarenFood(int bestellfoodid, int warenId, double preis, String name, String beschreibung, String url, Long kategorieId, Long menuId, int warenid) {
         this.bestellfoodid = bestellfoodid;
@@ -29,7 +29,7 @@ public class WarenFood {
         this.url = url;
         this.kategorieId = kategorieId;
         this.menuId = menuId;
-        this.warenid = warenid;
+        this.warenFId = warenid;
     }
 
     public WarenFood() {
@@ -101,10 +101,10 @@ public class WarenFood {
     }
 
     public int getWarenid() {
-        return warenid;
+        return warenFId;
     }
 
     public void setWarenid(int warenid) {
-        this.warenid = warenid;
+        this.warenFId = warenid;
     }
 }

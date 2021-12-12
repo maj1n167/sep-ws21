@@ -20,7 +20,7 @@ private TextField textField;
 @FXML
 private Label label;
 public int userId;
-public double guthaben;
+public double guthaben1;
    public void initialize() throws IOException{
        userId = LoginController.userId;
       // JSONObject user = new JSONObject(JSONObjectGET("http://localhost:8080/user/findbyid/"+userId).toString());
@@ -38,7 +38,7 @@ public double guthaben;
        double guthaben = jsonObject.getDouble("guthaben");
        double round = round(guthaben,2);
        label.setText(String.valueOf(round));
-       guthaben = round;
+       guthaben1 = round;
    }
 
 
@@ -55,7 +55,8 @@ public double guthaben;
             alert.showAndWait();
         }else {
             double aufladen =  Double.parseDouble(textField.getText());
-             guthaben +=aufladen;
+             guthaben1 +=aufladen;
+            System.out.println(guthaben1);
             String url1 = "http://localhost:8080/user";
             JSONArray jsonArray =  new JSONArray(JSONObjectGET(url1).toString());
             JSONObject jsonObject = new JSONObject();
@@ -67,7 +68,7 @@ public double guthaben;
                     jsonObject = jsonObject1;
                 }
             }
-            jsonObject.put("guthaben",guthaben);
+            jsonObject.put("guthaben",guthaben1);
             JSONObjectPOST("http://localhost:8080/user/add",jsonObject.toString());
             initialize();
 

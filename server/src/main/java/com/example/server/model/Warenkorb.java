@@ -15,10 +15,10 @@ public class Warenkorb implements Serializable {
     int warenkorbId;
     double summe;
     @OneToMany
-    List<Food> foodList;
+    List<WarenFood> foodList;
 
 
-    public Warenkorb(int warenkorbId, double summe, List<Food> foodList) {
+    public Warenkorb(int warenkorbId, double summe, List<WarenFood> foodList) {
         this.warenkorbId = warenkorbId;
         this.summe = summe;
         this.foodList = foodList;
@@ -44,11 +44,11 @@ public class Warenkorb implements Serializable {
         this.summe = summe;
     }
 
-    public List<Food> getFoodList() {
+    public List<WarenFood> getFoodList() {
         return foodList;
     }
 
-    public void setFoodList(List<Food> foodList) {
+    public void setFoodList(List<WarenFood> foodList) {
         this.foodList = foodList;
     }
 }
