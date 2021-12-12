@@ -101,7 +101,7 @@ public class WarenkorbController extends ConnectionController {
         String url4 = "http://localhost:8080/user/findbyid/" + userId;
         String url5 = "http://localhost:8080/restaurant/find/" + restaurantid;
 
-
+        initialize2();
         JSONObject jsonObject31 = new JSONObject(JSONObjectGET("http://localhost:8080/warenkorb/find/" + userId).toString());
         profuenfer = Double.parseDouble(jsonObject31.get("summe").toString());
         while (profuenfer >= 5) {
