@@ -124,6 +124,8 @@ public class AddRestaurantController extends ConnectionController {
                             " \"mbw\": \"" + mbw + "\",\n" +
                             " \"lieferkosten\": \"" + lieferkosten + "\",\n" +
                             " \"kategorie\": \"" + kategorieChoicebox.getValue() + "\",\n" +
+                            " \"ratingFood\": \"" + 0.0 + "\",\n" +
+                            " \"ratingDelivery\": \"" + 0.0 + "\",\n" +
                             " \"lieferbereich\": \"" + radius + "\"\n}";
 
                 //Request

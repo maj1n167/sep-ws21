@@ -25,8 +25,8 @@ public class RatingController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<List<Rating>> getAllRatingsforRestaurantId(@PathVariable int restaurantId) {
-        List<Rating> ratings = ratingService.findAllRatingsForRestaurantId(restaurantId);
+    public ResponseEntity<List<Rating>> getAllRatingsforRestaurantId(@PathVariable int id) {
+        List<Rating> ratings = ratingService.findAllRatingsForRestaurantId(id);
         return new ResponseEntity<>(ratings, HttpStatus.OK);
     }
 

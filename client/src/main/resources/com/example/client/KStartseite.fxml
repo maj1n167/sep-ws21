@@ -34,7 +34,6 @@
                         <Button fx:id="seekRestaurant" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onSeekRestaurantClick" prefHeight="31.0" prefWidth="180.0" text="Restaurant suchen" />
                         <Button fx:id="showOrder" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onShowOrderClick" prefHeight="31.0" prefWidth="180.0" text="Bestellübersicht anzeigen" />
                         <Button fx:id="buyCredit" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onBuyCreditClick" prefHeight="31.0" prefWidth="180.0" text="Guthaben aufladen" />
-                        <Button fx:id="LoyaltyPoints" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onLoyaltyPointsClick" prefHeight="27.0" prefWidth="180.0" text="Meine Treuepunkte" />
                     </children>
                 </VBox>
                 <HBox alignment="BOTTOM_LEFT" prefHeight="75.0" prefWidth="800.0" VBox.vgrow="NEVER">

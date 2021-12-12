@@ -31,7 +31,7 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="329.0" prefWidth="475.0">
                      <children>
-                        <TableView prefHeight="313.0" prefWidth="452.0">
+                        <TableView fx:id="list" prefHeight="313.0" prefWidth="452.0">
                           <columns>
                             <TableColumn fx:id="lieferung" prefWidth="75.0" text="Lieferung" />
                             <TableColumn fx:id="speise" prefWidth="75.0" text="Speise" />

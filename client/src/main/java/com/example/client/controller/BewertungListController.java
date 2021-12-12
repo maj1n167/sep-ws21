@@ -21,16 +21,26 @@ public class BewertungListController extends ConnectionController implements Ini
     @FXML
     ScrollPane scrollField;
 
+    @FXML
+    TableView list = new TableView();
+    @FXML
+    TableColumn lieferung = new TableColumn("Lieferung");
+    @FXML
+    TableColumn speise = new TableColumn("Speise");
+    @FXML
+    TableColumn comment = new TableColumn("Kommentar");
+    @FXML
+    TableColumn name = new TableColumn("Name");
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
             list.setEditable(true);
-            id.setCellValueFactory(new PropertyValueFactory<BewertungListController.BewertungList, Integer>("Id"));
-            restaurantId.setCellValueFactory(new PropertyValueFactory<BewertungListController.BewertungList, Integer>("restaurantId"));
-            lieferung.setCellValueFactory(new PropertyValueFactory<BewertungListController.BewertungList, Integer>("starsLieferung"));
-            speise.setCellValueFactory(new PropertyValueFactory<BewertungListController.BewertungList, Integer>("starsFood"));
-            comment.setCellValueFactory(new PropertyValueFactory<BewertungListController.BewertungList, String>("comment"));
-            name.setCellValueFactory(new PropertyValueFactory<BewertungListController.BewertungList, String>("name"));
+            lieferung.setCellValueFactory(new PropertyValueFactory<BewertungList, Integer>("lieferung"));
+            speise.setCellValueFactory(new PropertyValueFactory<BewertungList, Integer>("gericht"));
+            comment.setCellValueFactory(new PropertyValueFactory<BewertungList, String>("comment"));
+            name.setCellValueFactory(new PropertyValueFactory<BewertungList, String>("name"));
             list.setItems(getBewertungen());
         } catch (IOException e) {
             e.printStackTrace();
@@ -46,46 +56,45 @@ public class BewertungListController extends ConnectionController implements Ini
         }
     }
 
-    @FXML
-    TableView list = new TableView();
-    @FXML
-    TableColumn id = new TableColumn("Id");
-    @FXML
-    TableColumn restaurantId = new TableColumn("RestaurantId");
-    @FXML
-    TableColumn lieferung = new TableColumn("Lieferung");
-    @FXML
-    TableColumn speise = new TableColumn("Speise");
-    @FXML
-    TableColumn comment = new TableColumn("Kommentar");
-    @FXML
-    TableColumn name = new TableColumn("Name");
-
-    ObservableList<BewertungListController.BewertungList> data = FXCollections.observableArrayList();
 
 
+    public ObservableList<BewertungList> getBewertungen() throws IOException {
+        ObservableList<BewertungList> output = FXCollections.observableArrayList();
+        output.clear();
+        JSONObject a = new JSONObject(JSONObjectGET("http://localhost:8080/user/findbyid/"+LoginController.userId).toString());
+        if(a.getBoolean("restaurantBesitzer")) {
 
+            // View fuer restaurantbesitzer fuellen
 
-    /**
-     * @TODO: Buttons konfigurieren
-     */
-    public ObservableList<BewertungListController.BewertungList> getBewertungen() throws IOException {
-        ObservableList<BewertungListController.BewertungList> output = FXCollections.observableArrayList();
-        JSONArray j = new JSONArray(JSONObjectGET("http://localhost:8080/rating").toString());
+            JSONArray j = new JSONArray(JSONObjectGET("http://localhost:8080/rating/" + LoginController.userId).toString());
+            for (int i = 0; i < j.length(); i++) {
+                JSONObject current = new JSONObject(j.get(i).toString());
+
+                BewertungList r = new BewertungList();
+                output.add(r = new BewertungList(current.getInt("id"),
+                        current.getInt("restaurantId"),
+                        current.getInt("starsLieferung"),
+                        current.getInt("starsFood"),
+                        current.getString("comment"),
+                        current.getString("name")));
+            }
+            return output;
+        }
+
+        JSONArray j = new JSONArray(JSONObjectGET("http://localhost:8080/rating/" + RestaurantsController.id).toString());
         for(int i =0; i<j.length();i++) {
             JSONObject current = new JSONObject(j.get(i).toString());
 
-            BewertungListController.BewertungList r = new BewertungListController.BewertungList();
-            output.add(r = new BewertungListController.BewertungList(current.getInt("id"), current.getInt("restaurantId"), current.getInt("starsLieferung"),
-                    current.getInt("starsFood"), current.getString("comment"), current.getString("name")));
+            BewertungList r = new BewertungList();
+            output.add(r = new BewertungList(current.getInt("id"),
+                    current.getInt("restaurantId"),
+                    current.getInt("starsLieferung"),
+                    current.getInt("starsFood"),
+                    current.getString("comment"),
+                    current.getString("name")));
         }
-        data = FXCollections.observableArrayList(output);
         return output;
     }
-    /**
-     *     @TODO: Filter einbauen
-     */
-
 
     public static class BewertungList {
         private int id;
@@ -150,6 +159,7 @@ public class BewertungListController extends ConnectionController implements Ini
             this.name = name;
         }
 
+        public String getName() {return name;}
 
         @Override
         public String toString() {

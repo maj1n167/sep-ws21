@@ -18,6 +18,7 @@ public class TreuepunkteController extends ConnectionController {
     @FXML
     public int userId;
     public int treuepunkte;
+    public double discountedsumme;
 
     @FXML
     public void onDiscountButtonClick(ActionEvent event) throws IOException {
@@ -33,7 +34,14 @@ public class TreuepunkteController extends ConnectionController {
             }
 
         }
+
+        JSONObject jsonObject4 = new JSONObject(JSONObjectGET("http://localhost:8080/warenkorb/find/"+userId).toString());
+        discountedsumme = Double.parseDouble(jsonObject4.get("summe").toString());
+        discountedsumme = discountedsumme * 0.9;
+        jsonObject4.put("summe", discountedsumme);
+        JSONObjectPOST("http://localhost:8080/warenkorb/add", jsonObject4.toString());
         initialize();
+        changeScene("Warenkorb.fxml");
     }
 
     @FXML
@@ -82,29 +90,29 @@ public class TreuepunkteController extends ConnectionController {
         }
     }
 
-    @FXML
-    public void onAddTreuepunkt(ActionEvent event) throws IOException {
-
-
-            int EinTreuepunkt = 0;
-            EinTreuepunkt = EinTreuepunkt + 1;
-            treuepunkte += EinTreuepunkt;
-            String url = "http://localhost:8080/user";
-            JSONArray jsonArray = new JSONArray(JSONObjectGET(url).toString());
-            JSONObject jsonObject = new JSONObject();
-
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject jsonObject1 = jsonArray.getJSONObject(i);
-
-                if (jsonObject1.get("userId").equals(userId)) {
-                    jsonObject = jsonObject1;
-                }
-            }
-            jsonObject.put("treuepunkte", treuepunkte);
-            JSONObjectPOST("http://localhost:8080/user/add", jsonObject.toString());
-            initialize();
-
-        }
+//    @FXML
+//    public void onAddTreuepunkt(ActionEvent event) throws IOException {
+//
+//
+//            int EinTreuepunkt = 0;
+//            EinTreuepunkt = EinTreuepunkt + 1;
+//            treuepunkte += EinTreuepunkt;
+//            String url = "http://localhost:8080/user";
+//            JSONArray jsonArray = new JSONArray(JSONObjectGET(url).toString());
+//            JSONObject jsonObject = new JSONObject();
+//
+//            for (int i = 0; i < jsonArray.length(); i++) {
+//                JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+//
+//                if (jsonObject1.get("userId").equals(userId)) {
+//                    jsonObject = jsonObject1;
+//                }
+//            }
+//            jsonObject.put("treuepunkte", treuepunkte);
+//            JSONObjectPOST("http://localhost:8080/user/add", jsonObject.toString());
+//            initialize();
+//
+//        }
 
 
 
