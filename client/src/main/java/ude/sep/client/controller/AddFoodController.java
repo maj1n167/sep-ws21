@@ -11,6 +11,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import java.io.*;
 import java.net.URL;
+import java.util.Base64;
 import java.util.ResourceBundle;
 
 public class AddFoodController extends ConnectionController implements Initializable {
@@ -20,6 +21,8 @@ public class AddFoodController extends ConnectionController implements Initializ
     private Button speichern;
     @FXML
     private Button dateiXml;
+    @FXML
+    private Button uploadImage;
     @FXML
     private Button dateiUrl;
     @FXML
@@ -32,6 +35,8 @@ public class AddFoodController extends ConnectionController implements Initializ
     private TextField preis;
     @FXML
     private ImageView imageView;
+    @FXML
+    private TextField upload;
 
     private int userId;
 
@@ -43,6 +48,7 @@ public class AddFoodController extends ConnectionController implements Initializ
 
     @FXML
     public void speichernClick() throws IOException {
+        String bild=imageToString(upload.getText());
         String Url = "http://localhost:8080/food/add";
         JSONArray jsonArray = new JSONArray(JSONObjectGET("http://localhost:8080/kategorie").toString());
         int katID = 0;
@@ -68,7 +74,7 @@ public class AddFoodController extends ConnectionController implements Initializ
                                         "        \"beschreibung\": \"" + beschreibung.getText() + "\",\n" +
                                         "        \"preis\":" + Double.parseDouble(preis.getText()) + ",\n" +
                                         "        \"kategorie\": \"" + kategorie.getText() + "\",\n" +
-                                       // "        \"url\": \"" + imageView.getImage().toString() + "\",\n" +
+                                        "        \"bild\": \"" + bild + "\",\n" +
                                         " \"kategorieId\": \"" + kategorieId + "\",\n" +
                                         "\"menuId\":" + userId + "}";
                         JSONObjectPOST(Url, data);
@@ -147,7 +153,7 @@ public class AddFoodController extends ConnectionController implements Initializ
                                         "        \"beschreibung\": \"" + beschreibung.getText() + "\",\n" +
                                         "        \"preis\":" + Double.parseDouble(preis.getText()) + ",\n" +
                                         "        \"kategorie\": \"" + kategorie.getText() + "\",\n" +
-                                        //"        \"url\": \"" + imageView.getImage().toString() + "\",\n" +
+                                        "        \"bild\": \"" + bild + "\",\n" +
                                         " \"kategorieId\": \"" + kob.get("kategorieId") + "\",\n" +
                                         "\"menuId\":" + userId + "}";
 
@@ -272,16 +278,26 @@ public class AddFoodController extends ConnectionController implements Initializ
 
     @FXML
     public void uploadImage(ActionEvent event) throws IOException {
-
         FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Resource File");
 
-        File file = fileChooser.showOpenDialog(null);
-        file.getAbsoluteFile();
-        System.out.println(file);
+        File file = fileChooser.showOpenDialog(uploadImage.getScene().getWindow());
+        System.out.println(file.getAbsolutePath());
+        upload.setText(file.getAbsolutePath());
         Image image = new Image(file.toURI().toString());
         imageView.setImage(image);
+        System.out.println(upload);
+
+
+
     }
 
+   // FileChooser fileChooser = new FileChooser();
 
+    //File file = fileChooser.showOpenDialog(null);
+    //    file.getAbsoluteFile();
+      //  System.out.println(file);
+    //Image image = new Image(file.toURI().toString());
+     //   imageView.setImage(image);
 
 }

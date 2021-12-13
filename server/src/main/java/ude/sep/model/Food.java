@@ -16,7 +16,7 @@ public class Food  implements Serializable {
     private double preis;
     private String name;
     private String beschreibung;
-
+    private String bild;
     private Long kategorieId;
     private Long menuId;
 
@@ -91,4 +91,11 @@ public class Food  implements Serializable {
         this.beschreibung = beschreibung;
     }
 
+    public String getBild() {
+        return bild;
+    }
+
+    public void setBild(String bild) {
+        this.bild = bild;
+    }
 }

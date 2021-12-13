@@ -1,15 +1,16 @@
 package ude.sep.client.controller;
 
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import ude.sep.client.Main;
 import org.json.JSONObject;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
+
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-
+import java.util.Base64;
 
 
 public class ConnectionController {
@@ -67,5 +68,22 @@ public class ConnectionController {
     public static void changeScene(String fxml) throws IOException {
         Main m = new Main();
         m.changeScene(fxml);
+    }
+    public void stringToImageView(String image, ImageView imageView) {
+        byte[] jpeg = Base64.getDecoder().decode(image);
+        Image imageX = new Image(new ByteArrayInputStream(jpeg));
+        imageView.setImage(imageX);
+    }
+    public String imageToString(String filename) {
+        byte[] targetArray;
+        try {
+            InputStream inputStream = new FileInputStream(filename);
+            targetArray = new byte[inputStream.available()];
+            inputStream.read(targetArray);
+            return Base64.getEncoder().encodeToString(targetArray);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }
