@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="801.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ude.sep.client.controller.EditFoodController">
+    <children>
+        <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="50.0" prefHeight="50.0" style="-fx-background-color: #90ee90;" text="Supreme Eating Program" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <font>
+                <Font name="System Bold" size="20.0" />
+            </font>
+        </Label>
+      <Label layoutX="120.0" layoutY="103.0" prefWidth="250.0" text="Ändern Sie hier Ihre Speise ">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="95.0" layoutY="197.0" prefWidth="100.0" text="FoodID :" />
+      <Button layoutX="22.0" layoutY="554.0" mnemonicParsing="false" onAction="#zurückButton" text="zurück" />
+      <Button layoutX="667.0" layoutY="530.0" mnemonicParsing="false" onAction="#fertigButton" prefHeight="50.0" prefWidth="109.0" text="Fertig" />
+      <TextField fx:id="foodId" layoutX="145.0" layoutY="192.0" prefHeight="26.0" prefWidth="190.0" />
+      <Button fx:id="DeleteMenu" layoutX="658.0" layoutY="107.0" mnemonicParsing="false" onAction="#deleteMenu" prefHeight="36.0" prefWidth="79.0" text="Delete" />
+      <Label layoutX="431.0" layoutY="110.0" prefHeight="30.0" prefWidth="220.0" text="Löschen der kompletten Speisekarte :" />
+
+      
+                  <ScrollPane layoutX="75.0" layoutY="243.0" prefHeight="170.0" prefWidth="264.0">
+         <content>
+                    <TextFlow fx:id="foods" prefHeight="206.0" prefWidth="228.0">
+                    </TextFlow>
+         </content>
+
+                  </ScrollPane>
+      <Button layoutX="358.0" layoutY="192.0" mnemonicParsing="false" onAction="#ChangeFood" text="Bearbeiten" />
+
+    </children>
+</AnchorPane>

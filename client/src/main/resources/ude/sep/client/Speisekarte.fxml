@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ude.sep.client.controller.SpeisekarteController">
+    <children>
+        <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="50.0" prefHeight="50.0" style="-fx-background-color: #90ee90;" text="Supreme Eating Program" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <font>
+                <Font name="System Bold" size="20.0" />
+            </font>
+        </Label>
+      <Label layoutX="304.0" layoutY="50.0" prefHeight="67.0" prefWidth="236.0" text="Speisekarte">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <Button layoutX="112.0" layoutY="182.0" mnemonicParsing="false" onAction="#speiseHinzufuegen" prefHeight="50.0" prefWidth="170.0" text="Speise Hinzufügen">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Button layoutX="112.0" layoutY="275.0" mnemonicParsing="false" onAction="#speiseBearbeiten" prefHeight="50.0" prefWidth="170.0" text="Speise Bearbeiten">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Button layoutX="112.0" layoutY="367.0" mnemonicParsing="false" onAction="#xmlButton" prefHeight="50.0" prefWidth="170.0" text="xml">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Button layoutX="29.0" layoutY="550.0" mnemonicParsing="false" onAction="#zurückButton" text="zurück" />
+    </children>
+</AnchorPane>
