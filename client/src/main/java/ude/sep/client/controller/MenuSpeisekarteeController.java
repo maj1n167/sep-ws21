@@ -89,6 +89,14 @@ public class MenuSpeisekarteeController extends ConnectionController {
         return output;
     }
 
+    public void zurückButton(ActionEvent actionEvent) throws IOException{
+        changeScene("Restaurants.fxml");
+    }
+
+    public void fertig(ActionEvent actionEvent) throws IOException {
+        changeScene("Warenkorb.fxml");
+    }
+
 
     public static class Food extends ConnectionController {
         private int foodId;
@@ -114,8 +122,6 @@ public class MenuSpeisekarteeController extends ConnectionController {
 
         private Button hinzufügen;
 
-        public Food(Image image, String name, String beschreibung, double preis, int foodId, String kategorie) {
-        }
 
         public Food(int foodId, double preis, String name, String beschreibung, String url, Long kategorieId, Long menuId, String kategorie) {
             this.foodId = foodId;
@@ -244,8 +250,6 @@ public class MenuSpeisekarteeController extends ConnectionController {
         }
 
 
-        public void fertig(ActionEvent actionEvent) throws IOException {
-            changeScene("Warenkorb.fxml");
-        }
+
     }
 }
