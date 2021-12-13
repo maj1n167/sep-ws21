@@ -18,7 +18,7 @@ import java.io.IOException;
 public class MenuSpeisekarteeController extends ConnectionController {
 
     @FXML
-    TableView<Food>list;
+    TableView<Food> list;
     @FXML
     TableColumn Kategorie = new TableColumn("Kategorie");
     @FXML
@@ -44,13 +44,12 @@ public class MenuSpeisekarteeController extends ConnectionController {
             restaurantId = RestaurantsController.id;
             userId = LoginController.userId;
             list.setEditable(true);
-            Bild.setCellValueFactory(new PropertyValueFactory<>("image"));
             Kategorie.setCellValueFactory(new PropertyValueFactory<Food, String>("kategorie"));
             Name.setCellValueFactory(new PropertyValueFactory<Food, String>("name"));
             Beschreibung.setCellValueFactory(new PropertyValueFactory<Food, String>("beschreibung"));
             Preis.setCellValueFactory(new PropertyValueFactory<Food, Double>("preis"));
             Id.setCellValueFactory(new PropertyValueFactory<Food, Integer>("foodId"));
-            addWarenkorb.setCellValueFactory(new PropertyValueFactory<Food,Button>("hinzufügen"));
+            addWarenkorb.setCellValueFactory(new PropertyValueFactory<Food, Button>("hinzufügen"));
             list.setFixedCellSize(65);
             //ImageView image= new ImageView(new Image(this.getClass().getResourceAsStream("/img/pizza2.png")));
             list.setItems(getSpeisekarte());
@@ -63,28 +62,26 @@ public class MenuSpeisekarteeController extends ConnectionController {
 
     public ObservableList<Food> getSpeisekarte() throws IOException {
         ObservableList<Food> output = FXCollections.observableArrayList();
-        JSONObject b = new JSONObject(JSONObjectGET("http://localhost:8080/menu/find/"+restaurantId).toString());
-        JSONArray kategories= new JSONArray(b.get("kategories").toString());
+        JSONObject b = new JSONObject(JSONObjectGET("http://localhost:8080/menu/find/" + restaurantId).toString());
+        JSONArray kategories = new JSONArray(b.get("kategories").toString());
         System.out.println(kategories);
         for (int i = 0; i < kategories.length(); i++) {
 
             JSONObject current = new JSONObject(kategories.get(i).toString());
             JSONArray foods = new JSONArray(current.get("foods").toString());
             System.out.println(foods);
-            for(int j =0;j < foods.length();j++){
-                JSONObject currentfoods= new JSONObject(foods.get(j).toString());
+            for (int j = 0; j < foods.length(); j++) {
+                JSONObject currentfoods = new JSONObject(foods.get(j).toString());
                 System.out.println(currentfoods);
-                currentfoods.put("kategorie",current.get("kategorie"));
+                currentfoods.put("kategorie", current.get("kategorie"));
                 Food r = new Food();
                 System.out.println(r.preis);
                 System.out.println("here");
-                ImageView image= new ImageView(new Image(this.getClass().getResourceAsStream("/img/pizza2.png")));
-                output.add(r = new Food(image,currentfoods.getString("name"),
+                output.add(r = new Food(currentfoods.getString("name"),
                         currentfoods.getString("beschreibung"), currentfoods.getDouble("preis"),
-                        currentfoods.getInt("foodId"),currentfoods.getString("kategorie")));
+                        currentfoods.getInt("foodId"), currentfoods.getString("kategorie")));
                 System.out.println(output);
 
-                System.out.println(image);
             }
 
         }
@@ -93,9 +90,8 @@ public class MenuSpeisekarteeController extends ConnectionController {
     }
 
 
-    public static class Food extends ConnectionController{
+    public static class Food extends ConnectionController {
         private int foodId;
-        private ImageView image;
         private double preis;
         private String name;
         private String beschreibung;
@@ -121,23 +117,23 @@ public class MenuSpeisekarteeController extends ConnectionController {
         public Food(Image image, String name, String beschreibung, double preis, int foodId, String kategorie) {
         }
 
-        public Food(int foodId,ImageView image, double preis, String name, String beschreibung, String url, Long kategorieId, Long menuId, String kategorie) {
+        public Food(int foodId, double preis, String name, String beschreibung, String url, Long kategorieId, Long menuId, String kategorie) {
             this.foodId = foodId;
-            this.image = image;
             this.preis = preis;
             this.name = name;
             this.beschreibung = beschreibung;
             this.url = url;
             this.kategorieId = kategorieId;
             this.menuId = menuId;
-            this.kategorie= kategorie;
+            this.kategorie = kategorie;
             this.hinzufügen = new Button();
             this.hinzufügen.setText("Hinzufügen");
             this.hinzufügen.setOnAction(new EventHandler<ActionEvent>() {
-                @Override public void handle(ActionEvent event) {
+                @Override
+                public void handle(ActionEvent event) {
                     try {
-                    JSONObject jsonObject = new JSONObject(JSONObjectGET("http://localhost:8080/warenkorb/find/"+userId));
-                    jsonObject.put("foodList",foodId);
+                        JSONObject jsonObject = new JSONObject(JSONObjectGET("http://localhost:8080/warenkorb/find/" + userId));
+                        jsonObject.put("foodList", foodId);
 
 
                     } catch (IOException e) {
@@ -147,8 +143,8 @@ public class MenuSpeisekarteeController extends ConnectionController {
             });
         }
 
-        public Food(ImageView image,String name, String beschreibung, double preis, int id ,String kategorie) {
-            this.image= image;
+        public Food(String name, String beschreibung, double preis, int id, String kategorie) {
+
             this.name = name;
             this.beschreibung = beschreibung;
             this.preis = preis;
@@ -157,24 +153,25 @@ public class MenuSpeisekarteeController extends ConnectionController {
             this.hinzufügen = new Button();
             this.hinzufügen.setText("Hinzufügen");
             this.hinzufügen.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent event) {
-                try {
-                    JSONObject jsonObject = new JSONObject(JSONObjectGET("http://localhost:8080/warenkorb/find/"+userId).toString());
-                    JSONArray jsonArray = new JSONArray(jsonObject.get("foodList").toString());
-                    JSONObject jsonObject1 = new JSONObject(JSONObjectGET("http://localhost:8080/food/find/"+foodId).toString());
-                    System.out.println(jsonObject1);
-                    jsonArray.put(jsonObject1);
-                    jsonObject.put("foodList",jsonArray);
-                    double x =jsonObject.getDouble("summe");
-                    double summe = x +preis;
-                    jsonObject.put("summe",summe);
-                    JSONObjectPOST("http://localhost:8080/warenkorb/add",jsonObject.toString());
+                @Override
+                public void handle(ActionEvent event) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(JSONObjectGET("http://localhost:8080/warenkorb/find/" + userId).toString());
+                        JSONArray jsonArray = new JSONArray(jsonObject.get("foodList").toString());
+                        JSONObject jsonObject1 = new JSONObject(JSONObjectGET("http://localhost:8080/food/find/" + foodId).toString());
+                        System.out.println(jsonObject1);
+                        jsonArray.put(jsonObject1);
+                        jsonObject.put("foodList", jsonArray);
+                        double x = jsonObject.getDouble("summe");
+                        double summe = x + preis;
+                        jsonObject.put("summe", summe);
+                        JSONObjectPOST("http://localhost:8080/warenkorb/add", jsonObject.toString());
 
-                } catch (IOException e) {
-                    e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
-            }
-        });
+            });
         }
 
         public int getFoodId() {
@@ -241,25 +238,14 @@ public class MenuSpeisekarteeController extends ConnectionController {
             this.kategorie = kategorie;
         }
 
-        public ImageView getImage() {
-            return image;
+
+        public void zurückButton() throws IOException {
+            changeScene("Restaurants.fxml");
         }
 
-        public void setImage(ImageView image) {
-            this.image = image;
+
+        public void fertig(ActionEvent actionEvent) throws IOException {
+            changeScene("Warenkorb.fxml");
         }
-    }
-
-
-
-
-
-    public void zurückButton () throws IOException {
-        changeScene("Restaurants.fxml");
-    }
-
-
-    public void fertig(ActionEvent actionEvent) throws IOException {
-        changeScene("Warenkorb.fxml");
     }
 }
