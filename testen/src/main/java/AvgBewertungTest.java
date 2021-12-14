@@ -2,8 +2,8 @@
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import org.json.JSONObject;
+import org.junit.Test;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import ude.sep.client.controller.*;
 
@@ -15,8 +15,13 @@ public class AvgBewertungTest  extends ConnectionController {
 
     @Test
     public void testAvgBewertung() throws IOException {
+
         JFXPanel fxPanel = new JFXPanel();
         RegistrationController registration = new RegistrationController();
+        LoginController login = new LoginController();
+        StartseiteController startseite = new StartseiteController();
+
+
         //Erstellung Geschaeftskunde & Erstellung Restaurant
         Platform.runLater(new Runnable(){
             @Override
@@ -31,10 +36,35 @@ public class AvgBewertungTest  extends ConnectionController {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                login.inputEmail.setText("ok@ok");
+                login.inputPassword.setText("ok");
+                try {
+                    login.onLoginButtonClick();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
             }
         });
+        System.out.println("UserId im Login: "+login.getUserId());
+        /*
+        Platform.runLater(new Runnable(){
+            @Override
+            public void run (){
+                login.inputEmail.setText("ok@ok");
+                login.inputPassword.setText("ok");
 
+                try {
+                    login.onLoginButtonClick();
+                } catch (IOException e){
+                    e.printStackTrace();
+                }
+            }
+        });
+        */
         //Login Geschaeftskunde
+
 
 
         //Erstellung Restaurant

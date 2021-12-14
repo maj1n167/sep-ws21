@@ -27,7 +27,8 @@ public class RegistrationController extends ConnectionController {
 
     public static int regUserId;
 
-
+    public RegistrationController() {
+    }
 
     @FXML
     public void onRegisterButtonClick() throws IOException {
