@@ -33,7 +33,7 @@ public class ConnectionController {
     }
 
     //POST request um Daten über ein POSTMapping in die DB zu bekommen
-    public static void JSONObjectPOST(String inputUrl, String data) throws IOException {
+    public void JSONObjectPOST(String inputUrl, String data) throws IOException {
         URL url = new URL(inputUrl);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("POST");
