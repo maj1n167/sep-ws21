@@ -39,50 +39,64 @@ public class RegistrationController extends ConnectionController {
             alert.setTitle("Error");
             alert.setTitle("Error: Fehlende Zeile");
             alert.setContentText("Bitte füllen Sie alle Felder aus");
-
             alert.showAndWait();
-        } else if (businessUser.isSelected()) {
-
-            String url = "http://localhost:8080/user/add";
-
-
-            String data = "{ \"vorname\": \"" + vornameTextfield.getText().toString() + "\",\n" +
-                    " \"name\": \"" + nameTextfield.getText().toString() + "\",\n" +
-                    " \"email\":\"" + emailTextfield.getText().toString() + "\",\n" +
-                    " \"password\": \"" + passwortTextfield.getText().toString() + "\",\n" +
-                    " \"restaurantBesitzer\": \"true\" }";
-
-            JSONObjectPOST(url, data);
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Konto hinzugefügt");
-            alert.setContentText("Konto erfolgreich erstellt!");
-            alert.showAndWait();
-            changeScene("Login.fxml");
         } else {
-//         Hier erstmal alles kommentiert, da das hier in Zyklus 2 relevant sein wird. -ok
-            String url = "http://localhost:8080/user/add";
 
-            JSONObject user = new JSONObject();
-
-            user.put("vorname", vornameTextfield.getText());
-            user.put("name",nameTextfield.getText());
-            user.put("email", emailTextfield.getText());
-            user.put("password",passwortTextfield.getText());
-            user.put("guthaben",0);
-            user.put("restaurantBesitzer", false);
-
-
-            JSONObjectPOST(url, user.toString());
-            System.out.println("Daten korrekt übertragen");
-
-            JSONArray jsonArray = new JSONArray(JSONObjectGET("http://localhost:8080/user").toString());
-            for(int i = 0; i<jsonArray.length(); i++){
-                JSONObject jsonObject =  jsonArray.getJSONObject(i);
-                if(jsonObject.get("email").equals(emailTextfield.getText().toString()) && jsonObject.get("password").equals(passwortTextfield.getText().toString())){
-                    regUserId = Integer.parseInt(jsonObject.get("userId").toString());
+            JSONArray json = new JSONArray(JSONObjectGET("http://localhost:8080/user").toString());
+            for(int i = 0; i<json.length(); i++){
+                JSONObject jsonObject =  json.getJSONObject(i);
+                if(jsonObject.get("email").equals(emailTextfield.getText().toString())){
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Error");
+                    alert.setTitle("Error: Konto Bereits vorhanden!");
+                    alert.setContentText("Konto bereits vorhanden!\nVerwenden Sie eine ander E-Mail!");
+                    alert.showAndWait();
+                    return;
                 }
             }
-            changeScene("KRegistration.fxml");
+            if (businessUser.isSelected()) {
+
+                String url = "http://localhost:8080/user/add";
+
+
+                String data = "{ \"vorname\": \"" + vornameTextfield.getText().toString() + "\",\n" +
+                        " \"name\": \"" + nameTextfield.getText().toString() + "\",\n" +
+                        " \"email\":\"" + emailTextfield.getText().toString() + "\",\n" +
+                        " \"password\": \"" + passwortTextfield.getText().toString() + "\",\n" +
+                        " \"restaurantBesitzer\": \"true\" }";
+
+                JSONObjectPOST(url, data);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Konto hinzugefügt");
+                alert.setContentText("Konto erfolgreich erstellt!");
+                alert.showAndWait();
+                changeScene("Login.fxml");
+            } else {
+//         Hier erstmal alles kommentiert, da das hier in Zyklus 2 relevant sein wird. -ok
+                String url = "http://localhost:8080/user/add";
+
+                JSONObject user = new JSONObject();
+
+                user.put("vorname", vornameTextfield.getText());
+                user.put("name", nameTextfield.getText());
+                user.put("email", emailTextfield.getText());
+                user.put("password", passwortTextfield.getText());
+                user.put("guthaben", 0);
+                user.put("restaurantBesitzer", false);
+
+
+                JSONObjectPOST(url, user.toString());
+                System.out.println("Daten korrekt übertragen");
+
+                JSONArray jsonArray = new JSONArray(JSONObjectGET("http://localhost:8080/user").toString());
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    if (jsonObject.get("email").equals(emailTextfield.getText().toString()) && jsonObject.get("password").equals(passwortTextfield.getText().toString())) {
+                        regUserId = Integer.parseInt(jsonObject.get("userId").toString());
+                    }
+                }
+                changeScene("KRegistration.fxml");
+            }
         }
     }
 
