@@ -37,8 +37,24 @@ public class LoginController extends ConnectionController {
              JSONObjectGET("http://localhost:8080/user/send/verification/"+jsonObject.get("email"));
              email = jsonObject.get("email").toString();
              userId = Integer.parseInt(jsonObject.get("userId").toString());
-             changeScene("Verify-View.fxml");
-             return;
+             // zum testen
+             if(jsonObject.getBoolean("restaurantBesitzer")){
+                 changeScene("Startseite.fxml");
+                 return;
+             } else {
+                 VerificationController.standard = jsonObject.getString("strasse")
+                         + " " + jsonObject.getString("nummer")
+                         + " " + jsonObject.getString("plz")
+                         + " " + jsonObject.getString("stadt");
+                 VerificationController.alternative = jsonObject.getString("altAdresse")
+                         + " " + jsonObject.getString("altNummer")
+                         + " " + jsonObject.getString("altPlz")
+                         + " " + jsonObject.getString("altStadt");
+                 changeScene("KStartseite.fxml");
+                 return;
+             }
+//             changeScene("Verify-View.fxml");
+//             return;
          }
        }
         Alert alert = new Alert (Alert.AlertType.INFORMATION);

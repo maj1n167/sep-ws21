@@ -88,6 +88,7 @@ public class RestaurantsController extends ConnectionController implements Initi
 
     void populateMap() throws IOException {
         // Fertig
+        map.clearMarkers();
         if(standard.isSelected()) {
             String address = VerificationController.standard;
             LatLong latlong = null;
