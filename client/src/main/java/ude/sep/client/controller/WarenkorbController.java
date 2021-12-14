@@ -106,30 +106,6 @@ public class WarenkorbController extends ConnectionController {
         String url4 = "http://localhost:8080/user/findbyid/" + userId;
         String url5 = "http://localhost:8080/restaurant/find/" + restaurantid;
 
-        initialize2();
-        JSONObject jsonObject31 = new JSONObject(JSONObjectGET("http://localhost:8080/warenkorb/find/" + userId).toString());
-        profuenfer = Double.parseDouble(jsonObject31.get("summe").toString());
-        while (profuenfer >= 5) {
-            int EinTreuepunkt = 0;
-            EinTreuepunkt = EinTreuepunkt + 1;
-            treuepunkte += EinTreuepunkt;
-            String url = "http://localhost:8080/user";
-            JSONArray jsonArrayABC = new JSONArray(JSONObjectGET(url).toString());
-            JSONObject jsonObjectABC = new JSONObject();
-
-            for (int i = 0; i < jsonArrayABC.length(); i++) {
-                JSONObject jsonObjectXYZ = jsonArrayABC.getJSONObject(i);
-
-                if (jsonObjectXYZ.get("userId").equals(userId)) {
-                    jsonObjectABC = jsonObjectXYZ;
-                }
-            }
-            jsonObjectABC.put("treuepunkte", treuepunkte);
-            JSONObjectPOST("http://localhost:8080/user/add", jsonObjectABC.toString());
-            profuenfer = profuenfer - 5;
-            initialize2();
-        }
-
         JSONArray jsonArray = new JSONArray(JSONObjectGET(url1).toString());
         JSONObject jsonObject = new JSONObject();
 
@@ -145,6 +121,36 @@ public class WarenkorbController extends ConnectionController {
 
         if (Double.parseDouble(user.get("guthaben").toString()) >= Double.parseDouble(jsonObject.get("summe").toString()) &&
                 Double.parseDouble(jsonObject.get("summe").toString()) >= Double.parseDouble(restaurant.get("mbw").toString())) {
+
+            //Treuepunkte Anfang - LG
+
+            initialize2();
+            JSONObject jsonObject31 = new JSONObject(JSONObjectGET("http://localhost:8080/warenkorb/find/" + userId).toString());
+            profuenfer = Double.parseDouble(jsonObject31.get("summe").toString());
+            while (profuenfer >= 5) {
+                int EinTreuepunkt = 0;
+                EinTreuepunkt = EinTreuepunkt + 1;
+                treuepunkte += EinTreuepunkt;
+                String url = "http://localhost:8080/user";
+                JSONArray jsonArrayABC = new JSONArray(JSONObjectGET(url).toString());
+                JSONObject jsonObjectABC = new JSONObject();
+
+                for (int i = 0; i < jsonArrayABC.length(); i++) {
+                    JSONObject jsonObjectXYZ = jsonArrayABC.getJSONObject(i);
+
+                    if (jsonObjectXYZ.get("userId").equals(userId)) {
+                        jsonObjectABC = jsonObjectXYZ;
+                    }
+                }
+                jsonObjectABC.put("treuepunkte", treuepunkte);
+                JSONObjectPOST("http://localhost:8080/user/add", jsonObjectABC.toString());
+                profuenfer = profuenfer - 5;
+                initialize2();
+            }
+
+            //Treuepunkte Ende - LG
+
+
             double neuesGuthaben = Double.parseDouble(user.get("guthaben").toString()) - Double.parseDouble(jsonObject.get("summe").toString());
             user.put("guthaben", neuesGuthaben);
             JSONObjectPOST("http://localhost:8080/user/add", user.toString());
