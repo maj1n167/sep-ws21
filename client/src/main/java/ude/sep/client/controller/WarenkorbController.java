@@ -266,9 +266,11 @@ public class WarenkorbController extends ConnectionController {
                 jsonObject1.put("summe",preis);
                 JSONObjectPOST("http://localhost:8080/warenkorb/add",jsonObject1.toString());
                 JSONObjectDELETE("http://localhost:8080/warenfood/delete/"+jsonObject.get("bestellfoodid"));
+                listView.getItems().clear();
+                initialize();
             }
         }
-        initialize();
+
 
 
 
