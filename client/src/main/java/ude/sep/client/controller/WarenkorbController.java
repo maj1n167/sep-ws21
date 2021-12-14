@@ -254,18 +254,21 @@ public class WarenkorbController extends ConnectionController {
 
 
     public void deleteButton() throws IOException{
-
-        int id = 0;
         String url1 = "http://localhost:8080/warenkorb/find/"+userId;
         JSONObject jsonObject1 = new JSONObject(JSONObjectGET(url1).toString());
-        JSONArray jsonArray = new JSONArray(jsonObject1.get("foodList"));
+        JSONArray jsonArray = new JSONArray(jsonObject1.get("foodList").toString());
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
             int x = Integer.parseInt(id.getText());
             if(jsonObject.get("bestellfoodid").equals(x)) {
-            JSONObjectDELETE("http://localhost:8080/warenfood/delete/"+jsonObject.get("bestellfoodid"));
+                double preis = jsonObject1.getDouble("summe");
+                preis -= jsonObject.getDouble("preis");
+                jsonObject1.put("summe",preis);
+                JSONObjectPOST("http://localhost:8080/warenkorb/add",jsonObject1.toString());
+                JSONObjectDELETE("http://localhost:8080/warenfood/delete/"+jsonObject.get("bestellfoodid"));
             }
         }
+        initialize();
 
 
 
