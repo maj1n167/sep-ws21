@@ -16,25 +16,25 @@ public class BewertungController extends ConnectionController {
 
 
     @FXML
-    private TextField kommentarTextfield;
+    public TextField kommentarTextfield;
 
     @FXML
-    private TextField nameTextfield;
+    public TextField nameTextfield;
 
     @FXML
-    ChoiceBox<String> gerichtChoiceBox;
+    public ChoiceBox<String> gerichtChoiceBox;
 
     @FXML
-    ChoiceBox<String> lieferungChoiceBox;
+    public ChoiceBox<String> lieferungChoiceBox;
 
     @FXML
-    private Button speichernButton;
+    public Button speichernButton;
 
     @FXML
-    private Button zurueckButton;
+    public Button zurueckButton;
 
 
-    private int restaurantId;
+    public int restaurantId;
 
 
 
@@ -49,9 +49,6 @@ public class BewertungController extends ConnectionController {
         //ersten Punkt auf 5 setzen
         lieferungChoiceBox.setValue("5");
 
-        /**
-         * TODO: Speicherung fertigstellen
-         */
         this.restaurantId = RestaurantsController.id;
     }
 
