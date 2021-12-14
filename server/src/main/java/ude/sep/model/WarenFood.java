@@ -9,9 +9,6 @@ public class WarenFood {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int bestellfoodid;
-
-
-    private int warenId;
     private double preis;
     private String name;
     private String beschreibung;
@@ -20,9 +17,22 @@ public class WarenFood {
     private Long menuId;
     private int warenFId;
 
-    public WarenFood(int bestellfoodid, int warenId, double preis, String name, String beschreibung, String url, Long kategorieId, Long menuId, int warenid) {
+    public WarenFood(int bestellfoodid, double preis, String name, String beschreibung, String url, Long kategorieId, Long menuId, int warenFId, String date) {
         this.bestellfoodid = bestellfoodid;
-        this.warenId = warenId;
+        this.preis = preis;
+        this.name = name;
+        this.beschreibung = beschreibung;
+        this.url = url;
+        this.kategorieId = kategorieId;
+        this.menuId = menuId;
+        this.warenFId = warenFId;
+        this.date = date;
+    }
+
+    private String date;
+    public WarenFood(int bestellfoodid, double preis, String name, String beschreibung, String url, Long kategorieId, Long menuId, int warenid) {
+        this.bestellfoodid = bestellfoodid;
+
         this.preis = preis;
         this.name = name;
         this.beschreibung = beschreibung;
@@ -36,20 +46,28 @@ public class WarenFood {
 
     }
 
+    public int getWarenFId() {
+        return warenFId;
+    }
+
+    public void setWarenFId(int warenFId) {
+        this.warenFId = warenFId;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
     public int getBestellfoodid() {
         return bestellfoodid;
     }
 
     public void setBestellfoodid(int bestellfoodid) {
         this.bestellfoodid = bestellfoodid;
-    }
-
-    public int getWarenId() {
-        return warenId;
-    }
-
-    public void setWarenId(int warenId) {
-        this.warenId = warenId;
     }
 
     public double getPreis() {

@@ -14,6 +14,7 @@ import javafx.scene.image.ImageView;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.io.IOException;
+import java.util.Date;
 
 public class MenuSpeisekarteeController extends ConnectionController {
 
@@ -165,9 +166,28 @@ public class MenuSpeisekarteeController extends ConnectionController {
                         JSONObject jsonObject = new JSONObject(JSONObjectGET("http://localhost:8080/warenkorb/find/" + userId).toString());
                         JSONArray jsonArray = new JSONArray(jsonObject.get("foodList").toString());
                         JSONObject jsonObject1 = new JSONObject(JSONObjectGET("http://localhost:8080/food/find/" + foodId).toString());
-                        System.out.println(jsonObject1);
-                        jsonArray.put(jsonObject1);
+                        JSONObject newFood = new JSONObject();
+                        newFood.put("name",jsonObject1.get("name"));
+                        newFood.put("beschreibung",jsonObject1.get("beschreibung"));
+                        newFood.put("preis", jsonObject1.getDouble("preis"));
+                        Date date = new Date();
+                        newFood.put("date",date.toString());
+                        newFood.put("warenFID",userId);
+                        newFood.put("kategorieId", jsonObject1.get("kategorieId"));
+                        JSONObjectPOST("http://localhost:8080/warenfood/add",newFood.toString());
+                        JSONArray allWarenFood = new JSONArray(JSONObjectGET("http://localhost:8080/warenfood").toString());
+                        for(int i = 0; i<allWarenFood.length(); i++){
+                            JSONObject m = allWarenFood.getJSONObject(i);
+                            if(m.get("date").equals(date.toString())){
+                                jsonArray.put(m);
+                            }
+                        }
+
+
+                        System.out.println(newFood);
+
                         jsonObject.put("foodList", jsonArray);
+                        System.out.println(jsonObject.toString());
                         double x = jsonObject.getDouble("summe");
                         double summe = x + preis;
                         jsonObject.put("summe", summe);

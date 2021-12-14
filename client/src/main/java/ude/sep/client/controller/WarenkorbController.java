@@ -218,6 +218,15 @@ public class WarenkorbController extends ConnectionController {
             JSONObjectPOST("http://localhost:8080/bestellHistorie/add", jsonObject2.toString());
             System.out.printf("done");
             JSONArray y = new JSONArray();
+            JSONObject jsonObject1 = new JSONObject(JSONObjectGET("http://localhost:8080/warenkorb/find/"+userId).toString());
+            JSONArray jsonArray3 = new JSONArray(jsonObject1.get("foodList").toString());
+            System.out.println(jsonArray3);
+            for (int i = 0;i<jsonArray3.length(); i++){
+                JSONObject jsonObject3 = jsonArray3.getJSONObject(i);
+                System.out.println(jsonObject3);
+                JSONObjectDELETE("http://localhost:8080/warenfood/delete/"+jsonObject3.get("bestellfoodid"));
+            }
+
             JSONObject emptyWarenkorb = new JSONObject();
             emptyWarenkorb.put("warenkorbId", userId);
             emptyWarenkorb.put("summe", 0);
