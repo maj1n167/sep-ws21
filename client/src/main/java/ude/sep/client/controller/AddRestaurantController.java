@@ -49,7 +49,7 @@ public class AddRestaurantController extends ConnectionController {
 
 
 
-    public AddRestaurantController() {
+    public void initialize() {
 
         kategorieChoicebox.getItems().addAll("Italienisch", "Griechisch", "Indisch", "Spanisch", "Deutsch", "Asiatisch", "Amerikanisch", "Türkisch", "Sonstige");
         //ersten Punkt auf Pizza setzen
