@@ -49,7 +49,7 @@ public class AddRestaurantController extends ConnectionController {
 
 
 
-    public void initialize() {
+    public AddRestaurantController() {
 
         kategorieChoicebox.getItems().addAll("Italienisch", "Griechisch", "Indisch", "Spanisch", "Deutsch", "Asiatisch", "Amerikanisch", "Türkisch", "Sonstige");
         //ersten Punkt auf Pizza setzen
@@ -122,6 +122,8 @@ public class AddRestaurantController extends ConnectionController {
                             " \"ratingDelivery\": \"" + 0.0 + "\",\n" +
                             " \"lieferbereich\": \"" + radius + "\"\n}";
 
+
+                System.out.println(json);
                 //Request
                 JSONObjectPOST(url, json);
 

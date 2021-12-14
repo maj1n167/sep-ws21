@@ -11,17 +11,17 @@ public class RegistrationController extends ConnectionController {
     @FXML
     Button registerButton;
     @FXML
-    TextField vornameTextfield;
+    public TextField vornameTextfield = new TextField();
     @FXML
-    TextField nameTextfield;
+    public TextField nameTextfield= new TextField();
     @FXML
-    TextField emailTextfield;
+    public TextField emailTextfield = new TextField();
     @FXML
-    PasswordField passwortTextfield;
+    public PasswordField passwortTextfield= new PasswordField();
     @FXML
-    RadioButton businessUser;
+     public RadioButton businessUser = new RadioButton();
     @FXML
-    RadioButton kunde;
+    public RadioButton kunde = new RadioButton();
     @FXML
     ToggleGroup group = new ToggleGroup();
 
@@ -30,7 +30,7 @@ public class RegistrationController extends ConnectionController {
 
 
     @FXML
-    protected void onRegisterButtonClick() throws IOException {
+    public void onRegisterButtonClick() throws IOException {
 
         if (vornameTextfield.getText().equals("") || nameTextfield.getText().equals("") || emailTextfield.getText().equals("")
                 || passwortTextfield.getText().equals("") || !(businessUser.isSelected() || kunde.isSelected()) ) {

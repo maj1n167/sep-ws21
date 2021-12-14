@@ -16,10 +16,10 @@ public class BewertungController extends ConnectionController {
 
 
     @FXML
-    public TextField kommentarTextfield;
+    public TextField kommentarTextfield = new TextField();
 
     @FXML
-    public TextField nameTextfield;
+    public TextField nameTextfield = new TextField();
 
     @FXML
     public ChoiceBox<String> gerichtChoiceBox;
