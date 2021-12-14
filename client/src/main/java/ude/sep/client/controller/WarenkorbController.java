@@ -2,10 +2,7 @@ package ude.sep.client.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.SelectionMode;
+import javafx.scene.control.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.io.IOException;
@@ -18,6 +15,9 @@ public class WarenkorbController extends ConnectionController {
     ListView<String> listView;
     @FXML
     public Label summe;
+
+    @FXML
+    public TextField id;
 
     @FXML
     public Label lieferkosten;
@@ -45,7 +45,7 @@ public class WarenkorbController extends ConnectionController {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
             System.out.println(jsonObject);
             listView.getItems().add(jsonObject.get("name") + "  " + "Preis: " + jsonObject.get("preis").toString() +
-                    " " + "Beschreibung: " + jsonObject.get("beschreibung"));
+                    " " + "Beschreibung: " + jsonObject.get("beschreibung") +" Id: "+jsonObject.get("bestellfoodid"));
         }
         listView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
@@ -249,6 +249,25 @@ public class WarenkorbController extends ConnectionController {
 
             alert.showAndWait();
         }
+
+    }
+
+
+    public void deleteButton() throws IOException{
+
+        int id = 0;
+        String url1 = "http://localhost:8080/warenkorb/find/"+userId;
+        JSONObject jsonObject1 = new JSONObject(JSONObjectGET(url1).toString());
+        JSONArray jsonArray = new JSONArray(jsonObject1.get("foodList"));
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject jsonObject = jsonArray.getJSONObject(i);
+            int x = Integer.parseInt(id.getText());
+            if(jsonObject.get("bestellfoodid").equals(x)) {
+            JSONObjectDELETE("http://localhost:8080/warenfood/delete/"+jsonObject.get("bestellfoodid"));
+            }
+        }
+
+
 
     }
 
