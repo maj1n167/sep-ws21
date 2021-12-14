@@ -1,13 +1,8 @@
 
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
-import org.json.JSONObject;
-import org.junit.Test;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.Test;
 import ude.sep.client.controller.*;
-
-import javax.servlet.Registration;
 import java.io.IOException;
 
 
