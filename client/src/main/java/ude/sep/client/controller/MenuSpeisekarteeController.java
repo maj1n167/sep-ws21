@@ -42,9 +42,11 @@ public class MenuSpeisekarteeController extends ConnectionController {
 
     public void initialize() {
         try {
+
             restaurantId = RestaurantsController.id;
             userId = LoginController.userId;
             list.setEditable(true);
+            Bild.setCellValueFactory(new PropertyValueFactory<Food, ImageView>("bild"));
             Kategorie.setCellValueFactory(new PropertyValueFactory<Food, String>("kategorie"));
             Name.setCellValueFactory(new PropertyValueFactory<Food, String>("name"));
             Beschreibung.setCellValueFactory(new PropertyValueFactory<Food, String>("beschreibung"));
@@ -52,7 +54,6 @@ public class MenuSpeisekarteeController extends ConnectionController {
             Id.setCellValueFactory(new PropertyValueFactory<Food, Integer>("foodId"));
             addWarenkorb.setCellValueFactory(new PropertyValueFactory<Food, Button>("hinzufügen"));
             list.setFixedCellSize(65);
-            //ImageView image= new ImageView(new Image(this.getClass().getResourceAsStream("/img/pizza2.png")));
             list.setItems(getSpeisekarte());
 
 
@@ -78,7 +79,10 @@ public class MenuSpeisekarteeController extends ConnectionController {
                 Food r = new Food();
                 System.out.println(r.preis);
                 System.out.println("here");
-                output.add(r = new Food(currentfoods.getString("name"),
+                ImageView imageBild = new ImageView();
+                System.out.println(currentfoods.get("bild"));
+                stringToImageView(currentfoods.getString("bild"), imageBild);
+                output.add(r = new Food(imageBild, currentfoods.getString("name"),
                         currentfoods.getString("beschreibung"), currentfoods.getDouble("preis"),
                         currentfoods.getInt("foodId"), currentfoods.getString("kategorie")));
                 System.out.println(output);
@@ -100,6 +104,7 @@ public class MenuSpeisekarteeController extends ConnectionController {
 
 
     public static class Food extends ConnectionController {
+        private ImageView bild;
         private int foodId;
         private double preis;
         private String name;
@@ -150,8 +155,9 @@ public class MenuSpeisekarteeController extends ConnectionController {
             });
         }
 
-        public Food(String name, String beschreibung, double preis, int id, String kategorie) {
+        public Food(ImageView bild, String name, String beschreibung, double preis, int id, String kategorie) {
 
+            this.bild = bild;
             this.name = name;
             this.beschreibung = beschreibung;
             this.preis = preis;
@@ -198,6 +204,12 @@ public class MenuSpeisekarteeController extends ConnectionController {
                     }
                 }
             });
+        }
+
+        public ImageView getBild() {return bild;
+        }
+
+        public void setBild(ImageView bild) {this.bild = bild;
         }
 
         public int getFoodId() {
