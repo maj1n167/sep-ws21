@@ -1,20 +1,30 @@
 
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
+import org.json.JSONArray;
 import org.json.JSONObject;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.SpringApplication;
+import ude.sep.ServerApplication;
 import ude.sep.client.controller.*;
 import java.io.IOException;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class AvgBewertungTest  extends ConnectionController {
 
-    @Test
-    public void testAvgBewertung() throws IOException {
+    public int restId = 1;
+
+    @BeforeAll
+    public static void beforeAll() {
+
 
         JFXPanel fxPanel = new JFXPanel();
+        ServerApplication s = new ServerApplication();
+
+        ConnectionController myConController = new ConnectionController();
         RegistrationController registration = new RegistrationController();
         LoginController login = new LoginController();
         StartseiteController startseite = new StartseiteController();
@@ -37,6 +47,7 @@ public class AvgBewertungTest  extends ConnectionController {
                 registration.vornameTextfield.setText("ok");
                 registration.nameTextfield.setText("ok");
                 registration.passwortTextfield.setText("ok");
+
                 try {
                     registration.onRegisterButtonClick();
                 } catch (IOException e) {
@@ -47,12 +58,14 @@ public class AvgBewertungTest  extends ConnectionController {
                 login.inputPassword.setText("ok");
                 try {
                     login.onLoginButtonClick();
+                    System.out.println("UserId im Login: " + login.getUserId());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                System.out.println("UserId im Login: " + login.getUserId());
+
 
                 //Restaurant muss hinzugefügt werden
+
                 addRestaurant.nameTextfield.setText("KrosseKrabbe");
                 addRestaurant.strasseTextfield.setText("Schuetzenbahn");
                 addRestaurant.nummerTextfield.setText("70");
@@ -64,23 +77,11 @@ public class AvgBewertungTest  extends ConnectionController {
                 addRestaurant.lieferbereichTextfield.setText("7000");
                 try {
                     addRestaurant.speichernButtonClick();
+                    System.out.println(addRestaurant.toString());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                /**
-                 *  String json = "{ \"name\": \"" + nameTextfield.getText() + "\",\n" +
-                 *                             " \"restaurantId\": \"" + userId + "\",\n" +
-                 *                             " \"strasse\": \"" + strasseTextfield.getText() + "\",\n" +
-                 *                             " \"nummer\": \"" + nummerTextfield.getText() + "\",\n" +
-                 *                             " \"plz\": \"" + plzTextfield.getText() + "\",\n" +
-                 *                             " \"stadt\": \"" + stadtTextfield.getText() + "\",\n" +
-                 *                             " \"mbw\": \"" + mbw + "\",\n" +
-                 *                             " \"lieferkosten\": \"" + lieferkosten + "\",\n" +
-                 *                             " \"kategorie\": \"" + kategorieChoicebox.getValue() + "\",\n" +
-                 *                             " \"ratingFood\": \"" + 0.0 + "\",\n" +
-                 *                             " \"ratingDelivery\": \"" + 0.0 + "\",\n" +
-                 *                             " \"lieferbereich\": \"" + radius + "\"\n}";
-                 */
+
                 // Ein Gericht muss hinzugefügt werden
                 addFood.name.setText("Pizza Salami");
                 addFood.beschreibung.setText("Pizza mit Salami");
@@ -123,37 +124,73 @@ public class AvgBewertungTest  extends ConnectionController {
                 System.out.println("UserId im Login: " + login.getUserId());
 
 
-                //Restaurant auswählen
-
-
-                //Gericht bestellen
-
 
                 //Bewertung hinzufügen
                 bewertung.gerichtChoiceBox.setValue("5");
                 bewertung.lieferungChoiceBox.setValue("4");
                 bewertung.nameTextfield.setText("hans");
-                bewertung.kommentarTextfield.setText("wurst");
+                bewertung.kommentarTextfield.setText("Alles top");
                 try {
                     bewertung.speichernButtonClick();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
 
-                //AvgBewertung ausgeben lassen
-
-
-                // Am Ende
-
-                JSONObject answer = bewertung.getAnswer();
-                JSONObject expected = new JSONObject("{\"response_data\":{\"body\":{\"data\":\"succeed\"}},\"response_type\":\"NEUEBEWERTUNG_ANSWER\"}");
-                String answerS = answer.toString();
-                String expectedS = expected.toString();
-                assertEquals(expectedS, answerS);
+                //Bewertung hinzufügen
+                bewertung.gerichtChoiceBox.setValue("4");
+                bewertung.lieferungChoiceBox.setValue("5");
+                bewertung.nameTextfield.setText("wurst");
+                bewertung.kommentarTextfield.setText("Gut, gut");
+                try {
+                    bewertung.speichernButtonClick();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
             }
+
+
+
+
+
         });
     }
+
+
+    @Test
+    public void restaurantTest() throws IOException{
+        JSONObject answer = new JSONObject(JSONObjectGET("http://localhost:8080/restaurant/find/"+restId).toString());
+        String expected =
+        "{ \"name\": \"" + "KrosseKrabbe" + "\",\n" +
+                " \"restaurantId\": \"" + restId + "\",\n" +
+                " \"strasse\": \"" + "Schuetzenbahn" + "\",\n" +
+                " \"nummer\": \"" + "70" + "\",\n" +
+                " \"plz\": \"" + "45127" + "\",\n" +
+                " \"stadt\": \"" + "Essen" + "\",\n" +
+                " \"mbw\": \"" + "5" + "\",\n" +
+                " \"lieferkosten\": \"" + "1" + "\",\n" +
+                " \"kategorie\": \"" + "Italienisch"+ "\",\n" +
+                " \"ratingFood\": \"" + 5.0 + "\",\n" +
+                " \"ratingDelivery\": \"" + 4.0 + "\",\n" +
+                " \"lieferbereich\": \"" + "7000" + "\"\n}";
+        assertEquals(expected, answer);
+
+    }
+
+    @Test
+    //AvgBewertung ausgeben lassen
+    public void avgTest() throws IOException {
+        LoginController login;
+        JSONObject answer = new JSONObject(JSONObjectGET("http://localhost:8080/restaurant/find/"+restId).toString());
+       // JSONObject answer = new JSONObject(JSONObjectGET("http://localhost:8080/restaurant/find/").toString());
+        double expected = 4.5;
+        assertEquals(answer.getDouble("ratingFood"), expected);
+        assertEquals(answer.getDouble("ratingDelivery"), expected);
+        System.out.println(expected);
+        System.out.println(answer);
+    }
+
+
 }
 
 
