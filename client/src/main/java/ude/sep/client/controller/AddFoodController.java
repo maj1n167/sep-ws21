@@ -49,6 +49,9 @@ public class AddFoodController extends ConnectionController implements Initializ
     @FXML
     public void speichernClick() throws IOException {
         String bild=imageToString(upload.getText());
+        if(bild==null) {
+            bild = "";
+        }
         String Url = "http://localhost:8080/food/add";
         JSONArray jsonArray = new JSONArray(JSONObjectGET("http://localhost:8080/kategorie").toString());
         int katID = 0;

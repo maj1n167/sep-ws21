@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -13,6 +14,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 
@@ -36,6 +38,8 @@ public class MenuSpeisekarteeController extends ConnectionController {
     TableColumn Name = new TableColumn("Name");
     @FXML
     TableColumn addWarenkorb = new TableColumn("");
+
+
 
     public static int userId;
     public static int restaurantId;
@@ -79,10 +83,17 @@ public class MenuSpeisekarteeController extends ConnectionController {
                 Food r = new Food();
                 System.out.println(r.preis);
                 System.out.println("here");
-                ImageView imageBild = new ImageView();
-                System.out.println(currentfoods.get("bild"));
-                stringToImageView(currentfoods.getString("bild"), imageBild);
-                output.add(r = new Food(imageBild, currentfoods.getString("name"),
+
+                //Bilddatei speichern
+
+                Image imgToSave = stringToImage(currentfoods.getString("bild"));
+
+                if(!new File("/img/menu/" + currentfoods.getInt("foodId") + ".png").exists() ) {
+                    File outputfile = new File("/img/menu/" + currentfoods.getInt("foodId") + ".png");
+                }
+
+
+                output.add(r = new Food(new ImageView(new Image(this.getClass().getResourceAsStream("/img/menu/"+currentfoods.getInt("foodId")+".png"))), currentfoods.getString("name"),
                         currentfoods.getString("beschreibung"), currentfoods.getDouble("preis"),
                         currentfoods.getInt("foodId"), currentfoods.getString("kategorie")));
                 System.out.println(output);
@@ -206,10 +217,12 @@ public class MenuSpeisekarteeController extends ConnectionController {
             });
         }
 
-        public ImageView getBild() {return bild;
+        public ImageView getBild() {
+            return bild;
         }
 
-        public void setBild(ImageView bild) {this.bild = bild;
+        public void setBild(ImageView bild) {
+            this.bild = bild;
         }
 
         public int getFoodId() {
