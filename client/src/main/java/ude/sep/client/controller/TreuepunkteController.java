@@ -2,6 +2,7 @@ package ude.sep.client.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -23,13 +24,22 @@ public class TreuepunkteController extends ConnectionController {
         String url = "http://localhost:8080/coupon/delete/";
         String url1 = "http://localhost:8080/coupon";
         JSONArray jsonArray = new JSONArray(JSONObjectGET(url1).toString());
+        Boolean found = false;
         for (int i = 0; i < jsonArray.length(); i++) {
+
             JSONObject jsonObject = jsonArray.getJSONObject(i);
             if (jsonObject.get("coupon").equals(DiscountText.getText())) {
                 JSONObjectDELETE(url + jsonObject.get("id"));
-
+                found = true;
             }
-
+        }
+        if(!found) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setTitle("Dieser Code ist ungueltig!");
+            alert.setContentText("Dieser Code ist ungueltig!");
+            alert.showAndWait();
+            return;
         }
 
         JSONObject jsonObject4 = new JSONObject(JSONObjectGET("http://localhost:8080/warenkorb/find/"+userId).toString());
@@ -44,7 +54,7 @@ public class TreuepunkteController extends ConnectionController {
     @FXML
     public void onGoBackButtonClick(ActionEvent event) throws IOException {
 
-        changeScene("KStartseite.fxml");
+        changeScene("Warenkorb.fxml");
     }
 
     public void initialize() throws IOException{
@@ -64,9 +74,7 @@ public class TreuepunkteController extends ConnectionController {
         if(treuepunkte >= 10) {
 
             String url2 ="http://localhost:8080/coupon/send/";
-
             JSONObjectGET(url2 + LoginController.email);
-
             treuepunkte = treuepunkte - 10;
             String url = "http://localhost:8080/user";
             JSONArray jsonArray1 = new JSONArray(JSONObjectGET(url).toString());

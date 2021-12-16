@@ -38,23 +38,23 @@ public class LoginController extends ConnectionController {
              email = jsonObject.get("email").toString();
              userId = Integer.parseInt(jsonObject.get("userId").toString());
              // zum testen
-             if(jsonObject.getBoolean("restaurantBesitzer")){
-                 changeScene("Startseite.fxml");
-                 return;
-             } else {
-                 VerificationController.standard = jsonObject.getString("strasse")
-                         + " " + jsonObject.getString("nummer")
-                         + " " + jsonObject.getString("plz")
-                         + " " + jsonObject.getString("stadt");
-                 VerificationController.alternative = jsonObject.getString("altAdresse")
-                         + " " + jsonObject.getString("altNummer")
-                         + " " + jsonObject.getString("altPlz")
-                         + " " + jsonObject.getString("altStadt");
-                 changeScene("KStartseite.fxml");
-                 return;
-             }
-//             changeScene("Verify-View.fxml");
-//             return;
+//             if(jsonObject.getBoolean("restaurantBesitzer")){
+//                 changeScene("Startseite.fxml");
+//                 return;
+//             } else {
+//                 VerificationController.standard = jsonObject.getString("strasse")
+//                         + " " + jsonObject.getString("nummer")
+//                         + " " + jsonObject.getString("plz")
+//                         + " " + jsonObject.getString("stadt");
+//                 VerificationController.alternative = jsonObject.getString("altAdresse")
+//                         + " " + jsonObject.getString("altNummer")
+//                         + " " + jsonObject.getString("altPlz")
+//                         + " " + jsonObject.getString("altStadt");
+//                 changeScene("KStartseite.fxml");
+//                 return;
+//             }
+             changeScene("Verify-View.fxml");
+             return;
          }
        }
         Alert alert = new Alert (Alert.AlertType.INFORMATION);

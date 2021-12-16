@@ -251,7 +251,6 @@ public class WarenkorbController extends ConnectionController {
             alert.setTitle("Error");
             alert.setTitle("Mbw nicht erreicht oder nicht genügend Guthaben ");
             alert.setContentText("Mbw nicht erreicht oder nicht genügend Guthaben");
-
             alert.showAndWait();
         }
 
