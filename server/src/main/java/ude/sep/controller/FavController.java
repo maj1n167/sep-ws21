@@ -25,16 +25,16 @@ public class FavController {
 
     }
 
-    @PostMapping("/add/{id}/{favOf}")
-    public ResponseEntity<Fav> addFav(@PathVariable int favOf, @PathVariable int id) throws JSONException {
-        Fav newFav = new Fav(favOf, id);
+    @PostMapping("/add/{restaurantId}/{favOf}")
+    public ResponseEntity<Fav> addFav(@PathVariable int favOf, @PathVariable int restaurantId) throws JSONException {
+        Fav newFav = new Fav(favOf, restaurantId);
         Fav fav = favService.addFav(newFav);
         return new ResponseEntity<>(fav, HttpStatus.OK);
     }
 
-    @GetMapping("/find/{id}")
-    public ResponseEntity<List<Fav>> getAllFavsOf(@PathVariable String id) {
-        List<Fav> favs = favService.findAllFavsOf(Integer.valueOf(id));
+    @GetMapping("/find/{favOf}")
+    public ResponseEntity<List<Fav>> getAllFavsOf(@PathVariable String favOf) {
+        List<Fav> favs = favService.findAllFavsOf(Integer.valueOf(favOf));
 //        if(favs.size()!= 0) {
             return new ResponseEntity<>(favs, HttpStatus.OK);
 //        }

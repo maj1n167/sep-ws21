@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ude.sep.client.controller.RestaurantsController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ude.sep.client.controller.RestaurantsController">
     <children>
         <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="50.0" prefHeight="50.0" style="-fx-background-color: #90ee90;" text="Supreme Eating Program" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <font>
@@ -39,8 +39,9 @@
       <RadioButton fx:id="standard" layoutX="61.0" layoutY="377.0" mnemonicParsing="false" onAction="#onStandardClick" text="Standardadresse" />
       <RadioButton fx:id="alternative" layoutX="60.0" layoutY="403.0" mnemonicParsing="false" onAction="#onAlternativeClick" text="Alternativadresse" />
       <Button fx:id="aendernButton" layoutX="215.0" layoutY="379.0" mnemonicParsing="false" onAction="#onAendernButtonClick" prefHeight="42.0" prefWidth="94.0" text="aendern" />
-<!--      <TextField layoutX="326.0" layoutY="388.0" />-->
-<!--      <Button fx:id="filternButton" layoutX="479.0" layoutY="379.0" mnemonicParsing="false" onAction="#onFilternButtonClick" prefHeight="42.0" prefWidth="94.0" text="filtern" />-->
+      <TextField fx:id="filter" layoutX="41.0" layoutY="463.0" />
+      <Button fx:id="filternButton" layoutX="215.0" layoutY="454.0" mnemonicParsing="false" onAction="#onFilterButton" prefHeight="42.0" prefWidth="94.0" text="filtern" />
+      <Button fx:id="resetButton" layoutX="215.0" layoutY="528.0" mnemonicParsing="false" onAction="#onResetButton" prefHeight="42.0" prefWidth="94.0" text="Zuruecksetzen" />
     </children>
 
 </AnchorPane>
