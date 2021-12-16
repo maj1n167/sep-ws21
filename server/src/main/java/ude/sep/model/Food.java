@@ -1,5 +1,7 @@
 package ude.sep.model;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,6 +18,8 @@ public class Food  implements Serializable {
     private double preis;
     private String name;
     private String beschreibung;
+
+    @Type(type = "text")
     private String bild;
     private Long kategorieId;
     private Long menuId;
