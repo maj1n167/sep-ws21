@@ -12,10 +12,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.shape.Path;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Date;
 
 public class MenuSpeisekarteeController extends ConnectionController {
@@ -83,23 +85,12 @@ public class MenuSpeisekarteeController extends ConnectionController {
                 Food r = new Food();
                 System.out.println(r.preis);
                 System.out.println("here");
-
-                //Bilddatei speichern
-
                 Image imgToSave = stringToImage(currentfoods.getString("bild"));
-
-                if(!new File("/img/menu/" + currentfoods.getInt("foodId") + ".png").exists() ) {
-                    File outputfile = new File("/img/menu/" + currentfoods.getInt("foodId") + ".png");
-                }
-
-
-                output.add(r = new Food(new ImageView(new Image(this.getClass().getResourceAsStream("/img/menu/"+currentfoods.getInt("foodId")+".png"))), currentfoods.getString("name"),
+                output.add(r = new Food(new ImageView(imgToSave), currentfoods.getString("name"),
                         currentfoods.getString("beschreibung"), currentfoods.getDouble("preis"),
                         currentfoods.getInt("foodId"), currentfoods.getString("kategorie")));
                 System.out.println(output);
-
             }
-
         }
         System.out.println(output);
         return output;

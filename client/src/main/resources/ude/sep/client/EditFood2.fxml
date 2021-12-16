@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ude.sep.client.controller.EditFood2Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ude.sep.client.controller.EditFood2Controller">
     <children>
         <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="50.0" prefHeight="50.0" style="-fx-background-color: #90ee90;" text="Supreme Eating Program" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <font>
@@ -26,12 +26,21 @@
       <TextField fx:id="name" layoutX="345.0" layoutY="279.0" />
       <TextField fx:id="beschreibung" layoutX="345.0" layoutY="327.0" prefHeight="62.0" prefWidth="160.0" />
       <TextField fx:id="preis" layoutX="345.0" layoutY="413.0" />
-      <Label layoutX="235.0" layoutY="456.0" prefWidth="110.0" text="Bild :" />
-      <Button layoutX="372.0" layoutY="528.0" mnemonicParsing="false" text="Datei auswählen" />
+      <Label layoutX="235.0" layoutY="470.0" prefWidth="110.0" text="Bild :" />
+      <Button fx:id="uploadImage" layoutX="372.0" layoutY="528.0" mnemonicParsing="false" onAction="#uploadImage" text="Datei auswählen" />
       <Button layoutX="22.0" layoutY="554.0" mnemonicParsing="false" onAction="#zurückButton" text="zurück" />
       <Button layoutX="727.0" layoutY="554.0" mnemonicParsing="false" onAction="#fertigButton" text="Fertig" />
       <Button layoutX="683.0" layoutY="125.0" mnemonicParsing="false" onAction="#deleteFood" prefHeight="36.0" prefWidth="79.0" text="Delete" />
       <Label layoutX="533.0" layoutY="128.0" prefHeight="30.0" prefWidth="150.0" text="Löschen der Speise :" />
-      <ImageView fx:id="bild" fitHeight="65.0" fitWidth="97.0" layoutX="376.0" layoutY="456.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="imageview" fitHeight="65.0" fitWidth="97.0" layoutX="376.0" layoutY="456.0" pickOnBounds="true" preserveRatio="true" />
+      <TextField fx:id="path" layoutX="528.0" layoutY="466.0" />
+        <Label fx:id="kategorie" layoutX="346.0" layoutY="236.0" prefHeight="25.0" prefWidth="160.0">
+
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+
+
     </children>
 </AnchorPane>

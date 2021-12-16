@@ -33,6 +33,9 @@ public class KategorieService {
         kategorieRepo.deleteById(kategorieId);
     }
 
+    public List<Kategorie> findbyKategorieId(){
+        return kategorieRepo.findAll();
+    }
 
 }
 

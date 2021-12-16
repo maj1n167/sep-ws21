@@ -84,7 +84,7 @@ public class ConnectionController {
     public String imageToString(String filename) {
         byte[] targetArray;
         try {
-            InputStream inputStream = new FileInputStream(filename);
+            InputStream inputStream = new FileInputStream(new File(filename));
             targetArray = new byte[inputStream.available()];
             inputStream.read(targetArray);
             return Base64.getEncoder().encodeToString(targetArray);
