@@ -74,6 +74,13 @@ public class ConnectionController {
         Image imageX = new Image(new ByteArrayInputStream(jpeg));
         imageView.setImage(imageX);
     }
+
+    public Image stringToImage(String image) {
+        byte[] jpeg = Base64.getDecoder().decode(image);
+        Image imageX = new Image(new ByteArrayInputStream(jpeg));
+        return imageX;
+    }
+
     public String imageToString(String filename) {
         byte[] targetArray;
         try {

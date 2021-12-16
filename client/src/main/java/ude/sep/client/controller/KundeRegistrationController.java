@@ -10,22 +10,22 @@ import java.io.IOException;
 public class KundeRegistrationController extends ConnectionController {
 
     @FXML
-    Button KundeRegisterButton;
+   public Button KundeRegisterButton;
     @FXML
-    TextField geburtsdatumTextfield;
+   public TextField geburtsdatumTextfield;
     @FXML
-    TextField postleitzahlTextfield;
+   public TextField postleitzahlTextfield;
     @FXML
-    TextField stadtTextfield;
+   public TextField stadtTextfield;
     @FXML
-    TextField strasseTextfield;
+   public TextField strasseTextfield;
     @FXML
-    TextField nummerTextfield;
+   public TextField nummerTextfield;
 
 
 
     @FXML
-    protected void onKundeRegisterButtonClick() throws IOException {
+    public void onKundeRegisterButtonClick() throws IOException {
 //      JSONObject nutzen
         if (geburtsdatumTextfield.getText().equals("") || postleitzahlTextfield.getText().equals("") || stadtTextfield.getText().equals("")
                 || strasseTextfield.getText().equals("")) {

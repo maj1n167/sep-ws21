@@ -12,39 +12,39 @@ public class AddRestaurantController extends ConnectionController {
     private Label restaurantHeaderLabel;
 
     @FXML
-    private TextField nameTextfield;
+    public TextField nameTextfield;
 
     @FXML
-    private TextField strasseTextfield;
+    public TextField strasseTextfield;
 
     @FXML
-    private TextField nummerTextfield;
+    public TextField nummerTextfield;
 
     @FXML
-    private TextField plzTextfield;
+    public TextField plzTextfield;
 
     @FXML
-    private TextField stadtTextfield;
+    public TextField stadtTextfield;
 
     @FXML
-    private TextField lieferkostenTextfield;
+    public TextField lieferkostenTextfield;
 
     @FXML
-    private TextField mbwTextfield;
+    public TextField mbwTextfield;
 
     @FXML
-    private TextField lieferbereichTextfield;
+    public TextField lieferbereichTextfield;
 
     @FXML
-    ChoiceBox<String> kategorieChoicebox;
+    public ChoiceBox<String> kategorieChoicebox;
 
     @FXML
-    private Button speichernButton;
+    public Button speichernButton;
 
     @FXML
-    private Button zurueckButton;
+    public Button zurueckButton;
 
-    private int userId;
+    public int userId;
 
 
 
@@ -122,6 +122,8 @@ public class AddRestaurantController extends ConnectionController {
                             " \"ratingDelivery\": \"" + 0.0 + "\",\n" +
                             " \"lieferbereich\": \"" + radius + "\"\n}";
 
+
+                System.out.println(json);
                 //Request
                 JSONObjectPOST(url, json);
 

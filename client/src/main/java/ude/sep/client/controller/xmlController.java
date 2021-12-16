@@ -129,6 +129,7 @@ public static JSONObject fertigeSpeiseK;
                     textFlow.getChildren().add(text);
                     y.put("menuId",id);
                     y.put("kategorieId", kategorieId);
+                    y.put("bild", "");
                     System.out.println(y.toString());
 
                     JSONObjectPOST("http://localhost:8080/food/add", y.toString());
@@ -188,7 +189,7 @@ public static JSONObject fertigeSpeiseK;
                         katID1 = (int) jsonObject1.get("kategorieId");
                         newFood.put("kategorieId", jsonObject1.get("kategorieId"));
                         newFood.put("menuId", id);
-
+                        newFood.put("bild", "");
                        try{
                            String preis = newFood.getString("preis");
                            char [] b =preis.toCharArray();

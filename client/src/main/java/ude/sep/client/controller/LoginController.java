@@ -15,18 +15,18 @@ public class LoginController extends ConnectionController {
     @FXML
     private Label SupremeLieferando;
     @FXML
-    private PasswordField inputPassword;
+    public PasswordField inputPassword;
     @FXML
     Button RegisterButton;
     @FXML
-    private  TextField inputEmail;
+    public TextField inputEmail;
 
     public static String email;
     public static int userId;
 
 
     @FXML
-    protected void onLoginButtonClick() throws IOException {
+    public void onLoginButtonClick() throws IOException {
 
        String url = "http://localhost:8080/user";
 
@@ -73,5 +73,9 @@ public class LoginController extends ConnectionController {
     @FXML
     public void onExitButtonClick() throws IOException {
         System.exit(0);
+    }
+
+    public int getUserId() {
+        return userId;
     }
 }

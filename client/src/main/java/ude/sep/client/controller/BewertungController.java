@@ -14,12 +14,14 @@ import java.text.DecimalFormat;
 
 public class BewertungController extends ConnectionController {
 
+    private JSONObject answer;
+
 
     @FXML
-    public TextField kommentarTextfield;
+    public TextField kommentarTextfield = new TextField();
 
     @FXML
-    public TextField nameTextfield;
+    public TextField nameTextfield = new TextField();
 
     @FXML
     public ChoiceBox<String> gerichtChoiceBox;
@@ -37,6 +39,25 @@ public class BewertungController extends ConnectionController {
     public int restaurantId;
 
 
+    /**
+     * Gibt die gespeicherte Server-Antwort zurueck
+     * - Die eigentliche Antwort liegt in:
+     *   answer -> response_data -> body
+     *
+     * @return Server-Response als JSON Object:
+     * @apiNote ist das Feld leer, gab es einen Fehler
+     */
+    public JSONObject getAnswer() {
+        return answer;
+    }
+
+
+    /**
+     * Flusht die gespeicherte Server-Antwort
+     */
+    public void flush(){
+        answer = null;
+    }
 
 
     public void initialize() {
@@ -107,6 +128,7 @@ public class BewertungController extends ConnectionController {
         }
 
     }
+
 
     public void zurueckButtonClick() throws IOException {
         changeScene("KStartseite.fxml");

@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -13,6 +14,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 
@@ -37,14 +39,18 @@ public class MenuSpeisekarteeController extends ConnectionController {
     @FXML
     TableColumn addWarenkorb = new TableColumn("");
 
+
+
     public static int userId;
     public static int restaurantId;
 
     public void initialize() {
         try {
+
             restaurantId = RestaurantsController.id;
             userId = LoginController.userId;
             list.setEditable(true);
+            Bild.setCellValueFactory(new PropertyValueFactory<Food, ImageView>("bild"));
             Kategorie.setCellValueFactory(new PropertyValueFactory<Food, String>("kategorie"));
             Name.setCellValueFactory(new PropertyValueFactory<Food, String>("name"));
             Beschreibung.setCellValueFactory(new PropertyValueFactory<Food, String>("beschreibung"));
@@ -52,7 +58,6 @@ public class MenuSpeisekarteeController extends ConnectionController {
             Id.setCellValueFactory(new PropertyValueFactory<Food, Integer>("foodId"));
             addWarenkorb.setCellValueFactory(new PropertyValueFactory<Food, Button>("hinzufügen"));
             list.setFixedCellSize(65);
-            //ImageView image= new ImageView(new Image(this.getClass().getResourceAsStream("/img/pizza2.png")));
             list.setItems(getSpeisekarte());
 
 
@@ -78,7 +83,17 @@ public class MenuSpeisekarteeController extends ConnectionController {
                 Food r = new Food();
                 System.out.println(r.preis);
                 System.out.println("here");
-                output.add(r = new Food(currentfoods.getString("name"),
+
+                //Bilddatei speichern
+
+                Image imgToSave = stringToImage(currentfoods.getString("bild"));
+
+                if(!new File("/img/menu/" + currentfoods.getInt("foodId") + ".png").exists() ) {
+                    File outputfile = new File("/img/menu/" + currentfoods.getInt("foodId") + ".png");
+                }
+
+
+                output.add(r = new Food(new ImageView(new Image(this.getClass().getResourceAsStream("/img/menu/"+currentfoods.getInt("foodId")+".png"))), currentfoods.getString("name"),
                         currentfoods.getString("beschreibung"), currentfoods.getDouble("preis"),
                         currentfoods.getInt("foodId"), currentfoods.getString("kategorie")));
                 System.out.println(output);
@@ -100,6 +115,7 @@ public class MenuSpeisekarteeController extends ConnectionController {
 
 
     public static class Food extends ConnectionController {
+        private ImageView bild;
         private int foodId;
         private double preis;
         private String name;
@@ -150,8 +166,9 @@ public class MenuSpeisekarteeController extends ConnectionController {
             });
         }
 
-        public Food(String name, String beschreibung, double preis, int id, String kategorie) {
+        public Food(ImageView bild, String name, String beschreibung, double preis, int id, String kategorie) {
 
+            this.bild = bild;
             this.name = name;
             this.beschreibung = beschreibung;
             this.preis = preis;
@@ -198,6 +215,14 @@ public class MenuSpeisekarteeController extends ConnectionController {
                     }
                 }
             });
+        }
+
+        public ImageView getBild() {
+            return bild;
+        }
+
+        public void setBild(ImageView bild) {
+            this.bild = bild;
         }
 
         public int getFoodId() {

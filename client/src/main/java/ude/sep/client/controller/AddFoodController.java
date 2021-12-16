@@ -26,19 +26,19 @@ public class AddFoodController extends ConnectionController implements Initializ
     @FXML
     private Button dateiUrl;
     @FXML
-    private TextField kategorie;
+    public TextField kategorie;
     @FXML
-    private TextField name;
+    public TextField name;
     @FXML
-    private TextField beschreibung;
+    public TextField beschreibung;
     @FXML
-    private TextField preis;
+    public TextField preis;
     @FXML
-    private ImageView imageView;
+    public ImageView imageView;
     @FXML
-    private TextField upload;
+    public TextField upload;
 
-    private int userId;
+    public int userId;
 
 
     @Override
@@ -49,6 +49,9 @@ public class AddFoodController extends ConnectionController implements Initializ
     @FXML
     public void speichernClick() throws IOException {
         String bild=imageToString(upload.getText());
+        if(bild==null) {
+            bild = "";
+        }
         String Url = "http://localhost:8080/food/add";
         JSONArray jsonArray = new JSONArray(JSONObjectGET("http://localhost:8080/kategorie").toString());
         int katID = 0;
