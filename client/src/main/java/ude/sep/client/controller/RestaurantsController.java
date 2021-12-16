@@ -77,6 +77,11 @@ public class RestaurantsController extends ConnectionController implements Initi
         changeScene("EditAltProfile.fxml");
     }
 
+    void populate() throws IOException {
+        populateList();
+        populateMap();
+    }
+
     void populateList() throws IOException {
         // Fertig
         if(standard.isSelected()) {
@@ -328,8 +333,7 @@ public class RestaurantsController extends ConnectionController implements Initi
     public void onStandardClick() throws IOException {
         // Fertig
         standard.setToggleGroup(group);
-        populateList();
-        populateMap();
+        populate();
     }
 
     @FXML
@@ -337,8 +341,7 @@ public class RestaurantsController extends ConnectionController implements Initi
         // Fertig
         alternative.setToggleGroup(group);
         try {
-            populateList();
-            populateMap();
+            populate();
         } catch(JSONException e) {
             standard.setToggleGroup(group);
             standard.setSelected(true);
@@ -373,7 +376,7 @@ public class RestaurantsController extends ConnectionController implements Initi
     @FXML
     public void onResetButton(ActionEvent actionEvent) throws IOException {
         filter.setText("");
-        populateList();
+        populate();
     }
 
 
@@ -444,7 +447,7 @@ public class RestaurantsController extends ConnectionController implements Initi
                     public void handle(ActionEvent event) {
                         try {
                             JSONObjectDELETE("http://localhost:8080/fav/del/" + favId);
-                            populateList();
+                            populate();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -457,7 +460,7 @@ public class RestaurantsController extends ConnectionController implements Initi
                     public void handle(ActionEvent event) {
                         try {
                             JSONObjectPOST("http://localhost:8080/fav/add/" + id + "/" + userId, "null");
-                            populateList();
+                            populate();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }

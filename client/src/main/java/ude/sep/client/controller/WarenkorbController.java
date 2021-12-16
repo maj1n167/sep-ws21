@@ -121,7 +121,7 @@ public class WarenkorbController extends ConnectionController {
 
         if (Double.parseDouble(user.get("guthaben").toString()) >= Double.parseDouble(jsonObject.get("summe").toString()) &&
                 Double.parseDouble(jsonObject.get("summe").toString()) >= Double.parseDouble(restaurant.get("mbw").toString())) {
-            double neuesGuthaben = Double.parseDouble(user.get("guthaben").toString()) - Double.parseDouble(jsonObject.get("summe").toString());
+            double neuesGuthaben = Double.parseDouble(user.get("guthaben").toString()) - Double.parseDouble(jsonObject.get("summe").toString()) - Double.parseDouble(restaurant.get("lieferkosten").toString());
             user.put("guthaben", neuesGuthaben);
             JSONObjectPOST("http://localhost:8080/user/add", user.toString());
             System.out.println(jsonObject);
