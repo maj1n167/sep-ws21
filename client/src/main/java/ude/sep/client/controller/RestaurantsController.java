@@ -228,10 +228,7 @@ public class RestaurantsController extends ConnectionController implements Initi
                         id = favRest.getInt("id");
                     }
                 }
-
-
-                RestaurantList r = new RestaurantList();
-                output.add(r = new RestaurantList(curRest.getInt("restaurantId"),
+                output.add(new RestaurantList(curRest.getInt("restaurantId"),
                         curRest.getString("name"),
                         curRest.getString("strasse"),
                         curRest.getString("plz"),
@@ -283,8 +280,7 @@ public class RestaurantsController extends ConnectionController implements Initi
 
             if(isNear || isFav) {
 
-                RestaurantList r = new RestaurantList();
-                output.add(r = new RestaurantList(curRest.getInt("restaurantId"),
+                output.add(new RestaurantList(curRest.getInt("restaurantId"),
                         curRest.getString("name"),
                         curRest.getString("strasse"),
                         curRest.getString("plz"),
