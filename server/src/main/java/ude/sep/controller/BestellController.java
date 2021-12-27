@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
+import ude.sep.model.BestellHistorie;
 import ude.sep.model.Bestellungen;
 import ude.sep.service.BestellService;
 
@@ -36,6 +37,18 @@ public class BestellController {
     public ResponseEntity deleteBestellungen(@PathVariable("bestellId") int bestellId) {
         bestellService.deleteBestellungen(bestellId);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/find/{id}")
+    public ResponseEntity<Bestellungen> getBestellId(@PathVariable("id") int id) {
+        List<Bestellungen> bestellungen = bestellService.findAllBestellungen();
+        Bestellungen bestellungen1 = null;
+        for (int i = 0; i < bestellungen.size(); i++) {
+            if (bestellungen.get(i).getBestellungId() == id) {
+                bestellungen1 = bestellungen.get(i);
+            }
+        }
+        return new ResponseEntity<>(bestellungen1, HttpStatus.OK);
     }
 
 
