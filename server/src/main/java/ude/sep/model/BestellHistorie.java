@@ -1,6 +1,7 @@
 package ude.sep.model;
 
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -12,7 +13,7 @@ public class BestellHistorie {
     @Id
     int bestellHisId;
 
-    @OneToMany
+    @OneToMany(cascade= CascadeType.ALL)
     List<Bestellungen> bestellungenList;
 
 

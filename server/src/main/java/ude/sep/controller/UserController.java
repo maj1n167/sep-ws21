@@ -58,6 +58,33 @@ public class UserController {
         return new ResponseEntity<>(users, HttpStatus.OK);
 
     }
+
+
+    @GetMapping("/send/decline/{email}")
+    public ResponseEntity<User> sendDecline(@PathVariable("email") String email) {
+
+        User users = userService.findUserByEmail(email);
+        String currentEmail = users.getEmail();
+        System.out.println(currentEmail);
+        userService.sendEmail(currentEmail.toString(), "Hallo "+users.getName()+",\n\n"+
+                "Ihre Bestellung ist bei uns eingegangen, jedoch können wir ihren Sonderwunsch nicht umsetzen" +
+                "\n \n Viele Grüße\n Ihr SuprmeOrdering Team", "Bestätigungsmail");
+        return new ResponseEntity<>(users, HttpStatus.OK);
+
+    }
+
+    @GetMapping("/send/accept/{email}")
+    public ResponseEntity<User> sendAccept(@PathVariable("email") String email) {
+
+        User users = userService.findUserByEmail(email);
+        String currentEmail = users.getEmail();
+        System.out.println(currentEmail);
+        userService.sendEmail(currentEmail.toString(), "Hallo "+users.getName()+",\n\n"+
+                "Ihre Bestellung ist bei uns eingegangen,wir können ihren Sonderwunsch umsetzen und passen dazu den Preis an." +
+                "\n \n Viele Grüße\n Ihr SuprmeOrdering Team", "Bestätigungsmail");
+        return new ResponseEntity<>(users, HttpStatus.OK);
+
+    }
     // Zum Abgleich, ob eine Registrierung bereits vorhanden ist und um die Daten der registrierten Person zu erhalten.
     @GetMapping("/findbyemail/{email}")
     public ResponseEntity<User> getUserByEmail(@PathVariable("email") String email) {

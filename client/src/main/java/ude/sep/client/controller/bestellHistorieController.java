@@ -45,7 +45,7 @@ public class bestellHistorieController extends ConnectionController implements I
                 int id = jsonObject.getInt("restaurantId");
                 JSONObject restaurant = new JSONObject(JSONObjectGET("http://localhost:8080/restaurant/find/"+id).toString());
                 System.out.println(restaurant);
-                TreeItem<String> bestellung = new TreeItem<>("Restaurant: "+restaurant.get("name").toString()+" Datum: "+jsonObject.get("datum").toString()+" Summe: "+jsonObject.get("summe").toString());
+                TreeItem<String> bestellung = new TreeItem<>("Restaurant: "+restaurant.get("name").toString()+" Datum: "+jsonObject.get("datum").toString()+" Summe: "+jsonObject.get("summe").toString()+" Sonderwunsch: "+jsonObject.get("sonderwunsch"));
                 for(int x = 0; x<jsonArray1.length(); x++){
                     JSONObject jsonObject1 = jsonArray1.getJSONObject(x);
                     System.out.println(jsonObject1);

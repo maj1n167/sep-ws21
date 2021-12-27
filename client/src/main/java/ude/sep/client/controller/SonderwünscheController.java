@@ -115,7 +115,7 @@ public class SonderwünscheController extends ConnectionController {
                 public void handle(ActionEvent event) {
                    bestellungsId = id;
                     try {
-                        changeScene("");
+                        changeScene("SonderwunschBearbeiten.fxml");
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -179,6 +179,7 @@ public class SonderwünscheController extends ConnectionController {
     
     
     
-    public void zuruckButton(ActionEvent actionEvent) {
+    public void zuruckButton(ActionEvent actionEvent) throws IOException {
+        changeScene("Startseite.fxml");
     }
 }
