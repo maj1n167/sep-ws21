@@ -17,9 +17,11 @@ public class Bestellungen implements Serializable {
 
     int restaurantId;
 
-    double summe;
+     double summe;
 
-    int userId;
+     int userId;
+
+     String sonderwunsch;
 
     @OneToMany(cascade = CascadeType.ALL)
     List<BestellFood> liste;
@@ -38,6 +40,16 @@ public class Bestellungen implements Serializable {
         this.datum = datum;
         this.restaurantId = restaurantId;
         this.summe = summe;
+        this.liste = liste;
+    }
+
+    public Bestellungen(long bestellungId, String datum, int restaurantId, double summe, int userId, String sonderwunsch, List<BestellFood> liste) {
+        this.bestellungId = bestellungId;
+        this.datum = datum;
+        this.restaurantId = restaurantId;
+        this.summe = summe;
+        this.userId = userId;
+        this.sonderwunsch = sonderwunsch;
         this.liste = liste;
     }
 
@@ -93,5 +105,13 @@ public class Bestellungen implements Serializable {
 
     public void setListe(List<BestellFood> liste) {
         this.liste = liste;
+    }
+
+    public String getSonderwunsch() {
+        return sonderwunsch;
+    }
+
+    public void setSonderwunsch(String sonderwunsch) {
+        this.sonderwunsch = sonderwunsch;
     }
 }

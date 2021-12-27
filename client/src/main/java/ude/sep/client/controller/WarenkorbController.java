@@ -20,6 +20,9 @@ public class WarenkorbController extends ConnectionController {
     public TextField id;
 
     @FXML
+    public TextField sonderwunsch;
+
+    @FXML
     public Label lieferkosten;
 
     public int userId;
@@ -127,6 +130,8 @@ public class WarenkorbController extends ConnectionController {
             System.out.println(jsonObject);
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
             Date date = new Date();
+
+            // Sonderwünsche
             System.out.println(date.toString());
             System.out.println(jsonObject.getJSONArray("foodList"));
             JSONArray jsonArray8 = new JSONArray(jsonObject.get("foodList").toString());
@@ -148,23 +153,65 @@ public class WarenkorbController extends ConnectionController {
 
 
             double gesamtsumme = jsonObject.getDouble("summe");
-            System.out.println(gesamtsumme);
-            System.out.println(lieferkosten2);
             gesamtsumme += lieferkosten2;
-            System.out.println(gesamtsumme);
-            System.out.println(date.toString());
             JSONObject bestellung = new JSONObject();
-            System.out.println(restaurantid);
             bestellung.put("restaurantId", restaurantid);
             bestellung.put("userId", userId);
             bestellung.put("summe", gesamtsumme);
             bestellung.put("datum", date.toString());
             bestellung.put("liste", fObject);
 
+            if(sonderwunsch.getText().equals("")) {
+                JSONObjectPOST(url2, bestellung.toString());
 
-            System.out.println(bestellung);
-            System.out.println(date.toString());
-            JSONObjectPOST(url2, bestellung.toString());
+            }else {
+                //Falls Sonderwunsch vorhanden
+                bestellung.put("sonderwunsch",sonderwunsch.getText());
+                JSONObjectPOST(url2, bestellung.toString());
+                System.out.println(bestellung+"bestellung ");
+                JSONArray jsonObject1 = new JSONArray(JSONObjectGET("http://localhost:8080/bestellung").toString());
+                JSONObject curBes = new JSONObject();
+                for(int i = 0; i<jsonObject1.length(); i++){
+                    JSONObject jsonObject2 = jsonObject1.getJSONObject(i);
+                    System.out.println(jsonObject2);
+                    System.out.println("Vergleich");
+                    System.out.println(bestellung);
+                    if(jsonObject2.get("datum").equals(bestellung.get("datum"))){
+                        curBes = jsonObject2;
+                        System.out.println(curBes);
+
+                    }
+                }
+                JSONObject resBes = new JSONObject(JSONObjectGET("http://localhost:8080/resBes/find/"+restaurantid).toString());
+                System.out.println(resBes);
+                JSONArray jsonArray1 = new JSONArray(resBes.getJSONArray("bestellungenList").toString());
+                jsonArray1.put(curBes);
+                resBes.put("bestellungenList",jsonArray1);
+
+                System.out.println(resBes);
+                JSONObjectPOST("http://localhost:8080/resBes/add",resBes.toString());
+                //Sonderwunsch an Restaurant weitergeleitet
+
+                JSONArray y = new JSONArray();
+                JSONObject Warenkorb = new JSONObject(JSONObjectGET("http://localhost:8080/warenkorb/find/"+userId).toString());
+                JSONArray jsonArray3 = new JSONArray(Warenkorb.get("foodList").toString());
+                System.out.println(jsonArray3);
+                for (int i = 0;i<jsonArray3.length(); i++){
+                    JSONObject jsonObject3 = jsonArray3.getJSONObject(i);
+                    System.out.println(jsonObject3);
+                    JSONObjectDELETE("http://localhost:8080/warenfood/delete/"+jsonObject3.get("bestellfoodid"));
+                }
+
+                JSONObject emptyWarenkorb = new JSONObject();
+                emptyWarenkorb.put("warenkorbId", userId);
+                emptyWarenkorb.put("summe", 0);
+                emptyWarenkorb.put("foodList", y);
+
+                JSONObjectPOST(url1 + "/add", emptyWarenkorb.toString());
+
+                changeScene("Bewertung.fxml");
+                return;
+            }
 
             JSONArray jsonArray1 = new JSONArray(JSONObjectGET(url3).toString());
             JSONArray bestellungen = new JSONArray();
