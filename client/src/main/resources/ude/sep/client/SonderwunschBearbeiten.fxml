@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.TextField?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.client.controller.AddFoodController">
+    <children>
+        <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="50.0" prefHeight="50.0" style="-fx-background-color: #90ee90;" text="Supreme Eating Program" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <font>
+                <Font name="System Bold" size="20.0" />
+            </font>
+        </Label>
+      <Label fx:id="neuerPreisLabel" layoutX="316.0" layoutY="479.0" prefHeight="25.0" prefWidth="85.0" text="neuer Preis :">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="46.0" layoutY="79.0" prefHeight="25.0" prefWidth="120.0" text="Summe :">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="46.0" layoutY="115.0" prefHeight="25.0" prefWidth="120.0" text="Datum :">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="46.0" layoutY="155.0" prefHeight="25.0" prefWidth="120.0" text="Kunden ID :">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="46.0" layoutY="193.0" prefHeight="25.0" prefWidth="120.0" text="Bestellungs ID :">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Button layoutX="316.0" layoutY="516.0" mnemonicParsing="false" onAction="#ablehnenButton" prefHeight="40.0" prefWidth="100.0" text="Ablehnen">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+      <Button layoutX="416.0" layoutY="516.0" mnemonicParsing="false" onAction="#annehmenButton" prefHeight="40.0" prefWidth="100.0" text="Annehmen">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+      <Label layoutX="46.0" layoutY="240.0" prefHeight="25.0" prefWidth="120.0" text="Sonderwünsche :">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <TextField fx:id="neuerPreis" layoutX="416.0" layoutY="479.0" prefHeight="26.0" prefWidth="85.0" />
+      <ListView fx:id="speisenAusBestellung" layoutX="494.0" layoutY="80.0" prefHeight="200.0" prefWidth="295.0" />
+      <Label fx:id="speisen" layoutX="494.0" layoutY="55.0" prefHeight="25.0" prefWidth="150.0" text="Speisen :">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="summe" layoutX="166.0" layoutY="79.0" prefHeight="25.0" prefWidth="200.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="datum" layoutX="166.0" layoutY="115.0" prefHeight="25.0" prefWidth="200.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="kundenId" layoutX="166.0" layoutY="155.0" prefHeight="25.0" prefWidth="200.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="bestellId" layoutX="166.0" layoutY="193.0" prefHeight="25.0" prefWidth="200.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="sonderwünsche" layoutX="166.0" layoutY="240.0" prefHeight="180.0" prefWidth="240.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Button layoutX="19.0" layoutY="556.0" mnemonicParsing="false" onAction="#zurückButton" text="zurück" />
+      <Button layoutX="721.0" layoutY="557.0" mnemonicParsing="false" onAction="#fertigButton" text="fertig" />
+    </children>
+</AnchorPane>
