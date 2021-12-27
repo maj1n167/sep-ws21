@@ -2,6 +2,8 @@ package ude.sep.client.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.text.DecimalFormat;
 
@@ -128,8 +130,13 @@ public class AddRestaurantController extends ConnectionController {
                 JSONObjectPOST(url, json);
 
                 //Speisekarte ID weiterleiten
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("resBesId",userId);
+
                 String json2 = "{ \"menuId\":"+ userId + " }";
                 JSONObjectPOST("http://localhost:8080/menu/add",json2);
+                JSONObjectPOST("http://localhost:8080/resBes/add",jsonObject.toString());
+
 
                 changeScene("Startseite.fxml");
             }
