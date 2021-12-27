@@ -1,5 +1,6 @@
 package ude.sep.client.controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -63,5 +64,9 @@ public class StartseiteController extends ConnectionController {
     @FXML
     public void onRatingClick() throws IOException {
         changeScene("BewertungList.fxml");
+    }
+    @FXML
+    public void sonderwünscheButton(ActionEvent actionEvent) throws IOException{
+        changeScene("Sonderwünsche.fxml");
     }
 }

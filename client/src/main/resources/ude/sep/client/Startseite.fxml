@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ude.sep.client.controller.StartseiteController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ude.sep.client.controller.StartseiteController">
     <children>
         <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="50.0" prefHeight="50.0" style="-fx-background-color: #90ee90;" text="Supreme Eating Program" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <font>
@@ -33,7 +33,7 @@
                         <Image fx:id="bild" url="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png" />
                     </image>
                 </ImageView>
-                <VBox alignment="CENTER" spacing="20.0">
+                <VBox alignment="CENTER" spacing="10.0">
                     <children>
                         <Button fx:id="editProfile" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onEditProfileClick" prefHeight="31.0" prefWidth="180.0" text="Profil bearbeiten" />
                         <Button fx:id="createRestaurant" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onCreateRestaurantClick" prefHeight="31.0" prefWidth="180.0" text="Restaurant anlegen" />
@@ -41,6 +41,7 @@
                   <Button fx:id="map" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onMapClick" prefHeight="25.0" prefWidth="181.0" text="Map anzeigen" />
                         <Button fx:id="speisekarte" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onSpeisekarteClick" prefHeight="27.0" prefWidth="180.0" text="Speisekarte" />
                   <Button fx:id="rating" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onRatingClick" prefHeight="31.0" prefWidth="180.0" text="Bewertungen" />
+                  <Button fx:id="sonderwünsche" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#sonderwünscheButton" prefHeight="31.0" prefWidth="180.0" text="Sonderwünsche" />
                     </children>
                 </VBox>
                   <Button fx:id="logout" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onLogoutClick" prefHeight="40.0" prefWidth="100.0" text="Abmelden" />
