@@ -70,7 +70,9 @@ public class SonderwünscheBeaController extends ConnectionController implements
         String url4 = "http://localhost:8080/user/findbyid/" + userId;
         JSONObject user = new JSONObject(JSONObjectGET(url4).toString());
        double summe = Double.parseDouble(neuerPreis.getText());
-        user.put("guthaben", summe);
+       double guthaben = (double) user.get("guthaben");
+       guthaben -= summe;
+        user.put("guthaben", guthaben);
         JSONObjectPOST("http://localhost:8080/user/add", user.toString());
 
        curBes1.put("summe",summe);
