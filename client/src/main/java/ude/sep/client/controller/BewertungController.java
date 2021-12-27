@@ -106,20 +106,9 @@ public class BewertungController extends ConnectionController {
             JSONObjectPOST(url, bewertung.toString());
 
             //Avg Bewertung anpassen
-
-            JSONArray j = new JSONArray(JSONObjectGET("http://localhost:8080/rating/" + RestaurantsController.id).toString());
-            Double newAvgFood = 0.0;
-            Double newAvgDelivery = 0.0;
-            for(int i=0;i<j.length();i++) {
-                newAvgFood=newAvgFood+j.getJSONObject(i).getDouble("starsFood");
-                newAvgDelivery=newAvgDelivery+j.getJSONObject(i).getDouble("starsLieferung");
-            }
-
-            newAvgFood = newAvgFood/j.length();
-            newAvgDelivery = newAvgDelivery/j.length();
             JSONObject updateRest= new JSONObject(JSONObjectGET("http://localhost:8080/restaurant/find/"+RestaurantsController.id).toString());
-            updateRest.put("ratingFood", Math.round(newAvgFood*1e1)/1e1);
-            updateRest.put("ratingDelivery", Math.round(newAvgDelivery*1e1)/1e1);
+            updateRest.put("ratingFood", avgFood(RestaurantsController.id));
+            updateRest.put("ratingDelivery", avgDelivery(RestaurantsController.id));
             JSONObjectPUT("http://localhost:8080/restaurant/update", updateRest.toString());
 
 
@@ -128,7 +117,25 @@ public class BewertungController extends ConnectionController {
         }
 
     }
+    public Double avgFood(int id) throws IOException {
+        double output = 0;
+        JSONArray j = new JSONArray(JSONObjectGET("http://localhost:8080/rating/" + id).toString());
+        for(int i=0;i<j.length();i++) {
+            output=output+j.getJSONObject(i).getDouble("starsFood");
+        }
+        output = output/j.length();
+        return Math.round(output*1e1)/1e1;
+    }
 
+    public Double avgDelivery(int id) throws IOException {
+        double output = 0;
+        JSONArray j = new JSONArray(JSONObjectGET("http://localhost:8080/rating/" + id).toString());
+        for(int i=0;i<j.length();i++) {
+            output=output+j.getJSONObject(i).getDouble("starsDelivery");
+        }
+        output = output/j.length();
+        return Math.round(output*1e1)/1e1;
+    }
 
     public void zurueckButtonClick() throws IOException {
         changeScene("KStartseite.fxml");
