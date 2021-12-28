@@ -62,6 +62,10 @@ public class StartseiteController extends ConnectionController {
         changeScene("Map.fxml");
     }
     @FXML
+    public void onAktionStarten() throws IOException {
+        changeScene("RabattAktion1.fxml");
+    }
+    @FXML
     public void onRatingClick() throws IOException {
         changeScene("BewertungList.fxml");
     }
