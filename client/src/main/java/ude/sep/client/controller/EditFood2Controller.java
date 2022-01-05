@@ -50,6 +50,7 @@ public class EditFood2Controller extends ConnectionController  {
                 JSONObject jsonObject = jsonArray2.getJSONObject(i);
                 System.out.println("H");
                 if (jsonObject.get("foodId").equals(food.get("foodId"))) {
+
                     food = jsonObject;
                     System.out.println(food);
                     name.setText(food.get("name").toString());
@@ -96,6 +97,9 @@ public class EditFood2Controller extends ConnectionController  {
 
     public void fertigButton() throws IOException{
         String bild=imageToString(path.getText());
+        if(bild==null) {
+            bild = "";
+        }
         String Url = "http://localhost:8080/food/update";
 
         String data =
@@ -104,6 +108,7 @@ public class EditFood2Controller extends ConnectionController  {
                         "        \"beschreibung\": \"" + beschreibung.getText() + "\",\n" +
                                         "        \"bild\": \"" + bild + "\",\n" +
                         "        \"preis\":" + Double.parseDouble(preis.getText()) + ",\n" +
+                                         "        \"kategorieId\":" + food.getInt("kategorieId") + ",\n" +
                         "       \"menuId\":" + food.getInt("menuId") +"}";
 
 
