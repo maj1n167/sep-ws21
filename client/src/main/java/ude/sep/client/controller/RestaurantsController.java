@@ -34,6 +34,10 @@ public class RestaurantsController extends ConnectionController implements Initi
     RadioButton alternative;
     @FXML
     TextField filter;
+    @FXML
+    TextField searchFood;
+    @FXML
+    Button searchButton;
 
 
     @FXML
@@ -63,8 +67,15 @@ public class RestaurantsController extends ConnectionController implements Initi
     GoogleMapView mapView;
     private GoogleMap map;
 
+    //NEU Alexandra
+    @FXML
+    public void onSearchButtonClick() throws IOException {
 
-
+        list.getItems().clear();
+        list.setItems(getRestaurantSpeisen());
+        list.refresh();
+    }
+   //Bis hier
 
     @FXML
     public void onZurueckButtonClick() throws IOException {
@@ -250,6 +261,61 @@ public class RestaurantsController extends ConnectionController implements Initi
 
         return output;
     }
+
+    //Neu Alexandra
+    public ObservableList<RestaurantList> getRestaurantSpeisen() throws IOException {
+        ObservableList<RestaurantList> output = FXCollections.observableArrayList();
+        output.clear();
+        ArrayList restaurantIds = new ArrayList();
+
+        JSONArray allSpeisen = new JSONArray(JSONObjectGET("http://localhost:8080/menu").toString());
+        JSONArray allRests = new JSONArray(JSONObjectGET("http://localhost:8080/restaurant").toString());
+
+        for(int i=0;i<allSpeisen.length();i++) {
+            JSONObject curSpeise = allSpeisen.getJSONObject(i);
+            for (int a = 0; a < curSpeise.length(); a++) {
+                JSONArray curFoodDetailsList = curSpeise.getJSONArray("kategories");
+                for (int b = 0; b < curFoodDetailsList.length(); b++) {
+                    JSONObject curFoodDetails = curFoodDetailsList.getJSONObject(b);
+                    JSONArray curMeals = curFoodDetails.getJSONArray("foods");
+                    for (int c =0; c < curMeals.length(); c++) {
+                        JSONObject curMeal = curMeals.getJSONObject(c);
+                        String meal = curMeal.getString("name");
+                        if (meal.toLowerCase().contains(searchFood.getText().toLowerCase())) {
+                            restaurantIds.add(curMeal.get("menuId"));
+                        }
+                    }
+                }
+            }
+        }
+
+        for(int i=0;i<allRests.length();i++){
+            JSONObject curRest = allRests.getJSONObject(i);
+            if(restaurantIds.contains(curRest.getInt("restaurantId"))) {
+
+                output.add(new RestaurantList(curRest.getInt("restaurantId"),
+                        curRest.getString("name"),
+                        curRest.getString("strasse"),
+                        curRest.getString("plz"),
+                        curRest.getString("stadt"),
+                        curRest.getDouble("mbw"),
+                        curRest.getDouble("lieferkosten"),
+                        curRest.getString("kategorie"),
+                        curRest.getInt("lieferbereich"),
+                        curRest.getDouble("ratingFood"),
+                        curRest.getDouble("ratingDelivery"),
+                        isRestaurantNear(curRest.getInt("restaurantId")),
+                        id,
+                        userId));
+
+                String restAddress = curRest.getString("strasse")+ " " + curRest.getString("plz") + " " +curRest.getString("stadt");
+                addMarker(restAddress, curRest.getInt("restaurantId"));
+            }
+        }
+
+        return output;
+    }
+    //Ende Alexandra Teil
 
     public ObservableList<RestaurantList> getRestaurants(String address) throws IOException {
         //fertig
