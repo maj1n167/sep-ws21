@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ude.sep.client.controller.RestaurantbesitzerStatistikController">
+    <children>
+        <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="50.0" prefHeight="50.0" style="-fx-background-color: #90ee90;" text="Supreme Eating Program" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <font>
+                <Font name="System Bold" size="20.0" />
+            </font>
+        </Label>
+      <ChoiceBox fx:id="choiceBox" layoutX="28.0" layoutY="209.0" prefHeight="30.0" prefWidth="180.0" />
+      <ListView fx:id="sortedFood" layoutX="332.0" layoutY="91.0" prefHeight="250.0" prefWidth="424.0" />
+      <Label fx:id="zeitraum" layoutX="28.0" layoutY="155.0" prefHeight="30.0" prefWidth="220.0" text="Wählen sie den Zeitraum aus :">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Button layoutX="14.0" layoutY="561.0" mnemonicParsing="false" onAction="#zurückButton" text="zurück" />
+    </children>
+</AnchorPane>
