@@ -17,7 +17,7 @@ public class FavController {
     public FavController(FavService favService) {this.favService = favService;}
 
     @GetMapping
-    public ResponseEntity<List<Fav>> getAllUsers() {
+    public ResponseEntity<List<Fav>> getAllFavs() {
 
         List<Fav> favs = favService.findAllFavs();
 
