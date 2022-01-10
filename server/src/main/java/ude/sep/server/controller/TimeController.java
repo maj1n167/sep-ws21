@@ -26,12 +26,12 @@ public class TimeController {
     public ResponseEntity<Time> addTime(@PathVariable int timeFor, @PathVariable int timeOf, @PathVariable int distance) throws JSONException {
         int toAdd = 10;
         List<Time> times = timeService.findAllTimesOf(timeOf);
-        if(times.size()>2) {
+        if(times.size()>=2) {
             toAdd+=10;
         }
         while(distance>5000){
             toAdd+=10;
-            distance = distance -5000;
+            distance = distance-5000;
         }
         Time newTime = new Time(toAdd, timeOf, timeFor);
         Time time = timeService.addTime(newTime);
