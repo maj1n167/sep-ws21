@@ -287,7 +287,7 @@ public class WarenkorbController extends ConnectionController {
             JSONObjectPOST(url1 + "/add", emptyWarenkorb.toString());
 
             JSONObjectGET("http://localhost:8080/user/send/orderVerification/" + user.get("email"));
-
+            addDeliveryTime(RestaurantsController.id, RestaurantsController.distance);
             changeScene("Bewertung.fxml");
 
         } else {
