@@ -22,8 +22,8 @@ public class TimeController {
         return new ResponseEntity<>(times, HttpStatus.OK);
     }
 
-    @PostMapping("/add/{timeOf}/{distance}")
-    public ResponseEntity<Time> addTime(@PathVariable int timeOf, @PathVariable int distance) throws JSONException {
+    @PostMapping("/add/{timeFor}/{timeOf}/{distance}")
+    public ResponseEntity<Time> addTime(@PathVariable int timeFor, @PathVariable int timeOf, @PathVariable int distance) throws JSONException {
         int toAdd = 10;
         List<Time> times = timeService.findAllTimesOf(timeOf);
         if(times.size()>2) {
@@ -33,16 +33,23 @@ public class TimeController {
             toAdd+=10;
             distance = distance -5000;
         }
-        Time newTime = new Time(toAdd, timeOf);
+        Time newTime = new Time(toAdd, timeOf, timeFor);
         Time time = timeService.addTime(newTime);
         return new ResponseEntity<>(time, HttpStatus.OK);
     }
 
-    @GetMapping("/find/{timeOf}")
+    @GetMapping("/findof/{timeOf}")
     public ResponseEntity<List<Time>> getAllTimesOf(@PathVariable int timeOf) {
         List<Time> times = timeService.findAllTimesOf(timeOf);
         return new ResponseEntity<>(times, HttpStatus.OK);
     }
+
+    @GetMapping("/findfor/{timeFor}")
+    public ResponseEntity<List<Time>> getAllTimesFor(@PathVariable int timeFor) {
+        List<Time> times = timeService.findAllTimesFor(timeFor);
+        return new ResponseEntity<>(times, HttpStatus.OK);
+    }
+
     @DeleteMapping("/del/{id}")
     public ResponseEntity delTime(@PathVariable String id) {
         timeService.delTime(Integer.valueOf(id));

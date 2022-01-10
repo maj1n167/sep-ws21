@@ -3,6 +3,7 @@ package ude.sep.client.controller;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import org.json.JSONArray;
 import ude.sep.client.Main;
 import org.json.JSONObject;
 
@@ -10,6 +11,9 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Base64;
 
 
@@ -94,9 +98,17 @@ public class ConnectionController {
         }
     }
 
-    public void addDeliveryTime(int timeOf, int distance) throws IOException {
-        String url = "http://localhost:8080/time/"+timeOf+"/"+distance;
+    public void addDeliveryTime(int timeFor, int timeOf, int distance) throws IOException {
+        String url = "http://localhost:8080/time/"+timeFor+"/"+timeOf+"/"+distance;
         JSONObjectPOST(url,"{}");
+    }
+
+    public int getDeliveryTime(int timeFor) throws IOException {
+        String url = "http://localhost:8080/time/findfor/"+timeFor;
+        JSONArray allTimesFor = new JSONArray(JSONObjectGET(url).toString());
+        DateTimeFormatter dfr = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        Duration output = Duration.between(LocalDateTime.now(), LocalDateTime.parse(allTimesFor.getJSONObject(0).getString("end"), dfr));
+        return (int) output.toMinutes();
     }
 
     public JSONObject lookUpDistance(String address, int restaurantId) throws IOException {

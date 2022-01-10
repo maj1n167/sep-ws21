@@ -37,4 +37,7 @@ public class TimeService {
     public void delTime(int time) {timeRepo.deleteById(time);}
 
     public List<Time> findAllTimes() {return timeRepo.findAll();}
+
+    public List<Time> findAllTimesFor(int timeFor) {return timeRepo.findAllByTimeFor(timeFor);}
+
 }

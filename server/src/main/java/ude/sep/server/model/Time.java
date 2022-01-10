@@ -16,6 +16,7 @@ public class Time {
     int id;
     String start;
     String end;
+    int timeFor;
     int timeOf;
 
     public Time(int toAdd, int timeOf) {
@@ -25,6 +26,13 @@ public class Time {
     }
 
     public Time() {}
+
+    public Time(int toAdd, int timeOf, int timeFor) {
+        this.start = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss").format(LocalDateTime.now());
+        this.end = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss").format(LocalDateTime.now().plusMinutes(toAdd));
+        this.timeFor = timeFor;
+        this.timeOf = timeOf;
+    }
 
     public int getId() {return id;}
 
@@ -41,4 +49,8 @@ public class Time {
     public int getTimeOf() {return timeOf;}
 
     public void setTimeOf(int timeOf) {this.timeOf = timeOf;}
+
+    public int getTimeFor() {return timeFor;}
+
+    public void setTimeFor(int timeFor) {this.timeFor = timeFor;}
 }
