@@ -93,4 +93,9 @@ public class ConnectionController {
             return null;
         }
     }
+
+    public void addDeliveryTime(int timeOf, int distance) throws IOException {
+        String url = "http://localhost:8080/time/"+timeOf+"/"+distance;
+        JSONObjectPOST(url,"{}");
+    }
 }
