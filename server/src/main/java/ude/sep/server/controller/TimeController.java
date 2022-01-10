@@ -18,27 +18,30 @@ public class TimeController {
 
     @GetMapping
     public ResponseEntity<List<Time>> getAllTimes() {
-
         List<Time> times = timeService.findAllTimes();
-
         return new ResponseEntity<>(times, HttpStatus.OK);
-
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<Time> addTime() throws JSONException {
-        Time newTime = new Time();
+    @PostMapping("/add/{timeOf}/{distance}")
+    public ResponseEntity<Time> addTime(@PathVariable int timeOf, @PathVariable int distance) throws JSONException {
+        int toAdd = 10;
+        List<Time> times = timeService.findAllTimesOf(timeOf);
+        if(times.size()>2) {
+            toAdd+=10;
+        }
+        while(distance>5000){
+            toAdd+=10;
+            distance = distance -5000;
+        }
+        Time newTime = new Time(toAdd, timeOf);
         Time time = timeService.addTime(newTime);
         return new ResponseEntity<>(time, HttpStatus.OK);
     }
 
     @GetMapping("/find/{timeOf}")
-    public ResponseEntity<List<Time>> getAllTimesOf(@PathVariable String timeOf) {
-        List<Time> times = timeService.findAllTimesOf(Integer.valueOf(timeOf));
-//        if(favs.size()!= 0) {
+    public ResponseEntity<List<Time>> getAllTimesOf(@PathVariable int timeOf) {
+        List<Time> times = timeService.findAllTimesOf(timeOf);
         return new ResponseEntity<>(times, HttpStatus.OK);
-//        }
-//        return new ResponseEntity<>(favs, HttpStatus.NO_CONTENT);
     }
     @DeleteMapping("/del/{id}")
     public ResponseEntity delTime(@PathVariable String id) {
