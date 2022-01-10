@@ -98,4 +98,15 @@ public class ConnectionController {
         String url = "http://localhost:8080/time/"+timeOf+"/"+distance;
         JSONObjectPOST(url,"{}");
     }
+
+    public JSONObject lookUpDistance(String address, int restaurantId) throws IOException {
+        String url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=";
+        url = url+address;
+        JSONObject rest = new JSONObject(JSONObjectGET("http://localhost:8080/restaurant/find/"+restaurantId).toString());
+        url = url + "&destinations=" + rest.getString("strasse") + "%2C" + rest.getString("nummer") + "%2C" + rest.getString("plz") + "%2C" + rest.getString("stadt");
+        url = url + "&departure_time=now&key=AIzaSyA-qLMdcnsAVwBvC0Xpi2N73coqLzq9v0o";
+        url = url.replaceAll(" ", "%2C");
+        JSONObject result = new JSONObject(JSONObjectGET(url).toString());
+        return result;
+    }
 }
