@@ -121,4 +121,15 @@ public class ConnectionController {
         JSONObject result = new JSONObject(JSONObjectGET(url).toString());
         return result;
     }
+
+    public void addSale(JSONObject input) throws IOException {
+        String url = "http://localhost:8080/sale/add";
+        JSONObjectPOST(url,input.toString());
+    }
+
+    public JSONArray getPromotion(int restaurantId) throws IOException {
+        String url = "http://localhost:8080/sale/find/"+restaurantId;
+        JSONArray output= new JSONArray(JSONObjectGET(url).toString());
+        return output;
+    }
 }
