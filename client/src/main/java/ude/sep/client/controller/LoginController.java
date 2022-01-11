@@ -1,11 +1,16 @@
 package ude.sep.client.controller;
 
+import com.dlsc.gmapsfx.shapes.Circle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.io.IOException;
-
+import java.util.Optional;
 
 
 public class LoginController extends ConnectionController {
@@ -61,7 +66,6 @@ public class LoginController extends ConnectionController {
         alert.setTitle("Error");
         alert.setTitle("Error: Daten nicht Korrekt");
         alert.setContentText("Bitte überprüfen sie ihre Eingaben!");
-
         alert.showAndWait();
     }
     @FXML
@@ -77,5 +81,42 @@ public class LoginController extends ConnectionController {
 
     public int getUserId() {
         return userId;
+    }
+
+    @FXML
+    public void onAdminButton() throws IOException{
+        Dialog<String> dialog = new Dialog<>();
+        dialog.setTitle("Supreme Eating Program");
+        dialog.setHeaderText("Sie moechten die Admin-Seite oeffnen.");
+        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+
+        PasswordField pwd = new PasswordField();
+        HBox content = new HBox();
+        content.setAlignment(Pos.CENTER_LEFT);
+        content.setSpacing(10);
+        content.getChildren().addAll(new Label("Bitte geben Sie zur Bestätigung das Passwort ein:"), pwd);
+        dialog.getDialogPane().setContent(content);
+        dialog.setResultConverter(dialogButton -> {
+            if (dialogButton == ButtonType.OK) {
+                return pwd.getText();
+            }
+            return null;
+        });
+
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()) {
+            System.out.println(result.get());
+        }
+
+        String input = dialog.getResult();
+        if(input.matches("12345678")) {
+            changeScene("Admin.fxml");
+        } else {
+            Alert alert = new Alert (Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setTitle("Error: Admin Passwort falsch");
+            alert.setContentText("Bitte überprüfen sie ihre Eingaben!");
+            alert.showAndWait();
+        }
     }
 }
