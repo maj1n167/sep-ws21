@@ -6,7 +6,7 @@ import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.SpringApplication;
-import ude.sep.ServerApplication;
+import ude.sep.server.ServerApplication;
 import ude.sep.client.controller.*;
 import java.io.IOException;
 

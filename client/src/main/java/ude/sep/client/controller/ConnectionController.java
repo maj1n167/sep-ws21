@@ -3,6 +3,7 @@ package ude.sep.client.controller;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import org.json.JSONArray;
 import ude.sep.client.Main;
 import org.json.JSONObject;
 
@@ -10,6 +11,9 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Base64;
 
 
@@ -92,5 +96,40 @@ public class ConnectionController {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public void addDeliveryTime(int timeFor, int timeOf, int distance) throws IOException {
+        String url = "http://localhost:8080/time/"+timeFor+"/"+timeOf+"/"+distance;
+        JSONObjectPOST(url,"{}");
+    }
+
+    public int getDeliveryTime(int timeFor) throws IOException {
+        String url = "http://localhost:8080/time/findfor/"+timeFor;
+        JSONArray allTimesFor = new JSONArray(JSONObjectGET(url).toString());
+        DateTimeFormatter dfr = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        Duration output = Duration.between(LocalDateTime.now(), LocalDateTime.parse(allTimesFor.getJSONObject(0).getString("end"), dfr));
+        return (int) output.toMinutes();
+    }
+
+    public JSONObject lookUpDistance(String address, int restaurantId) throws IOException {
+        String url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=";
+        url = url+address;
+        JSONObject rest = new JSONObject(JSONObjectGET("http://localhost:8080/restaurant/find/"+restaurantId).toString());
+        url = url + "&destinations=" + rest.getString("strasse") + "%2C" + rest.getString("nummer") + "%2C" + rest.getString("plz") + "%2C" + rest.getString("stadt");
+        url = url + "&departure_time=now&key=AIzaSyA-qLMdcnsAVwBvC0Xpi2N73coqLzq9v0o";
+        url = url.replaceAll(" ", "%2C");
+        JSONObject result = new JSONObject(JSONObjectGET(url).toString());
+        return result;
+    }
+
+    public void addSale(JSONObject input) throws IOException {
+        String url = "http://localhost:8080/sale/add";
+        JSONObjectPOST(url,input.toString());
+    }
+
+    public JSONArray getPromotion(int restaurantId) throws IOException {
+        String url = "http://localhost:8080/sale/find/"+restaurantId;
+        JSONArray output= new JSONArray(JSONObjectGET(url).toString());
+        return output;
     }
 }

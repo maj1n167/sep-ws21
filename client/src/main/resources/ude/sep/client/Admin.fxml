@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ude.sep.client.controller.AdminController">
+    <children>
+        <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="50.0" prefHeight="50.0" style="-fx-background-color: #90ee90;" text="Supreme Eating Program" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <font>
+                <Font name="System Bold" size="20.0" />
+            </font>
+        </Label>
+            <Label layoutX="331.0" layoutY="63.0" text="Admin Page">
+                <font>
+                    <Font name="System Bold Italic" size="24.0" />
+                </font>
+            </Label>
+      <TextField fx:id="datum" layoutX="358.0" layoutY="123.0" prefHeight="25.0" prefWidth="85.0" />
+      <Text layoutX="255.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Neues Datum:" wrappingWidth="75.13671875" />
+      <Button fx:id="datumGoButton" layoutX="469.0" layoutY="123.0" mnemonicParsing="false" onAction="#onDatumGoButton" text="GO" />
+      <Button fx:id="backButton" layoutX="14.0" layoutY="561.0" mnemonicParsing="false" onAction="#onBackButton" text="Zurueck" />
+      <TextField fx:id="minute" layoutX="358.0" layoutY="167.0" prefHeight="25.0" prefWidth="85.0" />
+      <Text layoutX="201.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Zu Addierende Minuten:" wrappingWidth="129.0" />
+      <Button fx:id="MinuteGoButton" layoutX="469.0" layoutY="167.0" mnemonicParsing="false" onAction="#onMinuteGoButton" text="GO" />
+      <Button fx:id="datumTestButton" layoutX="518.0" layoutY="123.0" mnemonicParsing="false" onAction="#onDatumTestButton" text="Test" />
+      <Button fx:id="datumResetButton" layoutX="575.0" layoutY="123.0" mnemonicParsing="false" onAction="#onDatumResetButton" text="Reset" />
+      <Button fx:id="minuteTestButton" layoutX="518.0" layoutY="167.0" mnemonicParsing="false" onAction="#onMinuteTestButton" text="Test" />
+      <Button fx:id="minuteResetButton" layoutX="575.0" layoutY="167.0" mnemonicParsing="false" onAction="#onMinuteResetButton" text="Reset" />
+    </children>
+</AnchorPane>

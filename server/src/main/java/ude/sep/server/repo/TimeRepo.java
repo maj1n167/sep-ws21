@@ -8,4 +8,5 @@ import java.util.List;
 public interface TimeRepo extends JpaRepository<Time, Integer> {
     void deleteById(int id);
     List<Time> findAllByTimeOf(int timeOf);
+    List<Time> findAllByTimeFor(int timeFor);
 }

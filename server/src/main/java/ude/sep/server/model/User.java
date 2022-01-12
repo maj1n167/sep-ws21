@@ -20,6 +20,7 @@ public class User implements Serializable {
     private String nummer;
     private String plz;
     private String stadt;
+    private String geburtsdatum;
     private Boolean restaurantBesitzer;
     private int treuepunkte;
     private Double guthaben;
@@ -155,4 +156,8 @@ public class User implements Serializable {
     public String getAltNummer() {return altNummer;}
 
     public void setAltNummer(String altNummer) {this.altNummer = altNummer;}
+
+    public String getGeburtsdatum() {return geburtsdatum;}
+
+    public void setGeburtsdatum(String geburtsdatum) {this.geburtsdatum = geburtsdatum;}
 }

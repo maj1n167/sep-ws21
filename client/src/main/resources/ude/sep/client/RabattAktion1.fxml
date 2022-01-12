@@ -22,6 +22,6 @@
         <TextField fx:id="datum2" layoutX="471.0" layoutY="288.0" />
         <Label layoutX="386.0" layoutY="292.0" text="bis:" />
         <Label layoutX="520.0" layoutY="314.0" text="(optional)" />
-        <Button alignment="CENTER" contentDisplay="CENTER" layoutX="325.0" layoutY="442.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="140.0" text="Rabattaktion starten!" />
+        <Button alignment="CENTER" contentDisplay="CENTER" layoutX="325.0" layoutY="442.0" mnemonicParsing="false" onAction="#goSaleClick" prefHeight="40.0" prefWidth="140.0" text="Rabattaktion starten!" />
     </children>
 </AnchorPane>

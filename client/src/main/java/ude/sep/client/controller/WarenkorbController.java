@@ -288,6 +288,9 @@ public class WarenkorbController extends ConnectionController {
 
             JSONObjectGET("http://localhost:8080/user/send/orderVerification/" + user.get("email"));
 
+            //integrierung Lieferzeit
+            addDeliveryTime(LoginController.userId, RestaurantsController.id, RestaurantsController.distance);
+
             changeScene("Bewertung.fxml");
 
         } else {
