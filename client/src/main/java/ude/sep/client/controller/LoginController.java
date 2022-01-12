@@ -10,6 +10,7 @@ import javafx.scene.paint.Color;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Optional;
 
 
@@ -28,6 +29,7 @@ public class LoginController extends ConnectionController {
 
     public static String email;
     public static int userId;
+    public static LocalDate date = LocalDate.now();
 
 
     @FXML
