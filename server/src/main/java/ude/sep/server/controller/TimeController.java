@@ -1,12 +1,15 @@
 package ude.sep.server.controller;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ude.sep.server.ServerApplication;
 import ude.sep.server.model.Time;
 import ude.sep.server.service.TimeService;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RestController
@@ -53,6 +56,25 @@ public class TimeController {
     @DeleteMapping("/del/{id}")
     public ResponseEntity delTime(@PathVariable String id) {
         timeService.delTime(Integer.valueOf(id));
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @PostMapping("/change")
+    public ResponseEntity<Time> changeTime(@RequestBody String body) throws JSONException {
+        JSONObject input = new JSONObject(body);
+        ServerApplication.toAdd = Integer.parseInt(input.getString("toAdd"));
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/test")
+    public ResponseEntity<String> testTime() throws JSONException {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        return new ResponseEntity<>(ServerApplication.getTime().format(dtf), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/reset")
+    public ResponseEntity changeTime() throws JSONException {
+        ServerApplication.toAdd = 0;
         return new ResponseEntity(HttpStatus.OK);
     }
 }

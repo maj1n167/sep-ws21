@@ -3,9 +3,11 @@ package ude.sep.client.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
@@ -13,6 +15,8 @@ public class AdminController extends ConnectionController {
 
     @FXML
     TextField datum;
+    @FXML
+    TextField minute;
 
     public void onBackButton(ActionEvent actionEvent) throws IOException {changeScene("Login.fxml");}
     public void initialize() throws IOException {}
@@ -44,15 +48,27 @@ public class AdminController extends ConnectionController {
     }
 
     //funktionen fehlen
-    public void onMinuteGoButton(ActionEvent actionEvent) {
-
+    public void onMinuteGoButton(ActionEvent actionEvent) throws IOException {
+        try {
+            int test = Integer.parseInt(minute.getText());
+            JSONObject input = new JSONObject();
+            input.put("toAdd", minute.getText());
+            JSONObjectPOST("http://localhost:8080/time/change", input.toString());
+            System.out.println("Erfolgreich geaendert!");
+            minute.clear();
+        } catch(NumberFormatException e) {
+            System.out.println("Eingabe ueberpruefen!");
+        }
     }
 
     public void onMinuteTestButton(ActionEvent actionEvent) throws IOException {
-        JSONObjectPOST("http://localhost:8080/time/test", "{}");
+        String output = JSONObjectGET("http://localhost:8080/time/test").toString();
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        System.out.println("Echtzeit: "+ LocalDateTime.now().format(dtf)+"\nServerzeit: "+output);
     }
 
-    public void onMinuteResetButton(ActionEvent actionEvent) {
-
+    public void onMinuteResetButton(ActionEvent actionEvent) throws IOException {
+        JSONObjectDELETE("http://localhost:8080/time/reset");
+        System.out.println("Erfolgreich geaendert!");
     }
 }
