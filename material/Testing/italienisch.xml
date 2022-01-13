@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<speisekarte>
+	<gerichte>
+		<pizza>
+			<gericht>
+				<name>Pizza Salami</name>
+				<beschreibung>Normale Größe: 26cm, Große Größe: 32cm</beschreibung>
+				<preis>5</preis>
+				<extras>
+					<extra>groß_2</extra>
+					<extra>gefüllte Kruste_1,5</extra>
+					<extra>scharf_0,5</extra>
+					<extra>ananas_30</extra>
+					<extra>pilze_1</extra>
+					<extra>knoblauch_0,5</extra>
+				</extras>
+			</gericht>
+			<gericht>
+				<name>Pizza Hawaii</name>
+				<beschreibung>Normale Größe: 26cm, Große Größe: 32cm</beschreibung>
+				<preis>6</preis>
+				<extras>
+					<extra>groß_2</extra>
+					<extra>gefüllte Kruste_1,5</extra>
+					<extra>scharf_0,5</extra>
+					<extra>tuhnfisch_1,5</extra>
+					<extra>knoblauch_0,5</extra>
+				</extras>
+			</gericht>
+		</pizza>
+		<beilagen>
+			<gericht>
+				<name>Pizzabrötchen</name>
+				<beschreibung>-</beschreibung>
+				<preis>3,20</preis>
+				<extras>
+					<extra>kräuterbutter_0,3</extra>
+					<extra>ketchup_0,2</extra>				
+				</extras>
+			</gericht>
+		</beilagen>
+		<salate>
+			<gericht>
+				<name>Insalata Mista</name>
+				<beschreibung>Tomaten, Mais,Champignons, Karotten, schwarze Oliven, Gurken, Paprika, roten Zwiebeln, und Blattsalat</beschreibung>
+				<preis>3,20</preis>
+				<extras>
+					<extra>kräuterbutter_0,3</extra>
+					<extra>ketchup_0,2</extra>				
+				</extras>
+			</gericht>
+		</salate>
+		<nudelgerichte>
+			<gericht>
+				<name>Spaghetti Carbonara</name>
+				<beschreibung>mit Schinken, Ei, Sahnesauce und Parmesan</beschreibung>
+				<preis>7,20</preis>
+				<extras></extras>
+			</gericht>
+		</nudelgerichte>
+	</gerichte>
+</speisekarte>

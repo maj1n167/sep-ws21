@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<speisekarte>
+	<gerichte>
+		<fleischgerichte>
+			<gericht>
+				<name>Gyros Teller</name>
+				<beschreibung>Gyros mit Tzatziki, Pommes frites und Salat</beschreibung>
+				<preis>4,20</preis>
+				<extras>
+					<extra>Feta_1,7</extra>
+					<extra>Peperoni_1,5</extra>
+					<extra>Tzatziki_2</extra>					
+				</extras>
+			</gericht>
+			<gericht>
+				<name>Grill Teller</name>
+				<beschreibung>Steak,Cevapcici,Souvlaki und Gyros</beschreibung>
+				<preis>9,9</preis>
+				<extras>
+					<extra>Pommes_1,5</extra>
+					<extra>Reis_1</extra>
+					<extra>Tzatziki_2</extra>					
+				</extras>
+			</gericht>
+		</fleischgerichte>
+		<salate>
+			<gericht>
+				<name>Mediterraner Gambas Salat Produktinfo</name>
+				<beschreibung>mit Gambas, gebratenem Gemüse, Cherrytomaten, Gurken, Lollo-Mix, Rucola, Parmesan und Haus-Dressing</beschreibung>
+				<preis>9,5</preis>
+				<extras>
+					<extra>Feta_1,7</extra>
+					<extra>extra Gambas_3</extra>
+					<extra>Pute_3</extra>
+				</extras>
+			</gericht>
+			<gericht>
+				<name>Mediterraner Putensalat</name>
+				<beschreibung>mit Putenbrust, gebratenem Gemüse, Cherrytomaten, Gurken, Lollo-Mix, Rucola, Parmesan und Haus-Dressing</beschreibung>
+				<preis>9,5</preis>
+				<extras>
+					<extra>Feta_1,7</extra>
+					<extra>extra Pute_3</extra>
+					<extra>Gambas_3</extra>
+				</extras>
+			</gericht>
+		</salate>
+	</gerichte>
+</speisekarte>

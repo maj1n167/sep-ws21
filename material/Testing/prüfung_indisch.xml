@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<speisekarte>
+	<gerichte>
+		<hühnchengerichte>
+			<gericht>
+				<name>Chicken Curry Classic</name>
+				<beschreibung>Hühnerfilet in Currysauce nach nordindischer Art</beschreibung>
+				<preis>12,5</preis>
+				<extras>
+					<extra>mild_0</extra>
+					<extra>scharf_1</extra>
+					<extra>extra scharf_-1,5</extra>						
+				</extras>
+			</gericht>
+		</hühnchengerichte>
+		<suppen>
+			<gericht>
+				<name>Daal-Suppe</name>
+				<beschreibung>rote Linsen mit gebratenem Ingwer, Kümmel,frischem Koriander,Chili und Knoblauch</beschreibung>
+				<preis>3,85</preis>
+				<extras></extras>
+			</gericht>
+		</suppen>
+		<vegetarisches>
+			<gericht>
+				<name>Vegetarische Platte</name>
+				<beschreibung>frittierter Blumenkohl,hausgemachter Rahmkäse,Kartoffeln,Zwiebelringe,Auberginen und Salat</beschreibung>
+				<preis>12,5</preis>
+				<extras>
+					<extra>extra Zwiebelringe_1</extra>
+					<extra>scharf_1</extra>										
+				</extras>
+			</gericht>
+		</vegetarisches>
+		<salate>
+			<gericht>
+				<name>Salat Indian Style</name>
+				<beschreibung>gemischter Salat nach indischer Art</beschreibung>
+				<preis>4,5</preis>
+				<extras>
+					<extra>hähnchen_1</extra>
+					<extra>krabben_1,5</extra>
+					<extra>ingwer_0,2</extra>
+					<extra>paprika_0,2</extra>										
+				</extras>
+			</gericht>
+		</salate>
+	</gerichte>
+</speisekarte>
