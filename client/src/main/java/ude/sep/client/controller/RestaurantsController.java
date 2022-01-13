@@ -399,7 +399,7 @@ public class RestaurantsController extends ConnectionController implements Initi
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         JSONObject user = new JSONObject(JSONObjectGET("http://localhost:8080/user/findbyid/"+LoginController.userId).toString());
         LocalDate usergb = LocalDate.parse(user.getString("geburtsdatum"), dtf);
-        if(LoginController.date.now().getMonthValue() == usergb.getMonthValue() && LoginController.date.now().getDayOfMonth() == usergb.getDayOfMonth()) {
+        if(LoginController.date.getMonthValue() == usergb.getMonthValue() && LoginController.date.getDayOfMonth() == usergb.getDayOfMonth()) {
             output = true;
         } else {
             JSONArray ja = getPromotion(restaurantId);
@@ -407,11 +407,15 @@ public class RestaurantsController extends ConnectionController implements Initi
                 JSONObject cur = ja.getJSONObject(i);
                 LocalDate start = LocalDate.parse(cur.getString("start"), dtf);
                 LocalDate end = LocalDate.parse(cur.getString("end"), dtf);
-                if (LoginController.date.now().isAfter(start) && LoginController.date.now().isBefore(end)) {
+//                if (LoginController.date.now().isAfter(start) && LoginController.date.now().isBefore(end)) {
+                if(LoginController.date.isAfter(start) | LoginController.date.isEqual(start) &&
+                        LoginController.date.isBefore(end) | LoginController.date.isEqual(end)) {
                     output = true;
                 }
             }
         }
+        System.out.println("Datum: "+LoginController.date.toString());
+        System.out.println("True/false: " + output);
         return output;
     }
 
@@ -545,7 +549,7 @@ public class RestaurantsController extends ConnectionController implements Initi
                     this.order.setOnAction(new EventHandler<ActionEvent>() {
                         @Override
                         public void handle(ActionEvent event) {
-                            promo = true;
+                            RestaurantsController.promo = true;
                             RestaurantsController.id = id;
                             RestaurantsController.distance = distance;
                             Alert alert = new Alert(Alert.AlertType.INFORMATION);
