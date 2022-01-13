@@ -2,6 +2,7 @@ package ude.sep.server.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ude.sep.server.controller.TimeController;
 import ude.sep.server.model.Time;
 import ude.sep.server.repo.TimeRepo;
 
@@ -25,8 +26,8 @@ public class TimeService {
             boolean isCompleted = false;
             Time current = output.get(i);
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-            isCompleted = LocalDateTime.parse(current.getEnd(), dtf).isBefore(LocalDateTime.now());
-            System.out.println("currentTime: " + LocalDateTime.now() + "\nendTime: " + LocalDateTime.parse(current.getEnd(), dtf) + "\nisCompleted: " + isCompleted);
+            isCompleted = LocalDateTime.parse(current.getEnd(), dtf).isBefore(TimeController.getTime());
+            System.out.println("currentTime: " + TimeController.getTime() + "\nendTime: " + LocalDateTime.parse(current.getEnd(), dtf) + "\nisCompleted: " + isCompleted);
             if(isCompleted) {
                 timeRepo.deleteById(current.getId());
             };
