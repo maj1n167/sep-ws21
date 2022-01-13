@@ -9,6 +9,7 @@ import ude.sep.server.ServerApplication;
 import ude.sep.server.model.Time;
 import ude.sep.server.service.TimeService;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
@@ -16,6 +17,7 @@ import java.util.List;
 @RequestMapping("/time")
 public class TimeController {
     private final TimeService timeService;
+    public static int toAdd = 0;
 
     public TimeController(TimeService timeService) {this.timeService = timeService;}
 
@@ -62,19 +64,24 @@ public class TimeController {
     @PostMapping("/change")
     public ResponseEntity<Time> changeTime(@RequestBody String body) throws JSONException {
         JSONObject input = new JSONObject(body);
-        ServerApplication.toAdd = Integer.parseInt(input.getString("toAdd"));
+        toAdd = Integer.parseInt(input.getString("toAdd"));
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/test")
     public ResponseEntity<String> testTime() throws JSONException {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-        return new ResponseEntity<>(ServerApplication.getTime().format(dtf), HttpStatus.OK);
+        return new ResponseEntity<>(getTime().format(dtf), HttpStatus.OK);
     }
 
     @DeleteMapping("/reset")
     public ResponseEntity changeTime() throws JSONException {
-        ServerApplication.toAdd = 0;
+        toAdd = 0;
         return new ResponseEntity(HttpStatus.OK);
+    }
+
+    public static LocalDateTime getTime() {
+        LocalDateTime output = LocalDateTime.now().plusMinutes(toAdd);
+        return output;
     }
 }
