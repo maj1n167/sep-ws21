@@ -233,9 +233,12 @@ public class RestaurantsController extends ConnectionController implements Initi
         for(int i=0;i<allRests.length();i++){
             JSONObject curRest = allRests.getJSONObject(i);
             int distance = getDistance(curRest.getInt("restaurantId"));
+            boolean test = false;
+            try {if(Integer.parseInt(filter.getText()) >distance) {test=true;}} catch(NumberFormatException e) {}
             if(filter.getText().equals(curRest.getString("name")) ||
-                    filter.getText().equals(curRest.getString("kategorie"))) {
-//                     ||filter.getText(). < getDistance(curRest.getInt("restaurantId"))) {
+                    filter.getText().equals(curRest.getString("kategorie")) ||
+                    test) {
+
                 //Ueberpruefen ob es ein fav ist
                 boolean isFav = isRestaurantFav(curRest.getInt("restaurantId"));
                 int favId = -1;
