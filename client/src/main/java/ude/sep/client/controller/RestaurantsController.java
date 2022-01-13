@@ -406,7 +406,7 @@ public class RestaurantsController extends ConnectionController implements Initi
             for (int i = 0; i < ja.length(); i++) {
                 JSONObject cur = ja.getJSONObject(i);
                 LocalDate start = LocalDate.parse(cur.getString("start"), dtf);
-                LocalDate end = LocalDate.parse(cur.getString("start"), dtf);
+                LocalDate end = LocalDate.parse(cur.getString("end"), dtf);
                 if (LoginController.date.now().isAfter(start) && LoginController.date.now().isBefore(end)) {
                     output = true;
                 }

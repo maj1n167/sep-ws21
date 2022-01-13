@@ -19,7 +19,9 @@ public class AktionenController extends ConnectionController {
         JSONObject input = new JSONObject();
         input.put("rId" , LoginController.userId);
         input.put("start", datum1.getText());
-        input.put("end", datum2.getText());
+        if(datum2.getText().matches("")) {input.put("end", datum1.getText());}
+        else {input.put("end", datum2.getText());}
         addSale(input);
+        changeScene("Startseite.fxml");
     }
 }

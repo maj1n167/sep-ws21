@@ -30,6 +30,7 @@ public class WarenkorbController extends ConnectionController {
     public int treuepunkte;
     public double profuenfer;
     public double lieferkosten2;
+    public double aktionSumme;
 
 
     public void initialize() throws IOException {
@@ -91,7 +92,17 @@ public class WarenkorbController extends ConnectionController {
             initialize2();
 
         }
+        if(RestaurantsController.promo == true) {
+
+            JSONObject jsonObject100 = new JSONObject(JSONObjectGET("http://localhost:8080/warenkorb/find/"+userId).toString());
+            aktionSumme = Double.parseDouble(jsonObject100.get("summe").toString());
+            aktionSumme = aktionSumme * 0.8;
+            jsonObject100.put("summe", aktionSumme);
+            JSONObjectPOST("http://localhost:8080/warenkorb/add", jsonObject100.toString());
+            initialize2();
+        }
     }
+
 
     @FXML
     public void ichHabCodeButtonClick(ActionEvent event) throws IOException {
