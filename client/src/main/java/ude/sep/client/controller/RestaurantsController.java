@@ -16,6 +16,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 /**
@@ -60,8 +63,13 @@ public class RestaurantsController extends ConnectionController implements Initi
     TableColumn order = new TableColumn("Speisekarte");
     @FXML
     TableColumn fav = new TableColumn("Favoriten");
+
     public static int id=-1;
+    public static int distance =-1;
+    public static Boolean promo=false;
+
     int userId = LoginController.userId;
+    private String address = VerificationController.standard;
 
     @FXML
     GoogleMapView mapView;
@@ -224,21 +232,16 @@ public class RestaurantsController extends ConnectionController implements Initi
 
         for(int i=0;i<allRests.length();i++){
             JSONObject curRest = allRests.getJSONObject(i);
+            int distance = getDistance(curRest.getInt("restaurantId"));
             if(filter.getText().equals(curRest.getString("name")) ||
                     filter.getText().equals(curRest.getString("kategorie"))) {
-
-
+//                     ||filter.getText(). < getDistance(curRest.getInt("restaurantId"))) {
                 //Ueberpruefen ob es ein fav ist
-                JSONArray allFavs = new JSONArray(JSONObjectGET("http://localhost:8080/fav/find/" + userId).toString());
-                boolean isFav = false;
+                boolean isFav = isRestaurantFav(curRest.getInt("restaurantId"));
                 int id = 0;
-                for (int j = 0; j < allFavs.length(); j++) {
-                    JSONObject favRest = allFavs.getJSONObject(j);
-                    if (curRest.getInt("restaurantId") == (favRest.getInt("restaurantId"))) {
-                        isFav = true;
-                        id = favRest.getInt("id");
-                    }
-                }
+                if(isFav){id= curRest.getInt("restaurantId");}
+                boolean isNear = isRestaurantNear(curRest.getInt("restaurantId"));
+                boolean hasSale = hasPromotion(curRest.getInt("restaurantId"));
                 output.add(new RestaurantList(curRest.getInt("restaurantId"),
                         curRest.getString("name"),
                         curRest.getString("strasse"),
@@ -251,8 +254,11 @@ public class RestaurantsController extends ConnectionController implements Initi
                         curRest.getDouble("ratingFood"),
                         curRest.getDouble("ratingDelivery"),
                         isFav,
+                        isNear,
+                        distance,
                         id,
-                        userId));
+                        userId,
+                        hasSale));
 
                 String restAddress = curRest.getString("strasse")+ " " + curRest.getString("plz") + " " +curRest.getString("stadt");
                 addMarker(restAddress, curRest.getInt("restaurantId"));
@@ -292,7 +298,9 @@ public class RestaurantsController extends ConnectionController implements Initi
         for(int i=0;i<allRests.length();i++){
             JSONObject curRest = allRests.getJSONObject(i);
             if(restaurantIds.contains(curRest.getInt("restaurantId"))) {
-
+                int id = 0;
+                if(isRestaurantFav(curRest.getInt("restaurantId"))) {id = curRest.getInt("restaurantId");}
+                boolean hasSale = hasPromotion(curRest.getInt("restaurantId"));
                 output.add(new RestaurantList(curRest.getInt("restaurantId"),
                         curRest.getString("name"),
                         curRest.getString("strasse"),
@@ -304,9 +312,12 @@ public class RestaurantsController extends ConnectionController implements Initi
                         curRest.getInt("lieferbereich"),
                         curRest.getDouble("ratingFood"),
                         curRest.getDouble("ratingDelivery"),
+                        isRestaurantFav(curRest.getInt("restaurantId")),
                         isRestaurantNear(curRest.getInt("restaurantId")),
+                        getDistance(curRest.getInt("restaurantId")),
                         id,
-                        userId));
+                        userId,
+                        hasSale));
 
                 String restAddress = curRest.getString("strasse")+ " " + curRest.getString("plz") + " " +curRest.getString("stadt");
                 addMarker(restAddress, curRest.getInt("restaurantId"));
@@ -334,18 +345,14 @@ public class RestaurantsController extends ConnectionController implements Initi
             boolean isFav = false;
             int id = 0;
             // ueberpruefung, ob restaurant fav ist
-            for (int j = 0; j < allFavs.length(); j++) {
-                JSONObject favRest = allFavs.getJSONObject(j);
-                    if (curRest.getInt("restaurantId") == (favRest.getInt("restaurantId"))) {
-                        isFav = true;
-                        id = favRest.getInt("id");
-                    }
-            }
+            isFav = isRestaurantFav(curRest.getInt("restaurantId"));
+            if(isFav){id=curRest.getInt("restaurantId");}
             //ueberpruefung, ob restaurant near ist
             isNear = isRestaurantNear(curRest.getInt("restaurantId"));
-
+            //ueberpruefung ob sale vorhanden ist
+            boolean hasSale = hasPromotion(curRest.getInt("restaurantId"));
             if(isNear || isFav) {
-
+                int distance = getDistance(curRest.getInt("restaurantId"));
                 output.add(new RestaurantList(curRest.getInt("restaurantId"),
                         curRest.getString("name"),
                         curRest.getString("strasse"),
@@ -358,8 +365,11 @@ public class RestaurantsController extends ConnectionController implements Initi
                         curRest.getDouble("ratingFood"),
                         curRest.getDouble("ratingDelivery"),
                         isFav,
+                        isNear,
+                        distance,
                         id,
-                        userId));
+                        userId,
+                        hasSale));
                 String restAddress = curRest.getString("strasse")+ " " + curRest.getString("plz") + " " +curRest.getString("stadt");
                 addMarker(restAddress, curRest.getInt("restaurantId"));
             }
@@ -367,34 +377,66 @@ public class RestaurantsController extends ConnectionController implements Initi
         return output;
     }
 
+    private Boolean hasPromotion(int restaurantId) throws IOException {
+        Boolean output = false;
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        JSONObject user = new JSONObject(JSONObjectGET("http://localhost:8080/user/findbyid/"+LoginController.userId).toString());
+        LocalDate usergb = LocalDate.parse(user.getString("geburtsdatum"), dtf);
+        if(LoginController.date.now().getMonthValue() == usergb.getMonthValue() && LoginController.date.now().getDayOfMonth() == usergb.getDayOfMonth()) {
+            output = true;
+        } else {
+            JSONArray ja = getPromotion(restaurantId);
+            for (int i = 0; i < ja.length(); i++) {
+                JSONObject cur = ja.getJSONObject(i);
+                LocalDate start = LocalDate.parse(cur.getString("start"), dtf);
+                LocalDate end = LocalDate.parse(cur.getString("start"), dtf);
+                if (LoginController.date.now().isAfter(start) && LoginController.date.now().isBefore(end)) {
+                    output = true;
+                }
+            }
+        }
+        return output;
+    }
 
     private Boolean isRestaurantNear(int restaurantId) throws IOException {
         // Funktioniert
         Boolean output = false;
-        String url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=";
-        JSONObject user = new JSONObject(JSONObjectGET("http://localhost:8080/user/findbyid/"+LoginController.userId).toString());
-        if(standard.isSelected()) {url = url + user.getString("strasse") + "%2C" + user.getString("nummer") + "%2C" + user.getString("plz") + "%2C" + user.getString("stadt");}
-        if(alternative.isSelected()) {url = url + user.getString("altAdresse") + "%2C" + user.getString("altNummer") + "%2C" + user.getString("altPlz") + "%2C" + user.getString("altStadt");}
+        JSONObject result = lookUpDistance(address, restaurantId);
         JSONObject rest = new JSONObject(JSONObjectGET("http://localhost:8080/restaurant/find/"+restaurantId).toString());
-        url = url + "&destinations=" + rest.getString("strasse") + "%2C" + rest.getString("nummer") + "%2C" + rest.getString("plz") + "%2C" + rest.getString("stadt");
-        String end = "&departure_time=now&key=AIzaSyA-qLMdcnsAVwBvC0Xpi2N73coqLzq9v0o";
-        url= url+end;
-        url = url.replaceAll(" ", "%2C");
-        JSONObject result = new JSONObject(JSONObjectGET(url).toString());
         if(result.getJSONArray("rows").getJSONObject(0).getJSONArray("elements").getJSONObject(0).getJSONObject("distance").getInt("value") <= rest.getInt("lieferbereich")) {
             output = true;
         }
-        System.out.println("Distanz betraegt: " + result.getJSONArray("rows").getJSONObject(0).getJSONArray("elements").getJSONObject(0).getJSONObject("distance").getInt("value"));
         return output;
     }
 
+    private int getDistance(int restaurantId) throws IOException {
+        // Funktioniert
+        int output = 0;
+        JSONObject result = lookUpDistance(address, restaurantId);
+        output = result.getJSONArray("rows").getJSONObject(0).getJSONArray("elements").getJSONObject(0).getJSONObject("distance").getInt("value");
+        return output;
+    }
 
+    private Boolean isRestaurantFav(int restaurantId) throws IOException {
+        // Funktioniert
+        Boolean output = false;
+        JSONObject curRest = new JSONObject(JSONObjectGET("http://localhost:8080/restaurant/find/"+restaurantId).toString());
+        JSONArray allFavs = new JSONArray(JSONObjectGET("http://localhost:8080/fav/find/" + userId).toString());
+        for (int j = 0; j < allFavs.length(); j++) {
+            JSONObject favRest = allFavs.getJSONObject(j);
+            if (curRest.getInt("restaurantId") == (favRest.getInt("restaurantId"))) {
+                output = true;
+            }
+        }
+        return output;
+    }
 
 
     @FXML
     public void onStandardClick() throws IOException {
         // Fertig
         standard.setToggleGroup(group);
+        address = VerificationController.standard;
         populate();
     }
 
@@ -402,10 +444,12 @@ public class RestaurantsController extends ConnectionController implements Initi
     public void onAlternativeClick() throws IOException {
         // Fertig
         alternative.setToggleGroup(group);
+        address = VerificationController.alternative;
         try {
             populate();
         } catch(JSONException e) {
             standard.setToggleGroup(group);
+            address = VerificationController.standard;
             standard.setSelected(true);
             alternative.setSelected(false);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -421,18 +465,6 @@ public class RestaurantsController extends ConnectionController implements Initi
         list.getItems().clear();
         list.setItems(getRestaurants());
         list.refresh();
-        // Fertig
-
-//        try {
-//
-//
-//        } catch (JSONException e) {
-//
-//            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-//            alert.setTitle("Keine Alternativadresse");
-//            alert.setContentText("Bitte Alternativadresse bestimmen");
-//            alert.showAndWait();
-//        }
     }
 
     @FXML
@@ -452,7 +484,6 @@ public class RestaurantsController extends ConnectionController implements Initi
         private double lieferkosten;
         private String kategorie;
         private int lieferbereich;
-
         private double ratingFood;
         private double ratingLieferung;
         private Button ratingButton;
@@ -461,10 +492,11 @@ public class RestaurantsController extends ConnectionController implements Initi
 
         public RestaurantList() { }
 
+        // Constructor fuer RestaurantsSuchen
         public RestaurantList(int id, String name, String strasse, String plz,
                               String stadt, double mbw, double lieferkosten,
                               String kategorie, int lieferbereich, double ratingFood,
-                              double ratingLieferung, Boolean isFav, int favId, int userId) {
+                              double ratingLieferung, Boolean isFav, Boolean isNear, int distance, int favId, int userId, Boolean hasSale) {
             this.id = id;
             this.name = name;
             this.strasse = strasse;
@@ -490,17 +522,66 @@ public class RestaurantsController extends ConnectionController implements Initi
                 }
             });
             this.order = new Button();
-            this.order.setText("Bestellen");
-            this.order.setOnAction(new EventHandler<ActionEvent>() {
-                @Override public void handle(ActionEvent event) {
-                    RestaurantsController.id = id;
-                    try {
-                        changeScene("Menu.fxml");
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+            if(isNear) {
+                if(hasSale) {
+                    this.order.setText("SALE");
+                    this.order.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent event) {
+                            promo = true;
+                            RestaurantsController.id = id;
+                            RestaurantsController.distance = distance;
+                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                            alert.setTitle("20%");
+                            alert.setContentText("20%");
+                            alert.showAndWait();
+                            try {
+                                changeScene("Menu.fxml");
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                } else {
+                    this.order.setText("Bestellen");
+                    this.order.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent event) {
+                            RestaurantsController.id = id;
+                            RestaurantsController.distance = distance;
+                            try {
+                                changeScene("Menu.fxml");
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
                 }
-            });
+            } else {
+                if(hasSale) {
+                    this.order.setText("SALE");
+                    this.order.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent event) {
+                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                            alert.setTitle("Sie Befinden sich ausserhalb des Lieferbereichs");
+                            alert.setContentText("Sie Befinden sich ausserhalb des Lieferbereichs");
+                            alert.showAndWait();
+                        }
+                    });
+                } else {
+                    this.order.setText("Bestellen");
+                    this.order.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent event) {
+                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                            alert.setTitle("Sie Befinden sich ausserhalb des Lieferbereichs");
+                            alert.setContentText("Sie Befinden sich ausserhalb des Lieferbereichs");
+                            alert.showAndWait();
+                        }
+                    });
+                }
+            }
             this.fav = new Button();
             if(isFav) {
                 this.fav.setText("Favorit entfernen");
@@ -586,6 +667,8 @@ public class RestaurantsController extends ConnectionController implements Initi
         public Button getFav() {return fav;}
 
         public void setFav(Button fav) {this.fav = fav;}
+
+
     }
 }
 
