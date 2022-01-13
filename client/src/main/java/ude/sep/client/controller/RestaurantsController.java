@@ -238,8 +238,8 @@ public class RestaurantsController extends ConnectionController implements Initi
 //                     ||filter.getText(). < getDistance(curRest.getInt("restaurantId"))) {
                 //Ueberpruefen ob es ein fav ist
                 boolean isFav = isRestaurantFav(curRest.getInt("restaurantId"));
-                int id = 0;
-                if(isFav){id= curRest.getInt("restaurantId");}
+                int favId = -1;
+                if(isFav){favId= getFavId(curRest.getInt("restaurantId"));}
                 boolean isNear = isRestaurantNear(curRest.getInt("restaurantId"));
                 boolean hasSale = hasPromotion(curRest.getInt("restaurantId"));
                 output.add(new RestaurantList(curRest.getInt("restaurantId"),
@@ -256,7 +256,7 @@ public class RestaurantsController extends ConnectionController implements Initi
                         isFav,
                         isNear,
                         distance,
-                        id,
+                        favId,
                         userId,
                         hasSale));
 
@@ -298,8 +298,8 @@ public class RestaurantsController extends ConnectionController implements Initi
         for(int i=0;i<allRests.length();i++){
             JSONObject curRest = allRests.getJSONObject(i);
             if(restaurantIds.contains(curRest.getInt("restaurantId"))) {
-                int id = 0;
-                if(isRestaurantFav(curRest.getInt("restaurantId"))) {id = curRest.getInt("restaurantId");}
+                int favId = -1;
+                if(isRestaurantFav(curRest.getInt("restaurantId"))) {favId = getFavId(curRest.getInt("restaurantId"));}
                 boolean hasSale = hasPromotion(curRest.getInt("restaurantId"));
                 output.add(new RestaurantList(curRest.getInt("restaurantId"),
                         curRest.getString("name"),
@@ -315,7 +315,7 @@ public class RestaurantsController extends ConnectionController implements Initi
                         isRestaurantFav(curRest.getInt("restaurantId")),
                         isRestaurantNear(curRest.getInt("restaurantId")),
                         getDistance(curRest.getInt("restaurantId")),
-                        id,
+                        favId,
                         userId,
                         hasSale));
 
@@ -343,10 +343,10 @@ public class RestaurantsController extends ConnectionController implements Initi
             JSONObject curRest = allRests.getJSONObject(i);
             boolean isNear = false;
             boolean isFav = false;
-            int id = 0;
+            int favId = -1;
             // ueberpruefung, ob restaurant fav ist
             isFav = isRestaurantFav(curRest.getInt("restaurantId"));
-            if(isFav){id=curRest.getInt("restaurantId");}
+            if(isFav){favId=getFavId(curRest.getInt("restaurantId"));}
             //ueberpruefung, ob restaurant near ist
             isNear = isRestaurantNear(curRest.getInt("restaurantId"));
             //ueberpruefung ob sale vorhanden ist
@@ -367,11 +367,25 @@ public class RestaurantsController extends ConnectionController implements Initi
                         isFav,
                         isNear,
                         distance,
-                        id,
+                        favId,
                         userId,
                         hasSale));
                 String restAddress = curRest.getString("strasse")+ " " + curRest.getString("plz") + " " +curRest.getString("stadt");
                 addMarker(restAddress, curRest.getInt("restaurantId"));
+            }
+        }
+        return output;
+    }
+
+    private int getFavId(int restaurantId) throws IOException {
+        // Funktioniert
+        int output = 0;
+        JSONObject curRest = new JSONObject(JSONObjectGET("http://localhost:8080/restaurant/find/"+restaurantId).toString());
+        JSONArray allFavs = new JSONArray(JSONObjectGET("http://localhost:8080/fav/find/" + userId).toString());
+        for (int j = 0; j < allFavs.length(); j++) {
+            JSONObject favRest = allFavs.getJSONObject(j);
+            if (curRest.getInt("restaurantId") == (favRest.getInt("restaurantId"))) {
+                output = favRest.getInt("id");
             }
         }
         return output;
