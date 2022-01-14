@@ -15,7 +15,7 @@ import java.util.List;
 @RequestMapping("/time")
 public class TimeController {
     private final TimeService timeService;
-    public static int toAdd = 0;
+    public static int altTime = 0;
 
     public TimeController(TimeService timeService) {this.timeService = timeService;}
 
@@ -62,7 +62,7 @@ public class TimeController {
     @PostMapping("/change")
     public ResponseEntity<Time> changeTime(@RequestBody String body) throws JSONException {
         JSONObject input = new JSONObject(body);
-        toAdd = toAdd + Integer.parseInt(input.getString("toAdd"));
+        altTime = altTime + Integer.parseInt(input.getString("toAdd"));
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -74,11 +74,11 @@ public class TimeController {
 
     @DeleteMapping("/reset")
     public ResponseEntity changeTime() throws JSONException {
-        toAdd = 0;
+        altTime = 0;
         return new ResponseEntity(HttpStatus.OK);
     }
 
     public static LocalDateTime getTime() {
-        return LocalDateTime.now().plusMinutes(toAdd);
+        return LocalDateTime.now().plusMinutes(altTime);
     }
 }
