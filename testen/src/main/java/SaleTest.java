@@ -1,5 +1,7 @@
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import ude.sep.client.controller.ConnectionController;
 import ude.sep.client.controller.LoginController;
 
@@ -8,59 +10,57 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class SaleTest extends ConnectionController {
-    public static void main(String[] args) {
-        JSONObject test1 = new JSONObject();
-        JSONObject test2 = new JSONObject();
-        test1.put("start", "13.01.2022");
-        test1.put("end", "13.01.2022");
-        test2.put("geburtsdatum", "11.01.2022");
+    public static JSONObject b1 = new JSONObject();
+    public static JSONObject b2 = new JSONObject();
+    public static JSONObject b3 = new JSONObject();
+    public static JSONObject b4 = new JSONObject();
 
-
-        System.out.println("Testfall 1:\nAktionsdatum: 13.01.2022, Vergleich mit LocalDateTime.now(), Erwartetes Ergebnis FALSE"+"" +
-                "\nAusgabe LocalDateTime.now(): "+LocalDate.now().toString()+"\nAusgabe Aktionsdatum: "+test1.getString("start"));
-        System.out.println("Testfall 2:\nGeburtsdatum: 11.01.2022, Vergleich mit LocalDateTime.now(), Erwartetes Ergebnis TRUE"+"" +
-                "\nAusgabe LocalDateTime.now(): "+LocalDate.now().toString()+"\nAusgabe geburtsdatum: "+test2.getString("geburtsdatum"));
-
-
-        System.out.println("Teste Testfall1: ");
-        boolean ergebnis1 = false;
+    @BeforeAll
+    public static void beforeAll() {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-        LocalDate start = LocalDate.parse(test1.getString("start"), dtf);
-        System.out.println("Datum Start der Aktion: " + start.toString());
-        LocalDate end = LocalDate.parse(test1.getString("end"), dtf);
-        System.out.println("Datum Ende der Aktion: " + end.toString());
-        if (LocalDate.now().isAfter(start) && LocalDate.now().isBefore(end)) {
-            ergebnis1 = true;
-        }
-        System.out.println("Das Ergebnis lautet: " + ergebnis1);
+        b1.put("start", "01.01.1970");
+        b1.put("end", "01.01.1970");
 
-
-        System.out.println("Teste Testfall2: ");
-        boolean ergebnis2 = false;
-        LocalDate usergb = LocalDate.parse(test2.getString("geburtsdatum"), dtf);
-
-        System.out.println("Geburtsdatum des Kunden: " + usergb.toString());
-        if (LocalDate.now().isEqual(usergb)) {
-            ergebnis2 = true;
-        }
-        System.out.println("Das Ergebnis lautet: " + ergebnis2);
+        b2.put("start", LocalDate.now().format(dtf));
+        b2.put("end", LocalDate.now().format(dtf));
+        b3.put("start", LocalDate.now().format(dtf));
+        b3.put("end", "31.12.2022");
+        b4.put("start", "01.01.2022");
+        b4.put("end", LocalDate.now().format(dtf));
     }
 
-//    private Boolean hasPromotion(int restaurantId) throws IOException {
-//        Boolean output = false;
-//
-//        JSONObject user = new JSONObject(JSONObjectGET("http://localhost:8080/user/findbyid/"+LoginController.userId).toString());
-//        LocalDateTime usergb = LocalDateTime.parse(user.getString("geburtsdatum"), dtf);
-//        if(LocalDateTime.now().equals(usergb)) {
-//            output = true;
-//        } else {
-//            JSONArray ja = getPromotion(restaurantId);
-//            for (int i = 0; i < ja.length(); i++) {
-//                JSONObject cur = ja.getJSONObject(i);
-//
-//            }
-//        }
-//        return output;
-//    }
+    @Test
+    //AvgBewertung ausgeben lassen
+    public void avgTest() throws IOException {
+        //test 1
+        boolean ergebnis = hasPromotionTest(b1);
+
+        assertEquals(false, ergebnis);
+
+        System.out.println("SaleTest1: \nErwarteter Wert \"false\", berechneter Wert: " + ergebnis);
+
+        //test 2
+        ergebnis = hasPromotionTest(b2);
+
+        assertEquals(true, ergebnis);
+
+        System.out.println("SaleTest2: \nErwarteter Wert \"TRUE\", berechneter Wert: " + ergebnis);
+
+        //test 3
+        ergebnis = hasPromotionTest(b3);
+
+        assertEquals(true, ergebnis);
+
+        System.out.println("SaleTest3: \nErwarteter Wert \"TRUE\", berechneter Wert: " + ergebnis);
+
+        //test 4
+        ergebnis = hasPromotionTest(b4);
+
+        assertEquals(true, ergebnis);
+
+        System.out.println("SaleTest4: \nErwarteter Wert \"TRUE\", berechneter Wert: " + ergebnis);
+    }
 }

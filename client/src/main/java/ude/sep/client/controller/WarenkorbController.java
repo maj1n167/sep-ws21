@@ -300,7 +300,7 @@ public class WarenkorbController extends ConnectionController {
             //integrierung Lieferzeit
             addDeliveryTime(LoginController.userId, RestaurantsController.id, RestaurantsController.distance);
 
-            changeScene("Bewertung.fxml");
+            changeScene("Lieferzeit.fxml");
 
         } else {
             //   Mindestbestellwert oder Guthaben reicht nicht aus
