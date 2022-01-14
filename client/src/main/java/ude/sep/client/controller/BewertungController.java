@@ -14,9 +14,6 @@ import java.text.DecimalFormat;
 
 public class BewertungController extends ConnectionController {
 
-    private JSONObject answer;
-
-
     @FXML
     public TextField kommentarTextfield = new TextField();
 
@@ -37,27 +34,6 @@ public class BewertungController extends ConnectionController {
 
 
     public int restaurantId;
-
-
-    /**
-     * Gibt die gespeicherte Server-Antwort zurueck
-     * - Die eigentliche Antwort liegt in:
-     *   answer -> response_data -> body
-     *
-     * @return Server-Response als JSON Object:
-     * @apiNote ist das Feld leer, gab es einen Fehler
-     */
-    public JSONObject getAnswer() {
-        return answer;
-    }
-
-
-    /**
-     * Flusht die gespeicherte Server-Antwort
-     */
-    public void flush(){
-        answer = null;
-    }
 
 
     public void initialize() {
@@ -113,28 +89,7 @@ public class BewertungController extends ConnectionController {
 
 
             changeScene("KStartseite.fxml");
-
         }
-
-    }
-    public Double avgFood(int id) throws IOException {
-        double output = 0;
-        JSONArray j = new JSONArray(JSONObjectGET("http://localhost:8080/rating/" + id).toString());
-        for(int i=0;i<j.length();i++) {
-            output=output+j.getJSONObject(i).getDouble("starsFood");
-        }
-        output = output/j.length();
-        return Math.round(output*1e1)/1e1;
-    }
-
-    public Double avgDelivery(int id) throws IOException {
-        double output = 0;
-        JSONArray j = new JSONArray(JSONObjectGET("http://localhost:8080/rating/" + id).toString());
-        for(int i=0;i<j.length();i++) {
-            output=output+j.getJSONObject(i).getDouble("starsDelivery");
-        }
-        output = output/j.length();
-        return Math.round(output*1e1)/1e1;
     }
 
     public void zurueckButtonClick() throws IOException {

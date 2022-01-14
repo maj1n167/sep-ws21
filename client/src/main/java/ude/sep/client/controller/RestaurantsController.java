@@ -394,8 +394,8 @@ public class RestaurantsController extends ConnectionController implements Initi
         return output;
     }
 
-    private Boolean hasPromotion(int restaurantId) throws IOException {
-        Boolean output = false;
+    private boolean hasPromotion(int restaurantId) throws IOException {
+        boolean output = false;
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         JSONObject user = new JSONObject(JSONObjectGET("http://localhost:8080/user/findbyid/"+LoginController.userId).toString());
         LocalDate usergb = LocalDate.parse(user.getString("geburtsdatum"), dtf);
@@ -407,7 +407,6 @@ public class RestaurantsController extends ConnectionController implements Initi
                 JSONObject cur = ja.getJSONObject(i);
                 LocalDate start = LocalDate.parse(cur.getString("start"), dtf);
                 LocalDate end = LocalDate.parse(cur.getString("end"), dtf);
-//                if (LoginController.date.now().isAfter(start) && LoginController.date.now().isBefore(end)) {
                 if(LoginController.date.isAfter(start) | LoginController.date.isEqual(start) &&
                         LoginController.date.isBefore(end) | LoginController.date.isEqual(end)) {
                     output = true;

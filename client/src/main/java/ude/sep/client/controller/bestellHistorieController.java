@@ -36,19 +36,14 @@ public class bestellHistorieController extends ConnectionController implements I
             TreeItem<String> root = new TreeItem<>("Speisekarte");
             // Alle Bestellungen drinnen
             JSONArray bestellList = new JSONArray(currentBestellHis.get("bestellungenList").toString());
-            System.out.println(bestellList);
             for(int j =0; j<bestellList.length(); j++) {
                 JSONObject jsonObject = bestellList.getJSONObject(j);
                 JSONArray jsonArray1 = new JSONArray(jsonObject.get("liste").toString());
-                System.out.println(jsonObject);
-                System.out.println(jsonObject.get("restaurantId"));
                 int id = jsonObject.getInt("restaurantId");
                 JSONObject restaurant = new JSONObject(JSONObjectGET("http://localhost:8080/restaurant/find/"+id).toString());
-                System.out.println(restaurant);
                 TreeItem<String> bestellung = new TreeItem<>("Restaurant: "+restaurant.get("name").toString()+" Datum: "+jsonObject.get("datum").toString()+" Summe: "+jsonObject.get("summe").toString()+" Sonderwunsch: "+jsonObject.get("sonderwunsch"));
                 for(int x = 0; x<jsonArray1.length(); x++){
                     JSONObject jsonObject1 = jsonArray1.getJSONObject(x);
-                    System.out.println(jsonObject1);
                     TreeItem<String> child = new TreeItem<>("Name: "+jsonObject1.get("name").toString()+" Beschreibung: "+ jsonObject1.get("beschreibung").toString()+" Preis: "+jsonObject1.get("preis").toString());
                     bestellung.getChildren().add(child);
 

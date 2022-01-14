@@ -65,7 +65,7 @@ public class AddFoodController extends ConnectionController implements Initializ
 
             alert.showAndWait();
         }else{
-            // Wenn die Kategorie schon Vorhaden ->
+            // Wenn die Kategorie schon Vorhanden ->
 
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);

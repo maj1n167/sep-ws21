@@ -1,6 +1,9 @@
 package ude.sep.server.model;
 
 
+import ude.sep.server.ServerApplication;
+import ude.sep.server.controller.TimeController;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,16 +23,16 @@ public class Time {
     int timeOf;
 
     public Time(int toAdd, int timeOf) {
-        this.start = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss").format(LocalDateTime.now());
-        this.end = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss").format(LocalDateTime.now().plusMinutes(toAdd));
+        this.start = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss").format(TimeController.getTime());
+        this.end = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss").format(TimeController.getTime().plusMinutes(toAdd));
         this.timeOf = timeOf;
     }
 
     public Time() {}
 
     public Time(int toAdd, int timeOf, int timeFor) {
-        this.start = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss").format(LocalDateTime.now());
-        this.end = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss").format(LocalDateTime.now().plusMinutes(toAdd));
+        this.start = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss").format(TimeController.getTime());
+        this.end = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss").format(TimeController.getTime().plusMinutes(toAdd));
         this.timeFor = timeFor;
         this.timeOf = timeOf;
     }

@@ -5,10 +5,8 @@ import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ude.sep.server.ServerApplication;
 import ude.sep.server.model.Time;
 import ude.sep.server.service.TimeService;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -64,7 +62,7 @@ public class TimeController {
     @PostMapping("/change")
     public ResponseEntity<Time> changeTime(@RequestBody String body) throws JSONException {
         JSONObject input = new JSONObject(body);
-        toAdd = Integer.parseInt(input.getString("toAdd"));
+        toAdd = toAdd + Integer.parseInt(input.getString("toAdd"));
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -81,7 +79,6 @@ public class TimeController {
     }
 
     public static LocalDateTime getTime() {
-        LocalDateTime output = LocalDateTime.now().plusMinutes(toAdd);
-        return output;
+        return LocalDateTime.now().plusMinutes(toAdd);
     }
 }
