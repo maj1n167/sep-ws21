@@ -177,6 +177,9 @@ public class WarenkorbController extends ConnectionController {
                 //Falls Sonderwunsch vorhanden
                 bestellung.put("sonderwunsch",sonderwunsch.getText());
                 JSONObjectPOST(url2, bestellung.toString());
+                double neuesGuthaben = Double.parseDouble(user.get("guthaben").toString()) - Double.parseDouble(jsonObject.get("summe").toString()) - Double.parseDouble(restaurant.get("lieferkosten").toString());
+                user.put("guthaben", neuesGuthaben);
+                JSONObjectPOST("http://localhost:8080/user/add", user.toString());
                 System.out.println(bestellung+"bestellung ");
                 JSONArray jsonObject1 = new JSONArray(JSONObjectGET("http://localhost:8080/bestellung").toString());
                 JSONObject curBes = new JSONObject();

@@ -3,10 +3,7 @@ package ude.sep.client.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -35,7 +32,7 @@ public class SonderwünscheBeaController extends ConnectionController implements
     @FXML
     Label sonderwünsche;
 
-
+    public static double summe1;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -44,6 +41,7 @@ public class SonderwünscheBeaController extends ConnectionController implements
         try {
             JSONObject bestell = new JSONObject(JSONObjectGET("http://localhost:8080/bestellung/find/"+besId).toString());
             summe.setText(String.valueOf(bestell.getDouble("summe")));
+            summe1 = bestell.getDouble("summe");
             datum.setText(bestell.getString("datum"));
             kundenId.setText(String.valueOf(bestell.getInt("userId")));
             userId = bestell.getInt("userId");
@@ -70,12 +68,22 @@ public class SonderwünscheBeaController extends ConnectionController implements
         String url4 = "http://localhost:8080/user/findbyid/" + userId;
         JSONObject user = new JSONObject(JSONObjectGET(url4).toString());
        double summe = Double.parseDouble(neuerPreis.getText());
+       JSONObject object = new JSONObject(JSONObjectGET("http://localhost:8080/restaurant/find/"+LoginController.userId).toString());
+        System.out.println(object);
+       double fullPrice = object.getDouble("lieferkosten")+ summe+ summe1;
        double guthaben = user.getDouble("guthaben");
+       if(guthaben < summe){
+           Alert alert = new Alert (Alert.AlertType.INFORMATION);
+           alert.setTitle("");
+           alert.setTitle("Ups");
+           alert.setContentText("Zu wenig Guthaben");
+           alert.showAndWait();
+           return;
+       }
        guthaben -= summe;
         user.put("guthaben", guthaben);
         JSONObjectPOST("http://localhost:8080/user/add", user.toString());
-
-       curBes1.put("summe",summe);
+       curBes1.put("summe",fullPrice);
        JSONObjectPOST("http://localhost:8080/bestellung/add",curBes1.toString());
        JSONObject jsonObject = new JSONObject(JSONObjectGET("http://localhost:8080/resBes/find/"+1).toString());
         JSONArray jsonArray = new JSONArray(jsonObject.getJSONArray("bestellungenList").toString());

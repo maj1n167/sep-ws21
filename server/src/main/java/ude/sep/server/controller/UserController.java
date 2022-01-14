@@ -68,9 +68,21 @@ public class UserController {
         System.out.println(currentEmail);
         userService.sendEmail(currentEmail.toString(), "Hallo "+users.getName()+",\n\n"+
                 "Ihre Bestellung ist bei uns eingegangen, jedoch können wir ihren Sonderwunsch nicht umsetzen" +
-                "\n \n Viele Grüße\n Ihr SuprmeOrdering Team", "Bestätigungsmail");
+                "\n \n Viele Grüße\n Ihr SuprmeOrdering Team", "Sonderwunsch");
         return new ResponseEntity<>(users, HttpStatus.OK);
 
+    }
+
+    @GetMapping("/send/sonder/{id}")
+    public ResponseEntity<User> sendSonder(@PathVariable("id") int id) {
+
+        User users = userService.findUserByUserId(id);
+        String currentEmail = users.getEmail();
+        System.out.println(currentEmail);
+        userService.sendEmail(currentEmail.toString(), "Hallo " + users.getName() + ",\n\n" +
+                "Sie haben eine Sonderwunsch anfrage erhalten. Bitte bearbeiten sie die Sonderwunschanfrage so schnell wie möglich." +
+                "\n \n Viele Grüße\n Ihr SuprmeOrdering Team", "Sonderwunsch");
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
     @GetMapping("/send/accept/{email}")
@@ -81,7 +93,7 @@ public class UserController {
         System.out.println(currentEmail);
         userService.sendEmail(currentEmail.toString(), "Hallo "+users.getName()+",\n\n"+
                 "Ihre Bestellung ist bei uns eingegangen,wir können ihren Sonderwunsch umsetzen und passen dazu den Preis an." +
-                "\n \n Viele Grüße\n Ihr SuprmeOrdering Team", "Bestätigungsmail");
+                "\n \n Viele Grüße\n Ihr SuprmeOrdering Team", "Sonderwunsch");
         return new ResponseEntity<>(users, HttpStatus.OK);
 
     }
