@@ -1,63 +1,72 @@
-/*package ude.sep.client.controller;
+package ude.sep.client.controller;
 
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ListView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
 
-public class RestaurantbesitzerStatistikController extends ConnectionController  {
-    private Bestellungen bestellungen;
+
+public class RestaurantbesitzerStatistikController extends ConnectionController {
+    @FXML
+    private ChoiceBox choiceBox;
+    @FXML
+    private ListView sortedFood;
+    private int restaurantId;
     private int userId;
 
-    public int anzahlBestellungen;
-    public int restAnzahlBestellungen;
+
+    @FXML
+    public void initialize() throws IOException {
+        restaurantId = RestaurantsController.id;
+        userId = LoginController.userId;
+        choiceBox.getItems().add("1 Tag");
+        choiceBox.getItems().add("1 Woche");
+        choiceBox.getItems().add("1 Monat");
+        choiceBox.getSelectionModel().getSelectedItem();
 
 
+        String url1 = "http://localhost:8080/bestellung";
+        JSONArray jsonArray = new JSONArray(JSONObjectGET(url1).toString());
+        JSONArray jsonArray1 = new JSONArray();
+        JSONArray jsonArray2 = new JSONArray();
+        System.out.println(jsonArray);
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+            //System.out.println(jsonArray);
+            //System.out.println(userId);
+            System.out.println(jsonObject1.get("restaurantId"));
+            if (jsonObject1.getInt("restaurantId") == 2) {
+                jsonArray1.put(jsonObject1);
 
-     //1 Teil
-            public <K, V extends Comparable<V>> V maxUsingStreamAndLambda(Map<K, V> map) {
+            }
+        }
+        System.out.println(jsonArray1);
+        for (int j = 0; j < jsonArray1.length(); j++) {
+           JSONObject current= jsonArray1.getJSONObject(j);
+           JSONArray jsonArray3= new JSONArray(current.getJSONArray("liste"));
+            for (int k=0;k<jsonArray3.length();k++){
+                JSONObject x=jsonArray3.getJSONObject(k);
+                jsonArray2.put(x);
 
-                Optional<Entry<K, V>> maxEntry = map.entrySet()
-                        .stream()
-                        .max((Entry<K, V> e1, Entry<K, V> e2) -> e1.getValue()
-                                .compareTo(e2.getValue())
-                        );
-
-                return maxEntry.get().getValue();
             }
 
-             public <K, V extends Comparable<V>> V minUsingStreamAndLambda(Map<K, V> map) {
-                Optional<Entry<K, V>> minEntry = map.entrySet()
-                .stream()
-                .min((Entry<K, V> e1, Entry<K, V> e2) -> e1.getValue()
-                        .compareTo(e2.getValue())
-                );
-                return minEntry.get().getValue();
+        }
+        System.out.println(jsonArray2);
+
+
+
     }
 
-     // 2teil
-        private void sortBewertungChange () {
 
-                Map<String,Person> sortedNewMap = map.entrySet().stream().sorted((e1,e2)->
-                            e1.getValue().getLocation().compareTo(e2.getValue().getLocation()))
-                    .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
-                            (e1, e2) -> e1, LinkedHashMap::new));
-            sortedNewMap.forEach((key,val)->{
-                System.out.println(key+ " = "+ val.toString());
-            });
-
-        }
-
-
-        @FXML
-        public void backButton ()throws IOException {
+        public void zurückButton ()throws IOException {
             changeScene("Startseite.fxml");
         }
     }
-    
- */
+
+
