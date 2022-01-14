@@ -119,8 +119,9 @@ public class SonderwünscheBeaController extends ConnectionController implements
         String sonderwunsch = "Sonderwunsch abgelehnt";
         curBes1.put("sonderwunsch",sonderwunsch);
         JSONObjectPOST("http://localhost:8080/bestellung/add",curBes1.toString());
+        System.out.println(userId);
 
-       JSONObject jsonObject = new JSONObject(JSONObjectGET("http://localhost:8080/resBes/find/"+userId).toString());
+       JSONObject jsonObject = new JSONObject(JSONObjectGET("http://localhost:8080/resBes/find/"+LoginController.userId).toString());
         System.out.println(jsonObject);
 
        JSONArray jsonArray = new JSONArray(jsonObject.getJSONArray("bestellungenList").toString());

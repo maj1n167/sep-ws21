@@ -199,6 +199,8 @@ public class WarenkorbController extends ConnectionController {
 
                 System.out.println(resBes);
                 JSONObjectPOST("http://localhost:8080/resBes/add",resBes.toString());
+                JSONObjectGET("http://localhost:8080/user/send/sonder/"+restaurantid);
+
                 //Sonderwunsch an Restaurant weitergeleitet
 
                 JSONArray y = new JSONArray();
