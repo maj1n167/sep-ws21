@@ -74,16 +74,3 @@ public class AvgBewertungTest  extends ConnectionController {
         System.out.println("AvgDelivery Test3: \nErwarteter Wert \"3.7\", berechneter Wert: " + answerLieferung);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
