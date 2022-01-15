@@ -32,7 +32,7 @@ public class TimeController {
         if(times.size()>=2) {
             toAdd+=10;
         }
-        while(distance>5000){
+        while(distance>0){
             toAdd+=10;
             distance = distance-5000;
         }

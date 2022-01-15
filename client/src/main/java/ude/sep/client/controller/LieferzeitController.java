@@ -11,6 +11,7 @@ public class LieferzeitController extends ConnectionController {
 
     public void initialize() throws IOException {
         String answer = getDeliveryTime(KundeStartseiteController.timeId)+ " Minuten";
+        if(getDeliveryTime(KundeStartseiteController.timeId)<=0) {answer = "0 Minuten";}
         ergebnisLabel.setText(answer);
     }
 
