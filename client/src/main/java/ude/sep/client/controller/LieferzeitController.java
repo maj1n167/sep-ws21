@@ -12,10 +12,7 @@ public class LieferzeitController extends ConnectionController {
     Label ergebnisLabel;
 
     public void initialize() throws IOException {
-        String answer = "";
-
-
-
+        String answer = getDeliveryTime(LoginController.userId)+ " Minuten";
         ergebnisLabel.setText(answer);
     }
 

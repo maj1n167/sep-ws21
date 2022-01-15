@@ -107,8 +107,8 @@ public class ConnectionController {
     public int getDeliveryTime(int timeFor) throws IOException {
         String url = "http://localhost:8080/time/findfor/"+timeFor;
         JSONArray allTimesFor = new JSONArray(JSONObjectGET(url).toString());
-        DateTimeFormatter dfr = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-        Duration output = Duration.between(LocalDateTime.now(), LocalDateTime.parse(allTimesFor.getJSONObject(0).getString("end"), dfr));
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        Duration output = Duration.between(LocalDateTime.now(), LocalDateTime.parse(allTimesFor.getJSONObject(0).getString("end"), dtf));
         return (int) output.toMinutes();
     }
 
