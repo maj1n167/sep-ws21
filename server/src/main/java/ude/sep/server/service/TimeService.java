@@ -19,9 +19,9 @@ public class TimeService {
 
     public Time addTime(Time time) {return timeRepo.save(time);}
 
-    public List<Time> findAllTimesOf(int timeOf) {
+    public List<Time> findAllTimesOfRest(int restId) {
         // Hier kommt die Erkennung, ob bestellungen bereits abgeschlossen sind rein, diese sollen dann auch geloescht werden
-        List<Time> output = timeRepo.findAllByTimeOf(timeOf);
+        List<Time> output = timeRepo.findAllByRestId(restId);
         for(int i=0;i<output.size();i++) {
             boolean isCompleted = false;
             Time current = output.get(i);
@@ -32,13 +32,14 @@ public class TimeService {
                 timeRepo.deleteById(current.getId());
             };
         }
-        return timeRepo.findAllByTimeOf(timeOf);
+        return timeRepo.findAllByRestId(restId);
     }
 
     public void delTime(int time) {timeRepo.deleteById(time);}
 
     public List<Time> findAllTimes() {return timeRepo.findAll();}
 
-    public List<Time> findAllTimesFor(int timeFor) {return timeRepo.findAllByTimeFor(timeFor);}
+    public List<Time> findAllTimesForUser(int userId) {return timeRepo.findAllByUserId(userId);}
 
+    public List<Time> findAllByOrderId(long orderId) {return timeRepo.findAllByOrderId(orderId);}
 }

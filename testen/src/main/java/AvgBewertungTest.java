@@ -34,7 +34,7 @@ public class AvgBewertungTest  extends ConnectionController {
 
         //Bewertung hinzufügen
         b3.put("starsFood", "2");
-        b3.put("starsLieferung", "2");
+        b3.put("starsLieferung", "1");
     }
 
     @Test
@@ -68,9 +68,9 @@ public class AvgBewertungTest  extends ConnectionController {
         answerLieferung = avgDeliveryTest(ball);
 
         assertEquals(3.7, answerFood);
-        assertEquals(3.7, answerLieferung);
+        assertEquals(3.3, answerLieferung);
 
         System.out.println("AvgFood Test3: \nErwarteter Wert \"3.7\", berechneter Wert: " + answerFood);
-        System.out.println("AvgDelivery Test3: \nErwarteter Wert \"3.7\", berechneter Wert: " + answerLieferung);
+        System.out.println("AvgDelivery Test3: \nErwarteter Wert \"3.3\", berechneter Wert: " + answerLieferung);
     }
 }

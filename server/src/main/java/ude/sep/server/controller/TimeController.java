@@ -25,10 +25,10 @@ public class TimeController {
         return new ResponseEntity<>(times, HttpStatus.OK);
     }
 
-    @PostMapping("/add/{timeFor}/{timeOf}/{distance}")
-    public ResponseEntity<Time> addTime(@PathVariable int timeFor, @PathVariable int timeOf, @PathVariable int distance) throws JSONException {
+    @PostMapping("/add/{userId}/{restId}/{distance}")
+    public ResponseEntity<Time> addTime(@PathVariable int userId, @PathVariable int restId, @PathVariable int distance, @RequestBody String input) throws JSONException {
         int toAdd = 10;
-        List<Time> times = timeService.findAllTimesOf(timeOf);
+        List<Time> times = timeService.findAllTimesOfRest(restId);
         if(times.size()>=2) {
             toAdd+=10;
         }
@@ -36,20 +36,42 @@ public class TimeController {
             toAdd+=10;
             distance = distance-5000;
         }
-        Time newTime = new Time(toAdd, timeOf, timeFor);
+        Time newTime = new Time(toAdd, restId, userId);
         Time time = timeService.addTime(newTime);
         return new ResponseEntity<>(time, HttpStatus.OK);
     }
 
-    @GetMapping("/findof/{timeOf}")
-    public ResponseEntity<List<Time>> getAllTimesOf(@PathVariable int timeOf) {
-        List<Time> times = timeService.findAllTimesOf(timeOf);
+    @GetMapping("/findof/{restId}")
+    public ResponseEntity<List<Time>> getAllTimesOfRest(@PathVariable int restId) {
+        List<Time> times = timeService.findAllTimesOfRest(restId);
         return new ResponseEntity<>(times, HttpStatus.OK);
     }
 
-    @GetMapping("/findfor/{timeFor}")
-    public ResponseEntity<List<Time>> getAllTimesFor(@PathVariable int timeFor) {
-        List<Time> times = timeService.findAllTimesFor(timeFor);
+    @GetMapping("/findfor/{userId}")
+    public ResponseEntity<List<Time>> getAllTimesForUser(@PathVariable int userId) {
+        List<Time> times = timeService.findAllTimesForUser(userId);
+        return new ResponseEntity<>(times, HttpStatus.OK);
+    }
+
+//    @PostMapping("/add/{timeOf}/{orderId}")
+//    public ResponseEntity<Time> addTime(@PathVariable int timeOf, @PathVariable long orderId @RequestBody input) throws JSONException {
+//        int toAdd = 10;
+//        List<Time> times = timeService.findAllTimesOf(timeOf);
+//        if(times.size()>=2) {
+//            toAdd+=10;
+//        }
+//        while(distance>5000){
+//            toAdd+=10;
+//            distance = distance-5000;
+//        }
+//        Time newTime = new Time(toAdd, timeOf, timeFor);
+//        Time time = timeService.addTime(newTime);
+//        return new ResponseEntity<>(time, HttpStatus.OK);
+//    }
+
+    @GetMapping("/find/{orderId}")
+    public ResponseEntity<List<Time>> getAllTimesFor(@PathVariable long orderId) {
+        List<Time> times = timeService.findAllByOrderId(orderId);
         return new ResponseEntity<>(times, HttpStatus.OK);
     }
 

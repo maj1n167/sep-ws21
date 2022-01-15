@@ -304,7 +304,8 @@ public class WarenkorbController extends ConnectionController {
 
             //integrierung Lieferzeit
             addDeliveryTime(LoginController.userId, RestaurantsController.id, RestaurantsController.distance);
-
+            KundeStartseiteController.timeId = LoginController.userId;
+            KundeStartseiteController.ordered = true;
             changeScene("Lieferzeit.fxml");
 
         } else {

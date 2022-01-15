@@ -1,9 +1,7 @@
 package ude.sep.client.controller;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-
 import java.io.IOException;
 
 public class LieferzeitController extends ConnectionController {
@@ -12,16 +10,21 @@ public class LieferzeitController extends ConnectionController {
     Label ergebnisLabel;
 
     public void initialize() throws IOException {
-        String answer = getDeliveryTime(LoginController.userId)+ " Minuten";
+        String answer = getDeliveryTime(KundeStartseiteController.timeId)+ " Minuten";
         ergebnisLabel.setText(answer);
     }
 
 
-    public void zurueckButtonClick(ActionEvent actionEvent) throws IOException {
+    public void zurueckButtonClick() throws IOException {
         changeScene("KStartseite.fxml");
     }
 
-    public void bewertungButtonClick(ActionEvent actionEvent) throws IOException {
+    public void bewertungButtonClick() throws IOException {
+        KundeStartseiteController.ordered = false;
         changeScene("Bewertung.fxml");
+    }
+
+    public void refreshButtonClick() throws IOException {
+        initialize();
     }
 }

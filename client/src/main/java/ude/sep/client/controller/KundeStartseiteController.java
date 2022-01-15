@@ -1,22 +1,24 @@
 package ude.sep.client.controller;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+
 import java.io.IOException;
 
 public class KundeStartseiteController extends ConnectionController{
 
+    public static int timeId = -1;
+    public static boolean ordered = false;
+
+    @FXML
+    Button order;
+
     @FXML
     public void initialize() throws IOException {
-        /*      Zum Testen der Buttons in Restaurants
-        if(RestaurantsController.id!=-1){
-            System.out.println(RestaurantsController.id);
-        } else {
-            System.out.println("no restaurant chosen");
-        }
 
-         */
         System.out.println("Standard: " + VerificationController.standard);
         System.out.println("Alternativ: " + VerificationController.alternative);
+        order.setVisible(ordered);
     }
 
 
@@ -51,6 +53,11 @@ public class KundeStartseiteController extends ConnectionController{
     public void onLoyaltyPointsClick() throws IOException {
         // Change Scenes
         changeScene("Treuepunkte.fxml");
+    }
+
+    @FXML
+    public void onTimeClick() throws IOException {
+        changeScene("Lieferzeit.fxml");
     }
 }
 
