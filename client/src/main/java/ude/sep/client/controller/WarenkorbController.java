@@ -302,6 +302,7 @@ public class WarenkorbController extends ConnectionController {
 
             JSONObjectGET("http://localhost:8080/user/send/orderVerification/" + user.get("email"));
 
+            //Oguzhan
             //integrierung Lieferzeit
             addDeliveryTime(LoginController.userId, RestaurantsController.id, RestaurantsController.distance);
             KundeStartseiteController.timeId = LoginController.userId;

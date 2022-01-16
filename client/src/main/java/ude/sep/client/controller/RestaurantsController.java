@@ -393,7 +393,7 @@ public class RestaurantsController extends ConnectionController implements Initi
         }
         return output;
     }
-
+ //Leon
     private boolean hasPromotion(int restaurantId) throws IOException {
         boolean output = false;
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");
@@ -417,6 +417,7 @@ public class RestaurantsController extends ConnectionController implements Initi
         System.out.println("True/false: " + output);
         return output;
     }
+    //Leon Ende
 
     private Boolean isRestaurantNear(int restaurantId) throws IOException {
         // Funktioniert
