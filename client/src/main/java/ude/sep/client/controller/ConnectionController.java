@@ -99,7 +99,7 @@ public class ConnectionController {
         }
     }
 
-
+    //ok anfang
 // Ab hier Oguzhan
     public void addDeliveryTime(int timeFor, int timeOf, int distance) throws IOException {
         String url = "http://localhost:8080/time/add/"+timeFor+"/"+timeOf+"/"+distance;
@@ -197,4 +197,12 @@ public class ConnectionController {
         }
         return output;
     }
+
+    public int getDeliveryTimeTest(int toAdd) throws IOException {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        String input = LocalDateTime.now().plusMinutes(toAdd).format(dtf);
+        Duration output = Duration.between(LocalDateTime.now(), LocalDateTime.parse(input,dtf));
+        return (int) output.toMinutes();
+    }
+    //ok ende
 }

@@ -32,7 +32,7 @@ public class TimeController {
         if(times.size()>=2) {
             toAdd+=10;
         }
-        while(distance>0){
+        while(distance>=0){
             toAdd+=10;
             distance = distance-5000;
         }
@@ -52,22 +52,6 @@ public class TimeController {
         List<Time> times = timeService.findAllTimesForUser(userId);
         return new ResponseEntity<>(times, HttpStatus.OK);
     }
-
-//    @PostMapping("/add/{timeOf}/{orderId}")
-//    public ResponseEntity<Time> addTime(@PathVariable int timeOf, @PathVariable long orderId @RequestBody input) throws JSONException {
-//        int toAdd = 10;
-//        List<Time> times = timeService.findAllTimesOf(timeOf);
-//        if(times.size()>=2) {
-//            toAdd+=10;
-//        }
-//        while(distance>5000){
-//            toAdd+=10;
-//            distance = distance-5000;
-//        }
-//        Time newTime = new Time(toAdd, timeOf, timeFor);
-//        Time time = timeService.addTime(newTime);
-//        return new ResponseEntity<>(time, HttpStatus.OK);
-//    }
 
     @GetMapping("/find/{orderId}")
     public ResponseEntity<List<Time>> getAllTimesFor(@PathVariable long orderId) {
