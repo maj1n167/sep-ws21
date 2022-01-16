@@ -10,7 +10,9 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 
 public class RestaurantbesitzerStatistikController extends ConnectionController {
@@ -32,23 +34,41 @@ public class RestaurantbesitzerStatistikController extends ConnectionController 
         choiceBox.getSelectionModel().getSelectedItem();
 
         // Aktueller Statistikzeitraum für 1 Tag und für 1 Woche
-        JSONArray statistik = new JSONArray();
+        JSONArray gesStatistik = new JSONArray();
         LocalDate date= LocalDate.now();
 
             if(choiceBox.getItems().equals("1 Tag")){
                 JSONObject day = new JSONObject();
-                day.put("datum", date.minusDays(7));
-                day.put("statistik", getAlleSpeisen(date.minusDays(7)));  //noch alle Gerichte hier muss man noch filtern
+                day.put("datum", date.minusDays(1));
+                day.put("statistik", getAlleSpeisen(date.minusDays(1)));  //noch alle Gerichte hier muss man noch filtern
             }
            if(choiceBox.getItems().equals("1 Woche")){
             JSONObject week = new JSONObject();
             week.put("datum", date.minusDays(7));
             week.put("statistik", getAlleSpeisen(date.minusDays(7)));  //hier muss man dann noch filtern.
+
+               Iterator<String> nameItr = week.keys();   //Verwandlung von JSon in Map damit man filtern kann.
+               Map<String, String> outMap = new HashMap<>();
+               while(nameItr.hasNext()) {
+                   String name = nameItr.next();
+                   outMap.put(name, week.getString(name));
+               }
+
+               /*
+                   hier streamen
+
+               Map.Entry<String, Integer> max = outMap.entrySet().stream()
+                       .max((o1, o2) -> o1.getValue(),o2.getValue()).get();    MAXvergleich klappt noch nicht.
+
+
+               String besteGericht= max.getKey();     //Name der Speise, die am häufigsten verkauft wurde
+               int salesBesteGericht = max.getValue(); //Sie wurde x mal verkauft.
+
+               */
+
+
         }
-
-
-
-            String url1 = "http://localhost:8080/bestellung";
+           String url1 = "http://localhost:8080/bestellung";
         JSONArray jsonArray = new JSONArray(JSONObjectGET(url1).toString());
         JSONArray jsonArray1 = new JSONArray();
         JSONArray jsonArray2 = new JSONArray();
@@ -135,6 +155,7 @@ public class RestaurantbesitzerStatistikController extends ConnectionController 
             }
             return alleSpeisen;
         }
+
 
 
         public void zurueckButton ()throws IOException {
