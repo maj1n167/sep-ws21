@@ -2,6 +2,8 @@ package ude.sep.client.controller;
 
 
 import javafx.fxml.FXML;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
 import org.json.JSONArray;
@@ -12,16 +14,22 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 
 public class RestaurantbesitzerStatistikController extends ConnectionController {
     @FXML
     private ChoiceBox choiceBox;
-    @FXML
-    private ListView sortedFood;
+
     private int restaurantId;
     private int userId;
+
+    @FXML
+    LineChart<String,Integer>linechart;
+    XYChart.Series<String,Integer> bestellungSeries;
+
+
 
 
     @FXML
@@ -32,6 +40,13 @@ public class RestaurantbesitzerStatistikController extends ConnectionController 
         choiceBox.getItems().add("1 Woche");
         choiceBox.getItems().add("1 Monat");
         choiceBox.getSelectionModel().getSelectedItem();
+
+        //Linechart konfigurieren
+        bestellungSeries = new XYChart.Series<>();
+        bestellungSeries.setName("Bestellungen über Zeitraum");
+        linechart.getData().addAll(bestellungSeries);
+
+
 
         // Aktueller Statistikzeitraum für 1 Tag und für 1 Woche
         JSONArray gesStatistik = new JSONArray();
@@ -155,6 +170,22 @@ public class RestaurantbesitzerStatistikController extends ConnectionController 
             }
             return alleSpeisen;
         }
+
+      /*  @FXML
+        public void onRefresh(){  Mit RefreshButton rueckwärts zählen
+
+            //letzten Daten hinzu
+            System.out.println("Messen");
+
+            BestellungsData bd= data.get(data.size()-1);
+
+            bestellungSeries.getData().add(new XYChart.Data<String,Integer>(bd.getTimestamp.toString(),bd.getBestellungen()))
+
+            //bestellungSeries.getChart();
+
+        } */
+
+
 
 
 
