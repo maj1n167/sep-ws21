@@ -223,7 +223,11 @@ public class WarenkorbController extends ConnectionController {
 
                 JSONObjectPOST(url1 + "/add", emptyWarenkorb.toString());
 
-                changeScene("Bewertung.fxml");
+
+                addDeliveryTime(LoginController.userId, RestaurantsController.id, RestaurantsController.distance);
+                KundeStartseiteController.timeId = LoginController.userId;
+                KundeStartseiteController.ordered = true;
+                changeScene("Lieferzeit.fxml");
                 return;
             }
 
