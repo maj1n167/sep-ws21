@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 public class Rating {
@@ -15,6 +17,8 @@ public class Rating {
     int starsFood;
     String comment;
     String name;
+    String datum;
+
 
     public Rating(int restaurantId, int starsLieferung, int starsFood, String comment, String name) {
         this.restaurantId = restaurantId;
@@ -22,6 +26,8 @@ public class Rating {
         this.starsFood = starsFood;
         this.comment = comment;
         this.name = name;
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        this.datum = LocalDate.now().format(dtf);
     }
 
     public Rating() {
@@ -73,4 +79,8 @@ public class Rating {
     }
 
     public String getName() {return name;}
+
+    public String getDatum() {return datum;}
+
+    public void setDatum(String datum) {this.datum = datum;}
 }

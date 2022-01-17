@@ -30,6 +30,4 @@ public class RatingService {
             test.removeIf(n -> n.getRestaurantId() != id);
             return test;
         }
-
-
 }
