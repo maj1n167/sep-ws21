@@ -83,7 +83,8 @@ public class SonderwünscheBeaController extends ConnectionController implements
        guthaben -= summe;
         user.put("guthaben", guthaben);
         JSONObjectPOST("http://localhost:8080/user/add", user.toString());
-       curBes1.put("summe",fullPrice);
+        fullPrice = round(fullPrice,2);
+        curBes1.put("summe",fullPrice);
        JSONObjectPOST("http://localhost:8080/bestellung/add",curBes1.toString());
        JSONObject jsonObject = new JSONObject(JSONObjectGET("http://localhost:8080/resBes/find/"+1).toString());
         JSONArray jsonArray = new JSONArray(jsonObject.getJSONArray("bestellungenList").toString());
@@ -164,4 +165,9 @@ public class SonderwünscheBeaController extends ConnectionController implements
     public void zurückButton(ActionEvent actionEvent) throws IOException {
         changeScene("Sonderwünsche.fxml");
     }
+    private double round(double value, int decimalPoints) {
+        double d = Math.pow(10, decimalPoints);
+        return Math.round(value * d) / d;
+    }
+
 }
