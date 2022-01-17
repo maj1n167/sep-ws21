@@ -7,7 +7,9 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-public class Warenkorb implements Serializable {
+public class
+
+Warenkorb implements Serializable {
 
 
 

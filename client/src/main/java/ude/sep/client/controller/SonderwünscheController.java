@@ -47,8 +47,7 @@ public class SonderwünscheController extends ConnectionController {
     public void initialize() {
         try {
 
-              restaurantId = 1;
-              userId = 2;
+              restaurantId = LoginController.userId;
             list.setEditable(true);
             bestellung.setCellValueFactory(new PropertyValueFactory<SonderwünscheController.Bestellung, Integer>("id"));
             sonderwunsch.setCellValueFactory(new PropertyValueFactory<SonderwünscheController.Bestellung, String>("sonderwunsch"));
