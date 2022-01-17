@@ -52,6 +52,7 @@ public class WarenkorbController extends ConnectionController {
                     " " + "Beschreibung: " + jsonObject.get("beschreibung") +" Id: "+jsonObject.get("bestellfoodid"));
         }
         listView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        //Sale; Rabatt wird angewendet
         if(RestaurantsController.promo == true) {
 
             JSONObject jsonObject100 = new JSONObject(JSONObjectGET("http://localhost:8080/warenkorb/find/"+userId).toString());
