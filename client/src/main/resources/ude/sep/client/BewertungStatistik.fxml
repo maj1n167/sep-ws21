@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ude.sep.client.controller.BewertungStatistikController">
+   <children>
+      <LineChart fx:id="lineChartBewertung" layoutX="164.0" layoutY="159.0" prefHeight="161.0" prefWidth="240.0">
+         <xAxis>
+            <CategoryAxis side="BOTTOM" />
+         </xAxis>
+         <yAxis>
+            <NumberAxis side="LEFT" upperBound="4.0" />
+         </yAxis>
+      </LineChart>
+      <Label layoutX="206.0" layoutY="20.0" prefHeight="32.0" prefWidth="188.0" text="Bewertungstatistik">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="42.0" layoutY="70.0" prefHeight="17.0" prefWidth="359.0" text="Die durchschnittliche Bewertung am Anfang des  Zeitraums war:" />
+      <Label layoutX="41.0" layoutY="99.0" prefHeight="17.0" prefWidth="334.0" text="Die durchschnittliche Bewertung am Ende des Zeitraums ist:" />
+      <Label fx:id="bewertungEnde" layoutX="416.0" layoutY="99.0" prefHeight="17.0" prefWidth="44.0" text="LAbel" />
+      <Label fx:id="bewertungAnfang" layoutX="415.0" layoutY="70.0" text="Label" />
+      <Button layoutX="27.0" layoutY="361.0" mnemonicParsing="false" text="Zum Kontrollzentrum" />
+      <Button layoutX="507.0" layoutY="362.0" mnemonicParsing="false" text="Messen" />
+      <ChoiceBox layoutX="344.0" layoutY="362.0" prefWidth="150.0" />
+   </children>
+</AnchorPane>
