@@ -5,10 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -201,6 +198,10 @@ public class MenuSpeisekarteeController extends ConnectionController {
                         jsonObject.put("summe", summe);
                         JSONObjectPOST("http://localhost:8080/warenkorb/add", jsonObject.toString());
 
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Produkt zum Warenkorb Hinzugefügt!");
+                        alert.setContentText("Produkt zum Warenkorb Hinzugefügt!");
+                        alert.showAndWait();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

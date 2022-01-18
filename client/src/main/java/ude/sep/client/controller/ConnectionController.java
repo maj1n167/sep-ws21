@@ -150,7 +150,7 @@ public class ConnectionController {
         for(int i=0;i<allTimesFor.length();i++) {
             JSONObject cur = allTimesFor.getJSONObject(i);
             JSONObject output = allTimesFor.getJSONObject(index);
-            if(LocalDate.parse(output.getString("start"), dtf).isBefore(LocalDate.parse(cur.getString("start"),dtf))) {
+            if(LocalDate.parse(output.getString("start"), dtf).isAfter(LocalDate.parse(cur.getString("start"),dtf))) {
                 index = i;
             }
         }

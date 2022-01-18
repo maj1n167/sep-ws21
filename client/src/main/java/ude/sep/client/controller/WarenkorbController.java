@@ -132,7 +132,7 @@ public class WarenkorbController extends ConnectionController {
         JSONObject restaurant = new JSONObject(JSONObjectGET(url5).toString());
         JSONObject user = new JSONObject(JSONObjectGET(url4).toString());
 
-        if (Double.parseDouble(user.get("guthaben").toString()) >= Double.parseDouble(jsonObject.get("summe").toString()) &&
+        if (Double.parseDouble(user.get("guthaben").toString()) >= Double.parseDouble(jsonObject.get("summe").toString())+restaurant.getDouble("lieferkosten") &&
                 Double.parseDouble(jsonObject.get("summe").toString()) >= Double.parseDouble(restaurant.get("mbw").toString())) {
             System.out.println(jsonObject);
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
@@ -168,7 +168,9 @@ public class WarenkorbController extends ConnectionController {
             bestellung.put("datum", date.toString());
             bestellung.put("liste", fObject);
 
+
             if(sonderwunsch.getText().equals("")) {
+                bestellung.put("sonderwunsch", "kein Sonderwunsch");
                 JSONObjectPOST(url2, bestellung.toString());
                 double neuesGuthaben = Double.parseDouble(user.get("guthaben").toString()) - Double.parseDouble(jsonObject.get("summe").toString()) - Double.parseDouble(restaurant.get("lieferkosten").toString());
                 user.put("guthaben", neuesGuthaben);
