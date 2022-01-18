@@ -47,13 +47,13 @@ public class RestaurantbesitzerStatistikController extends ConnectionController 
         choiceBox.getItems().add("1 Monat");
         choiceBox.getSelectionModel().getSelectedItem();
 
-        choiceBox.setOnAction((event) -> {
+        /* choiceBox.setOnAction((event) -> {
             int selectedIndex = choiceBox.getSelectionModel().getSelectedIndex();
             Object selectedItem = choiceBox.getSelectionModel().getSelectedItem();
 
             System.out.println("Selection made: [" + selectedIndex + "] " + selectedItem);
             System.out.println("   ChoiceBox.getValue(): " + choiceBox.getValue());
-        });
+        }); */
 
         //Linechart konfigurieren
         bestellungSeries = new XYChart.Series<>();
@@ -68,40 +68,30 @@ public class RestaurantbesitzerStatistikController extends ConnectionController 
         JSONArray gesStatistik = new JSONArray();
         LocalDate date= LoginController.date;
 
-             if(choiceBox.getItems().contains("1 Tag")){
+             if(choiceBox.getValue().equals("1 Tag")){
                 JSONObject day = new JSONObject();
                 day.put("datum", date.minusDays(1));
                 day.put("statistik", getAlleSpeisen(date.minusDays(1)));  //noch alle Gerichte hier muss man noch filtern
-
-                 this.pieChartData =
-                         FXCollections.observableArrayList();
-
-                 final PieChart chart = new PieChart(pieChartData);
-
-
-
 
 
                 dia.getData().addAll(pieChartData);
 
             }
-           if(choiceBox.getItems().contains("1 Woche")){
+           if(choiceBox.getValue().equals("1 Woche")){
             JSONObject week = new JSONObject();
             week.put("datum", date.minusDays(7));
             week.put("statistik", getAlleSpeisen(date.minusDays(7)));  //hier muss man dann noch filtern.
                System.out.println(week);
+
+
+               JSONArray jsonArray = new JSONArray(week.getJSONArray("statistik")) ;
                ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
-
-
-
-
-
-              /* ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
-                       new PieChart.Data(, 5),
-                       new PieChart.Data("Pizza Hawai", 25),
-                       new PieChart.Data("Pizza HCalzone",7));
                PieChart pieChart = new PieChart(pieChartData);
-               pieChart.setData(pieChartData); */
+               for(int i=0; i<jsonArray.length(); i++){
+                   JSONObject jsonObject = jsonArray.getJSONObject(i);
+                   pieChartData.add(new PieChart.Data(jsonObject.getString("name"),jsonObject.getInt("count")));
+                   pieChart.setData(pieChartData);
+               }
 
 
                dia.getData().addAll(pieChartData);
@@ -113,6 +103,7 @@ public class RestaurantbesitzerStatistikController extends ConnectionController 
 
 
     }
+
 
 
 
@@ -139,6 +130,8 @@ public class RestaurantbesitzerStatistikController extends ConnectionController 
             }
             return output;
         }
+
+
 
 
 
