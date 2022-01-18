@@ -34,7 +34,6 @@ public class RestaurantbesitzerStatistikController extends ConnectionController 
 
     }
 
-        //Oguzhan anfang
         public JSONArray getAlleSpeisen(LocalDate datum) throws IOException {
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");
             // alle speisen hinterlegen
@@ -59,16 +58,18 @@ public class RestaurantbesitzerStatistikController extends ConnectionController 
 
         @FXML
         public void messenTag() throws IOException {
-
             JSONObject day = new JSONObject();
             day.put("datum", date.minusDays(1));
             day.put("statistik", getAlleSpeisen(date.minusDays(1)));  //noch alle Gerichte hier muss man noch filtern
             JSONArray jsonArray = new JSONArray(day.getJSONArray("statistik")) ;
             ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+            pieChartData.clear();
+            dia.getData().clear();
             PieChart pieChart = new PieChart(pieChartData);
             for(int i=0; i<jsonArray.length(); i++){
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 pieChartData.add(new PieChart.Data(jsonObject.getString("name"),jsonObject.getInt("count")));
+                System.out.println(dia);
                 pieChart.setData(pieChartData);
             }
 
@@ -84,6 +85,8 @@ public class RestaurantbesitzerStatistikController extends ConnectionController 
         System.out.println(week);
         JSONArray jsonArray = new JSONArray(week.getJSONArray("statistik")) ;
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+        pieChartData.clear();
+        dia.getData().clear();
         PieChart pieChart = new PieChart(pieChartData);
         for(int i=0; i<jsonArray.length(); i++){
             JSONObject jsonObject = jsonArray.getJSONObject(i);
@@ -103,11 +106,14 @@ public class RestaurantbesitzerStatistikController extends ConnectionController 
         System.out.println(month);
         JSONArray jsonArray = new JSONArray(month.getJSONArray("statistik")) ;
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+        pieChartData.clear();
+        dia.getData().clear();
         PieChart pieChart = new PieChart(pieChartData);
         for(int i=0; i<jsonArray.length(); i++){
             JSONObject jsonObject = jsonArray.getJSONObject(i);
             pieChartData.add(new PieChart.Data(jsonObject.getString("name"),jsonObject.getInt("count")));
             pieChart.setData(pieChartData);
+
         }
 
         dia.getData().addAll(pieChartData);
