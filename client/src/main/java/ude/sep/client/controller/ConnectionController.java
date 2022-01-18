@@ -144,11 +144,9 @@ public class ConnectionController {
 
     public int getDeliveryTime(int timeFor) throws IOException {
         String url = "http://localhost:8080/time/findfor/"+timeFor;
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         JSONObject j = new JSONObject(JSONObjectGET(url).toString());
-        System.out.println("Das ausgewaehlte Time: "+j);
-        Duration output = Duration.between(LocalDateTime.now(), LocalDateTime.parse(j.getString("end"), dtf));
-        return (int) output.toMinutes();
+        System.out.println("D ausgewaehlte TimeId: "+j.getInt("id"));
+        return getDeliveryTimeTest(j.toString());
     }
 
     public JSONObject lookUpDistance(String address, int restaurantId) throws IOException {
@@ -235,10 +233,10 @@ public class ConnectionController {
         return output;
     }
 
-    public int getDeliveryTimeTest(int toAdd) throws IOException {
+    public int getDeliveryTimeTest(String input) throws IOException {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-        String input = LocalDateTime.now().plusMinutes(toAdd).format(dtf);
-        Duration output = Duration.between(LocalDateTime.now(), LocalDateTime.parse(input,dtf));
+        JSONObject j = new JSONObject(input);
+        Duration output = Duration.between(LocalDateTime.now(), LocalDateTime.parse(j.getString("end"),dtf));
         return (int) output.toMinutes();
     }
     //ok ende

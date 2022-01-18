@@ -15,14 +15,22 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TimeTest extends ConnectionController {
 
-    int input = 0;
+
 
     @Test
     public void timeTest() throws IOException {
 
         //Test 1
-        input = LocalDateTime.now().plusMinutes(5).getMinute();
-        int ergebnis = getDeliveryTimeTest(input);
-        assertEquals(5, ergebnis);
+        JSONObject input = new JSONObject();
+        input.put("end", DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss").format(LocalDateTime.now().plusMinutes(5)));
+        int ergebnis = getDeliveryTimeTest(input.toString());
+        assertEquals(4, ergebnis);
+
+
+        //Test 2
+        input = new JSONObject();
+        input.put("end", DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss").format(LocalDateTime.now().plusMinutes(20)));
+        ergebnis = getDeliveryTimeTest(input.toString());
+        assertEquals(19, ergebnis);
     }
 }
