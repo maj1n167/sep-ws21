@@ -33,16 +33,13 @@ public class AktionenController extends ConnectionController {
 
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");
             LocalDate.parse(datum1.getText(), dtf);
-        }
-
-        catch(DateTimeParseException e){
-            e.printStackTrace();
-
+        } catch(DateTimeParseException e){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Fehler!");
             alert.setTitle("Bitte füllen Sie die Felder richtig aus!");
             alert.setContentText("Bitte korrigieren!");
             alert.showAndWait();
+            return;
         }
 
 
