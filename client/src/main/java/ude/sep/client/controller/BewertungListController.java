@@ -175,7 +175,7 @@ public class BewertungListController extends ConnectionController implements Ini
         changeScene("BewertungStatistik.fxml");
     }
     public void statistikButton(ActionEvent actionEvent) throws IOException{
-        changeScene("BestellStatistik.fxml");
+        changeScene("BestellStatistikPie.fxml");
     }
 
 }
