@@ -1,5 +1,7 @@
 package ude.sep.server.controller;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -97,6 +99,25 @@ public class UserController {
         return new ResponseEntity<>(users, HttpStatus.OK);
 
     }
+
+    // Send Sale Email
+    @PostMapping("/send/sale/{userId}")
+    public ResponseEntity<User> sendVerification(@PathVariable int userId, @RequestBody String input) throws JSONException {
+        System.out.println("test bei User");
+        JSONObject body = new JSONObject(input);
+        User cur = userService.findUserByUserId(userId);
+        String currentEmail = cur.getEmail();
+        System.out.println(currentEmail);
+        userService.sendEmail(currentEmail, "Hallo," +
+                "\nWir haben gute Neuigkeiten für Sie!" +
+                "\nIhr Lieblingsrestaurant \""+body.getString("rName")+"\" hat eine Aktion gestartet!" +
+                "\nSie erhalten vom \""+body.getString("start")+"\" bis zum \""+body.getString("end")+"\" 20% Rabatt auf Ihre Bestellung!" +
+                "\nMFG" +
+                "\nIhr Supreme Eating Program-Team", "Eine Aktion für Sie!");
+        return new ResponseEntity<>(cur, HttpStatus.OK);
+
+    }
+
     // Zum Abgleich, ob eine Registrierung bereits vorhanden ist und um die Daten der registrierten Person zu erhalten.
     @GetMapping("/findbyemail/{email}")
     public ResponseEntity<User> getUserByEmail(@PathVariable("email") String email) {

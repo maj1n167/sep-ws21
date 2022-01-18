@@ -7,4 +7,5 @@ import java.util.List;
 public interface FavRepo extends JpaRepository<Fav, Integer> {
     void deleteById(int id);
     List<Fav> findAllByFavOf(int favOf);
+    List<Fav> findAllByRestaurantId(int rId);
 }

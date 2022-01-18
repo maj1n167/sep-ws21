@@ -21,4 +21,6 @@ public class FavService {
     public void delFav(int fav) {favRepo.deleteById(fav);}
 
     public List<Fav> findAllFavs() {return favRepo.findAll();}
+
+    public List<Fav> findAllByRestaurantId(int rId) {return favRepo.findAllByRestaurantId(rId);}
 }

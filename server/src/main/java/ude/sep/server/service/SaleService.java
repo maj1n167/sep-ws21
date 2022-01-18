@@ -20,6 +20,5 @@ public class SaleService {
     public void delSale(int id) {saleRepo.deleteById(id);}
 
     public List<Sale> findAllSales() {return saleRepo.findAll();}
-
 }
 
