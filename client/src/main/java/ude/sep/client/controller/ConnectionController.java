@@ -144,8 +144,9 @@ public class ConnectionController {
 
     public int getDeliveryTime(int timeFor) throws IOException {
         String url = "http://localhost:8080/time/findfor/"+timeFor;
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         JSONObject j = new JSONObject(JSONObjectGET(url).toString());
+        System.out.println("Das ausgewaehlte Time: "+j);
         Duration output = Duration.between(LocalDateTime.now(), LocalDateTime.parse(j.getString("end"), dtf));
         return (int) output.toMinutes();
     }
