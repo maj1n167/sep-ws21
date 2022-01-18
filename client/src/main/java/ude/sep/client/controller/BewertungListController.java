@@ -2,6 +2,7 @@ package ude.sep.client.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -96,6 +97,8 @@ public class BewertungListController extends ConnectionController implements Ini
         return output;
     }
 
+
+
     public static class BewertungList {
         private int id;
         private int restaurantId;
@@ -167,6 +170,12 @@ public class BewertungListController extends ConnectionController implements Ini
             output = output + this.getId() + ", " + this.getRestaurantId() + ", " + this.getLieferung() + ", " + this.getGericht() + ", " + this.getComment();
             return output;
         }
+    }
+    public void statBewertung(ActionEvent actionEvent)throws IOException {
+        changeScene("BewertungStatistik.fxml");
+    }
+    public void statistikButton(ActionEvent actionEvent) throws IOException{
+        changeScene("BestellStatistik.fxml");
     }
 
 }

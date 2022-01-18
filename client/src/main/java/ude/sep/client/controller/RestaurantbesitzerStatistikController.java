@@ -23,90 +23,16 @@ import java.util.Map;
 
 
 public class RestaurantbesitzerStatistikController extends ConnectionController {
-
-    ObservableList<PieChart.Data> pieChartData;
-    @FXML
-    private ChoiceBox choiceBox;
-
     @FXML
     private PieChart dia;
-
-    private int restaurantId;
     private int userId;
-
-    @FXML
-    LineChart<String,Integer>linechart;
-    XYChart.Series<String,Integer> bestellungSeries;
-
+    LocalDate date= LoginController.date;
 
     @FXML
     public void initialize() throws IOException {
         userId = LoginController.userId;
-        choiceBox.getItems().add("1 Tag");
-        choiceBox.getItems().add("1 Woche");
-        choiceBox.getItems().add("1 Monat");
-        choiceBox.getSelectionModel().getSelectedItem();
-
-        /* choiceBox.setOnAction((event) -> {
-            int selectedIndex = choiceBox.getSelectionModel().getSelectedIndex();
-            Object selectedItem = choiceBox.getSelectionModel().getSelectedItem();
-
-            System.out.println("Selection made: [" + selectedIndex + "] " + selectedItem);
-            System.out.println("   ChoiceBox.getValue(): " + choiceBox.getValue());
-        }); */
-
-        //Linechart konfigurieren
-        bestellungSeries = new XYChart.Series<>();
-        bestellungSeries.setName("Bestellungen über Zeitraum");
-//        linechart.getData().addAll(bestellungSeries);
-
-
-
-
-
-        // Aktueller Statistikzeitraum für 1 Tag und für 1 Woche
-        JSONArray gesStatistik = new JSONArray();
-        LocalDate date= LoginController.date;
-
-             if(choiceBox.getValue().equals("1 Tag")){
-                JSONObject day = new JSONObject();
-                day.put("datum", date.minusDays(1));
-                day.put("statistik", getAlleSpeisen(date.minusDays(1)));  //noch alle Gerichte hier muss man noch filtern
-
-
-                dia.getData().addAll(pieChartData);
-
-            }
-           if(choiceBox.getValue().equals("1 Woche")){
-            JSONObject week = new JSONObject();
-            week.put("datum", date.minusDays(7));
-            week.put("statistik", getAlleSpeisen(date.minusDays(7)));  //hier muss man dann noch filtern.
-               System.out.println(week);
-
-
-               JSONArray jsonArray = new JSONArray(week.getJSONArray("statistik")) ;
-               ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
-               PieChart pieChart = new PieChart(pieChartData);
-               for(int i=0; i<jsonArray.length(); i++){
-                   JSONObject jsonObject = jsonArray.getJSONObject(i);
-                   pieChartData.add(new PieChart.Data(jsonObject.getString("name"),jsonObject.getInt("count")));
-                   pieChart.setData(pieChartData);
-               }
-
-
-               dia.getData().addAll(pieChartData);
-
-
-
-        }
-
-
 
     }
-
-
-
-
 
         //Oguzhan anfang
         public JSONArray getAlleSpeisen(LocalDate datum) throws IOException {
@@ -131,43 +57,72 @@ public class RestaurantbesitzerStatistikController extends ConnectionController 
             return output;
         }
 
-
-
-
-
-        // oguzhan ende
-
         @FXML
-        public void onRefresh() throws IOException {
+        public void messenTag() throws IOException {
 
-
-            JSONArray gesStatistik = new JSONArray();
-            LocalDate date= LoginController.date;
-
-            if(choiceBox.getItems().contains("1 Tag")){
-                JSONObject day = new JSONObject();
-                day.put("datum", date.minusDays(1));
-                day.put("statistik", getAlleSpeisen(date.minusDays(1)));  //noch alle Gerichte hier muss man noch filtern
-                System.out.println("Messen");
-            }
-            if(choiceBox.getItems().contains("1 Woche")){
-                JSONObject week = new JSONObject();
-                week.put("datum", date.minusDays(7));
-                week.put("statistik", getAlleSpeisen(date.minusDays(7)));  //hier muss man dann noch filtern.
-                System.out.println(week);
+            JSONObject day = new JSONObject();
+            day.put("datum", date.minusDays(1));
+            day.put("statistik", getAlleSpeisen(date.minusDays(1)));  //noch alle Gerichte hier muss man noch filtern
+            JSONArray jsonArray = new JSONArray(day.getJSONArray("statistik")) ;
+            ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+            PieChart pieChart = new PieChart(pieChartData);
+            for(int i=0; i<jsonArray.length(); i++){
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                pieChartData.add(new PieChart.Data(jsonObject.getString("name"),jsonObject.getInt("count")));
+                pieChart.setData(pieChartData);
             }
 
-
+            dia.getData().addAll(pieChartData);
+            System.out.println(day);
 
         }
 
+    public void messenWoche() throws IOException{
+        JSONObject week = new JSONObject();
+        week.put("datum", date.minusDays(7));
+        week.put("statistik", getAlleSpeisen(date.minusDays(7)));  //hier muss man dann noch filtern.
+        System.out.println(week);
+        JSONArray jsonArray = new JSONArray(week.getJSONArray("statistik")) ;
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+        PieChart pieChart = new PieChart(pieChartData);
+        for(int i=0; i<jsonArray.length(); i++){
+            JSONObject jsonObject = jsonArray.getJSONObject(i);
+            pieChartData.add(new PieChart.Data(jsonObject.getString("name"),jsonObject.getInt("count")));
+            pieChart.setData(pieChartData);
+        }
 
+        dia.getData().addAll(pieChartData);
+        System.out.println(week);
+
+
+    }
+    public void messenMonat() throws IOException{
+        JSONObject month = new JSONObject();
+        month.put("datum", date.minusDays(30));
+        month.put("statistik", getAlleSpeisen(date.minusDays(30)));  //hier muss man dann noch filtern.
+        System.out.println(month);
+        JSONArray jsonArray = new JSONArray(month.getJSONArray("statistik")) ;
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+        PieChart pieChart = new PieChart(pieChartData);
+        for(int i=0; i<jsonArray.length(); i++){
+            JSONObject jsonObject = jsonArray.getJSONObject(i);
+            pieChartData.add(new PieChart.Data(jsonObject.getString("name"),jsonObject.getInt("count")));
+            pieChart.setData(pieChartData);
+        }
+
+        dia.getData().addAll(pieChartData);
+        System.out.println(month);
+
+    }
 
 
 
         public void zurueckButton ()throws IOException {
             changeScene("Startseite.fxml");
         }
-    }
+
+
+
+}
 
 
