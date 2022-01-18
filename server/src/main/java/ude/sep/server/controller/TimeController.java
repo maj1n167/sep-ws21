@@ -48,9 +48,9 @@ public class TimeController {
     }
 
     @GetMapping("/findfor/{userId}")
-    public ResponseEntity<List<Time>> getAllTimesForUser(@PathVariable int userId) {
-        List<Time> times = timeService.findAllTimesForUser(userId);
-        return new ResponseEntity<>(times, HttpStatus.OK);
+    public ResponseEntity<Time> getLatestTimeForUser(@PathVariable int userId) {
+        Time time = timeService.findLatestTimeForUser(userId);
+        return new ResponseEntity<>(time, HttpStatus.OK);
     }
 
     @GetMapping("/find/{orderId}")
