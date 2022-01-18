@@ -7,6 +7,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 
@@ -167,6 +169,8 @@ public class WarenkorbController extends ConnectionController {
             bestellung.put("summe", gesamtsumme);
             bestellung.put("datum", date.toString());
             bestellung.put("liste", fObject);
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            bestellung.put("date", LocalDate.now().format(dtf));
 
             if(sonderwunsch.getText().equals("")) {
                 JSONObjectPOST(url2, bestellung.toString());

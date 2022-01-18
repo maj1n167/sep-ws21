@@ -34,7 +34,6 @@ public class RestaurantbesitzerStatistikController extends ConnectionController 
 
     @FXML
     public void initialize() throws IOException {
-        restaurantId = RestaurantsController.id;
         userId = LoginController.userId;
         choiceBox.getItems().add("1 Tag");
         choiceBox.getItems().add("1 Woche");
@@ -44,30 +43,33 @@ public class RestaurantbesitzerStatistikController extends ConnectionController 
         //Linechart konfigurieren
         bestellungSeries = new XYChart.Series<>();
         bestellungSeries.setName("Bestellungen über Zeitraum");
-        linechart.getData().addAll(bestellungSeries);
+//        linechart.getData().addAll(bestellungSeries);
 
 
 
         // Aktueller Statistikzeitraum für 1 Tag und für 1 Woche
         JSONArray gesStatistik = new JSONArray();
-        LocalDate date= LocalDate.now();
+        LocalDate date= LoginController.date;
 
-            if(choiceBox.getItems().equals("1 Tag")){
+            if(choiceBox.getItems().contains("1 Tag")){
                 JSONObject day = new JSONObject();
                 day.put("datum", date.minusDays(1));
                 day.put("statistik", getAlleSpeisen(date.minusDays(1)));  //noch alle Gerichte hier muss man noch filtern
+                System.out.println(day);
             }
-           if(choiceBox.getItems().equals("1 Woche")){
+           if(choiceBox.getItems().contains("1 Woche")){
             JSONObject week = new JSONObject();
             week.put("datum", date.minusDays(7));
             week.put("statistik", getAlleSpeisen(date.minusDays(7)));  //hier muss man dann noch filtern.
+               System.out.println(week);
 
-               Iterator<String> nameItr = week.keys();   //Verwandlung von JSon in Map damit man filtern kann.
-               Map<String, String> outMap = new HashMap<>();
-               while(nameItr.hasNext()) {
-                   String name = nameItr.next();
-                   outMap.put(name, week.getString(name));
-               }
+
+//               Iterator<String> nameItr = week.keys();   //Verwandlung von JSon in Map damit man filtern kann.
+//               Map<String, String> outMap = new HashMap<>();
+//               while(nameItr.hasNext()) {
+//                   String name = nameItr.next();
+//                   outMap.put(name, week.getString(name));
+//               }
 
                /*
                    hier streamen
@@ -83,35 +85,36 @@ public class RestaurantbesitzerStatistikController extends ConnectionController 
 
 
         }
-           String url1 = "http://localhost:8080/bestellung";
-        JSONArray jsonArray = new JSONArray(JSONObjectGET(url1).toString());
-        JSONArray jsonArray1 = new JSONArray();
-        JSONArray jsonArray2 = new JSONArray();
-        System.out.println(jsonArray);
-        for (int i = 0; i < jsonArray.length(); i++) {
-            JSONObject jsonObject1 = jsonArray.getJSONObject(i);
-            //System.out.println(jsonArray);
-            //System.out.println(userId);
-            System.out.println(jsonObject1.get("restaurantId"));
-            if (jsonObject1.getInt("restaurantId") == restaurantId) {
-                jsonArray1.put(jsonObject1);
-
-            }
-        }
-        System.out.println(jsonArray1);
-        for (int j = 0; j < jsonArray1.length(); j++) {
-           JSONObject current= jsonArray1.getJSONObject(j);
-           JSONArray jsonArray3= new JSONArray(current.getJSONArray("liste"));
-            for (int k=0;k<jsonArray3.length();k++){
-                JSONObject x=jsonArray3.getJSONObject(k);
-                jsonArray2.put(x);
-
-            }
-
-        }
-        System.out.println(jsonArray2);
-
-
+//
+//           String url1 = "http://localhost:8080/bestellung";
+//        JSONArray jsonArray = new JSONArray(JSONObjectGET(url1).toString());
+//        JSONArray jsonArray1 = new JSONArray();
+//        JSONArray jsonArray2 = new JSONArray();
+//        System.out.println(jsonArray);
+//        for (int i = 0; i < jsonArray.length(); i++) {
+//            JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+//            //System.out.println(jsonArray);
+//            //System.out.println(userId);
+//            System.out.println(jsonObject1.get("restaurantId"));
+//            if (jsonObject1.getInt("restaurantId") == userId) {
+//                jsonArray1.put(jsonObject1);
+//
+//            }
+//        }
+//        System.out.println(jsonArray1);
+//        for (int j = 0; j < jsonArray1.length(); j++) {
+//           JSONObject current= jsonArray1.getJSONObject(j);
+//           JSONArray jsonArray3= new JSONArray(current.getJSONArray("liste"));
+//            for (int k=0;k<jsonArray3.length();k++){
+//                JSONObject x=jsonArray3.getJSONObject(k);
+//                jsonArray2.put(x);
+//
+//            }
+//
+//        }
+//        System.out.println(jsonArray2);
+//
+//
 
     }
    /*  public Object verkaufteSpeise() throws IOException {
@@ -141,36 +144,50 @@ public class RestaurantbesitzerStatistikController extends ConnectionController 
 
         } */
 
-
-        public JSONArray getAlleSpeisen(LocalDate datum) {
+        //Oguzhan anfang
+        public JSONArray getAlleSpeisen(LocalDate datum) throws IOException {
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-            JSONArray alleSpeisen = new JSONArray();
-            for (int i = 0; i < alleSpeisen.length(); i++) {
-                JSONObject toAdd = new JSONObject();
+            // alle speisen hinterlegen
+            JSONArray output = new JSONArray();
+            JSONArray alleSpeisen = getMenu();
+            // alle speisen im bestellzzeitraum zaehlen
+            JSONArray alleBestellungen = getBestellungen(datum);
+            for(int i = 0;i<alleSpeisen.length();i++) {
                 JSONObject curSpeise = alleSpeisen.getJSONObject(i);
-                toAdd.put("foodId", curSpeise.getInt("foodId"));
-                toAdd.put("count", 0);
-                alleSpeisen.put(toAdd);
-            }
-
-            JSONArray alleBestellungen = new JSONArray();
-
-            for (int i = 0; i < alleBestellungen.length(); i++) {
-                JSONArray curBestellung = alleBestellungen.getJSONArray(i);
-                for (int j = 0; j < curBestellung.length(); j++) {
-                    LocalDate curDate = LocalDate.parse(curBestellung.getJSONObject(j).getString("datum"), dtf);
-                    JSONObject curFood = curBestellung.getJSONObject(j);
-                    for (int k = 0; k < alleSpeisen.length(); k++) {
-                        if (alleSpeisen.getJSONObject(k).getInt("foodId") == curFood.getInt("foodId")
-                                && curDate.isEqual(datum)) {
-                            alleSpeisen.getJSONObject(k).put("count", alleSpeisen.getJSONObject(k).getInt("count") + 1);
-                        }
+                int count = 0;
+                for(int j=0; j<alleBestellungen.length();j++) {
+                    JSONObject curOrder = alleBestellungen.getJSONObject(j);
+                    if(curOrder.getString("name").equals(curSpeise.getString("name"))) {
+                        count++;
                     }
                 }
+                curSpeise.put("count", count);
+                output.put(curSpeise);
             }
-            return alleSpeisen;
+            return output;
         }
+        /*
+        [
+            {
+                "foodId": 1,
+                "name": "Pizza Hawaii",
+                "count": 10
+            },
+            {
+                "foodId": 2,
+                "name": "Pasta Hawaii",
+                "count": 0
+            },
+            {
+                "foodId": 3,
+                "name": "Calzone Hawaii",
+                "count": 300
+            }
+       ]
+         */
 
+
+        // oguzhan ende
       /*  @FXML
         public void onRefresh(){  Mit RefreshButton rueckwärts zählen
 

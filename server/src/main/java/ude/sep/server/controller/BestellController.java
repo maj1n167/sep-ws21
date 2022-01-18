@@ -50,6 +50,4 @@ public class BestellController {
         }
         return new ResponseEntity<>(bestellungen1, HttpStatus.OK);
     }
-
-
 }

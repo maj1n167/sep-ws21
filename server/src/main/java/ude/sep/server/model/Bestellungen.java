@@ -10,15 +10,11 @@ public class Bestellungen implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long bestellungId;
-
     String datum;
-
+    String date;
     int restaurantId;
-
      double summe;
-
      int userId;
-
      String sonderwunsch;
 
     @OneToMany(cascade = CascadeType.ALL)
@@ -51,6 +47,17 @@ public class Bestellungen implements Serializable {
         this.liste = liste;
     }
 
+    public Bestellungen(long bestellungId, String datum, String date, int restaurantId, double summe, int userId, String sonderwunsch, List<BestellFood> liste) {
+        this.bestellungId = bestellungId;
+        this.datum = datum;
+        this.date = date;
+        this.restaurantId = restaurantId;
+        this.summe = summe;
+        this.userId = userId;
+        this.sonderwunsch = sonderwunsch;
+        this.liste = liste;
+    }
+
     public Bestellungen(){
 
     }
@@ -71,11 +78,7 @@ public class Bestellungen implements Serializable {
         this.bestellungId = bestellungId;
     }
 
-    public String getDatum() {
-
-
-        return datum;
-    }
+    public String getDatum() {return datum;}
 
     public void setDatum(String datum) {
         this.datum = datum;
@@ -109,7 +112,9 @@ public class Bestellungen implements Serializable {
         return sonderwunsch;
     }
 
-    public void setSonderwunsch(String sonderwunsch) {
-        this.sonderwunsch = sonderwunsch;
-    }
+    public void setSonderwunsch(String sonderwunsch) {this.sonderwunsch = sonderwunsch;}
+
+    public String getDate() {return date;}
+
+    public void setDate(String date) {this.date = date;}
 }

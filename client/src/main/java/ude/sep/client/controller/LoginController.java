@@ -87,38 +87,42 @@ public class LoginController extends ConnectionController {
 
     @FXML
     public void onAdminButton() throws IOException{
-        Dialog<String> dialog = new Dialog<>();
-        dialog.setTitle("Supreme Eating Program");
-        dialog.setHeaderText("Sie moechten die Admin-Seite oeffnen.");
-        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
-
-        PasswordField pwd = new PasswordField();
-        HBox content = new HBox();
-        content.setAlignment(Pos.CENTER_LEFT);
-        content.setSpacing(10);
-        content.getChildren().addAll(new Label("Bitte geben Sie zur Bestätigung das Passwort ein:"), pwd);
-        dialog.getDialogPane().setContent(content);
-        dialog.setResultConverter(dialogButton -> {
-            if (dialogButton == ButtonType.OK) {
-                return pwd.getText();
-            }
-            return null;
-        });
-
-        Optional<String> result = dialog.showAndWait();
-        if (result.isPresent()) {
-            System.out.println(result.get());
-        }
-
-        String input = dialog.getResult();
-        if(input.matches("12345678")) {
-            changeScene("Admin.fxml");
-        } else {
-            Alert alert = new Alert (Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
-            alert.setTitle("Error: Admin Passwort falsch");
-            alert.setContentText("Bitte überprüfen sie ihre Eingaben!");
-            alert.showAndWait();
-        }
+        //test
+        changeScene("Admin.fxml");
+        return;
+        //testende
+//        Dialog<String> dialog = new Dialog<>();
+//        dialog.setTitle("Supreme Eating Program");
+//        dialog.setHeaderText("Sie moechten die Admin-Seite oeffnen.");
+//        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+//
+//        PasswordField pwd = new PasswordField();
+//        HBox content = new HBox();
+//        content.setAlignment(Pos.CENTER_LEFT);
+//        content.setSpacing(10);
+//        content.getChildren().addAll(new Label("Bitte geben Sie zur Bestätigung das Passwort ein:"), pwd);
+//        dialog.getDialogPane().setContent(content);
+//        dialog.setResultConverter(dialogButton -> {
+//            if (dialogButton == ButtonType.OK) {
+//                return pwd.getText();
+//            }
+//            return null;
+//        });
+//
+//        Optional<String> result = dialog.showAndWait();
+//        if (result.isPresent()) {
+//            System.out.println(result.get());
+//        }
+//
+//        String input = dialog.getResult();
+//        if(input.matches("12345678")) {
+//            changeScene("Admin.fxml");
+//        } else {
+//            Alert alert = new Alert (Alert.AlertType.INFORMATION);
+//            alert.setTitle("Error");
+//            alert.setTitle("Error: Admin Passwort falsch");
+//            alert.setContentText("Bitte überprüfen sie ihre Eingaben!");
+//            alert.showAndWait();
+//        }
     }
 }

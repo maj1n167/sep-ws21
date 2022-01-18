@@ -2,6 +2,7 @@ package ude.sep.client.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import org.json.JSONObject;
 
@@ -17,8 +18,16 @@ public class AdminController extends ConnectionController {
     TextField datum;
     @FXML
     TextField minute;
+    @FXML
+    TextField fxml;
+    @FXML
+    TextField id;
 
     public void onBackButton(ActionEvent actionEvent) throws IOException {changeScene("Login.fxml");}
+    public void onLoadButton(ActionEvent actionEvent) throws IOException {
+        try{int userId = Integer.parseInt(id.getText());} catch (NumberFormatException e) {}
+        LoginController.userId = Integer.parseInt(id.getText());
+        changeScene(fxml.getText()+".fxml");}
     public void initialize() throws IOException {}
 
     public void onDatumGoButton(ActionEvent actionEvent) {
@@ -71,4 +80,5 @@ public class AdminController extends ConnectionController {
         JSONObjectDELETE("http://localhost:8080/time/reset");
         System.out.println("Erfolgreich geaendert!");
     }
+
 }

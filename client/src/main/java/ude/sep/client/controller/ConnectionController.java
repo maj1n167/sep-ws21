@@ -99,8 +99,44 @@ public class ConnectionController {
         }
     }
 
-    //ok anfang
+
 // Ab hier Oguzhan
+    public JSONArray getMenu() throws IOException {
+        JSONArray output = new JSONArray();
+        JSONObject menuObject = new JSONObject(JSONObjectGET("http://localhost:8080/menu/find/"+LoginController.userId).toString());
+        JSONArray menu = menuObject.getJSONArray("kategories");
+        for (int i = 0; i < menu.length(); i++) {
+            JSONArray curCategory = menu.getJSONObject(i).getJSONArray("foods");
+            for(int j=0;j<curCategory.length();j++) {
+                JSONObject toAdd = new JSONObject();
+                JSONObject curSpeise = curCategory.getJSONObject(j);
+                toAdd.put("foodId", curSpeise.getInt("foodId"));
+                toAdd.put("name", curSpeise.getString("name"));
+                output.put(toAdd);
+            }
+        }
+        return output;
+    }
+
+    public JSONArray getBestellungen(LocalDate datum) throws IOException {
+        JSONArray output = new JSONArray();
+        JSONArray all = new JSONArray(JSONObjectGET("http://localhost:8080/bestellung").toString());
+        for (int i = 0; i < all.length(); i++) {
+            JSONObject curOrder = all.getJSONObject(i);
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            if(LocalDate.parse(curOrder.getString("date"), dtf).isAfter(datum)) {
+                for(int j=0;j< curOrder.getJSONArray("liste").length(); j++) {
+                    JSONObject curSpeise = curOrder.getJSONArray("liste").getJSONObject(j);
+                    JSONObject toAdd = new JSONObject();
+                    toAdd.put("datum", curOrder.getString("date"));
+                    toAdd.put("name", curSpeise.getString("name"));
+                    output.put(toAdd);
+                }
+            }
+        }
+        return output;
+    }
+
     public void addDeliveryTime(int timeFor, int timeOf, int distance) throws IOException {
         String url = "http://localhost:8080/time/add/"+timeFor+"/"+timeOf+"/"+distance;
         JSONObjectPOST(url,"{}");

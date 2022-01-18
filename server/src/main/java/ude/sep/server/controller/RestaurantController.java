@@ -21,11 +21,8 @@ import java.util.List;
 
         @GetMapping
         public ResponseEntity<List<Restaurant>> getAllRestaurants() {
-
             List<Restaurant> restaurants = restaurantService.findAllRestaurants();
-
             return new ResponseEntity<>(restaurants, HttpStatus.OK);
-
         }
 
         @GetMapping("/find/{id}")

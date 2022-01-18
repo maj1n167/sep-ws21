@@ -27,5 +27,10 @@
       <Button fx:id="datumResetButton" layoutX="575.0" layoutY="123.0" mnemonicParsing="false" onAction="#onDatumResetButton" text="Reset" />
       <Button fx:id="minuteTestButton" layoutX="518.0" layoutY="167.0" mnemonicParsing="false" onAction="#onMinuteTestButton" text="Test" />
       <Button fx:id="minuteResetButton" layoutX="575.0" layoutY="167.0" mnemonicParsing="false" onAction="#onMinuteResetButton" text="Reset" />
+      <TextField fx:id="id" layoutX="358.0" layoutY="214.0" prefHeight="25.0" prefWidth="85.0" />
+      <Text layoutX="201.0" layoutY="231.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Id:" textAlignment="RIGHT" wrappingWidth="129.0" />
+      <TextField fx:id="fxml" layoutX="358.0" layoutY="258.0" prefHeight="25.0" prefWidth="85.0" />
+      <Text layoutX="201.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FXML:" textAlignment="RIGHT" wrappingWidth="129.0" />
+      <Button fx:id="loadButton" layoutX="469.0" layoutY="258.0" mnemonicParsing="false" onAction="#onLoadButton" text="Load" />
     </children>
 </AnchorPane>

@@ -34,6 +34,6 @@
       <Label layoutX="389.0" layoutY="70.0" text="Label" />
       <Button layoutX="27.0" layoutY="361.0" mnemonicParsing="false" text="Zum Kontrollzentrum" />
       <Button layoutX="507.0" layoutY="362.0" mnemonicParsing="false" text="Messen" />
-      <ChoiceBox layoutX="344.0" layoutY="362.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="choiceBox" layoutX="344.0" layoutY="362.0" prefWidth="150.0" />
    </children>
 </AnchorPane>
