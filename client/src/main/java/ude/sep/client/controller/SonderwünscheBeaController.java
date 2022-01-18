@@ -86,7 +86,7 @@ public class SonderwünscheBeaController extends ConnectionController implements
         fullPrice = round(fullPrice,2);
         curBes1.put("summe",fullPrice);
        JSONObjectPOST("http://localhost:8080/bestellung/add",curBes1.toString());
-       JSONObject jsonObject = new JSONObject(JSONObjectGET("http://localhost:8080/resBes/find/"+1).toString());
+       JSONObject jsonObject = new JSONObject(JSONObjectGET("http://localhost:8080/resBes/find/"+LoginController.userId).toString());
         JSONArray jsonArray = new JSONArray(jsonObject.getJSONArray("bestellungenList").toString());
         JSONArray jsonArray1 = new JSONArray();
         for(int i =0; i<jsonArray.length(); i++){

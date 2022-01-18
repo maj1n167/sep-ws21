@@ -144,17 +144,9 @@ public class ConnectionController {
 
     public int getDeliveryTime(int timeFor) throws IOException {
         String url = "http://localhost:8080/time/findfor/"+timeFor;
-        JSONArray allTimesFor = new JSONArray(JSONObjectGET(url).toString());
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-        int index = 0;
-        for(int i=0;i<allTimesFor.length();i++) {
-            JSONObject cur = allTimesFor.getJSONObject(i);
-            JSONObject output = allTimesFor.getJSONObject(index);
-            if(LocalDate.parse(output.getString("start"), dtf).isBefore(LocalDate.parse(cur.getString("start"),dtf))) {
-                index = i;
-            }
-        }
-        Duration output = Duration.between(LocalDateTime.now(), LocalDateTime.parse(allTimesFor.getJSONObject(index).getString("end"), dtf));
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        JSONObject j = new JSONObject(JSONObjectGET(url).toString());
+        Duration output = Duration.between(LocalDateTime.now(), LocalDateTime.parse(j.getString("end"), dtf));
         return (int) output.toMinutes();
     }
 

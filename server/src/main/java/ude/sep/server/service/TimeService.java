@@ -39,7 +39,20 @@ public class TimeService {
 
     public List<Time> findAllTimes() {return timeRepo.findAll();}
 
-    public List<Time> findAllTimesForUser(int userId) {return timeRepo.findAllByUserId(userId);}
-
     public List<Time> findAllByOrderId(long orderId) {return timeRepo.findAllByOrderId(orderId);}
+
+    public Time findLatestTimeForUser(int userId) {
+        List<Time> allTimes = timeRepo.findAllByUserId(userId);
+        int index = 0;
+        int id = -1;
+        for(int i=0;i<allTimes.size();i++) {
+            Time cur = allTimes.get(i);
+            if(cur.getId()>id) {
+                index = i;
+            }
+        }
+
+        Time output=allTimes.get(index);
+        return output;
+    }
 }
