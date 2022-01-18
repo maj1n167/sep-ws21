@@ -7,8 +7,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 
@@ -38,6 +36,15 @@ public class WarenkorbController extends ConnectionController {
     public void initialize() throws IOException {
         userId = LoginController.userId;
         restaurantid = MenuSpeisekarteeController.restaurantId;
+        //Sale; Rabatt wird angewendet
+        if(RestaurantsController.promo == true) {
+            JSONObject jsonObject100 = new JSONObject(JSONObjectGET("http://localhost:8080/warenkorb/find/"+userId).toString());
+            aktionSumme = Double.parseDouble(jsonObject100.get("summe").toString());
+            aktionSumme = aktionSumme * 0.8;
+            jsonObject100.put("summe", aktionSumme);
+            JSONObjectPOST("http://localhost:8080/warenkorb/add", jsonObject100.toString());
+            RestaurantsController.promo = false;
+        }
         JSONObject jsonObject5 = new JSONObject(JSONObjectGET("http://localhost:8080/restaurant/find/" + restaurantid).toString());
         JSONObject jsonObject4 = new JSONObject(JSONObjectGET("http://localhost:8080/warenkorb/find/" + userId).toString());
         lieferkosten.setText(jsonObject5.get("lieferkosten").toString());
@@ -54,15 +61,6 @@ public class WarenkorbController extends ConnectionController {
                     " " + "Beschreibung: " + jsonObject.get("beschreibung") +" Id: "+jsonObject.get("bestellfoodid"));
         }
         listView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        //Sale; Rabatt wird angewendet
-        if(RestaurantsController.promo == true) {
-
-            JSONObject jsonObject100 = new JSONObject(JSONObjectGET("http://localhost:8080/warenkorb/find/"+userId).toString());
-            aktionSumme = Double.parseDouble(jsonObject100.get("summe").toString());
-            aktionSumme = aktionSumme * 0.8;
-            jsonObject100.put("summe", aktionSumme);
-            JSONObjectPOST("http://localhost:8080/warenkorb/add", jsonObject100.toString());
-        }
     }
 
     public void initialize2() throws IOException{
@@ -169,8 +167,6 @@ public class WarenkorbController extends ConnectionController {
             bestellung.put("summe", gesamtsumme);
             bestellung.put("datum", date.toString());
             bestellung.put("liste", fObject);
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            bestellung.put("date", LocalDate.now().format(dtf));
 
             if(sonderwunsch.getText().equals("")) {
                 JSONObjectPOST(url2, bestellung.toString());
@@ -362,6 +358,13 @@ public class WarenkorbController extends ConnectionController {
 
 
     public void zurückButton() throws IOException {
+        RestaurantsController.promo = true;
+
+        JSONObject jsonObject100 = new JSONObject(JSONObjectGET("http://localhost:8080/warenkorb/find/" + userId).toString());
+        aktionSumme = Double.parseDouble(jsonObject100.get("summe").toString());
+        aktionSumme = aktionSumme / 0.8;
+        jsonObject100.put("summe", aktionSumme);
+        JSONObjectPOST("http://localhost:8080/warenkorb/add", jsonObject100.toString());
         changeScene("Menu.fxml");
     }
 
