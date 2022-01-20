@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-/*
+
 public class BewertungStatistikController extends ConnectionController {
     @FXML
     private LineChart lineChartBewertungGesamt;
@@ -118,4 +118,3 @@ public class BewertungStatistikController extends ConnectionController {
             changeScene("Startseite.fxml");
         }
     }
-*/
