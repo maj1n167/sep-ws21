@@ -172,7 +172,7 @@ public class BewertungListController extends ConnectionController implements Ini
         }
     }
     public void statBewertung(ActionEvent actionEvent)throws IOException {
-        changeScene("BewertungStatistik.fxml");
+        changeScene("StatistikTestB.fxml");
     }
     public void statistikButton(ActionEvent actionEvent) throws IOException{
         changeScene("BestellStatistikPie.fxml");
