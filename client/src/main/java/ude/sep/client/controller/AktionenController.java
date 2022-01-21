@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -42,7 +43,13 @@ public class AktionenController extends ConnectionController {
             return;
         }
 
+        //Alter Sale wird entfernt
+        JSONArray jsonArray = new JSONArray(JSONObjectGET("http://localhost:8080/sale").toString());
+        for (int i = 0; i < jsonArray.length(); i++) {
 
+            JSONObject abc = jsonArray.getJSONObject(i);
+                JSONObjectDELETE("http://localhost:8080/sale/del/" + abc.get("id"));
+            }
         JSONObject rest = new JSONObject(JSONObjectGET("http://localhost:8080/restaurant/find/"+LoginController.userId).toString());
         JSONObject input = new JSONObject();
         input.put("rName", rest.getString("name"));
