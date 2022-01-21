@@ -5,6 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Side;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
@@ -16,6 +17,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -68,7 +70,7 @@ public class RestaurantbesitzerStatistikController extends ConnectionController 
             PieChart pieChart = new PieChart(pieChartData);
             for(int i=0; i<jsonArray.length(); i++){
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                pieChartData.add(new PieChart.Data(jsonObject.getString("name"),jsonObject.getInt("count")));
+                pieChartData.add(new PieChart.Data(jsonObject.getString("name")+" "+String.valueOf(jsonObject.getInt("count")),jsonObject.getInt("count")));
                 System.out.println(dia);
                 pieChart.setData(pieChartData);
             }
@@ -88,11 +90,13 @@ public class RestaurantbesitzerStatistikController extends ConnectionController 
         pieChartData.clear();
         dia.getData().clear();
         PieChart pieChart = new PieChart(pieChartData);
+
         for(int i=0; i<jsonArray.length(); i++){
             JSONObject jsonObject = jsonArray.getJSONObject(i);
-            pieChartData.add(new PieChart.Data(jsonObject.getString("name"),jsonObject.getInt("count")));
+            pieChartData.add(new PieChart.Data(jsonObject.getString("name")+" "+String.valueOf(jsonObject.getInt("count")),jsonObject.getInt("count")));
             pieChart.setData(pieChartData);
         }
+
 
         dia.getData().addAll(pieChartData);
         System.out.println(week);
@@ -111,7 +115,7 @@ public class RestaurantbesitzerStatistikController extends ConnectionController 
         PieChart pieChart = new PieChart(pieChartData);
         for(int i=0; i<jsonArray.length(); i++){
             JSONObject jsonObject = jsonArray.getJSONObject(i);
-            pieChartData.add(new PieChart.Data(jsonObject.getString("name"),jsonObject.getInt("count")));
+            pieChartData.add(new PieChart.Data(jsonObject.getString("name")+" "+String.valueOf(jsonObject.getInt("count")),jsonObject.getInt("count")));
             pieChart.setData(pieChartData);
 
         }
