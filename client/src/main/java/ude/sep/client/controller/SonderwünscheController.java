@@ -9,13 +9,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.jar.Attributes;
 
 
 // TO DO die ResBes Objekte hier hinzu fügen 
@@ -73,7 +70,7 @@ public class SonderwünscheController extends ConnectionController {
                 System.out.println(currentfoods);
 
                 Bestellung r;
-                output.add(r = new SonderwünscheController.Bestellung(currentfoods.getString("datum"),currentfoods.getDouble("summe"),
+                output.add(r = new SonderwünscheController.Bestellung(currentfoods.getString("datum"),round(currentfoods.getDouble("summe"),2),
                 currentfoods.getInt("userId"),currentfoods.getString("sonderwunsch"),currentfoods.getInt("bestellungId")));
 
 
@@ -172,10 +169,15 @@ public class SonderwünscheController extends ConnectionController {
             this.sonderwunsch = sonderwunsch;
         }
     }
-    
-    
-    
-    
+
+
+
+    private double round(double value, int decimalPoints) {
+        double d = Math.pow(10, decimalPoints);
+        return Math.round(value * d) / d;
+    }
+
+
     
     
     public void zuruckButton(ActionEvent actionEvent) throws IOException {

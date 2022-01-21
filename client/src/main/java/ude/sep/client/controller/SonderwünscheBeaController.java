@@ -40,8 +40,8 @@ public class SonderwünscheBeaController extends ConnectionController implements
         System.out.println(besId);
         try {
             JSONObject bestell = new JSONObject(JSONObjectGET("http://localhost:8080/bestellung/find/"+besId).toString());
-            summe.setText(String.valueOf(bestell.getDouble("summe")));
-            summe1 = bestell.getDouble("summe");
+            summe.setText(String.valueOf(round(bestell.getDouble("summe"),2)));
+            summe1 = round(bestell.getDouble("summe"),2);
             datum.setText(bestell.getString("datum"));
             kundenId.setText(String.valueOf(bestell.getInt("userId")));
             userId = bestell.getInt("userId");
@@ -70,7 +70,7 @@ public class SonderwünscheBeaController extends ConnectionController implements
        double summe = Double.parseDouble(neuerPreis.getText());
        JSONObject object = new JSONObject(JSONObjectGET("http://localhost:8080/restaurant/find/"+LoginController.userId).toString());
         System.out.println(object);
-       double fullPrice = object.getDouble("lieferkosten")+ summe+ summe1;
+       double fullPrice =  summe+ summe1;
        double guthaben = user.getDouble("guthaben");
        if(guthaben < summe){
            Alert alert = new Alert (Alert.AlertType.INFORMATION);
@@ -81,6 +81,7 @@ public class SonderwünscheBeaController extends ConnectionController implements
            return;
        }
        guthaben -= summe;
+       guthaben = round(guthaben,2);
         user.put("guthaben", guthaben);
         JSONObjectPOST("http://localhost:8080/user/add", user.toString());
         fullPrice = round(fullPrice,2);
