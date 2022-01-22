@@ -396,19 +396,15 @@ public class RestaurantsController extends ConnectionController implements Initi
  //Leon
     private boolean hasPromotion(int restaurantId) throws IOException {
         boolean output = false;
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         JSONObject user = new JSONObject(JSONObjectGET("http://localhost:8080/user/findbyid/"+LoginController.userId).toString());
-        LocalDate usergb = LocalDate.parse(user.getString("geburtsdatum"), dtf);
-        if(LoginController.date.getMonthValue() == usergb.getMonthValue() && LoginController.date.getDayOfMonth() == usergb.getDayOfMonth()) {
+        LocalDate bd = getDate(user.getString("geburtsdatum"));
+        if(LoginController.date.getMonthValue() == bd.getMonthValue() && LoginController.date.getDayOfMonth() == bd.getDayOfMonth()) {
             output = true;
         } else {
             JSONArray ja = getPromotion(restaurantId);
             for (int i = 0; i < ja.length(); i++) {
                 JSONObject cur = ja.getJSONObject(i);
-                LocalDate start = LocalDate.parse(cur.getString("start"), dtf);
-                LocalDate end = LocalDate.parse(cur.getString("end"), dtf);
-                if(LoginController.date.isAfter(start) | LoginController.date.isEqual(start) &&
-                        LoginController.date.isBefore(end) | LoginController.date.isEqual(end)) {
+                if(hasPromotionTest(cur)) {
                     output = true;
                 }
             }
@@ -422,9 +418,9 @@ public class RestaurantsController extends ConnectionController implements Initi
     private Boolean isRestaurantNear(int restaurantId) throws IOException {
         // Funktioniert
         Boolean output = false;
-        JSONObject result = lookUpDistance(address, restaurantId);
+        int result = lookUpDistance(address, restaurantId);
         JSONObject rest = new JSONObject(JSONObjectGET("http://localhost:8080/restaurant/find/"+restaurantId).toString());
-        if(result.getJSONArray("rows").getJSONObject(0).getJSONArray("elements").getJSONObject(0).getJSONObject("distance").getInt("value") <= rest.getInt("lieferbereich")) {
+        if(result <= rest.getInt("lieferbereich")) {
             output = true;
         }
         return output;
@@ -432,9 +428,7 @@ public class RestaurantsController extends ConnectionController implements Initi
 
     private int getDistance(int restaurantId) throws IOException {
         // Funktioniert
-        int output = 0;
-        JSONObject result = lookUpDistance(address, restaurantId);
-        output = result.getJSONArray("rows").getJSONObject(0).getJSONArray("elements").getJSONObject(0).getJSONObject("distance").getInt("value");
+        int output = lookUpDistance(address, restaurantId);
         return output;
     }
 

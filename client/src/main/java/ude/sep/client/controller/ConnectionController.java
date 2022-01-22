@@ -123,8 +123,7 @@ public class ConnectionController {
         JSONArray all = new JSONArray(JSONObjectGET("http://localhost:8080/bestellung").toString());
         for (int i = 0; i < all.length(); i++) {
             JSONObject curOrder = all.getJSONObject(i);
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            if(LocalDate.parse(curOrder.getString("date"), dtf).isAfter(datum)) {
+            if(getDate(curOrder.getString("date")).isAfter(datum)) {
                 for(int j=0;j< curOrder.getJSONArray("liste").length(); j++) {
                     JSONObject curSpeise = curOrder.getJSONArray("liste").getJSONObject(j);
                     JSONObject toAdd = new JSONObject();
@@ -135,6 +134,16 @@ public class ConnectionController {
             }
         }
         return output;
+    }
+
+    public LocalDate getDate(String input) {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        return LocalDate.parse(input, dtf);
+    }
+
+    public LocalDateTime getTime(String input) {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        return LocalDateTime.parse(input, dtf);
     }
 
     public void addDeliveryTime(int timeFor, int timeOf, int distance) throws IOException {
@@ -149,14 +158,12 @@ public class ConnectionController {
         return getDeliveryTimeTest(j.toString());
     }
 
-    public JSONObject lookUpDistance(String address, int restaurantId) throws IOException {
-        String url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=";
-        url = url+address;
+    public int lookUpDistance(String address, int restaurantId) throws IOException {
         JSONObject rest = new JSONObject(JSONObjectGET("http://localhost:8080/restaurant/find/"+restaurantId).toString());
-        url = url + "&destinations=" + rest.getString("strasse") + "%2C" + rest.getString("nummer") + "%2C" + rest.getString("plz") + "%2C" + rest.getString("stadt");
-        url = url + "&departure_time=now&key=AIzaSyA-qLMdcnsAVwBvC0Xpi2N73coqLzq9v0o";
-        url = url.replaceAll(" ", "%2C");
-        JSONObject result = new JSONObject(JSONObjectGET(url).toString());
+        JSONObject j = new JSONObject();
+        j.put("address1", address);
+        j.put("address2", rest.getString("strasse") + " " + rest.getString("nummer") + " " + rest.getString("plz") + " " + rest.getString("stadt"));
+        int result = lookUpDistanceTest(j);
         return result;
     }
 
@@ -171,27 +178,19 @@ public class ConnectionController {
         return output;
     }
 
-    public Double avgFood(int id) throws IOException {
-        double output = 0;
+    public double avgFood(int id) throws IOException {
         JSONArray j = new JSONArray(JSONObjectGET("http://localhost:8080/rating/" + id).toString());
-        for(int i=0;i<j.length();i++) {
-            output=output+j.getJSONObject(i).getDouble("starsFood");
-        }
-        output = output/j.length();
+        double output = avgFoodTest(j);
         return Math.round(output*1e1)/1e1;
     }
 
-    public Double avgDelivery(int id) throws IOException {
-        double output = 0;
+    public double avgDelivery(int id) throws IOException {
         JSONArray j = new JSONArray(JSONObjectGET("http://localhost:8080/rating/" + id).toString());
-        for(int i=0;i<j.length();i++) {
-            output=output+j.getJSONObject(i).getDouble("starsLieferung");
-        }
-        output = output/j.length();
+        double output = avgDeliveryTest(j);
         return Math.round(output*1e1)/1e1;
     }
     //Testfunktionen alle nachfolgend
-    public Double avgFoodTest(JSONArray j){
+    public double avgFoodTest(JSONArray j){
         double output = 0;
         for(int i=0;i<j.length();i++) {
             output=output+j.getJSONObject(i).getDouble("starsFood");
@@ -200,7 +199,7 @@ public class ConnectionController {
         return Math.round(output*1e1)/1e1;
     }
 
-    public Double avgDeliveryTest(JSONArray j){
+    public double avgDeliveryTest(JSONArray j){
         double output = 0;
         for(int i=0;i<j.length();i++) {
             output=output+j.getJSONObject(i).getDouble("starsLieferung");
@@ -220,23 +219,20 @@ public class ConnectionController {
         return result.getJSONArray("rows").getJSONObject(0).getJSONArray("elements").getJSONObject(0).getJSONObject("distance").getInt("value");
     }
 
-    public boolean hasPromotionTest(JSONObject cur) throws IOException {
+    public boolean hasPromotionTest(JSONObject cur) {
         boolean output = false;
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-        LocalDate start = LocalDate.parse(cur.getString("start"), dtf);
-        LocalDate end = LocalDate.parse(cur.getString("end"), dtf);
+        LocalDate start = getDate(cur.getString("start"));
+        LocalDate end = getDate(cur.getString("end"));
         if (LocalDate.now().isAfter(start) | LocalDate.now().isEqual(start) &&
                 LocalDate.now().isBefore(end) | LocalDate.now().isEqual(end)) {
             output = true;
-
         }
         return output;
     }
 
-    public int getDeliveryTimeTest(String input) throws IOException {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+    public int getDeliveryTimeTest(String input) {
         JSONObject j = new JSONObject(input);
-        Duration output = Duration.between(LocalDateTime.now(), LocalDateTime.parse(j.getString("end"),dtf));
+        Duration output = Duration.between(LocalDateTime.now(), getTime(j.getString("end")));
         return (int) output.toMinutes();
     }
     //ok ende
