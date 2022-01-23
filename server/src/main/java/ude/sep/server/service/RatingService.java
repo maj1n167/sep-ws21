@@ -32,10 +32,10 @@ public class RatingService {
         }
 
     public List<Rating> findLatestRatingsForRestaurantId(int id, int latest) {
-        List<Rating> output = new LinkedList<>();
         List<Rating> test = ratingRepo.findAll();
-        int tset= test.size();
         test.removeIf(n -> n.getRestaurantId() != id);
+        int tset = test.size();
+        List<Rating> output = new ArrayList<>();
         for(int i=0;i<tset;i++) {
             int e = 0;
             for(int j=0;j<test.size();j++) {
@@ -43,8 +43,8 @@ public class RatingService {
                     e=j;
                 }
             }
-            test.remove(e);
             output.add(test.get(e));
+            test.remove(e);
             if(output.size()==latest) {
                 return output;
             }
