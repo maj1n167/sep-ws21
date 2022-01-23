@@ -31,9 +31,7 @@ public class AktionenController extends ConnectionController {
             alert.setContentText("Bitte korrigieren!");
             alert.showAndWait();
         } else try {
-
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-            LocalDate.parse(datum1.getText(), dtf);
+            stringToDate(datum1.getText());
         } catch(DateTimeParseException e){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Fehler!");

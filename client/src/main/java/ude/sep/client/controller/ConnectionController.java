@@ -123,7 +123,7 @@ public class ConnectionController {
         JSONArray all = new JSONArray(JSONObjectGET("http://localhost:8080/bestellung").toString());
         for (int i = 0; i < all.length(); i++) {
             JSONObject curOrder = all.getJSONObject(i);
-            if(stringtoDate(curOrder.getString("date")).isAfter(datum)) {
+            if(stringToDate(curOrder.getString("date")).isAfter(datum)) {
                 for(int j=0;j< curOrder.getJSONArray("liste").length(); j++) {
                     JSONObject curSpeise = curOrder.getJSONArray("liste").getJSONObject(j);
                     JSONObject toAdd = new JSONObject();
@@ -136,11 +136,11 @@ public class ConnectionController {
         return output;
     }
 
-    public LocalDate stringtoDate(String input) {
+    public LocalDate stringToDate(String input) {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         return LocalDate.parse(input, dtf);
     }
-    public String datetoString(LocalDate input) {
+    public String dateToString(LocalDate input) {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         return dtf.format(input);
     }
@@ -225,8 +225,8 @@ public class ConnectionController {
 
     public boolean hasPromotionTest(JSONObject cur) {
         boolean output = false;
-        LocalDate start = stringtoDate(cur.getString("start"));
-        LocalDate end = stringtoDate(cur.getString("end"));
+        LocalDate start = stringToDate(cur.getString("start"));
+        LocalDate end = stringToDate(cur.getString("end"));
         if (LocalDate.now().isAfter(start) | LocalDate.now().isEqual(start) &&
                 LocalDate.now().isBefore(end) | LocalDate.now().isEqual(end)) {
             output = true;

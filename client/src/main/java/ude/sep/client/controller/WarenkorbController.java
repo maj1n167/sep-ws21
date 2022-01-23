@@ -171,7 +171,7 @@ public class WarenkorbController extends ConnectionController {
             bestellung.put("summe", gesamtsumme);
             bestellung.put("datum", date.toString());
             bestellung.put("liste", fObject);
-            bestellung.put("date",datetoString(LocalDate.now()));
+            bestellung.put("date",dateToString(LocalDate.now()));
 
 
             if(sonderwunsch.getText().equals("")) {
