@@ -30,4 +30,23 @@ public class RatingService {
             test.removeIf(n -> n.getRestaurantId() != id);
             return test;
         }
+
+    public List<Rating> findLatestRatingsForRestaurantId(int id, int latest) {
+        List<Rating> output = null;
+        List<Rating> test = ratingRepo.findAll();
+        test.removeIf(n -> n.getRestaurantId() != id);
+        for(int i=0;i<test.size();i++) {
+            int e = 0;
+            for(int j=0;j<test.size();j++) {
+                if(test.get(j).getId()>test.get(e).getId()) {
+                    e=j;
+                }
+            }
+            output.add(test.get(e));
+            if(output.size()==latest) {
+                return output;
+            }
+        }
+        return output;
+    }
 }

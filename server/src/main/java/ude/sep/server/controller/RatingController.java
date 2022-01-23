@@ -30,6 +30,12 @@ public class RatingController {
         return new ResponseEntity<>(ratings, HttpStatus.OK);
     }
 
+    @GetMapping("/{id}/{latest}")
+    public ResponseEntity<List<Rating>> getLatestRatingsforRestaurantId(@PathVariable int id, @PathVariable int latest) {
+        List<Rating> ratings = ratingService.findLatestRatingsForRestaurantId(id, latest);
+        return new ResponseEntity<>(ratings, HttpStatus.OK);
+    }
+
 
     @PostMapping("/add")
     public ResponseEntity<Rating> addRating(@RequestBody Rating rating) {
