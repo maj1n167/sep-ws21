@@ -10,7 +10,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ude.sep.client.controller.BewertungStatistikController">
    <children>
-      <LineChart fx:id="lineChartBewertung" layoutX="14.0" layoutY="86.0" prefHeight="161.0" prefWidth="240.0">
+      <LineChart fx:id="lineChartBewertungGesamt" layoutX="14.0" layoutY="86.0" prefHeight="161.0" prefWidth="240.0">
          <xAxis>
             <CategoryAxis side="BOTTOM" fx:id="xGetrennt" />
          </xAxis>
@@ -27,8 +27,8 @@
       <Label layoutX="27.0" layoutY="286.0" prefHeight="17.0" prefWidth="334.0" text="Die durchschnittliche Bewertung am Ende des Zeitraums ist:" />
       <Label fx:id="bewertungEnde" layoutX="379.0" layoutY="310.0" prefHeight="17.0" prefWidth="44.0" text="LAbel" />
       <Label fx:id="bewertungAnfang" layoutX="364.0" layoutY="286.0" text="Label" />
-      <Button fx:id="goBackControll" layoutX="27.0" layoutY="361.0" mnemonicParsing="false" text="Zum Kontrollzentrum" />
-      <LineChart fx:id="lineChartBewertungGesamt" layoutX="287.0" layoutY="86.0" prefHeight="161.0" prefWidth="240.0">
+      <Button layoutX="27.0" layoutY="361.0" mnemonicParsing="false" onAction="#zurückButton" text="Zum Kontrollzentrum" />
+      <LineChart fx:id="lineChartBewertung" layoutX="287.0" layoutY="86.0" prefHeight="161.0" prefWidth="240.0">
          <xAxis>
             <CategoryAxis side="BOTTOM" fx:id="x" />
          </xAxis>
@@ -36,8 +36,8 @@
             <NumberAxis fx:id="y" minorTickCount="10" side="LEFT" upperBound="9.0" />
          </yAxis>
       </LineChart>
-      <Button layoutX="457.0" layoutY="247.0" mnemonicParsing="false" onAction="#onBMessenTag" prefHeight="26.0" prefWidth="65.0" text="1 Tag" />
-      <Button layoutX="457.0" layoutY="282.0" mnemonicParsing="false" onAction="#onBMessenWoche" text="1 Woche" />
-      <Button layoutX="457.0" layoutY="314.0" mnemonicParsing="false" onAction="#onBMessenMonat" prefHeight="26.0" prefWidth="65.0" text="1 Monat" />
+      <Button layoutX="457.0" layoutY="247.0" mnemonicParsing="false" onAction="#letzteFünf" prefHeight="26.0" prefWidth="65.0" text="1Tag" />
+      <Button layoutX="457.0" layoutY="282.0" mnemonicParsing="false" onAction="#letzteZehn" text="1 Woche" />
+      <Button layoutX="457.0" layoutY="314.0" mnemonicParsing="false" onAction="#letzteFünfzehn" prefHeight="26.0" prefWidth="65.0" text="1 Monat" />
    </children>
 </AnchorPane>
