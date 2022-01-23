@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import ude.sep.server.model.Rating;
 import ude.sep.server.repo.RatingRepo;
 
-import java.util.List;
+import java.util.*;
 
 @Service
 public class RatingService {
@@ -32,7 +32,7 @@ public class RatingService {
         }
 
     public List<Rating> findLatestRatingsForRestaurantId(int id, int latest) {
-        List<Rating> output = null;
+        List<Rating> output = Collections.emptyList();
         List<Rating> test = ratingRepo.findAll();
         test.removeIf(n -> n.getRestaurantId() != id);
         for(int i=0;i<test.size();i++) {
