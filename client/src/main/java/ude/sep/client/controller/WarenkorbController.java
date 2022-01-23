@@ -6,7 +6,10 @@ import javafx.scene.control.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.io.IOException;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 
@@ -138,6 +141,7 @@ public class WarenkorbController extends ConnectionController {
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
             Date date = new Date();
 
+
             // Sonderwünsche
             System.out.println(date.toString());
             System.out.println(jsonObject.getJSONArray("foodList"));
@@ -167,6 +171,7 @@ public class WarenkorbController extends ConnectionController {
             bestellung.put("summe", gesamtsumme);
             bestellung.put("datum", date.toString());
             bestellung.put("liste", fObject);
+            bestellung.put("date",datetoString(LocalDate.now()));
 
 
             if(sonderwunsch.getText().equals("")) {

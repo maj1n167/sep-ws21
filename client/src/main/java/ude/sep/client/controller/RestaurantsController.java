@@ -397,7 +397,7 @@ public class RestaurantsController extends ConnectionController implements Initi
     private boolean hasPromotion(int restaurantId) throws IOException {
         boolean output = false;
         JSONObject user = new JSONObject(JSONObjectGET("http://localhost:8080/user/findbyid/"+LoginController.userId).toString());
-        LocalDate bd = getDate(user.getString("geburtsdatum"));
+        LocalDate bd = stringtoDate(user.getString("geburtsdatum"));
         if(LoginController.date.getMonthValue() == bd.getMonthValue() && LoginController.date.getDayOfMonth() == bd.getDayOfMonth()) {
             output = true;
         } else {

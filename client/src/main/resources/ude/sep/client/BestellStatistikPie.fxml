@@ -13,7 +13,7 @@
             <Font size="22.0" />
          </font>
       </Label>
-      <Button layoutX="14.0" layoutY="560.0" mnemonicParsing="false" text="Zum Kontrollzentrum" />
+      <Button layoutX="14.0" layoutY="560.0" mnemonicParsing="false" onAction="#zurueckButton" text="Zum Kontrollzentrum" />
       <Button id="onRefresh" layoutX="690.0" layoutY="455.0" mnemonicParsing="false" onAction="#messenTag" text="Messen" />
       <PieChart fx:id="dia" layoutX="76.0" layoutY="81.0" prefHeight="354.0" prefWidth="592.0" title="Bestellungen" />
       <Label layoutX="610.0" layoutY="455.0" prefHeight="25.0" prefWidth="80.0" text="1 Tag :" />

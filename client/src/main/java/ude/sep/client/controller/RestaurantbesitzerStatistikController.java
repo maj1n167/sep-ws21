@@ -15,13 +15,12 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 public class RestaurantbesitzerStatistikController extends ConnectionController {
@@ -128,7 +127,7 @@ public class RestaurantbesitzerStatistikController extends ConnectionController 
 
 
         public void zurueckButton ()throws IOException {
-            changeScene("Startseite.fxml");
+            changeScene("BewertungList.fxml");
         }
 
 
