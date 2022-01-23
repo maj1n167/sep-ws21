@@ -49,6 +49,7 @@ public class TimeService {
             Time cur = allTimes.get(i);
             if(cur.getId()>id) {
                 index = i;
+                id = cur.getId();
             }
         }
 

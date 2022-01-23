@@ -7,7 +7,6 @@ import java.io.IOException;
 
 public class KundeStartseiteController extends ConnectionController{
 
-    public static int timeId = -1;
     public static boolean ordered = false;
 
     @FXML
