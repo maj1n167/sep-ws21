@@ -30,38 +30,20 @@ public class BewertungStatistikController extends ConnectionController {
     @FXML
     public void initialize() throws IOException {
         userId = LoginController.userId;
-
-
-
-    }
-
-   public JSONArray getBewertungen(LocalDate datum) throws IOException {
-        // alle speisen hinterlegen
-        double output=0;
-        double input1=0;
-        double input2=0;
-        JSONArray ausgabe= new JSONArray();
-        JSONArray gBewertung = new JSONArray(JSONObjectGET("http://localhost:8080/rating/" + userId).toString());
-        for(int i=0;i<gBewertung.length();i++) {
+        JSONArray ausgabe = new JSONArray();
+        JSONArray gBewertung = new JSONArray(JSONObjectGET("http://localhost:8080/rating").toString());
+        for (int i = 0; i < gBewertung.length(); i++) {
             JSONObject curBewertung = gBewertung.getJSONObject(i);
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            input1=input1+gBewertung.getJSONObject(i).getDouble("starsLieferung");
-            input2=input2+gBewertung.getJSONObject(i).getDouble("starsFood");
+            if (curBewertung.get("restaurantId").equals(userId)) {
+                ausgabe.put(curBewertung);
 
-            if(LocalDate.parse(curBewertung.getString("date"), dtf).isAfter(datum)) {
-                for(int j=0;j< curBewertung.getJSONArray("id").length(); j++) {
-                    JSONObject toAdd = new JSONObject();
-                    toAdd.put("datum", curBewertung.getString("date"));
-                    toAdd.put("starsFood", curBewertung.getString("starsFood"));
-                    toAdd.put("starsLieferung", curBewertung.getString("starsLieferung"));
-                    ausgabe.put(toAdd);
-                    System.out.println(ausgabe);
-                }
-            }
+
+         }
+        }
+        System.out.println(ausgabe);
+
         }
 
-        return ausgabe;
-    }
 
 
 
@@ -102,12 +84,6 @@ public class BewertungStatistikController extends ConnectionController {
     }
     public void onBMessenMonat() throws IOException {
 
-        System.out.println("Messen");
-        JSONObject month = new JSONObject();
-        month.put("datum", date.minusDays(30));
-        month.put("statistik", getBewertungen(date.minusDays(30)));
-        System.out.println(month);
-        JSONArray jsonArray = new JSONArray(month.getJSONArray("statistik")) ;
 
 
     }
