@@ -26,7 +26,7 @@ public class BewertungStatistikController extends ConnectionController {
     private int userId;
     LocalDate date= LoginController.date;
 
-    
+
     @FXML
     public void initialize() throws IOException {
         userId = LoginController.userId;
@@ -34,6 +34,8 @@ public class BewertungStatistikController extends ConnectionController {
     public void letzteFünf() throws IOException {
         XYChart.Series series= new XYChart.Series();
         XYChart.Series series1= new XYChart.Series();
+        series.setName("Essensbewertung");
+        series1.setName("Lieferbewertung");
         JSONArray gBewertung = new JSONArray(JSONObjectGET("http://localhost:8080/rating/"+userId+"/5").toString());
         System.out.println(gBewertung);
         lineChartBewertungGesamt.getData().clear();
@@ -51,6 +53,8 @@ public class BewertungStatistikController extends ConnectionController {
     public void letzteZehn() throws IOException {
         XYChart.Series series= new XYChart.Series();
         XYChart.Series series1= new XYChart.Series();
+        series.setName("Essensbewertung");
+        series1.setName("Lieferbewertung");
         JSONArray gBewertung = new JSONArray(JSONObjectGET("http://localhost:8080/rating/"+userId+"/10").toString());
         System.out.println(gBewertung);
         lineChartBewertungGesamt.getData().clear();
@@ -67,6 +71,8 @@ public class BewertungStatistikController extends ConnectionController {
     public void letzteFünfzehn() throws IOException {
         XYChart.Series series= new XYChart.Series();
         XYChart.Series series1= new XYChart.Series();
+        series.setName("Essensbewertung");
+        series1.setName("Lieferbewertung");
         JSONArray gBewertung = new JSONArray(JSONObjectGET("http://localhost:8080/rating/"+userId+"/15").toString());
         System.out.println(gBewertung);
         lineChartBewertungGesamt.getData().clear();
