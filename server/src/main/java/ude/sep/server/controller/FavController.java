@@ -53,7 +53,7 @@ public class FavController {
     }
 
     @PostMapping("/send")
-    public ResponseEntity sendSaleToFav(@RequestBody String input) throws IOException, JSONException {
+    public ResponseEntity sendSaleToUser(@RequestBody String input) throws IOException, JSONException {
         System.out.println("test bei Fav");
         JSONObject body = new JSONObject(input);
         //all users

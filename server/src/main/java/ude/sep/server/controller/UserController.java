@@ -102,7 +102,7 @@ public class UserController {
 
     // Send Sale Email
     @PostMapping("/send/sale/{userId}")
-    public ResponseEntity<User> sendVerification(@PathVariable int userId, @RequestBody String input) throws JSONException {
+    public ResponseEntity<User> sendSale(@PathVariable int userId, @RequestBody String input) throws JSONException {
         System.out.println("test bei User");
         JSONObject body = new JSONObject(input);
         User cur = userService.findUserByUserId(userId);
@@ -115,7 +115,6 @@ public class UserController {
                 "\nMFG" +
                 "\nIhr Supreme Eating Program-Team", "Eine Aktion für Sie!");
         return new ResponseEntity<>(cur, HttpStatus.OK);
-
     }
 
     // Zum Abgleich, ob eine Registrierung bereits vorhanden ist und um die Daten der registrierten Person zu erhalten.
