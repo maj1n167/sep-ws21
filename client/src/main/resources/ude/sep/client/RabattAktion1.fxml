@@ -4,23 +4,29 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ude.sep.client.controller.AktionenController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
+            prefWidth="800.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="ude.sep.client.controller.AktionenController">
     <children>
-        <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="50.0" prefHeight="50.0" style="-fx-background-color: #90ee90;" text="Supreme Eating Program" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="50.0" prefHeight="50.0"
+               style="-fx-background-color: #90ee90;" text="Supreme Eating Program" textAlignment="CENTER"
+               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <font>
-                <Font name="System Bold" size="20.0" />
+                <Font name="System Bold" size="20.0"/>
             </font>
         </Label>
         <Label layoutX="181.0" layoutY="165.0" text="Hier den Tag oder die Länge des Zeitraums angeben">
             <font>
-                <Font name="System Bold Italic" size="18.0" />
+                <Font name="System Bold Italic" size="18.0"/>
             </font>
         </Label>
-        <TextField fx:id="datum1" layoutX="181.0" layoutY="288.0" />
-        <TextField fx:id="datum2" layoutX="471.0" layoutY="288.0" />
-        <Label layoutX="386.0" layoutY="292.0" text="bis:" />
-        <Label layoutX="520.0" layoutY="314.0" text="(optional)" />
-        <Button alignment="CENTER" contentDisplay="CENTER" layoutX="325.0" layoutY="442.0" mnemonicParsing="false" onAction="#goSaleClick" prefHeight="40.0" prefWidth="140.0" text="Rabattaktion starten!" />
-        <Button alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="555.0" mnemonicParsing="false" onAction="#goBackClick" text="Zurück" />
+        <TextField fx:id="datum1" layoutX="181.0" layoutY="288.0"/>
+        <TextField fx:id="datum2" layoutX="471.0" layoutY="288.0"/>
+        <Label layoutX="386.0" layoutY="292.0" text="bis:"/>
+        <Label layoutX="520.0" layoutY="314.0" text="(optional)"/>
+        <Button alignment="CENTER" contentDisplay="CENTER" layoutX="325.0" layoutY="442.0" mnemonicParsing="false"
+                onAction="#goSaleClick" prefHeight="40.0" prefWidth="140.0" text="Rabattaktion starten!"/>
+        <Button alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="555.0" mnemonicParsing="false"
+                onAction="#goBackClick" text="Zurück"/>
     </children>
 </AnchorPane>

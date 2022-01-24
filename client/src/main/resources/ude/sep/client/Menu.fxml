@@ -7,30 +7,35 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ude.sep.client.controller.MenuSpeisekarteeController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
+            prefWidth="800.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="ude.sep.client.controller.MenuSpeisekarteeController">
     <children>
-        <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="50.0" prefHeight="50.0" style="-fx-background-color: #90ee90;" text="Supreme Eating Program" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="50.0" prefHeight="50.0"
+               style="-fx-background-color: #90ee90;" text="Supreme Eating Program" textAlignment="CENTER"
+               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <font>
-                <Font name="System Bold" size="20.0" />
+                <Font name="System Bold" size="20.0"/>
             </font>
         </Label>
-      <Label alignment="CENTER" layoutX="196.0" layoutY="72.0" prefHeight="34.0" prefWidth="390.0" text="Speisekarte :">
-         <font>
-            <Font size="28.0" />
-         </font>
-      </Label>
-      <Button layoutX="14.0" layoutY="561.0" mnemonicParsing="false" onAction="#zurückButton" text="zurück" />
-      <Button layoutX="737.0" layoutY="561.0" mnemonicParsing="false" onAction="#fertig" text="Fertig" />
-      <TableView fx:id="list" layoutX="16.0" layoutY="110.0" prefHeight="434.0" prefWidth="767.0">
-        <columns>
-          <TableColumn fx:id="Bild" prefWidth="97.0" text="Bild" />
-            <TableColumn fx:id="Kategorie" prefWidth="128.0" text="Kategorie" />
-            <TableColumn fx:id="Name" prefWidth="138.0" text="Name" />
-          <TableColumn fx:id="Beschreibung" prefWidth="268.0" text="Beschreibung" />
-            <TableColumn fx:id="Preis" prefWidth="37.0" text="Preis" />
-            <TableColumn fx:id="Id" prefWidth="23.0" text="Id" />
-            <TableColumn fx:id="addWarenkorb" prefWidth="75.0" />
-        </columns>
-      </TableView>
+        <Label alignment="CENTER" layoutX="196.0" layoutY="72.0" prefHeight="34.0" prefWidth="390.0"
+               text="Speisekarte :">
+            <font>
+                <Font size="28.0"/>
+            </font>
+        </Label>
+        <Button layoutX="14.0" layoutY="561.0" mnemonicParsing="false" onAction="#zurückButton" text="zurück"/>
+        <Button layoutX="737.0" layoutY="561.0" mnemonicParsing="false" onAction="#fertig" text="Fertig"/>
+        <TableView fx:id="list" layoutX="16.0" layoutY="110.0" prefHeight="434.0" prefWidth="767.0">
+            <columns>
+                <TableColumn fx:id="Bild" prefWidth="97.0" text="Bild"/>
+                <TableColumn fx:id="Kategorie" prefWidth="128.0" text="Kategorie"/>
+                <TableColumn fx:id="Name" prefWidth="138.0" text="Name"/>
+                <TableColumn fx:id="Beschreibung" prefWidth="268.0" text="Beschreibung"/>
+                <TableColumn fx:id="Preis" prefWidth="37.0" text="Preis"/>
+                <TableColumn fx:id="Id" prefWidth="23.0" text="Id"/>
+                <TableColumn fx:id="addWarenkorb" prefWidth="75.0"/>
+            </columns>
+        </TableView>
     </children>
 </AnchorPane>

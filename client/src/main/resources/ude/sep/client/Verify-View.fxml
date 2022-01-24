@@ -18,19 +18,21 @@
                textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                AnchorPane.topAnchor="-2.0">
             <font>
-                <Font name="System Bold" size="20.0" />
+                <Font name="System Bold" size="20.0"/>
             </font>
         </Label>
-            <Button fx:id="goBackButton" alignment="CENTER" contentDisplay="CENTER" layoutX="565.0" layoutY="521.0"
-                    mnemonicParsing="false" onAction="#onGoBackButtonClick" prefHeight="40.0" prefWidth="100.0" text="Go Back " />
-      <TextField fx:id="inputCode" layoutX="277.0" layoutY="212.0" prefHeight="33.0" prefWidth="183.0" />
-      <Text layoutX="224.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0"
-            text="Geben sie den 2FA Code ein" wrappingWidth="288.3115234375">
-         <font>
-            <Font size="23.0" />
-         </font>
-      </Text>
-      <Button fx:id="SubmitButton" layoutX="323.0" layoutY="293.0" mnemonicParsing="false" onAction="#onVerifyButtonClicked"
-              prefHeight="26.0" prefWidth="91.0" text="Bestätigen" />
+        <Button fx:id="goBackButton" alignment="CENTER" contentDisplay="CENTER" layoutX="565.0" layoutY="521.0"
+                mnemonicParsing="false" onAction="#onGoBackButtonClick" prefHeight="40.0" prefWidth="100.0"
+                text="Go Back "/>
+        <TextField fx:id="inputCode" layoutX="277.0" layoutY="212.0" prefHeight="33.0" prefWidth="183.0"/>
+        <Text layoutX="224.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0"
+              text="Geben sie den 2FA Code ein" wrappingWidth="288.3115234375">
+            <font>
+                <Font size="23.0"/>
+            </font>
+        </Text>
+        <Button fx:id="SubmitButton" layoutX="323.0" layoutY="293.0" mnemonicParsing="false"
+                onAction="#onVerifyButtonClicked"
+                prefHeight="26.0" prefWidth="91.0" text="Bestätigen"/>
     </children>
 </AnchorPane>

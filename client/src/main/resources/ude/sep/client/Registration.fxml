@@ -21,7 +21,7 @@
                style="-fx-background-color: #90ee90;" text="Supreme Eating Program" textAlignment="CENTER"
                AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <font>
-                <Font name="System Bold" size="20.0" />
+                <Font name="System Bold" size="20.0"/>
             </font>
         </Label>
         <VBox alignment="CENTER" layoutX="350.0" layoutY="111.0" prefHeight="487.0" prefWidth="800.0"
@@ -32,7 +32,7 @@
                     <children>
                         <Label text="Konto erstellen">
                             <font>
-                                <Font name="System Bold" size="24.0" />
+                                <Font name="System Bold" size="24.0"/>
                             </font>
                         </Label>
                     </children>
@@ -43,22 +43,22 @@
                             <children>
                                 <Label text="Vorname:">
                                     <font>
-                                        <Font size="15.0" />
+                                        <Font size="15.0"/>
                                     </font>
                                 </Label>
                                 <Label text="Name:">
                                     <font>
-                                        <Font size="15.0" />
+                                        <Font size="15.0"/>
                                     </font>
                                 </Label>
                                 <Label text="E-Mail:">
                                     <font>
-                                        <Font size="15.0" />
+                                        <Font size="15.0"/>
                                     </font>
                                 </Label>
                                 <Label text="Passwort:">
                                     <font>
-                                        <Font size="15.0" />
+                                        <Font size="15.0"/>
                                     </font>
                                 </Label>
                             </children>
@@ -76,24 +76,26 @@
                 <HBox alignment="CENTER" prefHeight="59.0" prefWidth="800.0" spacing="30.0">
                     <children>
                         <RadioButton fx:id="businessUser" mnemonicParsing="false"
-                                     onAction="#onBusinessUserClick" text="Ich bin Business User" />
+                                     onAction="#onBusinessUserClick" text="Ich bin Business User"/>
                         <RadioButton fx:id="kunde" mnemonicParsing="false"
-                                     onAction="#onPrivatKundeClick" text="Ich bin Kunde" />
+                                     onAction="#onPrivatKundeClick" text="Ich bin Kunde"/>
                     </children>
                 </HBox>
                 <HBox alignment="CENTER" prefHeight="64.0" prefWidth="800.0">
                     <children>
-                        <Button fx:id="registerButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false"
-                                onAction="#onRegisterButtonClick" prefHeight="40.0" prefWidth="100.0" text="Registrieren" />
+                        <Button fx:id="registerButton" alignment="CENTER" contentDisplay="CENTER"
+                                mnemonicParsing="false"
+                                onAction="#onRegisterButtonClick" prefHeight="40.0" prefWidth="100.0"
+                                text="Registrieren"/>
                     </children>
                 </HBox>
                 <HBox prefHeight="61.0" prefWidth="800.0">
                     <children>
                         <Button fx:id="goBackButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false"
-                                onAction="#goBackButtonClick" prefHeight="40.0" prefWidth="100.0" text="Zurück" />
+                                onAction="#goBackButtonClick" prefHeight="40.0" prefWidth="100.0" text="Zurück"/>
                     </children>
                     <padding>
-                        <Insets left="20.0" top="20.0" />
+                        <Insets left="20.0" top="20.0"/>
                     </padding>
                 </HBox>
             </children>

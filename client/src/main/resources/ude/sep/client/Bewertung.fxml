@@ -5,9 +5,15 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ude.sep.client.controller.BewertungController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity"
+            minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="600.0" prefWidth="800.0"
+            xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="ude.sep.client.controller.BewertungController">
     <children>
-        <HBox alignment="CENTER" layoutY="82.0" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="440.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
+        <HBox alignment="CENTER" layoutY="82.0" prefHeight="600.0" prefWidth="800.0"
+              AnchorPane.bottomAnchor="440.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+              AnchorPane.topAnchor="80.0">
             <children>
                 <Label fx:id="restaurantHeaderLabel" text="Fügen Sie eine Bewertung hinzu">
                     <font>
@@ -16,12 +22,16 @@
                 </Label>
             </children>
         </HBox>
-        <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="50.0" prefHeight="50.0" style="-fx-background-color: #90ee90;" text="Supreme Eating Program" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="50.0" prefHeight="50.0"
+               style="-fx-background-color: #90ee90;" text="Supreme Eating Program" textAlignment="CENTER"
+               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <font>
                 <Font name="System Bold" size="20.0" />
             </font>
         </Label>
-        <HBox alignment="CENTER" layoutX="-1.0" layoutY="150.0" prefHeight="312.0" prefWidth="800.0" spacing="20.0" AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="150.0">
+        <HBox alignment="CENTER" layoutX="-1.0" layoutY="150.0" prefHeight="312.0" prefWidth="800.0"
+              spacing="20.0" AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="-1.0"
+              AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="150.0">
             <children>
                 <VBox alignment="CENTER_RIGHT" prefHeight="330.0" prefWidth="161.0" spacing="28.0">
                     <children>
