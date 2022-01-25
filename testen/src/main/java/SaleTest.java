@@ -34,7 +34,7 @@ public class SaleTest extends ConnectionController {
 
     @Test
     //AvgBewertung ausgeben lassen
-    public void avgTest() throws IOException {
+    public void aktionTest() throws IOException {
         //test 1
         boolean ergebnis = hasPromotionTest(b1);
 

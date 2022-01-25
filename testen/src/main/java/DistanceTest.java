@@ -35,7 +35,7 @@ public class DistanceTest extends ConnectionController {
 
     @Test
     //AvgBewertung ausgeben lassen
-    public void avgTest() throws IOException {
+    public void distanceTest() throws IOException {
         //test 1
         int ergebnis = lookUpDistanceTest(b1);
 
