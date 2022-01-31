@@ -101,6 +101,24 @@ public class ConnectionController {
 
 
 // Ab hier Oguzhan
+
+    public JSONArray getStatistik(JSONArray alleSpeisen, JSONArray alleBestellungen) {
+        JSONArray output = new JSONArray();
+        for (int i = 0; i < alleSpeisen.length(); i++) {
+            JSONObject curSpeise = alleSpeisen.getJSONObject(i);
+            int count = 0;
+            for (int j = 0; j < alleBestellungen.length(); j++) {
+                JSONObject curOrder = alleBestellungen.getJSONObject(j);
+                if (curOrder.getString("name").equals(curSpeise.getString("name"))) {
+                    count++;
+                }
+            }
+            curSpeise.put("count", count);
+            output.put(curSpeise);
+        }
+        return output;
+    }
+
     public JSONArray getMenu() throws IOException {
         JSONArray output = new JSONArray();
         JSONObject menuObject = new JSONObject(JSONObjectGET("http://localhost:8080/menu/find/"+LoginController.userId).toString());

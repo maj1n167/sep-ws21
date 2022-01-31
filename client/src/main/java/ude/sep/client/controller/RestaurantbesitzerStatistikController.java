@@ -36,25 +36,11 @@ public class RestaurantbesitzerStatistikController extends ConnectionController 
     }
 
         public JSONArray getAlleSpeisen(LocalDate datum) throws IOException {
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");
             // alle speisen hinterlegen
-            JSONArray output = new JSONArray();
             JSONArray alleSpeisen = getMenu();
             // alle speisen im bestellzzeitraum zaehlen
             JSONArray alleBestellungen = getBestellungen(datum);
-            for(int i = 0;i<alleSpeisen.length();i++) {
-                JSONObject curSpeise = alleSpeisen.getJSONObject(i);
-                int count = 0;
-                for(int j=0; j<alleBestellungen.length();j++) {
-                    JSONObject curOrder = alleBestellungen.getJSONObject(j);
-                    if(curOrder.getString("name").equals(curSpeise.getString("name"))) {
-                        count++;
-                    }
-                }
-                curSpeise.put("count", count);
-                output.put(curSpeise);
-            }
-            return output;
+            return getStatistik(alleSpeisen, alleBestellungen);
         }
 
         @FXML
