@@ -98,10 +98,7 @@ public class ConnectionController {
             return null;
         }
     }
-
-
-// Ab hier Oguzhan
-
+      
     public JSONArray getStatistik(JSONArray alleSpeisen, JSONArray alleBestellungen) {
         JSONArray output = new JSONArray();
         for (int i = 0; i < alleSpeisen.length(); i++) {
@@ -118,7 +115,7 @@ public class ConnectionController {
         }
         return output;
     }
-
+        // Alle Speisen die das Restaurant hat
     public JSONArray getMenu() throws IOException {
         JSONArray output = new JSONArray();
         JSONObject menuObject = new JSONObject(JSONObjectGET("http://localhost:8080/menu/find/"+LoginController.userId).toString());
@@ -135,7 +132,7 @@ public class ConnectionController {
         }
         return output;
     }
-
+// Alle Bestellungen die getätigt wurden
     public JSONArray getBestellungen(LocalDate datum) throws IOException {
         JSONArray output = new JSONArray();
         JSONArray all = new JSONArray(JSONObjectGET("http://localhost:8080/bestellung").toString());

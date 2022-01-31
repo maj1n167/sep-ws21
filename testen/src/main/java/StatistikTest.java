@@ -60,32 +60,25 @@ public class StatistikTest extends ConnectionController {
         for (int i=0;i<20;i++){
             bestellung1.put(b4);
         }
-        //bestellung 2 füllen
-        for (int i=0;i<5;i++){
-            bestellung2.put(b4);
-        }
-        for (int i=0;i<10;i++){
-            bestellung2.put(b3);
-        }
-        for (int i=0;i<15;i++){
-            bestellung2.put(b2);
-        }
-        for (int i=0;i<20;i++){
-            bestellung2.put(b1);
-        }
+
     }
 
     @Test
     public  void getAlleSpeisenTest() throws IOException{
         JSONArray statistik1= getStatistik(menu,bestellung1);
-        JSONArray statistik2= getStatistik(menu,bestellung2);
-        System.out.println(statistik1);
-        System.out.println(statistik2);
-        //assertEquals(5,statistik1.getJSONObject(0).getInt("count"));
 
+        System.out.println(statistik1);
+        assertEquals(5,statistik1.getJSONObject(0).getInt("count"));
+        assertEquals(10,statistik1.getJSONObject(1).getInt("count"));
+        assertEquals(15,statistik1.getJSONObject(2).getInt("count"));
+        assertEquals(20,statistik1.getJSONObject(3).getInt("count"));
 
 
         System.out.println("getAlleSpeisenTest Test1: \nErwarteter Wert \"5\", berechneter Wert: "+statistik1.getJSONObject(0).getInt("count"));
+        System.out.println("getAlleSpeisenTest Test1: \nErwarteter Wert \"10\", berechneter Wert: "+statistik1.getJSONObject(1).getInt("count"));
+        System.out.println("getAlleSpeisenTest Test1: \nErwarteter Wert \"15\", berechneter Wert: "+statistik1.getJSONObject(2).getInt("count"));
+        System.out.println("getAlleSpeisenTest Test1: \nErwarteter Wert \"20\", berechneter Wert: "+statistik1.getJSONObject(3).getInt("count"));
+
     }
 
 }
