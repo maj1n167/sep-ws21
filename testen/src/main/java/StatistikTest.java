@@ -63,7 +63,7 @@ public class StatistikTest extends ConnectionController {
     }
 
     @Test
-    public  void getAlleSpeisenTest() throws IOException{
+    public  void getAlleSpeisenTest() {
         JSONArray statistik= getStatistik(menu,bestellung);
 
         System.out.println(statistik);
@@ -77,7 +77,5 @@ public class StatistikTest extends ConnectionController {
         System.out.println("getAlleSpeisenTest Test1: \nErwarteter Wert \"10\", berechneter Wert: "+statistik.getJSONObject(1).getInt("count"));
         System.out.println("getAlleSpeisenTest Test1: \nErwarteter Wert \"15\", berechneter Wert: "+statistik.getJSONObject(2).getInt("count"));
         System.out.println("getAlleSpeisenTest Test1: \nErwarteter Wert \"20\", berechneter Wert: "+statistik.getJSONObject(3).getInt("count"));
-
     }
-
 }
