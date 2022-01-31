@@ -10,7 +10,7 @@
     </parent>
     <groupId>ude.sep</groupId>
     <artifactId>server</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>3</version>
     <name>server</name>
     <description>server</description>
     <properties>
@@ -58,7 +58,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>ude.sep.ServerApplication</mainClass>
+                            <mainClass>ude.sep.server.ServerApplication</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
