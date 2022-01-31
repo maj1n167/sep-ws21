@@ -165,6 +165,7 @@ public class WarenkorbController extends ConnectionController {
 
             double gesamtsumme = jsonObject.getDouble("summe");
             gesamtsumme += lieferkosten2;
+            gesamtsumme = round(gesamtsumme,2);
             JSONObject bestellung = new JSONObject();
             bestellung.put("restaurantId", restaurantid);
             bestellung.put("userId", userId);
