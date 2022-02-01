@@ -26,7 +26,7 @@
 		<salate>
 			<gericht>
 				<name>Mediterraner Gambas Salat Produktinfo</name>
-				<beschreibung>mit Gambas, gebratenem Gemüse, Cherrytomaten, Gurken, Lollo-Mix, Rucola, Parmesan und Haus-Dressing</beschreibung>
+				<beschreibung>mit Gambas, gebratenem Gemuese, Cherrytomaten, Gurken, Lollo-Mix, Rucola, Parmesan und Haus-Dressing</beschreibung>
 				<preis>9,5</preis>
 				<extras>
 					<extra>Feta_1,7</extra>
@@ -36,7 +36,7 @@
 			</gericht>
 			<gericht>
 				<name>Mediterraner Putensalat</name>
-				<beschreibung>mit Putenbrust, gebratenem Gemüse, Cherrytomaten, Gurken, Lollo-Mix, Rucola, Parmesan und Haus-Dressing</beschreibung>
+				<beschreibung>mit Putenbrust, gebratenem Gemuese, Cherrytomaten, Gurken, Lollo-Mix, Rucola, Parmesan und Haus-Dressing</beschreibung>
 				<preis>9,5</preis>
 				<extras>
 					<extra>Feta_1,7</extra>

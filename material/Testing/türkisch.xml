@@ -17,8 +17,8 @@
 				</extras>
 			</gericht>
 			<gericht>
-				<name>Dürüm Döner</name>
-				<beschreibung>Fladenwrap mit Kalbsfleisch und Füllung nach Wahl</beschreibung>
+				<name>Dueruem Doener</name>
+				<beschreibung>Fladenwrap mit Kalbsfleisch und Fuellung nach Wahl</beschreibung>
 				<preis>4</preis>
 				<extras>
 					<extra>Groß_2</extra>
@@ -31,13 +31,13 @@
 				</extras>
 			</gericht>
 			<gericht>
-			<name>Döner Box</name>
+			<name>Doener Box</name>
 			<beschreibung>Kalbdrehspieß mit Pommes Frites</beschreibung>
 			<preis>4,5</preis>
 			<extras>
 				<extra>Groß_2</extra>
 				<extra>extra Fleisch_1</extra>
-				<extra>Hähnchenfleisch_0</extra>
+				<extra>Haehnchenfleisch_0</extra>
 				<extra>Cocktailsauce_0</extra>			
 			</extras>
 		</gericht>
